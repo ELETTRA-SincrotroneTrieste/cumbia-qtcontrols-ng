@@ -12,6 +12,13 @@ public:
     explicit CuApplyNumericEngine(QObject *parent = nullptr);
     virtual  ~CuApplyNumericEngine();
 
+    void contextMenuEvent(const QPointF& pos);
+    void mousePressEvent(const QPointF& pos);
+    void mouseMoveEvent(const QPointF& pos);
+    void mouseReleaseEvent(const QPointF& pos);
+    void mouseDoubleClickEvent(const QPointF& pos);
+    void wheelEvent(const QPointF& pos, double delta);
+
 signals:
 
 private:

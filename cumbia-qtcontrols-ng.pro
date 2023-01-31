@@ -49,16 +49,16 @@ unix {
     Doxyfile;
 
     doc.files = doc/*
-    doc.path = $${cumbia_qtcontrols_ng_DOCDIR}
+    doc.path = $${CUMBIA_QTCONTROLS_NG_DOCDIR}
     QMAKE_EXTRA_TARGETS += doc
 
     inc.files = $${HEADERS}
-    inc.path = $${cumbia_qtcontrols_ng_INCLUDES}
+    inc.path = $${CUMBIA_QTCONTROLS_NG_INCLUDES}
 
     other_inst.files = $${DISTFILES}
-    other_inst.path = $${cumbia_qtcontrols_ng_INCLUDES}
+    other_inst.path = $${CUMBIA_QTCONTROLS_NG_INCLUDES}
 
-    target.path = $${cumbia_qtcontrols_ng_LIBDIR}
+    target.path = $${CUMBIA_QTCONTROLS_NG_LIBDIR}
     INSTALLS += target inc other_inst
 
 #message("=====================================")

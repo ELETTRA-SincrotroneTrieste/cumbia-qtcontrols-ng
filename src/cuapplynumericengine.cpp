@@ -12,3 +12,33 @@ CuApplyNumericEngine::CuApplyNumericEngine(QObject *parent)
 CuApplyNumericEngine::~CuApplyNumericEngine() {
     delete d;
 }
+
+void CuApplyNumericEngine::contextMenuEvent(const QPointF &pos)
+{
+
+}
+
+void CuApplyNumericEngine::mousePressEvent(const QPointF &pos)
+{
+
+}
+
+void CuApplyNumericEngine::mouseMoveEvent(const QPointF &pos)
+{
+
+}
+
+void CuApplyNumericEngine::mouseReleaseEvent(const QPointF &pos)
+{
+
+}
+
+void CuApplyNumericEngine::mouseDoubleClickEvent(const QPointF &pos)
+{
+
+}
+
+void CuApplyNumericEngine::wheelEvent(const QPointF &pos, double delta)
+{
+
+}
