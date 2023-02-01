@@ -66,7 +66,7 @@ unix {
 #message("=====================================")
 
     !android-g++ {
-        INSTALLS += doc
+    #    INSTALLS += doc
     }
 } # unix
 

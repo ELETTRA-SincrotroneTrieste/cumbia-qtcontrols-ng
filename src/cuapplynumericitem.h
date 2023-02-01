@@ -9,7 +9,7 @@ class CuApplyNumericItem : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    CuApplyNumericItem();
+    CuApplyNumericItem(QGraphicsItem *parent );
     virtual ~CuApplyNumericItem();
 
 private:

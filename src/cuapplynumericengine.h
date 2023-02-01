@@ -3,12 +3,28 @@
 
 #include <QObject>
 
-class CuApplyNumericEnginePrivate;
+class QStyleOptionGraphicsItem;
+class QPainter;
+
+
+class CuApplyNumEngineData {
+public:
+    int intDig;
+    int decDig;
+    int digits;
+    long long data;
+    long long minVal;
+    long long maxVal;
+
+    double d_minAsDouble, d_maxAsDouble;
+};
 
 class CuApplyNumericEngine : public QObject
 {
     Q_OBJECT
 public:
+    CuApplyNumEngineData d;
+
     explicit CuApplyNumericEngine(QObject *parent = nullptr);
     virtual  ~CuApplyNumericEngine();
 
@@ -19,10 +35,11 @@ public:
     void mouseDoubleClickEvent(const QPointF& pos);
     void wheelEvent(const QPointF& pos, double delta);
 
+    void paint(QPainter *p, const QRectF &rect, QWidget *widget);
+
 signals:
 
 private:
-    CuApplyNumericEnginePrivate *d;
 };
 
 #endif // CUAPPLYNUMERICENGINE_H

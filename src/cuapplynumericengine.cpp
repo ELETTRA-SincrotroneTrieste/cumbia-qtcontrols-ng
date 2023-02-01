@@ -1,16 +1,15 @@
 #include "cuapplynumericengine.h"
 
-class CuApplyNumericEnginePrivate {
-public:
-};
+#include <QPainter>
+
+
 
 CuApplyNumericEngine::CuApplyNumericEngine(QObject *parent)
     : QObject{parent} {
-    d = new CuApplyNumericEnginePrivate;
 }
 
 CuApplyNumericEngine::~CuApplyNumericEngine() {
-    delete d;
+
 }
 
 void CuApplyNumericEngine::contextMenuEvent(const QPointF &pos)
@@ -41,4 +40,10 @@ void CuApplyNumericEngine::mouseDoubleClickEvent(const QPointF &pos)
 void CuApplyNumericEngine::wheelEvent(const QPointF &pos, double delta)
 {
 
+}
+
+void CuApplyNumericEngine::paint(QPainter *p, const QRectF &rect, QWidget *widget) {
+    QPen pen(Qt::green);
+    p->setPen(pen);
+    p->drawRect(rect);
 }

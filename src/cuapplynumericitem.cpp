@@ -1,12 +1,16 @@
 #include "cuapplynumericengine.h"
 #include "cuapplynumericitem.h"
 
+#include <QStyleOptionGraphicsItem>
+
 class CuApplyNumericItemPrivate {
 public:
+    CuApplyNumericItemPrivate() : rect(0, 0, 100, 40) {}
     CuApplyNumericEngine e;
+    QRectF rect;
 };
 
-CuApplyNumericItem::CuApplyNumericItem() {
+CuApplyNumericItem::CuApplyNumericItem(QGraphicsItem *parent) : QGraphicsObject(parent) {
     d = new CuApplyNumericItemPrivate;
 }
 
@@ -16,10 +20,11 @@ CuApplyNumericItem::~CuApplyNumericItem() {
 
 
 QRectF CuApplyNumericItem::boundingRect() const {
+    return d->rect;
 }
 
-void CuApplyNumericItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
+void CuApplyNumericItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    d->e.paint(painter, option->rect, widget);
 }
 
 void CuApplyNumericItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)

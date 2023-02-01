@@ -8,6 +8,11 @@ class CuApplyNumericWidgetPrivate;
 class CuApplyNumericWidget : public QWidget
 {
     Q_OBJECT
+    Q_PROPERTY(int integerDigits READ intDigits WRITE setIntDigits)
+    Q_PROPERTY(int decimalDigits READ decDigits WRITE setDecDigits)
+    Q_PROPERTY(double value READ value WRITE setValue)
+    Q_PROPERTY(double maximum READ maximum WRITE setMaximum)
+    Q_PROPERTY(double minimum READ minimum WRITE setMinimum)
 public:
     explicit CuApplyNumericWidget(QWidget *parent = nullptr);
     virtual  ~CuApplyNumericWidget();
@@ -22,6 +27,34 @@ private:
 public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
+
+    double maximum() const;
+    double value() const;
+    double minimum() const;
+    int intDigits() const;
+    int decDigits() const;
+
+public slots:
+    void setValue(double v);
+
+    void setMaximum(double v);
+    void setMinimum(double v);
+    /**
+     * returns the minimum value of the widget
+     * @return min val
+     */
+
+    /**
+     * sets number of integer digits to be displayed
+     * @param i	number of digits
+     */
+    void setIntDigits(int i);
+
+    /**
+     * sets number of deciam digits to be displayed
+     * @param d	number of digits
+     */
+    void setDecDigits(int d);
 
 protected:
     void mousePressEvent(QMouseEvent *event);
