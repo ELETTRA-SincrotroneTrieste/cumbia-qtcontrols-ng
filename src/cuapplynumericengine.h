@@ -1,7 +1,10 @@
 #ifndef CUAPPLYNUMERICENGINE_H
 #define CUAPPLYNUMERICENGINE_H
 
+#include <QFont>
 #include <QObject>
+#include <QPointF>
+#include <QSizeF>
 
 class QStyleOptionGraphicsItem;
 class QPainter;
@@ -17,6 +20,17 @@ public:
     long long maxVal;
 
     double d_minAsDouble, d_maxAsDouble;
+    double font_scale;
+
+    // margins
+    double lm, bm, rm, um;
+    // arrow height
+    double arrow_hei;
+    QSizeF minsiz;
+    QList<QRectF> digitrects;
+    QFont font;
+    QPointF mouse_pos;
+    bool mouse_down;
 };
 
 class CuApplyNumericEngine : public QObject
@@ -25,7 +39,7 @@ class CuApplyNumericEngine : public QObject
 public:
     CuApplyNumEngineData d;
 
-    explicit CuApplyNumericEngine(QObject *parent = nullptr);
+    explicit CuApplyNumericEngine(const QFont &f);
     virtual  ~CuApplyNumericEngine();
 
     void contextMenuEvent(const QPointF& pos);
@@ -37,9 +51,15 @@ public:
 
     void paint(QPainter *p, const QRectF &rect, QWidget *widget);
 
+    void setFont(const QFont& f);
+
+    QSizeF minimumSize() const;
+
+
 signals:
 
 private:
+    void m_drawHighlighted();
 };
 
 #endif // CUAPPLYNUMERICENGINE_H

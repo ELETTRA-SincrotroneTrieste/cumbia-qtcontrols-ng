@@ -13,6 +13,7 @@ class CuApplyNumericWidget : public QWidget
     Q_PROPERTY(double value READ value WRITE setValue)
     Q_PROPERTY(double maximum READ maximum WRITE setMaximum)
     Q_PROPERTY(double minimum READ minimum WRITE setMinimum)
+    Q_PROPERTY(double fontScale READ fontScale WRITE setFontScale)
 public:
     explicit CuApplyNumericWidget(QWidget *parent = nullptr);
     virtual  ~CuApplyNumericWidget();
@@ -33,9 +34,11 @@ public:
     double minimum() const;
     int intDigits() const;
     int decDigits() const;
+    double fontScale() const;
 
 public slots:
     void setValue(double v);
+    void setFontScale(double scale);
 
     void setMaximum(double v);
     void setMinimum(double v);
@@ -65,6 +68,8 @@ protected:
     void enterEvent(QEvent *event);
     void leaveEvent(QEvent *event);
     void paintEvent(QPaintEvent *event);
+
+    void changeEvent(QEvent *e);
 };
 
 #endif // CUAPPLYNUMERICWIDGET_H
