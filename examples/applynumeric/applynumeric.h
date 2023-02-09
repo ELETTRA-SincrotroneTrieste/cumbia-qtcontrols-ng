@@ -10,5 +10,13 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
+
+public slots:
+    void setProp(double v);
+    void setProp(int i);
+
+    void onMinChanged(double m);
+    void onMaxChanged(double M);
+    void onDecDigitsChanged(int dd);
 };
 #endif // WIDGET_H

@@ -8,17 +8,21 @@ class CuApplyNumericWidgetPrivate;
 class CuApplyNumericWidget : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(int integerDigits READ intDigits WRITE setIntDigits)
-    Q_PROPERTY(int decimalDigits READ decDigits WRITE setDecDigits)
+    Q_PROPERTY(int intDigits READ intDigits WRITE setIntDigits)
+    Q_PROPERTY(int decDigits READ decDigits WRITE setDecDigits)
     Q_PROPERTY(double value READ value WRITE setValue)
     Q_PROPERTY(double maximum READ maximum WRITE setMaximum)
     Q_PROPERTY(double minimum READ minimum WRITE setMinimum)
-    Q_PROPERTY(double fontScale READ fontScale WRITE setFontScale)
 public:
     explicit CuApplyNumericWidget(QWidget *parent = nullptr);
     virtual  ~CuApplyNumericWidget();
 
 signals:
+    void valueChanged(double v);
+    void minimumChanged(double m);
+    void maximumChanged(double M);
+    void intDigitsChanged(int id);
+    void decDigitsChanged(int dd);
 
 private:
     CuApplyNumericWidgetPrivate *d;
@@ -34,11 +38,9 @@ public:
     double minimum() const;
     int intDigits() const;
     int decDigits() const;
-    double fontScale() const;
 
 public slots:
     void setValue(double v);
-    void setFontScale(double scale);
 
     void setMaximum(double v);
     void setMinimum(double v);
