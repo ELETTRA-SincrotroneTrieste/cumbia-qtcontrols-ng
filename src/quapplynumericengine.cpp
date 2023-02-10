@@ -1,4 +1,4 @@
-#include "cuapplynumericengine.h"
+#include "quapplynumericengine.h"
 #include <math.h>
 #include <QPainter>
 #include <QtDebug>
@@ -6,12 +6,14 @@
 #include <cumacros.h>
 #include <QTimer>
 
-CuApplyNumericEngine::CuApplyNumericEngine(const QFont& f)
+#define CHECK_MARK "✓"
+
+QuApplyNumericEngine::QuApplyNumericEngine(const QFont& f)
     : QObject{nullptr}  {
     d.intDig = 3;
     d.decDig = 1;
     d.digits = 4;
-    d.data = 0;
+    d.data = d.last_applied_data =  0;
     d.min = (long long int) -pow(10.0, d.digits) + 1;
     d.max = (long long int) pow(10.0, d.digits) - 1;
     d.min_d = -pow(10.0, d.intDig) + pow(10.0, -d.decDig);
@@ -22,62 +24,57 @@ CuApplyNumericEngine::CuApplyNumericEngine(const QFont& f)
     d.arrow_hei = QFontMetrics(d.font).height() / 4.0;
     d.lm = d.bm = d.um = d.rm = 0.0;
     d.mouse_down = false;
+    d.show_apply = true;
+    m_update_maxcharw();
 }
 
-CuApplyNumericEngine::~CuApplyNumericEngine() {
+QuApplyNumericEngine::~QuApplyNumericEngine() {
 
 }
 
-void CuApplyNumericEngine::contextMenuEvent(const QPointF &pos)
+void QuApplyNumericEngine::contextMenuEvent(const QPointF &pos)
 {
 
 }
 
-void CuApplyNumericEngine::mousePressEvent(const QPointF &pos) {
+void QuApplyNumericEngine::mousePressEvent(const QPointF &pos) {
     d.mouse_pos = pos;
     d.mouse_down = true;
-    int dp = m_map_to_digit_pos(pos);
-    bool up = m_up(pos);
-    qDebug() << __PRETTY_FUNCTION__ << "mouse pos" << pos << "digit pos " << dp << (up ? "UP" : "DOWN");
-
 }
 
-void CuApplyNumericEngine::mouseMoveEvent(const QPointF &pos) {
+void QuApplyNumericEngine::mouseMoveEvent(const QPointF &pos) {
     d.mouse_pos = pos;
 }
 
-void CuApplyNumericEngine::mouseReleaseEvent(const QPointF &pos) {
+void QuApplyNumericEngine::mouseReleaseEvent(const QPointF &pos) {
     d.mouse_pos = pos;
     d.mouse_down = false;
     if(!pos.isNull())
-        step(pos);
-    else
-        printf("\e[1;35mCuApplyNumericEngine::mouseReleaseEvent: not performing step\e[0m\n");
+        click(pos);
 }
 
-void CuApplyNumericEngine::mouseDoubleClickEvent(const QPointF &pos)
+void QuApplyNumericEngine::mouseDoubleClickEvent(const QPointF &pos)
 {
 
 }
 
-void CuApplyNumericEngine::wheelEvent(const QPointF &pos, double delta)
-{
-
+void QuApplyNumericEngine::wheelEvent(const QPointF &pos, double delta) {
+    click(pos, delta > 0);
 }
 
-double CuApplyNumericEngine::value() const {
+double QuApplyNumericEngine::value() const {
     return d.data * pow(10.0, -d.decDig);
 }
 
-double CuApplyNumericEngine::minimum() const {
+double QuApplyNumericEngine::minimum() const {
     return d.min_d;
 }
 
-double CuApplyNumericEngine::maximum() const {
+double QuApplyNumericEngine::maximum() const {
     return d.max_d;
 }
 
-void CuApplyNumericEngine::paint(QPainter *p, const QRectF &rect, QWidget *widget) {
+void QuApplyNumericEngine::paint(QPainter *p, const QRectF &rect, QWidget *widget) {
     QColor bgcolor = widget->palette().color(QPalette::Window);
     QFont f = p->font();
     f.setPointSizeF(f.pointSizeF() * d.font_scale);
@@ -98,13 +95,13 @@ void CuApplyNumericEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
     // estimate the proportion between the width needed for the dot and a normal digit
     // give the sign the same width as a digit
     double dotwr = fm.horizontalAdvance(".") / (double) fm.horizontalAdvance('8');
-    double t = d.digits + (sign.length() > 0 ? 1 : 0) + (d.decDig > 0 ? dotwr : 0);
+    double t = d.digits + (sign.length() > 0 ? 1 : 0) + (d.decDig > 0 ? dotwr : 0) + (d.show_apply ? 1 : 0);
     digw = w / t;
     dotw = digw * dotwr;
 
     // draw sign
     if(sign.length() > 0) {
-        CuANRect tr(x, 0, digw, h, -1);
+        QuANRect tr(x, 0, digw, h, QuANRect::Sign);
         p->drawText(tr, Qt::AlignHCenter|Qt::AlignVCenter, "-");
         d.digitrects << tr;
         x += tr.width();
@@ -113,12 +110,12 @@ void CuApplyNumericEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
     for (int i = 0; i < d.digits; i++)
     {
         if (i == d.intDig)  {
-            CuANRect tr(x, 0, dotw, h, -1);
+            QuANRect tr(x, 0, dotw, h, QuANRect::Dot);
             p->drawText(tr,  Qt::AlignHCenter|Qt::AlignVCenter, ".");
             d.digitrects << tr;
             x += dotw;
         }
-        CuANRect tr(x, 0, digw, h, i), dr(tr);
+        QuANRect tr(x, 0, digw, h, i), dr(tr);
         dr.setLeft(dr.left() + 2);
         dr.setTop(dr.top() + 2);
         dr.setBottom(dr.bottom() - 1);
@@ -184,12 +181,31 @@ void CuApplyNumericEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
         //
         QPen pe = p->pen();
         pe.setColor(bgcolor);
-        pe.setWidthF(fh / 16);
+        pe.setWidthF(fh / 20);
         p->setPen(pe);
-        double lw = 0.9 * tr.width(), ls = x + (tr.width() - lw) / 2.0;
+        double lw = /*1.1 **/ d.maxcharw, ls = tr.left() + (tr.width() - lw) / 2.0;
         p->drawLine(ls, tr.height()/2.0, ls + lw, tr.height() / 2.0);
         p->setPen(Qt::lightGray);
         p->drawRect(d.digitrects.last());
+    }
+    if(d.show_apply) {
+        p->setPen(Qt::gray);
+        const QuANRect apply_r(x, 0, d.digitrects.last().width(), d.digitrects.last().height(), QuANRect::Apply);
+        const QBrush b = p->brush();
+        const QFont fo = p->font();
+        if(apply_r.contains(d.mouse_pos) && d.data != d.last_applied_data) {
+            p->setBrush(QBrush(bgcolor.darker(110)));
+            p->drawRect(apply_r);
+        }
+        d.digitrects.push_back(apply_r);
+        // draw an apply tick within the font rect
+        QFont f(fo);
+        f.setPointSizeF(0.75 * fo.pointSizeF());
+        p->setFont(f);
+        p->setPen(d.data != d.last_applied_data ? QColor(Qt::green) : QColor(Qt::gray));
+        p->drawText(apply_r, CHECK_MARK,  Qt::AlignHCenter|Qt::AlignVCenter);
+        p->setBrush(b); // restore brush
+        p->setFont(fo); // restore font
     }
 
 
@@ -198,51 +214,52 @@ void CuApplyNumericEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
 
 }
 
-void CuApplyNumericEngine::m_drawHighlighted() {
+void QuApplyNumericEngine::m_drawHighlighted() {
 
 }
 
 // returns the index of the digit: right most digit exp 0
-int CuApplyNumericEngine::m_map_to_digit_pos(const QPointF &mousePos) const {
+int QuApplyNumericEngine::m_map_to_digit_pos(const QPointF &mousePos) const {
     for(int i = 0; i < d.digitrects.size(); i++) {
-        if(d.digitrects[i].contains(mousePos) && d.digitrects[i].pos > -1) {
+        if(d.digitrects[i].contains(mousePos) && d.digitrects[i].pos >= 0) {
             return d.digits - d.digitrects[i].pos - 1;
         }
+        else if(d.digitrects[i].contains(mousePos))
+            return d.digitrects[i].pos; // "+" (pos is negative)
     }
-    return -1e6;
+    return QuANRect::Invalid; // "+": pos is < 0
 }
 
-bool CuApplyNumericEngine::m_up(const QPointF &mousePos) const {
+bool QuApplyNumericEngine::m_up(const QPointF &mousePos) const {
     if(d.digitrects.size() > 0)
         return mousePos.y() < d.digitrects[0].height() / 2.0;
     return false;
 }
-void CuApplyNumericEngine::setFont(const QFont &f) {
+void QuApplyNumericEngine::setFont(const QFont &f) {
     d.font = f;
     d.font.setPointSizeF(f.pointSizeF() * d.font_scale);
     d.arrow_hei = QFontMetrics(d.font).height() / 4.0;
+    m_update_maxcharw();
+    d.minsiz = QSizeF(); // need update minimumSize
 }
 
-QSizeF CuApplyNumericEngine::minimumSize() const {
+QSizeF QuApplyNumericEngine::minimumSize()  {
+    if(d.minsiz.isValid())
+        return d.minsiz;
     qDebug () << __PRETTY_FUNCTION__ << d.font;
-    const QString& sign = (d.data < 0) ? "-" : "";
+    const QString& sign ="-"; // always reserve space for "-" sign to avoid unwanted resizes
     QFontMetrics fm(d.font);
     int fh = fm.height();
     double minh = fh + 2.1 * d.arrow_hei + d.bm + d.um;
-    double maxw = 0, w;
-    for(int i = 0; i < 10; i++) {
-        w = fm.horizontalAdvance(QString("%1").arg(i));
-        if(maxw < w)
-            maxw = w;
-    }
-    QSizeF siz(d.digits * maxw + fm.horizontalAdvance(sign)
+    const int nrects = d.show_apply ? d.digits + 1 : d.digits;
+    d.minsiz = QSizeF (nrects * d.maxcharw + fm.horizontalAdvance(sign)
                + (d.decDig > 0 ? fm.horizontalAdvance(".") : 0) + d.lm + d.rm, minh);
     qDebug() << __PRETTY_FUNCTION__ << d.font << "pt. siz" << d.font.pointSizeF() << "ascent + descent" << fh
-             << "max w" << maxw << "size width" << siz.width() ;
-    return  siz;
+             << "max w" << d.maxcharw << "size width" << d.minsiz.width() ;
+    return  d.minsiz;
 }
 
-void CuApplyNumericEngine::setValue(double v)
+void QuApplyNumericEngine::setValue(double v)
 {
     long long temp = (long long) round(v * pow(10.0, d.decDig));
     if ((temp >= d.min) && (temp <= d.max))
@@ -257,7 +274,7 @@ void CuApplyNumericEngine::setValue(double v)
         perr("%s: value %f out of range [%f, %f]", __PRETTY_FUNCTION__, v, d.min_d, d.max_d);
 }
 
-void CuApplyNumericEngine::setMaximum(double m) {
+void QuApplyNumericEngine::setMaximum(double m) {
     if (m >= d.min_d && m != d.max_d) {
         d.max_d = m;
         d.max = (long long) round(m* (long long)pow(10.0, d.decDig));
@@ -265,7 +282,7 @@ void CuApplyNumericEngine::setMaximum(double m) {
     }
 }
 
-void CuApplyNumericEngine::setMinimum(double m) {
+void QuApplyNumericEngine::setMinimum(double m) {
     if (m <= d.max_d && m != d.min_d) {
         d.min_d = m;
         printf("CuApplyNumericEngine::setMinimum to %f. internally from %lld ", m, d.min);
@@ -275,52 +292,66 @@ void CuApplyNumericEngine::setMinimum(double m) {
     }
 }
 
-void CuApplyNumericEngine::setIntDigits(int i)
+void QuApplyNumericEngine::setIntDigits(int i)
 {
     if (i > 0 && i != d.intDig) {
         d.intDig = i;
         d.digits = d.intDig + d.decDig;
         m_update_bounds();
+        d.minsiz = QSizeF(); // need update minimumSize
         // caller needs update()  (paint)
         emit intDigitsChanged(i);
     }
 }
 
-void CuApplyNumericEngine::setDecDigits(int dd)
+void QuApplyNumericEngine::setDecDigits(int dd)
 {
     if(dd >= 0  && dd != d.decDig) {
-        printf("setDecDigits: dec digits from %d to %d data from %lld (%f) ", d.decDig, dd, d.data, value());
+        printf("setDecDigits: dec digits from %d to %d  %lld (%f) ", d.decDig, dd, d.data, value());
         d.data = (long long) (d.data * pow(10.0, dd - d.decDig));
         d.decDig = dd;
         d.digits = d.intDig + d.decDig;
         printf("to \e[1;32m%lld (%f)\e[0m\n", d.data, value());
         m_update_bounds();
         // caller needs update()  (paint)
+        d.minsiz = QSizeF(); // need update minimumSize
         emit decDigitsChanged(dd);
     }
 }
 
-void CuApplyNumericEngine::step(const QPointF& pos)
-{
+void QuApplyNumericEngine::click(const QPointF& pos) {
+    bool up = m_up(pos);
+    click(pos, up);
+}
+
+void QuApplyNumericEngine::click(const QPointF &pos, bool up) {
+    printf("CuApplyNumericEngine::click \e[1;35m %lld (%f) \e[1;34m ... ", d.data, value());
     if(!pos.isNull()) {
-        bool up = m_up(pos);
         int dig = m_map_to_digit_pos(pos);
-        printf("data is %lld, exp is %d\n", d.data, dig);
-        if (up && (d.data + (long long) pow(10.0, dig)) <= d.max)
-        {
+        printf(" Dig is %d ", dig);
+        if (dig > -1 && up && (d.data + (long long) pow(10.0, dig)) <= d.max) {
             d.data += (long long) pow(10.0, dig);
             emit valueChanged(value());
         }
-        else if(d.data - pow(10.0, dig) >= d.min)
-        {
+        else if(dig > -1 && d.data - pow(10.0, dig) >= d.min) {
             d.data -= (long long) pow(10.0, dig);
             emit valueChanged(value());
         }
-        qDebug() << __PRETTY_FUNCTION__ << "data is now" << d.data;
+        else if(m_rect_type(dig) == QuANRect::Apply) {
+            d.last_applied_data = d.data;
+            emit applyClicked(value());
+        }
     }
+    printf("\e[1;32m to %lld (%f)\e[0m\n", d.data, value());
 }
 
-void CuApplyNumericEngine::m_update_bounds()  {
+void QuApplyNumericEngine::setShowApply(bool show) {
+    d.show_apply = show;
+    m_update_maxcharw();
+    d.minsiz = QSizeF(); // need update minimumSize
+}
+
+void QuApplyNumericEngine::m_update_bounds()  {
     bool c;
     long long int m = (long long int) -pow(10.0, d.digits) + 1;
     long long int M =  (long long int) pow(10.0, d.digits) - 1;
@@ -348,7 +379,26 @@ void CuApplyNumericEngine::m_update_bounds()  {
     printf("with %d int digs and %d dec digs: \e[1;35mm_update_bounds %.3f - %.3f\e[0m\n", d.intDig, d.decDig, d.min_d, d.max_d);
 }
 
-double CuApplyNumericEngine::m_to_double(long long int lli) const {
+double QuApplyNumericEngine::m_to_double(long long int lli) const {
     return lli * pow(10.0, -d.decDig);
+}
+
+void QuApplyNumericEngine::m_update_maxcharw() {
+    QFontMetrics fm(d.font);
+    d.maxcharw = 0;
+    double w;
+    for(int i = 0; i < 10; i++) {
+        w = fm.horizontalAdvance(QString("%1").arg(i));
+        if(d.maxcharw < w)
+            d.maxcharw = w;
+    }
+    if(d.show_apply && d.maxcharw < fm.horizontalAdvance(CHECK_MARK))
+        d.maxcharw = fm.horizontalAdvance(CHECK_MARK);
+}
+
+QuANRect::Type QuApplyNumericEngine::m_rect_type(int idx) const {
+    if(idx >= 0)
+        return QuANRect::Digit;
+    return static_cast<QuANRect::Type> (idx);
 }
 

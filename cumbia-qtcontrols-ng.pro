@@ -30,17 +30,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/cuapplynumericclickrepeater.cpp \
-    src/cuapplynumericengine.cpp \
-    src/cuapplynumericitem.cpp \
-    src/cuapplynumericwidget.cpp
+    src/quapplynumericclickrepeater.cpp \
+    src/quapplynumericengine.cpp \
+    src/quapplynumericitem.cpp \
+    src/quapplynumericwidget.cpp
 
 
 HEADERS += \
-    src/cuapplynumericclickrepeater.h \
-    src/cuapplynumericengine.h \
-    src/cuapplynumericitem.h \
-    src/cuapplynumericwidget.h
+    src/quapplynumericclickrepeater.h \
+    src/quapplynumericengine.h \
+    src/quapplynumericitem.h \
+    src/quapplynumericwidget.h
 
 DISTFILES += \
     Doxyfile

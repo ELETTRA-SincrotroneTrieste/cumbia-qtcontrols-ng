@@ -1,5 +1,5 @@
-#ifndef CUAPPLYNUMERICENGINE_H
-#define CUAPPLYNUMERICENGINE_H
+#ifndef QUAPPLYNUMERICENGINE_H
+#define QUAPPLYNUMERICENGINE_H
 
 #include <QFont>
 #include <QObject>
@@ -10,19 +10,22 @@
 class QStyleOptionGraphicsItem;
 class QPainter;
 
-class CuANRect : public QRectF {
+class QuANRect : public QRectF {
 public:
-    CuANRect(double x, double y, double w, double h, int pos) : QRectF(x, y, w, h), pos(pos) { }
+    enum Type { Sign = -1000010, Dot = -1000009, Apply = -1000008, Invalid = -1, Digit = 0 }; // > 0 index
+
+    QuANRect(double x, double y, double w, double h, int pos) : QRectF(x, y, w, h), pos(pos) { }
 
     int pos;
 };
 
-class CuApplyNumEngineData {
+class QuApplyNumEngineData {
 public:
     int intDig;
     int decDig;
     int digits;
     long long data;
+    long long last_applied_data;
     long long min;
     long long max;
 
@@ -34,20 +37,23 @@ public:
     // arrow height
     double arrow_hei;
     QSizeF minsiz;
-    QVector<CuANRect> digitrects;
+    QVector<QuANRect> digitrects;
     QFont font;
     QPointF mouse_pos;
     bool mouse_down;
+    bool show_apply;
+
+    int maxcharw;
 };
 
-class CuApplyNumericEngine : public QObject
+class QuApplyNumericEngine : public QObject
 {
     Q_OBJECT
 public:
-    CuApplyNumEngineData d;
+    QuApplyNumEngineData d;
 
-    explicit CuApplyNumericEngine(const QFont &f);
-    virtual  ~CuApplyNumericEngine();
+    explicit QuApplyNumericEngine(const QFont &f);
+    virtual  ~QuApplyNumericEngine();
 
     void contextMenuEvent(const QPointF& pos);
     void mousePressEvent(const QPointF& pos);
@@ -63,7 +69,7 @@ public:
     void paint(QPainter *p, const QRectF &rect, QWidget *widget);
     void setFont(const QFont& f);
 
-    QSizeF minimumSize() const;
+    QSizeF minimumSize();
 
 public slots:
     void setValue(double v);
@@ -73,7 +79,10 @@ public slots:
     void setIntDigits(int i);
     void setDecDigits(int d);
 
-    void step(const QPointF& pos);
+    void click(const QPointF& pos);
+    void click(const QPointF& pos, bool up);
+
+    void setShowApply(bool show);
 
 signals:
     void valueChanged(double v);
@@ -81,6 +90,8 @@ signals:
     void maximumChanged(double M);
     void intDigitsChanged(int id);
     void decDigitsChanged(int dd);
+
+    void applyClicked(double val);
 
 private:
 
@@ -93,8 +104,14 @@ private:
 
     double m_to_double(long long lli) const;
 
+    void m_apply_clicked();
+
+    void m_update_maxcharw();
+
+    QuANRect::Type m_rect_type(int idx) const;
+
 private slots:
 
 };
 
-#endif // CUAPPLYNUMERICENGINE_H
+#endif // QUAPPLYNUMERICENGINE_H

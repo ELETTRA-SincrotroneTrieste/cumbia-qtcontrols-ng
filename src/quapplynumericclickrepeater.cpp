@@ -1,4 +1,4 @@
-#include "cuapplynumericclickrepeater.h"
+#include "quapplynumericclickrepeater.h"
 
 #include <QTimer>
 

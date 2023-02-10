@@ -1,16 +1,19 @@
-#ifndef CUAPPLYNUMERICITEM_H
-#define CUAPPLYNUMERICITEM_H
+#ifndef QUAPPLYNUMERICITEM_H
+#define QUAPPLYNUMERICITEM_H
 
 #include <QGraphicsObject>
 
 class CuApplyNumericItemPrivate;
 
-class CuApplyNumericItem : public QGraphicsObject
+class QuApplyNumericItem : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    CuApplyNumericItem(QGraphicsItem *parent );
-    virtual ~CuApplyNumericItem();
+    QuApplyNumericItem(QGraphicsItem *parent );
+    virtual ~QuApplyNumericItem();
+
+public slots:
+    void update();
 
 private:
     CuApplyNumericItemPrivate *d;
@@ -23,10 +26,11 @@ public:
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void wheelEvent(QGraphicsSceneWheelEvent *event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 };
 
-#endif // CUAPPLYNUMERICITEM_H
+#endif // QUAPPLYNUMERICITEM_H

@@ -1,13 +1,30 @@
 #include "applynumeric.h"
 
 #include <QGridLayout>
-#include <cuapplynumericwidget.h>
-#include <cuapplynumericitem.h>
+#include <quapplynumericwidget.h>
+#include <quapplynumericitem.h>
 #include <QGroupBox>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QDoubleSpinBox>
 #include <QLabel>
+#include <QEvent>
+#include <QWheelEvent>
+#include <QCheckBox>
+
+class ViewOFilter : public QObject {
+public:
+  ViewOFilter(QObject *parent) : QObject{parent} {}
+  bool eventFilter(QObject *watched, QEvent *event) {
+    if (event->type() == QEvent::Wheel) {
+      QWheelEvent *we = static_cast<QWheelEvent *>(event);
+      int dx = we->angleDelta().y();
+      qobject_cast<QGraphicsView *>(watched)->scale( dx > 0 ? 1.15 : 1.0/1.15, dx > 0 ? 1.15 : 1.0/1.15);
+      return true;
+    }
+    return QObject::eventFilter(watched, event);
+    }
+};
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -18,12 +35,14 @@ Widget::Widget(QWidget *parent)
     QGraphicsView *gv = new QGraphicsView(this);
     QGraphicsScene *sce = new QGraphicsScene(this);
     gv->setScene(sce);
-    CuApplyNumericItem *ni = new CuApplyNumericItem(nullptr);
+    gv->installEventFilter(new ViewOFilter(this));
+    QuApplyNumericItem *ni = new QuApplyNumericItem(nullptr);
+    ni->setFlag(QGraphicsItem::ItemIsMovable, true);
     sce->addItem(ni);
     ni->setPos(10, 10);
     lo->addWidget(gr, 0, 0, enumspan, 5);
-    lo->addWidget(gv, 0, 5, enumspan, 5);
-    CuApplyNumericWidget *nw = new CuApplyNumericWidget(gr);
+    lo->addWidget(gv, 0, 5, 10, 10);
+    QuApplyNumericWidget *nw = new QuApplyNumericWidget(gr);
     QVBoxLayout *vlo = new QVBoxLayout(gr);
     vlo->addWidget(nw);
 
@@ -66,8 +85,20 @@ Widget::Widget(QWidget *parent)
         lo->addWidget(sb, row++, locol, 1, 1);
         connect(sb, SIGNAL(valueChanged(int)), this, SLOT(setProp(int)));
     }
-    connect(nw, SIGNAL(minimumChanged(double)), this, SLOT(onMinChanged(double)));
-    connect(nw, SIGNAL(maximumChanged(double)), this, SLOT(onMaxChanged(double)));
+    QCheckBox *cb = new QCheckBox("Apply button", this);
+    connect(cb, SIGNAL(toggled(bool)), nw, SLOT(setShowApply(bool)));
+    connect(cb, SIGNAL(toggled(bool)), ni, SLOT(setShowApply(bool)));
+    cb->setChecked(nw->showApply());
+    lo->addWidget(cb, row, locol, 1, 1);
+
+    // connections, apply numeric widget
+    connect(nw, SIGNAL(minimumChanged(double)), nw, SLOT(setMinimum(double)));
+    connect(nw, SIGNAL(maximumChanged(double)), nw, SLOT(setMaximum(double)));
+
+    // connections, apply numeric item
+    connect(nw, SIGNAL(minimumChanged(double)), ni, SLOT(setMinimum(double)));
+    connect(nw, SIGNAL(maximumChanged(double)), ni, SLOT(setMaximum(double)));
+
     connect(nw, SIGNAL(decDigitsChanged(int)), this, SLOT(onDecDigitsChanged(int)));
 }
 

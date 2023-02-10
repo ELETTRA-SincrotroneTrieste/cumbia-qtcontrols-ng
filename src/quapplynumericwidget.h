@@ -1,11 +1,11 @@
-#ifndef CUAPPLYNUMERICWIDGET_H
-#define CUAPPLYNUMERICWIDGET_H
+#ifndef QUAPPLYNUMERICWIDGET_H
+#define QUAPPLYNUMERICWIDGET_H
 
 #include <QWidget>
 
-class CuApplyNumericWidgetPrivate;
+class QuApplyNumericWidgetPrivate;
 
-class CuApplyNumericWidget : public QWidget
+class QuApplyNumericWidget : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(int intDigits READ intDigits WRITE setIntDigits)
@@ -13,9 +13,10 @@ class CuApplyNumericWidget : public QWidget
     Q_PROPERTY(double value READ value WRITE setValue)
     Q_PROPERTY(double maximum READ maximum WRITE setMaximum)
     Q_PROPERTY(double minimum READ minimum WRITE setMinimum)
+    Q_PROPERTY(bool showApply READ showApply WRITE setShowApply)
 public:
-    explicit CuApplyNumericWidget(QWidget *parent = nullptr);
-    virtual  ~CuApplyNumericWidget();
+    explicit QuApplyNumericWidget(QWidget *parent = nullptr);
+    virtual  ~QuApplyNumericWidget();
 
 signals:
     void valueChanged(double v);
@@ -25,7 +26,7 @@ signals:
     void decDigitsChanged(int dd);
 
 private:
-    CuApplyNumericWidgetPrivate *d;
+    QuApplyNumericWidgetPrivate *d;
 
 
     // QWidget interface
@@ -39,8 +40,12 @@ public:
     int intDigits() const;
     int decDigits() const;
 
+    bool showApply() const;
+
 public slots:
     void setValue(double v);
+
+    void setShowApply(bool s);
 
     void setMaximum(double v);
     void setMinimum(double v);
@@ -67,11 +72,10 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
-    void enterEvent(QEvent *event);
     void leaveEvent(QEvent *event);
     void paintEvent(QPaintEvent *event);
 
     void changeEvent(QEvent *e);
 };
 
-#endif // CUAPPLYNUMERICWIDGET_H
+#endif // QUAPPLYNUMERICWIDGET_H
