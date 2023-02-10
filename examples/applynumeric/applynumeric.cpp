@@ -107,11 +107,11 @@ Widget::~Widget()
 }
 
 void Widget::setProp(double v) {
-    findChild<CuApplyNumericWidget *>()->setProperty(sender()->property("property").toString().toLatin1(), v);
+    findChild<QuApplyNumericWidget *>()->setProperty(sender()->property("property").toString().toLatin1(), v);
 }
 
 void Widget::setProp(int v) {
-    findChild<CuApplyNumericWidget *>()->setProperty(sender()->property("property").toString().toLatin1(), v);
+    findChild<QuApplyNumericWidget *>()->setProperty(sender()->property("property").toString().toLatin1(), v);
 }
 
 void Widget::onMinChanged(double m) {
