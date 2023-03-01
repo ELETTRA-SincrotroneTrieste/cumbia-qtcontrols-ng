@@ -6,6 +6,7 @@
 #include <QPointF>
 #include <QSizeF>
 #include <QRectF>
+#include <QVector>
 
 class QStyleOptionGraphicsItem;
 class QPainter;

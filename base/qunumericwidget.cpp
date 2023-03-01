@@ -122,7 +122,11 @@ void QuNumericW::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void QuNumericW::wheelEvent(QWheelEvent *event) {
+#if QT_VERSION >= QT_VERSION_CHECK(5,14,0)
     d->e->wheelEvent(event->position(), event->angleDelta().y());
+#else
+    d->e->wheelEvent(event->pos(), event->angleDelta().y());
+#endif
     update();
 }
 
