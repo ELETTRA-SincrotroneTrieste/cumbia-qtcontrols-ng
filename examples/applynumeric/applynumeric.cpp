@@ -1,8 +1,8 @@
 #include "applynumeric.h"
 
 #include <QGridLayout>
-#include <quapplynumericwidget.h>
-#include <quapplynumericitem.h>
+#include <qunumericwidget.h>
+#include <qunumericitem.h>
 #include <QGroupBox>
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -36,13 +36,13 @@ Widget::Widget(QWidget *parent)
     QGraphicsScene *sce = new QGraphicsScene(this);
     gv->setScene(sce);
     gv->installEventFilter(new ViewOFilter(this));
-    QuApplyNumericItem *ni = new QuApplyNumericItem(nullptr);
+    QuNumericI *ni = new QuNumericI(nullptr);
     ni->setFlag(QGraphicsItem::ItemIsMovable, true);
     sce->addItem(ni);
     ni->setPos(10, 10);
     lo->addWidget(gr, 0, 0, enumspan, 5);
     lo->addWidget(gv, 0, 5, 10, 10);
-    QuApplyNumericWidget *nw = new QuApplyNumericWidget(gr);
+    QuNumericW *nw = new QuNumericW(gr);
     QVBoxLayout *vlo = new QVBoxLayout(gr);
     vlo->addWidget(nw);
 
@@ -107,11 +107,11 @@ Widget::~Widget()
 }
 
 void Widget::setProp(double v) {
-    findChild<QuApplyNumericWidget *>()->setProperty(sender()->property("property").toString().toLatin1(), v);
+    findChild<QuNumericW *>()->setProperty(sender()->property("property").toString().toLatin1(), v);
 }
 
 void Widget::setProp(int v) {
-    findChild<QuApplyNumericWidget *>()->setProperty(sender()->property("property").toString().toLatin1(), v);
+    findChild<QuNumericW *>()->setProperty(sender()->property("property").toString().toLatin1(), v);
 }
 
 void Widget::onMinChanged(double m) {

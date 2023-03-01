@@ -30,17 +30,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/quapplynumericclickrepeater.cpp \
-    src/quapplynumericengine.cpp \
-    src/quapplynumericitem.cpp \
-    src/quapplynumericwidget.cpp
+    base/qunumericclickrepeater.cpp \
+    base/qunumericengine.cpp \
+    base/qunumericitem.cpp \
+    base/qunumericwidget.cpp \
+    controls/qunumericcontrol_w.cpp
 
 
 HEADERS += \
-    src/quapplynumericclickrepeater.h \
-    src/quapplynumericengine.h \
-    src/quapplynumericitem.h \
-    src/quapplynumericwidget.h
+    base/qunumericclickrepeater.h \
+    base/qunumericengine.h \
+    base/qunumericitem.h \
+    base/qunumericwidget.h \
+    controls/qunumericcontrol_w.h
 
 DISTFILES += \
     Doxyfile
@@ -83,7 +85,7 @@ CONFIG += create_pc create_prl no_install_prl
     QMAKE_PKGCONFIG_VERSION = $${VERSION}
     QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 
-INCLUDEPATH += src src/cumbia src/events
+INCLUDEPATH += base controls
 
 # remove ourselves from -l (.pri)
 LIBS -= -l$${cumbia_qtcontrols_ng_LIB}
