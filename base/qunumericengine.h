@@ -16,7 +16,7 @@ public:
     enum Type { Sign = -1000010, Dot = -1000009, Apply = -1000008, Invalid = -1, Digit = 0 }; // > 0 index
 
     QuANRect(double x, double y, double w, double h, int pos) : QRectF(x, y, w, h), pos(pos) { }
-
+    QuANRect() : QRectF(), pos(-1) {}
     int pos;
 };
 
