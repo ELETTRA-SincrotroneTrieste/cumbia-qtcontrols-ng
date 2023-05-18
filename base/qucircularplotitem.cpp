@@ -1,5 +1,6 @@
 #include "qucircularplotengine.h"
 #include "qucircularplotitem.h"
+#include "quzoomer.h"
 
 #include <cumacros.h>
 #include <QGraphicsScene>
@@ -8,7 +9,8 @@
 
 class QuCircularPlotI_P {
 public:
-    QuCircularPlotI_P(const QFont& f) : e(new QuCircularPlotEngine(f)), rect(0, 0, 100, 40) {
+    QuCircularPlotI_P(QGraphicsObject *gobj, const QFont& f)
+        : e(new QuCircularPlotEngine(f, new QuZoomer(gobj))), rect(0, 0, 100, 40) {
     }
     ~QuCircularPlotI_P() {
         delete e;
@@ -18,7 +20,7 @@ public:
 };
 
 QuCircularPlotI::QuCircularPlotI(QGraphicsItem *parent) : QGraphicsObject(parent) {
-    d = new QuCircularPlotI_P(QFont());
+    d = new QuCircularPlotI_P(this, QFont());
     setAcceptHoverEvents(true); // mouse tracking
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }

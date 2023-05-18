@@ -31,9 +31,10 @@ QuCircularPlotEngineData::QuCircularPlotEngineData()
     oob_xform = new OOBLogTransform;
 }
 
-QuCircularPlotEngine::QuCircularPlotEngine(const QFont& f)
+QuCircularPlotEngine::QuCircularPlotEngine(const QFont& f, QuZoomer *zoomer)
     : QObject{nullptr}  {
     d.font = f;
+    d.zoomer = zoomer;
 }
 
 QuCircularPlotEngine::~QuCircularPlotEngine() {
@@ -95,6 +96,8 @@ void QuCircularPlotEngine::m_get_bounds(double *x, double *X,
 }
 
 void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *widget) {
+    if(d.zoomer)
+        printf("zoomer in zoom? %s level %d\n", d.zoomer->inZoom() ? "YES" : "NO", d.zoomer->stackSize());
     if(d.bounding_r != rect) {
         d.bounding_r = rect;
     }
@@ -175,7 +178,12 @@ void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
 
     }
 
-
+    if(d.zoomer) {
+        if(!d.zoomer->p1.isNull() && !d.zoomer->p2.isNull()) {
+            pe.setColor(Qt::cyan);
+            p->drawRect(QRectF(d.zoomer->p1, d.zoomer->p2));
+        }
+    }
 
     QPen rpen(Qt::lightGray, 0.0);
     p->setPen(rpen);

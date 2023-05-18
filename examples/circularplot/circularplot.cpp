@@ -1,5 +1,4 @@
 #include "circularplot.h"
-#include "ui_circularplot.h"
 #include <qgridlayout.h>
 #include <qgroupbox.h>
 #include <QGraphicsView>
@@ -31,10 +30,7 @@ public:
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::Widget)
 {
-    ui->setupUi(this);
-
     QCommandLineParser p;
     p.addHelpOption();
     p.addOption(QCommandLineOption(QStringList() << "n" << "ncurves", "number of curves", "1", "1"));

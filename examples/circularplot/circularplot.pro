@@ -4,6 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17 link_pkgconfig
 
+CONFIG += debug
+
 PKGCONFIG += cumbia cumbia-qtcontrols-ng
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -17,8 +19,7 @@ SOURCES += \
 HEADERS += \
     circularplot.h
 
-FORMS += \
-    circularplot.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

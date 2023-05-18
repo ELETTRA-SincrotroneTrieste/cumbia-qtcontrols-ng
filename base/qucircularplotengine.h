@@ -10,6 +10,7 @@
 #include <QMap>
 #include <math.h>
 #include "qucircularplotcurve.h"
+#include "quzoomer.h"
 
 class QStyleOptionGraphicsItem;
 class QPainter;
@@ -34,6 +35,8 @@ public:
     bool show_values, show_points, show_bounds; // default false
     bool show_curves, show_xax, show_origin; // default: true
     int y_axes; // default: show 0 Y axes
+
+    QuZoomer *zoomer;
 };
 
 class QuCircularPlotEngine : public QObject
@@ -42,7 +45,7 @@ class QuCircularPlotEngine : public QObject
 public:
     QuCircularPlotEngineData d;
 
-    explicit QuCircularPlotEngine(const QFont &f);
+    explicit QuCircularPlotEngine(const QFont &f, QuZoomer *zoomer);
     virtual  ~QuCircularPlotEngine();
 
     void contextMenuEvent(const QPointF& pos);

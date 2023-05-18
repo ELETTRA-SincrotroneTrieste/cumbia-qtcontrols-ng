@@ -7,7 +7,7 @@
 
 class QuCircularPlotW_P {
 public:
-    QuCircularPlotW_P(const QFont& f) : e(new QuCircularPlotEngine(f)) {
+    QuCircularPlotW_P(QWidget *o, const QFont& f) : e(new QuCircularPlotEngine(f, new QuZoomer(o))) {
     }
     ~QuCircularPlotW_P() {
         delete e;
@@ -17,7 +17,7 @@ public:
 
 QuCircularPlotW::QuCircularPlotW(QWidget *parent)
     : QWidget{parent} {
-    d = new QuCircularPlotW_P(font());
+    d = new QuCircularPlotW_P(this, font());
     setMouseTracking(true);
 
     connect(d->e, SIGNAL(valueChanged(double)), this, SIGNAL(valueChanged(double)));
