@@ -99,6 +99,10 @@ void QuNumericControlW::execute(double val) {
     }
 }
 
+void QuNumericControlW::onAnimationValueChanged(const QVariant &) {
+
+}
+
 /// @private
 void QuNumericControlW::m_init()
 {

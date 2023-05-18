@@ -30,19 +30,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    base/out_of_bounds_xforms.cpp \
+    base/qucircularplotconfigurator.cpp \
+    base/qucircularplotcurve.cpp \
+    base/qucircularplotengine.cpp \
     base/qunumericclickrepeater.cpp \
     base/qunumericengine.cpp \
     base/qunumericitem.cpp \
     base/qunumericwidget.cpp \
-    controls/qunumericcontrol_w.cpp
+    controls/qunumericcontrol_w.cpp \
+    base/qucircularplotwidget.cpp \
+    base/qucircularplotitem.cpp
 
 
 HEADERS += \
+    base/out_of_bounds_xforms.h \
+    base/qucircularplotconfigurator.h \
+    base/qucircularplotcurve.h \
+    base/qucircularplotengine.h \
     base/qunumericclickrepeater.h \
     base/qunumericengine.h \
     base/qunumericitem.h \
     base/qunumericwidget.h \
-    controls/qunumericcontrol_w.h
+    controls/qunumericcontrol_w.h \
+    base/qucircularplotwidget.h \
+    base/qucircularplotitem.h
 
 DISTFILES += \
     Doxyfile
