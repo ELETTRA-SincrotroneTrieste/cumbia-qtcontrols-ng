@@ -29,13 +29,11 @@ void Widget::paintEvent(QPaintEvent *event) {
 
     printf("\e[1;32m zoomer in zoom?? %s\e[0m\n", m_zoomer->inZoom() ? "YES" : "NO");
     if(m_zoomer->inZoom()) {
-        pen.setColor(Qt::magenta);
-        p.setPen(pen);
-        p.drawRect(m_zoomer->zoomRect());
         m_zoomer->zoom(&p, event->rect(), this);
     }
 
 
+//    p.setWindow(0, 0, 500, 500);
     pen.setColor(Qt::darkGray);
     p.setPen(pen);
     QFont f = p.font();
@@ -43,8 +41,8 @@ void Widget::paintEvent(QPaintEvent *event) {
     int h = fm.horizontalAdvance("xxxxx");
     double i = 2, j = h;
     int cnt = 0;
-    while(j < height()) {
-        while(i < width() - fm.horizontalAdvance("xxxxx")) {
+    while(j < event->rect().height()) {
+        while(i < event->rect().width() - fm.horizontalAdvance("xxxxx")) {
             const QString& s = QString::number(cnt++);
             p.drawText(QPointF(i, j), s);
             i += fm.horizontalAdvance("xxxxx");

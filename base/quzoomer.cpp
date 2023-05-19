@@ -94,6 +94,8 @@ bool QuZoomer::eventFilter(QObject *watched, QEvent *event) {
         }
         else if(release && butt == Qt::MiddleButton && d->m_zstack.size() > 0) {
             d->m_zstack.pop_back();
+            if(!d->m_zstack.size())
+                d->m_transform = QTransform();
             m_update(watched);
         }
     }
@@ -134,8 +136,9 @@ bool QuZoomer::zoom(QPainter *p, const QRectF &r, QWidget *widget) {
         float ratio;
         float dx, dy, ddx = 0, ddy = 0;
         float m = qMin(r.width(), r.height()); // smaller side
-        const QRectF ozr = d->m_zstack[d->m_zstack.size() - 1];
         const QRectF& zr = d->m_zstack[d->m_zstack.size() - 1];
+        if(!r.contains(zr))
+            printf("\e[1;31mWARNING zoom rect bigger than painter rect\e[0m!!\n");
         if(zr.width() > zr.height()) {
             ratio = zr.width() / m; // < 1
 //            zr.setHeight(zr.height() / ratio);
@@ -150,20 +153,22 @@ bool QuZoomer::zoom(QPainter *p, const QRectF &r, QWidget *widget) {
         }
         dx = zr.x() / ratio;
         dy = zr.y() / ratio;
+        QRectF za(-dx + ddx, -dy + ddy, r.width() / ratio, r.height() / ratio);
 
 //        qDebug() << __PRETTY_FUNCTION__ << "dx" << dx << "dy" << dy;
-//        qDebug() << __PRETTY_FUNCTION__ << "zooming on rect" << ozr << "--> " << zr
-//                 << "ddx" << ddx << "ddy" << ddy << "painter rect" << r;
+        qDebug() << __PRETTY_FUNCTION__ << "zoom rect" << zr << "--> area " << za
+                 << "ddx" << ddx << "ddy" << ddy << "painter rect" << r;
 //        qDebug() << __PRETTY_FUNCTION__ << "painter w / zoom rect w " << r.width() / zr.width()  <<
 //            "painter h / zoom rect h" << r.height() / zr.height();
         // r e zr are now in   scale
 
-        p->translate(-dx + ddx, -dy + ddy);
-        p->scale(1.0/ratio, 1.0/ratio);
+//        p->translate(-dx + ddx, -dy + ddy);
+//        p->scale(1.0/ratio, 1.0/ratio);
 
-        d->m_transform = p->transform();
-
-//        qDebug() << __PRETTY_FUNCTION__ << "transform" << d->m_transform << "Inverted" << d->m_transform.inverted();
+        p->setViewport(za.toRect());
+        d->m_transform = p->deviceTransform();
+//        qDebug() << __PRETTY_FUNCTION__ << "transform" << d->m_transform << "Inverted" << d->m_transform.inverted()
+//                 << "device Transform" << devT << "combined Transform" << cT;
     }
     return false;
 }
@@ -186,13 +191,7 @@ void QuZoomer::m_move_zooms() {
 }
 
 void QuZoomer::m_add_zoom(const QRectF &area) {
-    if(d->m_zstack.size() == 0)
         d->m_zstack.append(QRectF(area));
-    else {
-        QRectF cr = d->m_zstack.last(); // current zoom rect
-        // map area into cr
-
-    }
 }
 
 QPointF QuZoomer::m_map_from_pos(const QPointF &pt) {
