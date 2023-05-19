@@ -162,7 +162,7 @@ bool QuZoomer::zoom(QPainter *p, const QRectF &r, QWidget *widget) {
         qDebug() << __PRETTY_FUNCTION__ << "zooming on rect" << ozr << "--> " << zr << "zoom area" << za
                  << "to rect" << za.toRect() << "ddx" << ddx << "ddy" << ddy << "painter rect" << r;
 
-        qDebug() << __PRETTY_FUNCTION__ << "painter w / zoom rect w " << r.width() / zr.width() <<
+        qDebug() << __PRETTY_FUNCTION__ << "painter w / zoom rect w " << r.width() / zr.width()  <<
             "painter h / zoom rect h" << r.height() / zr.height();
         // r e zr are now in  scale
 
