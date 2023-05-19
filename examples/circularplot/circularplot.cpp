@@ -55,9 +55,9 @@ Widget::Widget(QWidget *parent)
         ni->setPos(10, 10);
         lo->addWidget(gr, 0, 0, enumspan, 5);
         lo->addWidget(gv, 0, 5, 10, 10);
-        QuCircularPlotW *nw = new QuCircularPlotW(gr);
-        QVBoxLayout *vlo = new QVBoxLayout(gr);
-        vlo->addWidget(nw);
+//        QuCircularPlotW *nw = new QuCircularPlotW(gr);
+//        QVBoxLayout *vlo = new QVBoxLayout(gr);
+//        vlo->addWidget(nw);
 
         QTimer *t = new QTimer(this);
         t->setSingleShot(true);
@@ -100,7 +100,7 @@ Widget::Widget(QWidget *parent)
 
         foreach(QCheckBox *c, confg->findChildren<QCheckBox *>()) {
             connect(c, SIGNAL(toggled()), ni, SLOT(update()));
-            connect(c, SIGNAL(toggled()), nw, SLOT(update()));
+//            connect(c, SIGNAL(toggled()), nw, SLOT(update()));
         }
 
     }

@@ -101,13 +101,7 @@ void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
     if(d.bounding_r != rect) {
         d.bounding_r = rect;
     }
-    QColor bgcolor = widget->palette().color(QPalette::Window);
-    QFont f = p->font();
-    //    f.setPointSizeF(f.pointSizeF() * d.font_scale);
-    //    p->setFont(f);
     p->setRenderHint(QPainter::Antialiasing, true);
-    QFontMetrics fm(f);
-    double fh =  fm.ascent() + fm.descent();
     double R = qMin(rect.width(), rect.height()) / 2.0;
     const QPointF& c = rect.center();
     d.radius = R * d.radius_factor;
@@ -134,6 +128,7 @@ void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
             for(int i = 0; i < c->size(); i++)
                 p->drawText(points[i], QString::number(c->y_data()[i]));
         }
+        delete [] points;
     }
 
     QPen pe(Qt::lightGray, 0.0);
@@ -178,12 +173,8 @@ void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
 
     }
 
-    if(d.zoomer) {
-        if(!d.zoomer->p1.isNull() && !d.zoomer->p2.isNull()) {
-            pe.setColor(Qt::cyan);
-            p->drawRect(QRectF(d.zoomer->p1, d.zoomer->p2));
-        }
-    }
+    if(d.zoomer && d.zoomer->p1 != d.zoomer->p2)
+        d.zoomer->drawZoomRect(p, rect, widget);
 
     QPen rpen(Qt::lightGray, 0.0);
     p->setPen(rpen);
