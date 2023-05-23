@@ -13,102 +13,107 @@
 
 class QuZoomerP {
 public:
-    QuZoomerP() : moving_view(false) {}
+    QuZoomerP() : changed(false) {}
 
-    bool moving_view;
     QVector<QRectF> m_zstack;
-    QTransform m_transform;
+    QTransform T;
+    QRectF zoom_area, current_rect;
+    QRect viewport;
+    bool changed;
 };
 
 QuZoomer::QuZoomer(QObject *parent)
     : QObject{parent}, d(new QuZoomerP) {
-    parent->installEventFilter(this);
 }
 
 QuZoomer::~QuZoomer() {
     delete d;
 }
 
-bool QuZoomer::eventFilter(QObject *watched, QEvent *event) {
-//    qDebug() << __PRETTY_FUNCTION__ << watched << event;
-    bool ret = false;
-    Qt::MouseButton butt;
-    Qt::KeyboardModifiers m;
-    bool graphicss = event->type() == QEvent::GraphicsSceneMousePress ||
-                     event->type() == QEvent::GraphicsSceneMouseRelease ||
-                     event->type() == QEvent::GraphicsSceneMouseMove;
-    bool press = ( (event->type() == QEvent::GraphicsSceneMousePress) || (event->type() == QEvent::MouseButtonPress));
-    bool release = ((event->type() == QEvent::GraphicsSceneMouseRelease) || (event->type() == QEvent::MouseButtonRelease));
-    bool move = ((event->type() == QEvent::GraphicsSceneMouseMove) || (event->type() == QEvent::MouseMove));
-    QPointF pos;
-    if(press || release || move) {
-        if(graphicss) {
-            QGraphicsSceneMouseEvent *sme = static_cast<QGraphicsSceneMouseEvent *>(event);
-            butt = sme->button();
-            m = sme->modifiers();
-            pos = m_map_from_pos(sme->pos());
-        }
-        else {
-            QMouseEvent *me = static_cast<QMouseEvent *>(event);
-            butt = me->button();
-            m = me->modifiers();
-            pos = m_map_from_pos(me->pos());
-        }
-        qDebug() << __PRETTY_FUNCTION__ << "modif" << m << "butt" << butt
-                 << pos << "is graphicsscene" << graphicss <<
-            "press" << press << "release" << release << "move" << move << "p1" << p1
-                 << "p2" << p2;
 
-        if((m & Qt::ShiftModifier) && (butt == Qt::LeftButton  || butt == Qt::MiddleButton || !p1.isNull())) {
-            if(press && butt == Qt::LeftButton) {
-                p1 = p2 = pos;
-            }
-            else if(move &&  !p1.isNull()) {
-                p2 = pos;
-            }
-
-            m_update(watched);
-            ret = true; // stop handling event further
-        }
-        else if(d->m_zstack.size() > 0 && press) {
-            d->moving_view = true;
-            p1 = pos;
-        }
-        else if(d->moving_view && move) {
-            p2 = pos;
-            m_move_zooms();
-            p1 = p2;
-            qDebug() << __PRETTY_FUNCTION__ << "moving zooms";
-            m_update(watched);
-        }
-        else if(d->moving_view && release) {
-            p1 = p2 = QPointF();
-            d->moving_view = false;
-        }
-
-        if(release && butt == Qt::LeftButton && !p1.isNull() && !p2.isNull() && p1 != p2) {
-            m_add_zoom(QRectF(p1, p2));
-            p1 = p2 = QPointF();
-            m_update(watched);
-            ret = true;
-        }
-        else if(release && butt == Qt::MiddleButton && d->m_zstack.size() > 0) {
-            d->m_zstack.pop_back();
-            if(!d->m_zstack.size())
-                d->m_transform = QTransform();
-            m_update(watched);
-        }
-    }
-    return ret ? ret : QObject::eventFilter(watched, event);
-}
-
-QRectF QuZoomer::zoomRect() const
-{
+QRectF QuZoomer::zoomRect() const {
     return d->m_zstack.size() > 0 ? d->m_zstack.last() : QRectF();
 }
 
-bool QuZoomer::inZoom() const
-{
+const QRectF &QuZoomer::zoomArea() const {
+    return d->zoom_area;
+}
+
+void QuZoomer::setZoomRect(const QRectF &r) {
+    qDebug() << __PRETTY_FUNCTION__ << r << "mapped" << d->T.mapRect(r);
+    d->m_zstack.append(d->T.inverted().mapRect(r));
+    d->changed = true;
+    emit zoomChanged();
+}
+
+void QuZoomer::moveZoom(const QPointF &p1, const QPointF &p2) {
+    for(int i = 0; i < d->m_zstack.size(); i++) {
+        const QTransform& t = d->T;
+
+        qDebug() << __PRETTY_FUNCTION__ << p1 << p2 << "TRANSFORM" << d->T;
+        // divide by the scale factors t.m11 and t.m22 to keep the movement anchored to the mouse
+        const float dx = (p2.x()  - p1.x()) / t.m11(), dy = (p2.y() - p1.y()) / t.m22();
+        d->m_zstack[i].moveLeft(d->m_zstack[i].left() - dx);
+        d->m_zstack[i].moveTop(d->m_zstack[i].top() - dy);
+    }
+    d->changed = true;
+    emit zoomChanged();
+}
+
+void QuZoomer::unzoom() {
+    d->m_zstack.pop_back();
+    if(!d->m_zstack.size())
+        d->T = QTransform();
+    d->changed = true;
+    emit zoomChanged();
+}
+
+void QuZoomer::zoomRectChanging(const QPointF &topl, const QPointF &botr) {
+
+    d->zoom_area = QRectF(d->T.inverted().map(topl), d->T.inverted().map(botr));
+    emit zoomChanged();
+}
+
+/*!
+ * \brief notify the zoomer that the monitored object (QWidget, QGraphicsItem) has changed
+ *        its size.
+ * \param newSiz the new size
+ *
+ * If the attached object changes size (e.g. QWidget::resizeEvent), the zoom rect(s) shall be
+ * resized and repositioned so that the viewport stays centered with the content being viewed
+ */
+void QuZoomer::sizeChanged(const QSize &newSiz) {
+    float dx = (newSiz.width() - d->current_rect.width());
+    float dy = (newSiz.height() - d->current_rect.height());
+
+    const QPointF &cc = d->current_rect.center();
+//    moveZoom(cc, QPointF(cc.x() - dx, cc.y() - dy));
+
+    float wr = newSiz.width() / d->current_rect.width();
+    float hr = newSiz.height() / d->current_rect.height();
+
+    for(int i = 0; i < d->m_zstack.size(); i++) {
+        // divide by the scale factors t.m11 and t.m22 to keep the movement anchored to the mouse
+
+        QRectF oldr = d->m_zstack[i];
+        QRectF& r = d->m_zstack[i];
+//        QPointF center = d->T.map(d->viewport.center());
+//        r.moveLeft(r.left() - dx);
+//        r.moveTop(r.top() - dy);
+//        r.moveCenter(center);
+        r.setWidth(r.width() / wr);  // scale width
+        r.setHeight(r.height() / hr);  // scale height
+
+//        qDebug() << __PRETTY_FUNCTION__ << "moving by " << dx << dy
+//                 << "current rect " << d->current_rect.size() << "new rect" << newSiz
+//                 << d->T << "rect top " << oldr.top() << " Y moved to"
+//                 << r.top();
+
+        emit zoomChanged();
+    }
+}
+
+bool QuZoomer::inZoom() const {
     return d->m_zstack.size() > 0;
 }
 
@@ -116,86 +121,81 @@ int QuZoomer::stackSize() const {
     return d->m_zstack.size();
 }
 
-bool QuZoomer::drawZoomRect(QPainter *p, const QRectF &r, QWidget *widget) {
-    if(d->m_zstack.size() > 0) {
-        zoom(p, r, widget);
-    }
-    QPen pe(Qt::black, 0.0);
-    p->setPen(pe);
-    p->drawRect(QRectF(p1, p2));
-    QFont f = p->font();
-    f.setPointSize(10);
-    p->setFont(f);
-    p->drawText(QRectF(p1, p2).center(), QString("%1x%2").arg(r.width(), r.height()));
-    return true; // stop processing
+bool QuZoomer::rectChanging() const {
+    return d->zoom_area.isValid();
 }
 
-bool QuZoomer::zoom(QPainter *p, const QRectF &r, QWidget *widget) {
-    if(d->m_zstack.size() > 0) {
-        p->setWindow(r.toRect());
+bool QuZoomer::viewportChanged() const {
+    return d->changed;
+}
+
+const QRect &QuZoomer::setViewport( QPainter * painter, const QRectF& r) const {
+    d->current_rect = r;
+    // if zoom rect changed recalculate the viewport
+    // otherwise return the current viewport
+    if(d->m_zstack.size() > 0/* && d->changed*/) {
         float ratio;
         float dx, dy, ddx = 0, ddy = 0;
         float m = qMin(r.width(), r.height()); // smaller side
         const QRectF& zr = d->m_zstack[d->m_zstack.size() - 1];
-        if(!r.contains(zr))
-            printf("\e[1;31mWARNING zoom rect bigger than painter rect\e[0m!!\n");
-        if(zr.width() > zr.height()) {
-            ratio = zr.width() / m; // < 1
-//            zr.setHeight(zr.height() / ratio);
-            // in case of wide and short rectangles, adjust Y so that the viewport is centered
-            ddy = r.height() / 2.0 - zr.height() / ratio / 2.0;
+        float M = qMax(zr.width(), zr.height());
+        if(!r.contains(zr) /*&& !d->changed*/) {
+            printf("\e[1;31mWARNING zoom rect OUTSIDE painter rect\e[0m!!\n");
+            qDebug() << __PRETTY_FUNCTION__ << "painter rect" << r << "zoom rect" << zr;
         }
-        else {
-            ratio = zr.height() / m;  // < 1
-//            zr.setWidth(zr.width() / ratio);
-            // in case of high and slim rectangles, adjust X so that the viewport is centered
-            ddx = r.width() / 2.0 - zr.width() / ratio / 2.0;
+        /*else*/ {
+            ratio = M / m;
+            if(zr.width() > zr.height()) {
+//                ratio = zr.width() / m; // < 1
+                //            zr.setHeight(zr.height() / ratio);
+                // in case of wide and short rectangles, adjust Y so that the viewport is centered
+                ddy = r.height() / 2.0 - zr.height() / ratio / 2.0;
+            }
+            else {
+//                ratio = zr.height() / m;  // < 1
+                //            zr.setWidth(zr.width() / ratio);
+                // in case of high and slim rectangles, adjust X so that the viewport is centered
+                ddx =  r.width() / 2.0 - zr.width() / ratio / 2.0;
+            }
+            if(ratio > 1 )
+                ratio = 1;
+            dx = zr.x() / ratio;
+            dy = zr.y() / ratio;
+            QRectF za(-dx + ddx, -dy + ddy, r.width() / ratio, r.height() / ratio);
+
+            //        qDebug() << __PRETTY_FUNCTION__ << "dx" << dx << "dy" << dy;
+            qDebug() << __PRETTY_FUNCTION__ << "zoom rect" << zr << "--> area " << za
+                     << "ddx" << ddx << "ddy" << ddy << "painter rect" << r;
+            //        qDebug() << __PRETTY_FUNCTION__ << "painter w / zoom rect w " << r.width() / zr.width()  <<
+            //            "painter h / zoom rect h" << r.height() / zr.height();
+            // r e zr are now in   scale
+
+            //        p->translate(-dx + ddx, -dy + ddy);
+            //        p->scale(1.0/ratio, 1.0/ratio);
+
+            d->viewport = za.toRect();
+            //        qDebug() << __PRETTY_FUNCTION__ << "transform" << d->m_transform << "Inverted" << d->m_transform.inverted()
+            //                 << "device Transform" << devT << "combined Transform" << cT;
         }
-        dx = zr.x() / ratio;
-        dy = zr.y() / ratio;
-        QRectF za(-dx + ddx, -dy + ddy, r.width() / ratio, r.height() / ratio);
-
-//        qDebug() << __PRETTY_FUNCTION__ << "dx" << dx << "dy" << dy;
-        qDebug() << __PRETTY_FUNCTION__ << "zoom rect" << zr << "--> area " << za
-                 << "ddx" << ddx << "ddy" << ddy << "painter rect" << r;
-//        qDebug() << __PRETTY_FUNCTION__ << "painter w / zoom rect w " << r.width() / zr.width()  <<
-//            "painter h / zoom rect h" << r.height() / zr.height();
-        // r e zr are now in   scale
-
-//        p->translate(-dx + ddx, -dy + ddy);
-//        p->scale(1.0/ratio, 1.0/ratio);
-
-        p->setViewport(za.toRect());
-        d->m_transform = p->deviceTransform();
-//        qDebug() << __PRETTY_FUNCTION__ << "transform" << d->m_transform << "Inverted" << d->m_transform.inverted()
-//                 << "device Transform" << devT << "combined Transform" << cT;
+        painter->setViewport(d->viewport);
+        d->T = painter->deviceTransform();
     }
-    return false;
-}
-
-void QuZoomer::m_update(QObject *o)
-{
-    if(qobject_cast<QWidget *>(o))
-        qobject_cast<QWidget *>(o)->update();
-    else if(qobject_cast<QGraphicsObject *>(o))
-        qobject_cast<QGraphicsObject *>(o)->update();
-}
-
-void QuZoomer::m_move_zooms() {
-    for(int i = 0; i < d->m_zstack.size(); i++) {
-        const float dx = p2.x() - p1.x(), dy = p2.y() - p1.y();
-        qDebug() << "moving zooms by " << dx << "," << dy;
-        d->m_zstack[i].moveLeft(d->m_zstack[i].left() - dx);
-        d->m_zstack[i].moveTop(d->m_zstack[i].top() - dy);
+    else /*if(d->changed)*/ {
+        qDebug() << __PRETTY_FUNCTION__ << "resetting transform and viewport";
+        d->T = QTransform();
+        d->viewport = r.toRect();
     }
+
+    d->changed = false;
+    return d->viewport;
 }
 
 void QuZoomer::m_add_zoom(const QRectF &area) {
-        d->m_zstack.append(QRectF(area));
+    d->m_zstack.append(QRectF(area));
 }
 
 QPointF QuZoomer::m_map_from_pos(const QPointF &pt) {
-    QPointF pxf = d->m_transform.inverted().map(pt);
+    QPointF pxf = d->T.inverted().map(pt);
     qDebug() << __PRETTY_FUNCTION__ << "from" << pt << "to" << pxf;
     return pxf;
 }

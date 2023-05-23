@@ -39,6 +39,7 @@ SOURCES += \
     base/qunumericitem.cpp \
     base/qunumericwidget.cpp \
     base/quzoomer.cpp \
+    base/quzoomevents.cpp \
     controls/qunumericcontrol_w.cpp \
     base/qucircularplotwidget.cpp \
     base/qucircularplotitem.cpp
@@ -54,6 +55,7 @@ HEADERS += \
     base/qunumericitem.h \
     base/qunumericwidget.h \
     base/quzoomer.h \
+    base/quzoomevents.h \
     controls/qunumericcontrol_w.h \
     base/qucircularplotwidget.h \
     base/qucircularplotitem.h

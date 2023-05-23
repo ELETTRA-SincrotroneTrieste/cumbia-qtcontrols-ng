@@ -173,10 +173,13 @@ void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
 
     }
 
-    if(d.zoomer && d.zoomer->p1 != d.zoomer->p2)
-        d.zoomer->drawZoomRect(p, rect, widget);
+    if(d.zoomer && d.zoomer->inZoom()) {
+        QPen rpen(Qt::lightGray, 0.0);
+        p->setPen(rpen);
+        p->drawRect(d.zoomer->zoomArea());
+    }
 
-    QPen rpen(Qt::lightGray, 0.0);
+    QPen rpen(Qt::yellow, 0.0);
     p->setPen(rpen);
     p->drawRect(rect);
 
