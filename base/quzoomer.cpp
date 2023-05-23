@@ -145,6 +145,8 @@ const QRect &QuZoomer::setViewport( QPainter * painter, const QRectF& r) const {
         }
         /*else*/ {
             ratio = M / m;
+            if(ratio > 1 )
+                ratio = 1;
             if(zr.width() > zr.height()) {
 //                ratio = zr.width() / m; // < 1
                 //            zr.setHeight(zr.height() / ratio);
@@ -157,8 +159,8 @@ const QRect &QuZoomer::setViewport( QPainter * painter, const QRectF& r) const {
                 // in case of high and slim rectangles, adjust X so that the viewport is centered
                 ddx =  r.width() / 2.0 - zr.width() / ratio / 2.0;
             }
-            if(ratio > 1 )
-                ratio = 1;
+
+            //
             dx = zr.x() / ratio;
             dy = zr.y() / ratio;
             QRectF za(-dx + ddx, -dy + ddy, r.width() / ratio, r.height() / ratio);
