@@ -14,6 +14,8 @@ SOURCES += \
     main.cpp \
     painting.cpp
 
+RESOURCES += painting.qrc
+
 HEADERS += \
     painting.h
 

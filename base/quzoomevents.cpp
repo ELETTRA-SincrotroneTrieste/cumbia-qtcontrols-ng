@@ -80,7 +80,7 @@ bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
             p2 = pos;
             emit moveRect(p1, p2);
             p1 = p2;
-            qDebug() << __PRETTY_FUNCTION__ << "moving zooms";
+            ret = true;
         }
         else if(d->moving_view && release) {
             p1 = p2 = QPointF();
@@ -97,10 +97,7 @@ bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
         else if(release && butt == Qt::MiddleButton && d->zoom_level > 0) {
             d->zoom_level--;
             emit unzoom();
-//            d->m_zstack.pop_back();
-//            if(!d->m_zstack.size())
-//                d->m_transform = QTransform();
-//            m_update(watched);
+            ret = true;
         }
     }
     return ret ? ret : QObject::eventFilter(watched, event);

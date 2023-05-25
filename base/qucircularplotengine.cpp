@@ -1,5 +1,7 @@
 #include "qucircularplotengine.h"
 #include "out_of_bounds_xforms.h"
+#include "quzoomevents.h"
+#include "quzoomer.h"
 #include <math.h>
 #include <QPainter>
 #include <QtDebug>
@@ -31,14 +33,20 @@ QuCircularPlotEngineData::QuCircularPlotEngineData()
     oob_xform = new OOBLogTransform;
 }
 
-QuCircularPlotEngine::QuCircularPlotEngine(const QFont& f, QuZoomer *zoomer)
+QuCircularPlotEngine::QuCircularPlotEngine(const QFont& f, QuZoomer *zoomer, QuZoomEvents *ze)
     : QObject{nullptr}  {
     d.font = f;
     d.zoomer = zoomer;
+    d.zoom_ev = ze;
+    connect(d.zoom_ev, SIGNAL(zoomRectChanged(QRectF)), d.zoomer, SLOT(setZoomRect(QRectF)));
+    connect(d.zoom_ev, SIGNAL(moveRect(QPointF,QPointF)), d.zoomer, SLOT(moveZoom(QPointF,QPointF)));
+    connect(d.zoom_ev, SIGNAL(unzoom()), d.zoomer, SLOT(unzoom()));
+    connect(d.zoom_ev, SIGNAL(zoomRectChanging(QPointF,QPointF)), d.zoomer, SLOT(zoomRectChanging(QPointF,QPointF)));
 }
 
 QuCircularPlotEngine::~QuCircularPlotEngine() {
-
+    delete d.zoom_ev;
+    delete d.zoomer;
 }
 
 void QuCircularPlotEngine::setData(const QString &src, const QVector<double> &xdata, const QVector<double> &ydata){
@@ -95,13 +103,8 @@ void QuCircularPlotEngine::m_get_bounds(double *x, double *X,
     *outr = /*d.yub < d.ymax ? 0.98 * R :*/  R * d.outer_radius_factor;
 }
 
-void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *widget) {
-    if(d.zoomer)
-        printf("zoomer in zoom? %s level %d\n", d.zoomer->inZoom() ? "YES" : "NO", d.zoomer->stackSize());
-    if(d.bounding_r != rect) {
-        d.bounding_r = rect;
-    }
-    p->setRenderHint(QPainter::Antialiasing, true);
+void QuCircularPlotEngine::m_paint(QPainter *p, const QRectF &rect) {
+//    p->setRenderHint(QPainter::Antialiasing, true);
     double R = qMin(rect.width(), rect.height()) / 2.0;
     const QPointF& c = rect.center();
     d.radius = R * d.radius_factor;
@@ -173,16 +176,59 @@ void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *widge
 
     }
 
-    if(d.zoomer && d.zoomer->inZoom()) {
+
+}
+
+void QuCircularPlotEngine::paint(QPainter *p, const QRectF &re, QWidget *widget) {
+    bool in_zoom = d.zoomer->inZoom();
+    float xr = 0.0f, yr = 0.0f, xp = 0.0, yp = 0.0f;
+    if(in_zoom) {
+        p->save();
+        const QTransform& T = d.zoomer->calculateTransform(re);
+        qDebug() << __PRETTY_FUNCTION__ << "zoomer transform " << T;
+        xr = T.m11();
+        yr = T.m22();
+        xp = -T.m31() / xr;
+        yp = -T.m32() / yr;
+        QTransform pt = p->combinedTransform(); // current painter transform
+        p->setClipRect(re);
+        p->setTransform(T * pt);
+    }
+
+    // draw
+    m_paint(p, re);
+
+    QPen pen(Qt::cyan, 0.0);
+    p->setPen(pen);
+    p->drawRect(re);
+
+    if(d.zoomer->rectChanging()) {
         QPen rpen(Qt::lightGray, 0.0);
+        rpen.setWidthF(0.0);
+        rpen.setColor(Qt::darkGray);
         p->setPen(rpen);
         p->drawRect(d.zoomer->zoomArea());
     }
 
-    QPen rpen(Qt::yellow, 0.0);
-    p->setPen(rpen);
-    p->drawRect(rect);
-
+    if(d.zoomer->inZoom()) { // restore painter and draw a zoom indicator
+        p->restore();
+        QColor c(Qt::lightGray);
+        QPen pe(c, 0.0);
+        pe.setStyle(Qt::DashLine);
+        p->setPen(pe);
+        p->drawRect(re);
+        pe.setStyle(Qt::SolidLine);
+        p->setPen(pe);
+        c = c.lighter(120);
+        c.setAlpha(120);
+        p->setBrush(c);
+        float hscroll_len = re.width() / xr;
+        float vscroll_len = re.height() / yr;
+        const float scrollw = qMin(re.width(), re.height()) / 40;
+        p->drawRect(xp, re.height() - scrollw, hscroll_len, scrollw);
+        p->drawRect(re.width() - scrollw, yp - scrollw, scrollw, vscroll_len);
+        qDebug() << __PRETTY_FUNCTION__ << "scrollbar" << QRectF(xp, re.height() - scrollw, hscroll_len, scrollw);
+    }
 }
 
 // R distance from center to side of bounding square (maximum radius)
@@ -322,6 +368,14 @@ double QuCircularPlotEngine::minimum() const {
 
 double QuCircularPlotEngine::maximum() const {
     return 0.0;
+}
+
+QuZoomer *QuCircularPlotEngine::zoomer() const {
+    return d.zoomer;
+}
+
+QuZoomEvents *QuCircularPlotEngine::zoomEvents() const {
+    return d.zoom_ev;
 }
 
 float QuCircularPlotEngine::radiusFactor() const {

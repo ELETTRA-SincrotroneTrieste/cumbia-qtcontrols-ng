@@ -25,15 +25,13 @@ public:
     int stackSize() const;
     bool rectChanging() const;
     bool viewportChanged() const;
-    const QRect& setViewport(QPainter *painter, const QRectF &r) const;
-
+    const QTransform& calculateTransform(const QRectF &r) const;
+    const QTransform & transform() const;
 public slots:
     void setZoomRect(const QRectF& r);
     void moveZoom(const QPointF& p1, const QPointF& p2);
     void unzoom();
     void zoomRectChanging(const QPointF& topl, const QPointF& botr);
-
-    void sizeChanged(const QSize& newSiz);
 
 
 signals:

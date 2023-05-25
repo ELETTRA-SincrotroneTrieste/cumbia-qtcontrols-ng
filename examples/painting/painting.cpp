@@ -11,6 +11,7 @@
 #include <QSpinBox>
 #include "quzoomer.h"
 #include "quzoomevents.h"
+#include <math.h>
 
 ZoomW::ZoomW(QWidget *parent)
     : QWidget(parent)
@@ -20,7 +21,7 @@ ZoomW::ZoomW(QWidget *parent)
     connect(m_zoom_ev, SIGNAL(zoomRectChanged(QRectF)), m_zoomer, SLOT(setZoomRect(QRectF)));
     connect(m_zoom_ev, SIGNAL(moveRect(QPointF,QPointF)), m_zoomer, SLOT(moveZoom(QPointF,QPointF)));
     connect(m_zoom_ev, SIGNAL(unzoom()), m_zoomer, SLOT(unzoom()));
-            connect(m_zoom_ev, SIGNAL(zoomRectChanging(QPointF,QPointF)), m_zoomer, SLOT(zoomRectChanging(QPointF,QPointF)));
+    connect(m_zoom_ev, SIGNAL(zoomRectChanging(QPointF,QPointF)), m_zoomer, SLOT(zoomRectChanging(QPointF,QPointF)));
     connect(m_zoomer, SIGNAL(zoomChanged()), this, SLOT(update()));
     m_mode = 1;
     m_rows = m_cols = 30;
@@ -28,28 +29,11 @@ ZoomW::ZoomW(QWidget *parent)
 
 void ZoomW::paintEvent(QPaintEvent *event) {
     QPainter p(this);
-
-    const QRectF & wr = p.window();
-    const QRectF & vr = p.viewport();
-
-    QPen pen(Qt::blue, 4.0);
-    p.setPen(pen);
-    p.drawRect(wr);
-
-    pen.setWidthF(0.0);
-    pen.setColor(Qt::green);
-    p.setPen(pen);
-    p.drawRect(vr);
-
-    QRect viewport;
-    if(m_zoomer->inZoom())
-        viewport = m_zoomer->setViewport(&p, event->rect());
-
-    if(viewport != event->rect()) {
-        printf("\e[1;35mviewport is %d,%d  %dx%d\e[0m\n", viewport.left(), viewport.top(), viewport.width(),viewport.height());
+    const QTransform ct = p.combinedTransform();
+    if(m_zoomer->inZoom()) {
+        p.setTransform(m_zoomer->calculateTransform(event->rect()) * ct);
     }
-
-    pen.setColor(Qt::darkGray);
+    QPen pen(Qt::darkGray, 0.0);
     p.setPen(pen);
     QFont f = p.font();
     QFontMetrics fm(f);
@@ -89,16 +73,49 @@ void ZoomW::paintEvent(QPaintEvent *event) {
         }
     }
 
+    if(m_mode == 3 || m_mode == 4) {
+        if(m_img.isNull())
+            m_img = QImage(":seoyeji.png");
+        if(m_mode == 3) {
+            p.drawImage(event->rect(), m_img);
+            int w = event->rect().width();
+            int h = event->rect().height();
+            float iw = m_img.width();
+            float ih = m_img.height();
+            float wr = iw / w;  // width ratio
+            float hr = ih / h; // height ratio
+            float d = fabs(wr - hr);
+            printf("event rect w %d height %d - wr %f hr %f d %f\n", w, h, wr, hr, d);
+            pen.setColor(d > 0.005 ? Qt::red : Qt::green);
+            pen.setWidthF(6);
+            p.setPen(pen);
+            wr < hr ? w = iw /hr : h = ih / wr;
+            QRect ire(event->rect().topLeft(), QSize(w, h));
+            p.drawRect(ire);
+        }
+        else
+            p.drawImage(m_img.rect(), m_img);
+    }
+
     if(m_zoomer->rectChanging()) {
+        pen.setWidthF(0.0);
         pen.setColor(Qt::darkGray);
         p.setPen(pen);
         p.drawRect(m_zoomer->zoomArea());
     }
 
-}
-
-void ZoomW::resizeEvent(QResizeEvent *re) {
-    m_zoomer->sizeChanged(re->size());
+    if(m_zoomer->inZoom()) {
+        p.setTransform(ct);  // restore transform
+        QPen pe(Qt::blue, 2.0);
+        pe.setStyle(Qt::DashDotLine);
+        p.setPen(pe);
+        QRect zr(event->rect());
+        zr.setX(zr.x() + pe.widthF() / 2.0);
+        zr.setY(zr.y() + pe.widthF() / 2.0);
+        zr.setRight(zr.right() - pe.widthF());
+        zr.setBottom(zr.bottom() - pe.widthF());
+        p.drawRect(zr);
+    }
 }
 
 ZoomW::~ZoomW()
@@ -143,14 +160,23 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     QGridLayout *glo = new QGridLayout(gb);
     QLabel *la1 = new QLabel("Draw", gb);
     QComboBox *cb = new QComboBox(gb);
-    cb->insertItems(0, QStringList {"Numbers (Adaptive)", "Numbers (fixed)", "Circles"});
+    cb->insertItems(0, QStringList {"Numbers (Adaptive)", "Numbers (fixed)", "Circles", "Image (adaptive)", "Image (fixed)"});
     cb->setItemData(0, "Draw a matrix of numbers whose size adapts to the available drawing area", Qt::ToolTipRole);
     cb->setItemData(1, "Draw a matrix of numbers with a fixed number of rows and cols", Qt::ToolTipRole);
     cb->setItemData(2, "Draw Circles that fit the available area", Qt::ToolTipRole);
+    cb->setItemData(3, "Draw an image that fits to the available area", Qt::ToolTipRole);
+    cb->setItemData(4, "Draw a fixed size image", Qt::ToolTipRole);
+
+    QLabel *limgi = new QLabel("Resize and follow the frame until it turns green to scale the image properly");
+    limgi->setObjectName("limage");
+    limgi->setWordWrap(true);
+    limgi->setVisible(false);
+
     connect(cb, SIGNAL(currentIndexChanged(int)), zw, SLOT(drawModeChanged(int)));
     connect(cb, SIGNAL(currentIndexChanged(int)), this, SLOT(drawModeChanged(int)));
     glo->addWidget(la1, 0, 0, 1, 1);
     glo->addWidget(cb, 0, 1, 1, 4);
+    glo->addWidget(limgi, 1, 0, 1, 5);
     resize(800, 600);
 
 }
@@ -184,4 +210,5 @@ void Widget::drawModeChanged(int mode) {
         delete findChild<QSpinBox *>("sbr");
         delete findChild<QSpinBox *>("sbc");
     }
+    findChild<QLabel *>("limage")->setVisible(mode == 3);
 }

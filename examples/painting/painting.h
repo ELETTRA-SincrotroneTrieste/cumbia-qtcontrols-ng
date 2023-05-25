@@ -13,7 +13,6 @@ public:
     ZoomW(QWidget *parent);
 
     void paintEvent(QPaintEvent *event);
-    void resizeEvent(QResizeEvent *re);
 
     ~ZoomW();
 
@@ -33,6 +32,7 @@ private:
     QuZoomEvents *m_zoom_ev;
 
     int m_mode, m_rows, m_cols;
+    QImage m_img;
 };
 
 class Widget : public QWidget {

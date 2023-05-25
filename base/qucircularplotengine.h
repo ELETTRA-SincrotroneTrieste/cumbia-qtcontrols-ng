@@ -10,11 +10,12 @@
 #include <QMap>
 #include <math.h>
 #include "qucircularplotcurve.h"
-#include "quzoomer.h"
 
 class QStyleOptionGraphicsItem;
 class QPainter;
 class OOBTransform;
+class QuZoomEvents;
+class QuZoomer;
 
 class QuCircularPlotEngineData {
 public:
@@ -37,6 +38,7 @@ public:
     int y_axes; // default: show 0 Y axes
 
     QuZoomer *zoomer;
+    QuZoomEvents *zoom_ev;
 };
 
 class QuCircularPlotEngine : public QObject
@@ -45,7 +47,7 @@ class QuCircularPlotEngine : public QObject
 public:
     QuCircularPlotEngineData d;
 
-    explicit QuCircularPlotEngine(const QFont &f, QuZoomer *zoomer);
+    explicit QuCircularPlotEngine(const QFont &f, QuZoomer *zoomer, QuZoomEvents* ze);
     virtual  ~QuCircularPlotEngine();
 
     void contextMenuEvent(const QPointF& pos);
@@ -56,6 +58,9 @@ public:
 
     double minimum() const;
     double maximum() const;
+
+    QuZoomer *zoomer() const;
+    QuZoomEvents *zoomEvents() const;
 
     /*!
      * \brief radiusFactor is a factor from 0 to 1 indicating where to draw the circle
@@ -111,6 +116,7 @@ signals:
 
 private:
 
+    void m_paint(QPainter *p, const QRectF &rect);
     QPointF *m_get_points(const QuCircularPlotCurve *c,
                           const double &R,
                           const double xmin, const double xmax,

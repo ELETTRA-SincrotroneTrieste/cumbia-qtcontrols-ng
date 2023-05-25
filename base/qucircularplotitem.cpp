@@ -7,10 +7,14 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QStyleOptionGraphicsItem>
 
+#include <quzoomer.h>
+#include <quzoomevents.h>
+
 class QuCircularPlotI_P {
 public:
     QuCircularPlotI_P(QGraphicsObject *gobj, const QFont& f)
-        : e(new QuCircularPlotEngine(f, new QuZoomer(gobj))), rect(0, 0, 100, 40) {
+        : e(new QuCircularPlotEngine(f, new QuZoomer(gobj), new QuZoomEvents(gobj))), rect(0, 0, 100, 40) {
+        // circular plot engine takes the ownership of zoomer and zoom events
     }
     ~QuCircularPlotI_P() {
         delete e;
@@ -23,6 +27,7 @@ QuCircularPlotI::QuCircularPlotI(QGraphicsItem *parent) : QGraphicsObject(parent
     d = new QuCircularPlotI_P(this, QFont());
     setAcceptHoverEvents(true); // mouse tracking
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    connect(d->e->zoomer(), SIGNAL(zoomChanged()), this, SLOT(update()));
 }
 
 QuCircularPlotI::~QuCircularPlotI() {
@@ -30,6 +35,11 @@ QuCircularPlotI::~QuCircularPlotI() {
 }
 
 void QuCircularPlotI::update() {
+//    if(d->e->zoomer()->inZoom() && scene()) {
+//        printf("\e[1;32mQuCircularPlotI::update inZoom: updating scene\e[0m");
+//        scene()->update();
+//    }
+//    else
     QGraphicsObject::update(QRectF());
 }
 

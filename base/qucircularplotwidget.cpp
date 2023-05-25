@@ -4,10 +4,13 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <math.h>
+#include <quzoomer.h>
+#include <quzoomevents.h>
 
 class QuCircularPlotW_P {
 public:
-    QuCircularPlotW_P(QWidget *o, const QFont& f) : e(new QuCircularPlotEngine(f, new QuZoomer(o))) {
+    QuCircularPlotW_P(QWidget *o, const QFont& f)
+        : e(new QuCircularPlotEngine(f, new QuZoomer(o), new QuZoomEvents(o))) {
     }
     ~QuCircularPlotW_P() {
         delete e;
@@ -19,13 +22,7 @@ QuCircularPlotW::QuCircularPlotW(QWidget *parent)
     : QWidget{parent} {
     d = new QuCircularPlotW_P(this, font());
     setMouseTracking(true);
-
-    connect(d->e, SIGNAL(valueChanged(double)), this, SIGNAL(valueChanged(double)));
-    connect(d->e, SIGNAL(minimumChanged(double)), this, SIGNAL(minimumChanged(double)));
-    connect(d->e, SIGNAL(maximumChanged(double)), this, SIGNAL(maximumChanged(double)));
-    connect(d->e, SIGNAL(intDigitsChanged(int)), this, SIGNAL(intDigitsChanged(int)));
-    connect(d->e, SIGNAL(decDigitsChanged(int)), this, SIGNAL(decDigitsChanged(int)));
-    connect(d->e, SIGNAL(applyClicked(double)), this, SIGNAL(clicked(double)));
+    connect(d->e->zoomer(), SIGNAL(zoomChanged()), this, SLOT(update()));
 }
 
 QuCircularPlotW::~QuCircularPlotW() {
