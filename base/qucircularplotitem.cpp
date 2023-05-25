@@ -84,7 +84,7 @@ void QuCircularPlotI::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
 }
 
 QVariant QuCircularPlotI::itemChange(GraphicsItemChange change, const QVariant &value) {
-    printf("\e[1;33m change %d val %s\e[0m\n", change, qstoc(value.toString()));
+    printf("\e[1;33m QuCircularPlotI.itemChange %d val %s\e[0m\n", change, qstoc(value.toString()));
     if(change == QGraphicsItem::ItemScaleChange ||
         change == QGraphicsItem::ItemVisibleChange) {
         pretty_pri("recalculating text font size");

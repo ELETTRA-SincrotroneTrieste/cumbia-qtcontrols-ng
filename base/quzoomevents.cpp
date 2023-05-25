@@ -30,6 +30,7 @@ QuZoomEvents::~QuZoomEvents() {
 }
 
 bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
+    return eventFilter(watched, event);
     bool ret = false;
     Qt::MouseButton butt;
     Qt::KeyboardModifiers m;
