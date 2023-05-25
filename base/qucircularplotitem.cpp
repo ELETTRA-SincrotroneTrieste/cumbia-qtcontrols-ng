@@ -9,6 +9,7 @@
 
 #include <quzoomer.h>
 #include <quzoomevents.h>
+#include <QtDebug>
 
 class QuCircularPlotI_P {
 public:
@@ -35,11 +36,6 @@ QuCircularPlotI::~QuCircularPlotI() {
 }
 
 void QuCircularPlotI::update() {
-//    if(d->e->zoomer()->inZoom() && scene()) {
-//        printf("\e[1;32mQuCircularPlotI::update inZoom: updating scene\e[0m");
-//        scene()->update();
-//    }
-//    else
     QGraphicsObject::update(QRectF());
 }
 
@@ -61,18 +57,12 @@ void QuCircularPlotI::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     d->e->paint(painter, option->rect, widget);
 }
 
-void QuCircularPlotI::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-{
+void QuCircularPlotI::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+    QGraphicsObject::contextMenuEvent(event);
 }
 
 void QuCircularPlotI::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    if(event->button() == Qt::LeftButton) {
-        d->e->mousePressEvent(event->pos());
-        update();
-    }
-    else {
-        QGraphicsItem::mousePressEvent(event);
-    }
+    QGraphicsObject::mousePressEvent(event);
 }
 
 void QuCircularPlotI::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
@@ -84,7 +74,6 @@ void QuCircularPlotI::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
 }
 
 QVariant QuCircularPlotI::itemChange(GraphicsItemChange change, const QVariant &value) {
-    printf("\e[1;33m QuCircularPlotI.itemChange %d val %s\e[0m\n", change, qstoc(value.toString()));
     if(change == QGraphicsItem::ItemScaleChange ||
         change == QGraphicsItem::ItemVisibleChange) {
         pretty_pri("recalculating text font size");
@@ -94,16 +83,9 @@ QVariant QuCircularPlotI::itemChange(GraphicsItemChange change, const QVariant &
 }
 
 void QuCircularPlotI::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-    printf("mouseReleaseEvent button %d\n", event->button());
-    if(event->button() == Qt::LeftButton) {
-        d->e->mousePressEvent(event->pos());
-        update();
-    }
-    else {
-        QGraphicsItem::mousePressEvent(event);
-    }
+    QGraphicsObject::mouseReleaseEvent(event);
 }
 
-void QuCircularPlotI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
-{
+void QuCircularPlotI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
+    QGraphicsObject::mouseDoubleClickEvent(event);
 }

@@ -12,11 +12,11 @@ class QuCircularPlotI : public QGraphicsObject
 public:
     QuCircularPlotI(QGraphicsItem *parent );
     virtual ~QuCircularPlotI();
+    QuCircularPlotEngine *engine() const;
 
 public slots:
-    void update();
+    void update(); // we need a slot: there's no QGraphicsObject::update slot
     void setData(const QString& src, const QVector<double>& xdata, const QVector<double>& ydata);
-    QuCircularPlotEngine *engine() const;
 
 private:
     QuCircularPlotI_P *d;

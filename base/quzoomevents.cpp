@@ -30,7 +30,6 @@ QuZoomEvents::~QuZoomEvents() {
 }
 
 bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
-    return eventFilter(watched, event);
     bool ret = false;
     Qt::MouseButton butt;
     Qt::KeyboardModifiers m;
@@ -58,10 +57,10 @@ bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
             m = me->modifiers();
             pos = me->pos();
         }
-        qDebug() << __PRETTY_FUNCTION__ << "modif" << m << "butt" << butt
-                 << pos << "is graphicsscene" << graphicss <<
-            "press" << press << "release" << release << "move" << move << "p1" << p1
-                 << "p2" << p2;
+//        qDebug() << __PRETTY_FUNCTION__ << "modif" << m << "butt" << butt
+//                 << pos << "is graphicsscene" << graphicss <<
+//            "press" << press << "release" << release << "move" << move << "p1" << p1
+//                 << "p2" << p2;
 
         if((m & d->modifiers[Zoom] || d->modifiers[Zoom] == Qt::NoModifier) && (butt == Qt::LeftButton  || butt == Qt::MiddleButton || !p1.isNull())) {
             if(press && butt == Qt::LeftButton) {

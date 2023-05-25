@@ -15,7 +15,6 @@ PKGCONFIG += cumbia cumbia-qtcontrols-ng
 SOURCES += \
     main.cpp \
     circularplot.cpp
-
 HEADERS += \
     circularplot.h
 
