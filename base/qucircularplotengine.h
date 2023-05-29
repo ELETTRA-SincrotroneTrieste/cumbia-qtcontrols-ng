@@ -62,6 +62,11 @@ public:
     QuZoomer *zoomer() const;
     QuZoomEvents *zoomEvents() const;
 
+    double yLowerBound() const;
+    double yUpperBound() const;
+    double xLowerBound() const;
+    double xUpperBound() const;
+
     /*!
      * \brief radiusFactor is a factor from 0 to 1 indicating where to draw the circle
      *        in the available area

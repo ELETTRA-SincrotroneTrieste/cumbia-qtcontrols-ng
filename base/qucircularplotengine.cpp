@@ -370,6 +370,22 @@ double QuCircularPlotEngine::maximum() const {
     return 0.0;
 }
 
+double QuCircularPlotEngine::yLowerBound() const {
+    return d.ylb;
+}
+
+double QuCircularPlotEngine::yUpperBound() const {
+    return d.yub;
+}
+
+double QuCircularPlotEngine::xLowerBound() const {
+    return d.xlb;
+}
+
+double QuCircularPlotEngine::xUpperBound() const {
+    return d.xub;
+}
+
 QuZoomer *QuCircularPlotEngine::zoomer() const {
     return d.zoomer;
 }

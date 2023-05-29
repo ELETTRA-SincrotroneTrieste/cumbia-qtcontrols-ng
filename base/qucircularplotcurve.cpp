@@ -1,4 +1,5 @@
 #include "qucircularplotcurve.h"
+#include "cumacros.h"
 
 class QuCircularPlotCurveP {
 public:
