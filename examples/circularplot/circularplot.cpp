@@ -15,6 +15,7 @@
 #include <qucircularplotengine.h>
 #include <qcheckbox.h>
 #include <QtDebug>
+#include <QSplitter>
 
 class ViewOFilter : public QObject {
 public:
@@ -29,7 +30,7 @@ public:
     }
 };
 
-Widget::Widget(QWidget *parent)
+CircularPlot::CircularPlot(QWidget *parent)
     : QWidget(parent)
 {
     QCommandLineParser p;
@@ -42,16 +43,16 @@ Widget::Widget(QWidget *parent)
     const int nplots = 10;
     const int distrib_r = 200;
     if(p.parse(qApp->arguments())) {
-        QGridLayout *lo = new QGridLayout(this);
-        QGroupBox * gr = new QGroupBox("widget", this);
+        QVBoxLayout *lo = new QVBoxLayout(this);
+        QSplitter *splitter = new QSplitter(Qt::Horizontal, this);
+        lo->addWidget(splitter);
         QGraphicsView *gv = new QGraphicsView(this);
         QGraphicsScene *sce = new QGraphicsScene(this);
         gv->setScene(sce);
         gv->installEventFilter(new ViewOFilter(this));
-        const int enumspan = 10;
+        splitter->addWidget(gv);
+        splitter->setStretchFactor(0, 10);
 
-        lo->addWidget(gr, 0, 0, enumspan, 5);
-        lo->addWidget(gv, 0, 5, 10, 10);
         //        QuCircularPlotW *nw = new QuCircularPlotW(gr);
         //        QVBoxLayout *vlo = new QVBoxLayout(gr);
         //        vlo->addWidget(nw);
@@ -64,7 +65,7 @@ Widget::Widget(QWidget *parent)
         t->setProperty("points", p.value("points").toInt());
 
         QGroupBox *confg = new QGroupBox("Configuration", this);
-        lo->addWidget(confg, 0, lo->columnCount(), lo->rowCount(), 5);
+        splitter->addWidget(confg);
         QGridLayout *clo = new QGridLayout(confg);
         QCheckBox *cbv = new QCheckBox("show values", confg);
         QCheckBox *cbc = new QCheckBox("show curves", confg);
@@ -83,11 +84,11 @@ Widget::Widget(QWidget *parent)
         cbb->setChecked(false);
 
         clo->addWidget(xascb, 0, 0, 1, 1);
-        clo->addWidget(ascb, 0, 1, 1, 1);
-        clo->addWidget(cbb, 0, 2, 1, 1);
-        clo->addWidget(cbc, 1, 0, 1, 1);
-        clo->addWidget(cbv, 1, 1, 1, 1);
-        clo->addWidget(cbp, 1, 2, 1, 1);
+        clo->addWidget(ascb, 1, 0, 1, 1);
+        clo->addWidget(cbb, 2, 0, 1, 1);
+        clo->addWidget(cbc, 3, 0, 1, 1);
+        clo->addWidget(cbv, 4, 0, 1, 1);
+        clo->addWidget(cbp, 5, 0, 1, 1);
 
 
         while(i++ < nplots) {
@@ -125,11 +126,11 @@ Widget::Widget(QWidget *parent)
     resize(800, 600);
 }
 
-Widget::~Widget() {
+CircularPlot::~CircularPlot() {
 
 }
 
-void Widget::update()   {
+void CircularPlot::update()   {
     int cnt = 0;
     QGraphicsScene *sce = findChild<QGraphicsScene *>();
     foreach(QGraphicsItem *i, sce->items()) {
@@ -156,11 +157,11 @@ void Widget::update()   {
                 //            x << i;
 
                 static_cast<QuCircularPlotI *>(i)->setData("crv" + QString::number(k), x, y);
+                QuCircularPlotCurve *c = static_cast<QuCircularPlotI *>(i)->engine()->findCurve("crv" + QString::number(k));
+                if(!c->isEditable())
+                    c->setEditable(true);
             }
-
         }
     }
-
-
 }
 

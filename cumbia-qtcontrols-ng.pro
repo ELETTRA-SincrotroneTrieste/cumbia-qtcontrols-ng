@@ -33,6 +33,7 @@ SOURCES += \
     base/out_of_bounds_xforms.cpp \
     base/qucircularplotconfigurator.cpp \
     base/qucircularplotcurve.cpp \
+    base/qucircularplotcurveselectionevents.cpp \
     base/qucircularplotengine.cpp \
     base/qunumericclickrepeater.cpp \
     base/qunumericengine.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     base/out_of_bounds_xforms.h \
     base/qucircularplotconfigurator.h \
     base/qucircularplotcurve.h \
+    base/qucircularplotcurveselectionevents.h \
     base/qucircularplotengine.h \
     base/qunumericclickrepeater.h \
     base/qunumericengine.h \

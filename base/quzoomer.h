@@ -27,20 +27,23 @@ public:
     bool viewportChanged() const;
     const QTransform& calculateTransform(const QRectF &r) const;
     const QTransform & transform() const;
+    QPointF map(const QPointF &pt);
+
 public slots:
     void setZoomRect(const QRectF& r);
     void moveZoom(const QPointF& p1, const QPointF& p2);
     void unzoom();
     void zoomRectChanging(const QPointF& topl, const QPointF& botr);
+    void map(const QPointF& p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod);
 
 
 signals:
     void zoomChanged(); // update widget
+    void clicked(const QPointF& p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod);
 
 private:
     QuZoomerP *d;
 
-    QPointF m_map_from_pos(const QPointF &pt);
     void m_add_zoom(const QRectF &area);
     QPainter m_get_painter(QObject *o) const;
 };

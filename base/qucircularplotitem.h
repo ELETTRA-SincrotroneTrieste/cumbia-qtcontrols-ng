@@ -10,7 +10,7 @@ class QuCircularPlotI : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    QuCircularPlotI(QGraphicsItem *parent );
+    QuCircularPlotI(QGraphicsItem *parent, const QSize& siz = QSize(200,200));
     virtual ~QuCircularPlotI();
     QuCircularPlotEngine *engine() const;
 

@@ -27,6 +27,14 @@ public:
 
     void minmax_update();
 
+    // selection
+    void select(int idx);
+    void deselect();
+    int selected() const;
+    // editable
+    bool isEditable() const;
+    void setEditable(bool e);
+
 private:
     QuCircularPlotCurveP *d;
 };

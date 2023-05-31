@@ -10,11 +10,13 @@
 #include <QMap>
 #include <math.h>
 #include "qucircularplotcurve.h"
+#include "qucircularplotcurveselectionevents.h"
 
 class QStyleOptionGraphicsItem;
 class QPainter;
 class OOBTransform;
 class QuZoomEvents;
+class QuCircularPlotCurveSelectionEvents;
 class QuZoomer;
 
 class QuCircularPlotEngineData {
@@ -32,13 +34,18 @@ public:
 
     double radius, radius_factor, inner_radius_factor, outer_radius_factor;
 
+    float crv_edit_r, csel_pt_r; // selection circle and point
+
     OOBTransform *oob_xform;
     bool show_values, show_points, show_bounds; // default false
     bool show_curves, show_xax, show_origin; // default: true
     int y_axes; // default: show 0 Y axes
 
     QuZoomer *zoomer;
+    QuCircularPlotCurveSelectionEvents *selection_ev;
     QuZoomEvents *zoom_ev;
+
+    QColor bgcolor, axcolor;
 };
 
 class QuCircularPlotEngine : public QObject
@@ -47,7 +54,7 @@ class QuCircularPlotEngine : public QObject
 public:
     QuCircularPlotEngineData d;
 
-    explicit QuCircularPlotEngine(const QFont &f, QuZoomer *zoomer, QuZoomEvents* ze);
+    explicit QuCircularPlotEngine(const QFont &f, QuZoomer *zoomer, QuCircularPlotCurveSelectionEvents* selev, QuZoomEvents* ze);
     virtual  ~QuCircularPlotEngine();
 
     void contextMenuEvent(const QPointF& pos);
@@ -66,6 +73,9 @@ public:
     double yUpperBound() const;
     double xLowerBound() const;
     double xUpperBound() const;
+
+    QColor background() const;
+    QColor axesColor() const;
 
     /*!
      * \brief radiusFactor is a factor from 0 to 1 indicating where to draw the circle
@@ -93,6 +103,10 @@ public:
     int  showYAxes() const;
     bool showBounds() const;
 
+
+    float curveEditRadius() const;
+    float curveSelectedPointRadius() const;
+
 public slots:
     void setYLowerBound(double m);
     void setYUpperBound(double m);
@@ -106,6 +120,8 @@ public slots:
     void setOuterRadiusFactor(float f);
 
     void setData(const QString& src, const QVector<double>& xdata, const QVector<double>& ydata);
+    QuCircularPlotCurve* addCurve(const QString& src);
+    QuCircularPlotCurve* findCurve(const QString& src) const;
 
     void setShowValues(bool show);
     void setShowPoints(bool show);
@@ -115,10 +131,19 @@ public slots:
 
     void recalculateTxtFont();
 
+    // colors
+    void setBackground(const QColor& c);
+    void setAxesColor(const QColor& c);
+
+    void setCurveEditRadius(float r);
+    void setCurveSelectionPointRadius(float r);
+
 signals:
     void minimumChanged(double m);
     void maximumChanged(double M);
-
+    void selected(const QPointF& p);
+    void closestPoint(const QList<QuCircularPlotCurve *>& curves, int idx, const QPointF& pt);
+    void dirty(); // trigger update on item / widget
 private:
 
     void m_paint(QPainter *p, const QRectF &rect);
@@ -132,6 +157,14 @@ private:
     constexpr double m_to_deg(double rad);
     void m_get_bounds_from_curves(double *x, double *X, double *y, double *Y, int *max_datasiz) const;
     void m_get_bounds(double *x, double *X, double *y, double *Y, double *inr, double *outr, const double &R) const;
+    double m_map_yp2y(const QPointF &p, const double &ylb, const double &yub, const double& R) const;
+
+private slots:
+    void m_point_selected(const QPointF& p);
+    void m_selection_moved(const QPointF& p);
+    void m_point_deselected();
+    void m_zoom_changed();
+
 private slots:
 
 };

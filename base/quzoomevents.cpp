@@ -15,6 +15,7 @@ public:
 
     }
 
+    QPointF press_pt; // to determine click
     Qt::KeyboardModifier modifiers[2];
     bool moving_view;
     int zoom_level;
@@ -22,7 +23,6 @@ public:
 
 QuZoomEvents::QuZoomEvents(QObject *parent)
     : QObject{parent}, d(new QuZoomEventsP){
-    parent->installEventFilter(this);
 }
 
 QuZoomEvents::~QuZoomEvents() {
@@ -30,7 +30,7 @@ QuZoomEvents::~QuZoomEvents() {
 }
 
 bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
-    bool ret = false;
+    bool ret = false, clickd = false;
     Qt::MouseButton butt;
     Qt::KeyboardModifiers m;
     bool graphicss = event->type() == QEvent::GraphicsSceneMousePress ||
@@ -57,14 +57,20 @@ bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
             m = me->modifiers();
             pos = me->pos();
         }
-//        qDebug() << __PRETTY_FUNCTION__ << "modif" << m << "butt" << butt
-//                 << pos << "is graphicsscene" << graphicss <<
-//            "press" << press << "release" << release << "move" << move << "p1" << p1
-//                 << "p2" << p2;
-
+        qDebug() << __PRETTY_FUNCTION__ << watched << press << release << move << "pos" << pos << "saved press pt" << d->press_pt;
+        if(press) {
+            d->press_pt = pos;
+            p1 = pos;
+        }
+        else if(move)
+            d->press_pt = QPointF();
+        else if(release && pos == d->press_pt && butt == Qt::LeftButton) {
+            d->press_pt = QPointF();
+            clickd = true;
+        }
         if((m & d->modifiers[Zoom] || d->modifiers[Zoom] == Qt::NoModifier) && (butt == Qt::LeftButton  || butt == Qt::MiddleButton || !p1.isNull())) {
             if(press && butt == Qt::LeftButton) {
-                p1 = p2 = pos;
+                p2 = pos;
             }
             else if(move &&  !p1.isNull()) {
                 p2 = pos;
@@ -74,7 +80,6 @@ bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
         }
         else if((m & d->modifiers[Move] || d->modifiers[Move] == Qt::NoModifier) && d->zoom_level > 0 && press) {
             d->moving_view = true;
-            p1 = pos;
         }
         else if(d->moving_view && move) {
             p2 = pos;
@@ -84,7 +89,7 @@ bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
         }
         else if(d->moving_view && release) {
             p1 = p2 = QPointF();
-            d->moving_view = false;
+            d->moving_view =/* clickd = */false;
         }
 
         if(release && butt == Qt::LeftButton && !p1.isNull() && !p2.isNull() && p1 != p2) {
@@ -99,6 +104,8 @@ bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
             emit unzoom();
             ret = true;
         }
+        if(clickd)
+            emit clicked(pos, butt, m);
     }
     return ret ? ret : QObject::eventFilter(watched, event);
 }

@@ -3,13 +3,15 @@
 
 class QuCircularPlotCurveP {
 public:
-    QuCircularPlotCurveP(const QString& s) : src(s), min(0.0), max(0.0) {
+    QuCircularPlotCurveP(const QString& s) : src(s), min(0.0), max(0.0), selected(-1), editable(false) {
 
     }
     QString src;
     QVector<double> x, y;
     double min, max;
     QPen pen;
+    int selected;
+    bool editable;
 };
 
 QuCircularPlotCurve::QuCircularPlotCurve(const QString& src, const QPen& p) : d(new QuCircularPlotCurveP(src)) {
@@ -66,4 +68,24 @@ double QuCircularPlotCurve::ymin() const {
 void QuCircularPlotCurve::minmax_update() {
     const auto [mi, ma] = std::minmax_element(d->y.begin(), d->y.end());
     d->min = *mi; d->max = *ma;
+}
+
+void QuCircularPlotCurve::select(int idx) {
+    d->selected = idx;
+}
+
+void QuCircularPlotCurve::deselect() {
+    d->selected = -1;
+}
+
+int QuCircularPlotCurve::selected() const {
+    return d->selected;
+}
+
+bool QuCircularPlotCurve::isEditable() const {
+    return d->editable;
+}
+
+void QuCircularPlotCurve::setEditable(bool e) {
+    d->editable = e;
 }

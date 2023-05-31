@@ -7,15 +7,22 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QStyleOptionGraphicsItem>
 
-#include <quzoomer.h>
-#include <quzoomevents.h>
+#include "quzoomer.h"
+#include "quzoomevents.h"
+#include "qucircularplotcurveselectionevents.h"
 #include <QtDebug>
 
 class QuCircularPlotI_P {
 public:
-    QuCircularPlotI_P(QGraphicsObject *gobj, const QFont& f)
-        : e(new QuCircularPlotEngine(f, new QuZoomer(gobj), new QuZoomEvents(gobj))), rect(0, 0, 100, 40) {
+    QuCircularPlotI_P(QGraphicsObject *gobj, const QFont& f, const QSize& siz)
+        :  rect(0, 0, siz.width(), siz.height()) {
+        QuCircularPlotCurveSelectionEvents *cse = new QuCircularPlotCurveSelectionEvents(gobj);
+        QuZoomEvents *ze = new QuZoomEvents(gobj);
+        e = new QuCircularPlotEngine(f, new QuZoomer(gobj), cse, ze);
         // circular plot engine takes the ownership of zoomer and zoom events
+        // If multiple event filters are installed on a single object, the filter that was installed last is activated first.
+        gobj->installEventFilter(ze); // 2nd
+        gobj->installEventFilter(cse); // activated first 1st
     }
     ~QuCircularPlotI_P() {
         delete e;
@@ -24,11 +31,12 @@ public:
     QRectF rect;
 };
 
-QuCircularPlotI::QuCircularPlotI(QGraphicsItem *parent) : QGraphicsObject(parent) {
-    d = new QuCircularPlotI_P(this, QFont());
+QuCircularPlotI::QuCircularPlotI(QGraphicsItem *parent, const QSize &siz) : QGraphicsObject(parent) {
+    d = new QuCircularPlotI_P(this, QFont(), siz);
     setAcceptHoverEvents(true); // mouse tracking
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     connect(d->e->zoomer(), SIGNAL(zoomChanged()), this, SLOT(update()));
+    connect(d->e, SIGNAL(dirty()), this, SLOT(update()));
 }
 
 QuCircularPlotI::~QuCircularPlotI() {

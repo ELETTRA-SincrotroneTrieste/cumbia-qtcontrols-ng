@@ -7,13 +7,13 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
 
-class Widget : public QWidget
+class CircularPlot : public QWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = nullptr);
-    ~Widget();
+    CircularPlot(QWidget *parent = nullptr);
+    ~CircularPlot();
 
 private slots:
     void update();

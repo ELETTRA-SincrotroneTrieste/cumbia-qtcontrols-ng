@@ -71,6 +71,10 @@ void QuZoomer::zoomRectChanging(const QPointF &topl, const QPointF &botr) {
     emit zoomChanged();
 }
 
+void QuZoomer::map(const QPointF &p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod) {
+    emit clicked(d->T.inverted().map(p), butt, mod);
+}
+
 bool QuZoomer::inZoom() const {
     return d->m_zstack.size() > 0;
 }
@@ -134,9 +138,8 @@ void QuZoomer::m_add_zoom(const QRectF &area) {
     d->m_zstack.append(QRectF(area));
 }
 
-QPointF QuZoomer::m_map_from_pos(const QPointF &pt) {
-    QPointF pxf = d->T.inverted().map(pt);
-    return pxf;
+QPointF QuZoomer::map(const QPointF &pt) {
+    return d->T.inverted().map(pt);
 }
 
 QPainter QuZoomer::m_get_painter(QObject *o) const {

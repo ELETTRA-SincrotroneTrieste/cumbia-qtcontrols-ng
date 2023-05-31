@@ -26,6 +26,7 @@ signals:
     void unzoom();
     void moveRect(const QPointF& p1, const QPointF& p2);
     void zoomRectChanging(const QPointF &topl, const QPointF br);
+    void clicked(const QPointF& pos, Qt::MouseButton button, Qt::KeyboardModifiers m);
 
 private:
     QuZoomEventsP *d;

@@ -4,13 +4,19 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <math.h>
-#include <quzoomer.h>
-#include <quzoomevents.h>
+#include "quzoomer.h"
+#include "quzoomevents.h"
+#include "qucircularplotcurveselectionevents.h"
 
 class QuCircularPlotW_P {
 public:
-    QuCircularPlotW_P(QWidget *o, const QFont& f)
-        : e(new QuCircularPlotEngine(f, new QuZoomer(o), new QuZoomEvents(o))) {
+    QuCircularPlotW_P(QWidget *o, const QFont& f) {
+        QuCircularPlotCurveSelectionEvents *cse = new QuCircularPlotCurveSelectionEvents(o);
+        QuZoomEvents *ze = new QuZoomEvents(o);
+        e = new QuCircularPlotEngine(f, new QuZoomer(o), cse, ze);
+        // circular plot engine takes the ownership of zoomer and zoom events
+        o->installEventFilter(ze); // 2nd
+        o->installEventFilter(cse); // activated first 1st
     }
     ~QuCircularPlotW_P() {
         delete e;
