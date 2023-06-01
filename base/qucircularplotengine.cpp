@@ -181,7 +181,7 @@ void QuCircularPlotEngine::m_selection_moved(const QPointF &pt) {
     const QPointF& p = d.zoomer->transform().inverted().map(pt);
     d.selection_ev->select(QRectF(p.x() - d.crv_edit_r, p.y() - d.crv_edit_r, 2 * d.crv_edit_r, 2 * d.crv_edit_r));
     double R = qMin(d.bounding_r.width(), d.bounding_r.height()) / 2.0;
-    double y = m_map_yp2y(pt, d.ylb, d.yub, R);
+    double y = m_map_yp2y(p, d.ylb, d.yub, R);
     printf("QuCircularPlotEngine::m_selection_moved \e[0;32mselection moved\e[0m -- >  pt.y %f mapped to y %f\n", pt.y(), y);
     foreach(QuCircularPlotCurve *c, d.curves) {
         int idx = c->selected();
