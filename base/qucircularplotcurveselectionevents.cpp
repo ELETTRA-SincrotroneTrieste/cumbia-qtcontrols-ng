@@ -12,7 +12,7 @@ public:
     QuCircularPlotCurveSelectionEvents_P() : press_in_selection(false) {}
 
     QRectF sel;
-    QPointF press_pt;
+    QPointF press_pt, move_pt;
     bool press_in_selection;
     QTransform T;
 };
@@ -50,13 +50,8 @@ bool QuCircularPlotCurveSelectionEvents::eventFilter(QObject *watched, QEvent *e
             QMouseEvent *me = static_cast<QMouseEvent *>(event);
             butt = me->button();
             m = me->modifiers();
-            pos = /*Ti.map*/(me->pos());
+            pos = me->pos();
         }
-        qDebug() << __PRETTY_FUNCTION__ << watched << event->type() << "pos inside selection ? " <<
-            (d->sel.isValid() && d->sel.contains(Ti.map(pos)) ? "YES" : "NO") << "pos" << pos << "selection" << d->sel
-                 << "graphicsscene" << graphicss;
-//        qDebug() << __PRETTY_FUNCTION__ << "press" << press << "release" << release << "move" << move << "scene move" << scene_move
-//                 << "press in sel" << d->press_in_selection;
         if(scene_move && d->press_in_selection) {
             ret = true;
         }
@@ -70,12 +65,14 @@ bool QuCircularPlotCurveSelectionEvents::eventFilter(QObject *watched, QEvent *e
         else if((move || scene_move) && d->press_in_selection) {
             printf("QuCircularPlotCurveSelectionEvents::eventFilter \e[1;34m HOVER move event and selection contains\e[0m\n");
             qDebug() << "pos is " << pos << "mapped is ---------------->> " << Ti.map(pos);
-            emit selectionMoved(Ti.map(pos));
+            const QPointF& old_p = d->move_pt.isNull() ? d->press_pt : d->move_pt;
+            emit selectionMoved(pos.rx() - old_p.x(), pos.ry() - old_p.y());
+            d->move_pt = pos;
             ret = true;
         }
         else if(release && pos == d->press_pt && butt == Qt::LeftButton) {
             emit selected(d->press_pt);
-            d->press_pt = QPointF();
+            d->press_pt = d->move_pt = QPointF();
         }
         else if(release && butt == Qt::MiddleButton && d->sel.isValid()) {
             d->sel = QRectF();
@@ -83,17 +80,15 @@ bool QuCircularPlotCurveSelectionEvents::eventFilter(QObject *watched, QEvent *e
         }
 
         if(release) {
-            d->press_pt = QPointF();
+            d->press_pt = d->move_pt =QPointF();
             d->press_in_selection = false;
         }
 
     }
-//    printf("QuCircularPlotCurveSelectionEvents::eventFilter \e[1;35mreturning %s\e[0m\n", ret ? "true" : "false");
     return ret ? ret : QObject::eventFilter(watched, event);
 }
 
 void QuCircularPlotCurveSelectionEvents::select(const QRectF &r) {
-    qDebug() << __PRETTY_FUNCTION__ << "SELECTING" << r;
     d->sel = r;
 }
 
@@ -102,6 +97,5 @@ const QRectF &QuCircularPlotCurveSelectionEvents::selectionArea() const {
 }
 
 void QuCircularPlotCurveSelectionEvents::setTransform(const QTransform &T) {
-    qDebug() << __PRETTY_FUNCTION__ << "changing transform to " << T;
     d->T = T;
 }

@@ -16,6 +16,9 @@
 #include <qcheckbox.h>
 #include <QtDebug>
 #include <QSplitter>
+#include <qucircularplotcurve.h>
+
+#include <qucircularplotselectionvalue.h>
 
 class ViewOFilter : public QObject {
 public:
@@ -74,6 +77,8 @@ CircularPlot::CircularPlot(QWidget *parent)
         ascb->setChecked(false);
         QCheckBox *xascb = new QCheckBox("X auto scale", confg);
         xascb->setChecked(false);
+        QCheckBox *scaleicb = new QCheckBox("Scale inverted", confg);
+        scaleicb->setChecked(false);
 
 
         QCheckBox *cbb = new QCheckBox("show bounds", confg);
@@ -89,6 +94,7 @@ CircularPlot::CircularPlot(QWidget *parent)
         clo->addWidget(cbc, 3, 0, 1, 1);
         clo->addWidget(cbv, 4, 0, 1, 1);
         clo->addWidget(cbp, 5, 0, 1, 1);
+        clo->addWidget(scaleicb, 6, 0, 1, 1);
 
 
         while(i++ < nplots) {
@@ -112,13 +118,22 @@ CircularPlot::CircularPlot(QWidget *parent)
             connect(cbv, SIGNAL(toggled(bool)), ni->engine(), SLOT(setShowValues(bool)));
             connect(cbc, SIGNAL(toggled(bool)), ni->engine(), SLOT(setShowCurves(bool)));
             connect(cbp, SIGNAL(toggled(bool)), ni->engine(), SLOT(setShowPoints(bool)));
+            connect(scaleicb, SIGNAL(toggled(bool)), ni->engine(), SLOT(setScaleInverted(bool)));
 
 
             foreach(QCheckBox *c, confg->findChildren<QCheckBox *>()) {
-                connect(c, SIGNAL(toggled()), ni, SLOT(update()));
+                connect(c, SIGNAL(toggled(bool)), ni, SLOT(update()));
                 //            connect(c, SIGNAL(toggled()), nw, SLOT(update()));
             }
 
+            // curve editing
+            connect(pie, SIGNAL(selectionChanged(QObject*, QString, int, double)), this, SLOT(editCurve(QObject*, QString, int, double)));
+            connect(pie, SIGNAL(selectionChanged(QuCircularPlotCurve *,int,double)),this, SLOT(editCurve(QuCircularPlotCurve*,int,double)));
+
+            // selected Y value drawn within the circle
+            QuCircularPlotSelectionValue *sel_indicator = new QuCircularPlotSelectionValue(this);
+            connect(pie, SIGNAL(selectedYChanged(QuCircularPlotCurve*)), sel_indicator, SLOT(update(QuCircularPlotCurve*)));
+            pie->addDrawable(sel_indicator);
         } // while
 
 
@@ -151,6 +166,7 @@ void CircularPlot::update()   {
                 for(int i = 0; i < npoints; i++) {
                     x << i;
                     y  << amplitude * sin(2 * M_PI * i * (25 / npoints));
+                    if (i == npoints - 3) y[i] = 1100;
                 }
                 //        y << 0 << 500 << 1300 << 1500 << 250 << 0 << -100 << 400 << -200 << 500 << -1000 << 500 << -10000 << 500;
                 //        for(int i = 0; i < y.size(); i++)
@@ -163,5 +179,16 @@ void CircularPlot::update()   {
             }
         }
     }
+}
+
+void CircularPlot::editCurve(QuCircularPlotCurve *curve, int idx, double ynew)
+{
+    QVector yd = curve->y_data();
+    yd[idx] = ynew;
+    curve->setData(curve->x_data(), yd);
+}
+
+void CircularPlot::editCurve(QObject *plot, const QString &curve, int idx, double ynew) {
+    pretty_pri("editCurve version 2: plot %s curve %s idx %d new value %f", qstoc(plot->objectName()), qstoc(curve), idx, ynew);
 }
 

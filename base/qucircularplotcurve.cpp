@@ -3,7 +3,8 @@
 
 class QuCircularPlotCurveP {
 public:
-    QuCircularPlotCurveP(const QString& s) : src(s), min(0.0), max(0.0), selected(-1), editable(false) {
+    QuCircularPlotCurveP(const QString& s, QuCircularPlotCurveListener *l)
+        : src(s), min(0.0), max(0.0), selected(-1), editable(false), cl(l) {
 
     }
     QString src;
@@ -12,9 +13,11 @@ public:
     QPen pen;
     int selected;
     bool editable;
+    QuCircularPlotCurveListener *cl;
 };
 
-QuCircularPlotCurve::QuCircularPlotCurve(const QString& src, const QPen& p) : d(new QuCircularPlotCurveP(src)) {
+QuCircularPlotCurve::QuCircularPlotCurve(const QString& src, QuCircularPlotCurveListener *l, const QPen& p)
+    : d(new QuCircularPlotCurveP(src, l)) {
     d->pen = p;
 }
 
@@ -41,7 +44,9 @@ void QuCircularPlotCurve::setData(const QVector<double> &x, const QVector<double
         d->x = std::move(x);
         d->y = std::move(y);
         const auto [mi, ma] = std::minmax_element(d->y.begin(), d->y.end());
+        bool bc = *mi != d->min || *ma != d->max;
         d->min = *mi; d->max = *ma;
+        if(bc) d->cl->onBoundsChanged();
     }
 }
 

@@ -6,10 +6,15 @@
 
 class QuCircularPlotCurveP;
 
+class QuCircularPlotCurveListener {
+public:
+    virtual void onBoundsChanged() = 0;
+};
+
 class QuCircularPlotCurve
 {
 public:
-    QuCircularPlotCurve(const QString &src, const QPen& p = QPen(QColor(Qt::gray), 0.0f));
+    QuCircularPlotCurve(const QString &src, QuCircularPlotCurveListener *l, const QPen& p = QPen(QColor(Qt::gray), 0.0f));
     virtual ~QuCircularPlotCurve();
 
     const QVector<double> &x_data() const;

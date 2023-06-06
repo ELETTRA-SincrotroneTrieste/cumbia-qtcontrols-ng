@@ -7,6 +7,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
 
+class QuCircularPlotCurve;
+
 class CircularPlot : public QWidget
 {
     Q_OBJECT
@@ -17,6 +19,9 @@ public:
 
 private slots:
     void update();
+    void editCurve(QuCircularPlotCurve *curve, int idx, double ynew);
+    void editCurve(QObject *plot, const QString& curve, int idx, double ynew);
+
 
 private:
     Ui::Widget *ui;

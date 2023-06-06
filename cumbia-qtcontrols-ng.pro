@@ -30,7 +30,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    base/out_of_bounds_xforms.cpp \
+    base/circularplot/qucircularplotselectionvalue.cpp \
+    base/out_of_bounds_distortions.cpp \
+    base/qucircularplotattributes.cpp \
     base/qucircularplotconfigurator.cpp \
     base/qucircularplotcurve.cpp \
     base/qucircularplotcurveselectionevents.cpp \
@@ -47,7 +49,10 @@ SOURCES += \
 
 
 HEADERS += \
-    base/out_of_bounds_xforms.h \
+    base/circularplot/qucircularplotselectionvalue.h \
+    base/out_of_bounds_distortions.h \
+    base/qucircularplot_drawable_i.h \
+    base/qucircularplotattributes.h \
     base/qucircularplotconfigurator.h \
     base/qucircularplotcurve.h \
     base/qucircularplotcurveselectionevents.h \

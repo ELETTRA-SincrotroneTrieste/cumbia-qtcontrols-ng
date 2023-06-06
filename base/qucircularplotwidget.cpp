@@ -13,7 +13,7 @@ public:
     QuCircularPlotW_P(QWidget *o, const QFont& f) {
         QuCircularPlotCurveSelectionEvents *cse = new QuCircularPlotCurveSelectionEvents(o);
         QuZoomEvents *ze = new QuZoomEvents(o);
-        e = new QuCircularPlotEngine(f, new QuZoomer(o), cse, ze);
+        e = new QuCircularPlotEngine(o, f, new QuZoomer(o), cse, ze);
         // circular plot engine takes the ownership of zoomer and zoom events
         o->installEventFilter(ze); // 2nd
         o->installEventFilter(cse); // activated first 1st
@@ -44,20 +44,6 @@ QSize QuCircularPlotW::minimumSizeHint() const {
     return d->e->minimumSize().toSize();
 }
 
-double QuCircularPlotW::maximum() const { return d->e->maximum(); }
-
-double QuCircularPlotW::minimum() const { return d->e->minimum(); }
-
-void QuCircularPlotW::setMaximum(double v) {
-    d->e->setYLowerBound(v);
-    update();
-}
-
-void QuCircularPlotW::setMinimum(double v) {
-    d->e->setYUpperBound(v);
-    update();
-}
-
 void QuCircularPlotW::setData(const QString &src, const QVector<double> &xdata, const QVector<double> &ydata)
 {
 
@@ -85,7 +71,6 @@ void QuCircularPlotW::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void QuCircularPlotW::mouseMoveEvent(QMouseEvent *event) {
-    d->e->mouseMoveEvent(event->pos());
     update();
 }
 

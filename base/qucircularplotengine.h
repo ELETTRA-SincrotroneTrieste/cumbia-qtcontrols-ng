@@ -14,10 +14,11 @@
 
 class QStyleOptionGraphicsItem;
 class QPainter;
-class OOBTransform;
+class OOBDistort;
 class QuZoomEvents;
 class QuCircularPlotCurveSelectionEvents;
 class QuZoomer;
+class QuCircularPlotDrawable_I;
 
 class QuCircularPlotEngineData {
 public:
@@ -29,14 +30,14 @@ public:
     double xlb, xub, ylb, yub; // "axis" bounds, either manual or auto
     double xmin, xmax, ymin, ymax; // min and max from curves
     double baseline; // x axis pos, default at y = 0.0
-    bool x_autoscale, y_autoscale;
+    bool x_autoscale, y_autoscale, scale_inverted;
     int maxdatasiz;
 
     double radius, radius_factor, inner_radius_factor, outer_radius_factor;
 
     float crv_edit_r, csel_pt_r; // selection circle and point
 
-    OOBTransform *oob_xform;
+    OOBDistort *oob_xform;
     bool show_values, show_points, show_bounds; // default false
     bool show_curves, show_xax, show_origin; // default: true
     int y_axes; // default: show 0 Y axes
@@ -46,28 +47,26 @@ public:
     QuZoomEvents *zoom_ev;
 
     QColor bgcolor, axcolor;
+
+    QMultiMap<int, QuCircularPlotDrawable_I *> drawables;
 };
 
-class QuCircularPlotEngine : public QObject
+class QuCircularPlotEngine : public QObject, public QuCircularPlotCurveListener
 {
     Q_OBJECT
 public:
     QuCircularPlotEngineData d;
 
-    explicit QuCircularPlotEngine(const QFont &f, QuZoomer *zoomer, QuCircularPlotCurveSelectionEvents* selev, QuZoomEvents* ze);
+    explicit QuCircularPlotEngine(QObject *parent, const QFont &f, QuZoomer *zoomer, QuCircularPlotCurveSelectionEvents* selev, QuZoomEvents* ze);
     virtual  ~QuCircularPlotEngine();
 
-    void contextMenuEvent(const QPointF& pos);
-    void mousePressEvent(const QPointF& pos);
-    void mouseMoveEvent(const QPointF& pos);
-    void mouseReleaseEvent(const QPointF& pos);
-    void mouseDoubleClickEvent(const QPointF& pos);
-
-    double minimum() const;
-    double maximum() const;
+    QuCircularPlotCurve* addCurve(const QString& src);
+    QuCircularPlotCurve* findCurve(const QString& src) const;
 
     QuZoomer *zoomer() const;
     QuZoomEvents *zoomEvents() const;
+
+    QObject *plot() const;
 
     double yLowerBound() const;
     double yUpperBound() const;
@@ -94,7 +93,7 @@ public:
 
     QSizeF minimumSize();
 
-    void setOutOfBoundsTransform(OOBTransform *c);
+    void setOutOfBoundsTransform(OOBDistort *c);
 
     bool showValues() const;
     bool showPoints() const;
@@ -102,10 +101,13 @@ public:
     bool showXAxis() const;
     int  showYAxes() const;
     bool showBounds() const;
-
+    bool scaleInverted() const;
 
     float curveEditRadius() const;
     float curveSelectedPointRadius() const;
+
+    void addDrawable(QuCircularPlotDrawable_I *dra);
+    QList<QuCircularPlotDrawable_I *> drawables() const;
 
 public slots:
     void setYLowerBound(double m);
@@ -114,14 +116,13 @@ public slots:
     void setXUpperBound(double m);
     void setXAutoscaleEnabled(bool en);
     void setYAutoscaleEnabled(bool en);
+    void setScaleInverted(bool inve);
 
     void setRadiusFactor(float f);
     void setInnerRadiusFactor(float f);
     void setOuterRadiusFactor(float f);
 
     void setData(const QString& src, const QVector<double>& xdata, const QVector<double>& ydata);
-    QuCircularPlotCurve* addCurve(const QString& src);
-    QuCircularPlotCurve* findCurve(const QString& src) const;
 
     void setShowValues(bool show);
     void setShowPoints(bool show);
@@ -138,15 +139,34 @@ public slots:
     void setCurveEditRadius(float r);
     void setCurveSelectionPointRadius(float r);
 
+    // selection related methods
+    void select(const QPointF& p);
+    void moveSelection(const double &dx, const double &dy);
+    void clearSelection();
+
 signals:
     void minimumChanged(double m);
     void maximumChanged(double M);
     void selected(const QPointF& p);
     void closestPoint(const QList<QuCircularPlotCurve *>& curves, int idx, const QPointF& pt);
     void dirty(); // trigger update on item / widget
+    void selectionChanged(QuCircularPlotCurve *c, int idx, double new_val);
+    void selectionChanged(QObject *o, const QString& curve, int idx, double new_val);
+
+    /*!
+     * \brief selectedYChanged is emitted when a selection on one (or more) curve(s) is active and the
+     *        y value for the selected curve index changes
+     * \param c the curve for which the y value changed at the selected index
+     *
+     * \par Note
+     * You can get the selected index through QuCircularPlotCurve::selected and the
+     * corresponding value accessing QuCircularPlotCurve::y_data at that index
+     */
+    void selectedYChanged(QuCircularPlotCurve *c);
+
 private:
 
-    void m_paint(QPainter *p, const QRectF &rect);
+    void m_paint(QPainter *p, double R, double inr, double outr, const QRectF &rect, QWidget *widget);
     QPointF *m_get_points(const QuCircularPlotCurve *c,
                           const double &R,
                           const double xmin, const double xmax,
@@ -156,17 +176,16 @@ private:
     constexpr double m_to_rad(double deg);
     constexpr double m_to_deg(double rad);
     void m_get_bounds_from_curves(double *x, double *X, double *y, double *Y, int *max_datasiz) const;
-    void m_get_bounds(double *x, double *X, double *y, double *Y, double *inr, double *outr, const double &R) const;
+    void m_get_bounds_distorted(double *x, double *X, double *y, double *Y) const;
     double m_map_yp2y(const QPointF &p, const double &ylb, const double &yub, const double& R) const;
+    void m_update_scales();
 
 private slots:
-    void m_point_selected(const QPointF& p);
-    void m_selection_moved(const QPointF& p);
-    void m_point_deselected();
     void m_zoom_changed();
 
-private slots:
-
+    // QuCircularPlotCurveListener interface
+private:
+    void onBoundsChanged();
 };
 
 #endif // QUCIRCULARPLOTENGINE_H

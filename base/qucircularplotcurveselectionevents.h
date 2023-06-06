@@ -23,7 +23,7 @@ public slots:
 
 signals:
     void selected(const QPointF &p);
-    void selectionMoved(const QPointF& p);
+    void selectionMoved(const double& dx, const double &dy);
     void deselected();
 
 private:
