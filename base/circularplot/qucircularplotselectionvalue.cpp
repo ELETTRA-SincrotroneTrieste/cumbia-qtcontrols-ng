@@ -9,6 +9,11 @@
 QuCircularPlotSelectionValue::QuCircularPlotSelectionValue(QObject *parent) : QObject(parent){
     m_v_changed = false;
     m_i = -1;
+    m_format = "%.2f";
+}
+
+QString QuCircularPlotSelectionValue::format() const {
+    return m_format;
 }
 
 void QuCircularPlotSelectionValue::update(QuCircularPlotCurve *c) {
@@ -19,8 +24,11 @@ void QuCircularPlotSelectionValue::update(QuCircularPlotCurve *c) {
             m_v = c->y_data()[m_i];
         }
     }
-    pretty_pri(" ... selected ... %d %f", m_i, m_v);
+}
 
+void QuCircularPlotSelectionValue::setFormat(const QString &f) {
+    m_v_changed = (m_format != f);
+    m_format = f;
 }
 
 bool QuCircularPlotSelectionValue::scales() {
@@ -31,29 +39,31 @@ int QuCircularPlotSelectionValue::z() const {
     return 10;
 }
 
-void QuCircularPlotSelectionValue::draw(QPainter *p, const QuCircularPlotEngine *plot_e, double inner_radius, double outer_radius, const QRectF &rect, QWidget *widget) {
-    if(m_i >= 0)
-    {
-    QFont f = p->font();
-    const QString &n = QString::number(m_v);
-    QFontMetrics fm(f);
-    float len = fm.horizontalAdvance(n);
-    const float maxlen = 1.6 * inner_radius;
-    if(m_rect != rect  || m_v_changed) {
-        while(fm.height() < maxlen || len < maxlen) {
-            f.setPointSize(f.pointSize() + 1);
-            fm = QFontMetrics(f);
-            len = fm.horizontalAdvance(n);
+void QuCircularPlotSelectionValue::draw(QPainter *p, const QuCircularPlotEngine *, double inner_radius, double , const QRectF &rect, QWidget *) {
+    printf("m_format is %s\n", qstoc(m_format));
+    printf(m_format.toStdString().c_str(), m_v);
+    printf("\n value was %f, as formatted %.2f\n", m_v, m_v);
+    if(m_i >= 0) {
+        QFont f = p->font();
+        QString n = QString::asprintf(m_format.toStdString().c_str(), m_v);
+        QFontMetrics fm(f);
+        float len = fm.horizontalAdvance(n);
+        const float maxlen = 1.6 * inner_radius;
+        if(m_rect != rect  || m_v_changed) {
+            while(fm.height() < maxlen || len < maxlen) {
+                f.setPointSize(f.pointSize() + 1);
+                fm = QFontMetrics(f);
+                len = fm.horizontalAdvance(n);
+            }
+            while((fm.height() > maxlen || len > maxlen) && f.pointSize() > 1) {
+                f.setPointSize(f.pointSize() - 1);
+                fm = QFontMetrics(f);
+                len = fm.horizontalAdvance(n);
+            }
         }
-        while((fm.height() > maxlen || len > maxlen) && f.pointSize() > 1) {
-            f.setPointSize(f.pointSize() - 1);
-            fm = QFontMetrics(f);
-            len = fm.horizontalAdvance(n);
-        }
-    }
-    p->setFont(f);
-    p->drawText(QPointF(rect.center().x() - len / 2.0, rect.center().y() + (float) fm.height() / 4.0), n);
+        p->setFont(f);
+        p->drawText(QPointF(rect.center().x() - len / 2.0, rect.center().y() + (float) fm.height() / 4.0), n);
 
-    m_v_changed = false;
+        m_v_changed = false;
     }
 }
