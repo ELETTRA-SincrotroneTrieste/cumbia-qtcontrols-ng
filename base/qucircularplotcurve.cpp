@@ -46,7 +46,7 @@ void QuCircularPlotCurve::setData(const QVector<double> &x, const QVector<double
         const auto [mi, ma] = std::minmax_element(d->y.begin(), d->y.end());
         bool bc = *mi != d->min || *ma != d->max;
         d->min = *mi; d->max = *ma;
-        if(bc) d->cl->onBoundsChanged();
+        if(bc) d->cl->onCurveBoundsChanged();
     }
 }
 

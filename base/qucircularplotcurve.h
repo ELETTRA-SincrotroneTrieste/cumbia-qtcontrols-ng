@@ -8,7 +8,7 @@ class QuCircularPlotCurveP;
 
 class QuCircularPlotCurveListener {
 public:
-    virtual void onBoundsChanged() = 0;
+    virtual void onCurveBoundsChanged() = 0;
 };
 
 class QuCircularPlotCurve

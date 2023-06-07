@@ -40,9 +40,6 @@ int QuCircularPlotSelectionValue::z() const {
 }
 
 void QuCircularPlotSelectionValue::draw(QPainter *p, const QuCircularPlotEngine *, double inner_radius, double , const QRectF &rect, QWidget *) {
-    printf("m_format is %s\n", qstoc(m_format));
-    printf(m_format.toStdString().c_str(), m_v);
-    printf("\n value was %f, as formatted %.2f\n", m_v, m_v);
     if(m_i >= 0) {
         QFont f = p->font();
         QString n = QString::asprintf(m_format.toStdString().c_str(), m_v);

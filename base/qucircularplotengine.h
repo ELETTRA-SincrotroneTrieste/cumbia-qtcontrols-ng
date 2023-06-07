@@ -114,6 +114,8 @@ public slots:
     void setYUpperBound(double m);
     void setXLowerBound(double m);
     void setXUpperBound(double m);
+    void setXBounds(double xm, double xM);
+    void setYBounds(double ym, double yM);
     void setXAutoscaleEnabled(bool en);
     void setYAutoscaleEnabled(bool en);
     void setScaleInverted(bool inve);
@@ -179,13 +181,14 @@ private:
     void m_get_bounds_distorted(double *x, double *X, double *y, double *Y) const;
     double m_map_yp2y(const QPointF &p, const double &ylb, const double &yub, const double& R) const;
     void m_update_scales();
+    void m_autoscale_enabled();
 
 private slots:
     void m_zoom_changed();
 
     // QuCircularPlotCurveListener interface
 private:
-    void onBoundsChanged();
+    void onCurveBoundsChanged();
 };
 
 #endif // QUCIRCULARPLOTENGINE_H

@@ -86,7 +86,7 @@ void QuCircularPlotEngine::setData(const QString &src, const QVector<double> &xd
     bool save = i > -1 && i > c->size() && i > ydata.size();
     if(save)
         v = c->y_data()[i];
-    c->setData(xdata, ydata);
+    c->setData(xdata, ydata); // check onBoundsChanged
     if(save && v != ydata[i])
         emit selectedYChanged(c);
 }
@@ -134,29 +134,6 @@ double QuCircularPlotEngine::m_map_yp2y(const QPointF &p, const double& ylb, con
         "outer factor" << d.outer_radius_factor;
     double len = !d.scale_inverted ? l - R * d.inner_radius_factor : R * d.outer_radius_factor - l;
     return len * (yub - ylb) / s + ylb;
-}
-
-void QuCircularPlotEngine::onBoundsChanged() {
-    m_get_bounds_from_curves(&d.xmin, &d.xmax, &d.ymin, &d.ymax, &d.maxdatasiz);
-    pretty_pri("                            \e[1;35mafter set data \e[1;36mymin is %f\e[0m", d.ymin);
-    if(d.x_autoscale) {
-        d.xlb = d.xmin; d.xub = d.xmax;
-    }
-    if(d.y_autoscale) {
-        d.ylb = d.ymin; d.yub = d.ymax;
-    }
-}
-
-// d.ymin, d.ymax, d.xmin, d.xmax updated upon curve data change
-void QuCircularPlotEngine::m_update_scales() {
-    if(d.y_autoscale)  {
-        setYLowerBound(d.ymin);
-        setYUpperBound(d.ymax);
-    }
-    if(d.x_autoscale) {
-        setXLowerBound(d.xmin);
-        setXUpperBound(d.xmax);
-    }
 }
 
 void QuCircularPlotEngine::select(const QPointF &pt) {
@@ -241,11 +218,7 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
     double xmin, xmax, ymin, ymax;
     m_get_bounds_distorted(&xmin, &xmax, &ymin, &ymax);
 
-    QList<QuCircularPlotDrawable_I *> _drawables = d.drawables.values();
-    foreach (QuCircularPlotDrawable_I *drawable, _drawables) {
-        if(drawable->z() <= 0 && drawable->scales())
-            drawable->draw(p, this, inr, outr, rect, widget);
-    }
+
 
     QPen txtpen(Qt::gray, 0.0);
     if(d.show_values || d.show_bounds) {
@@ -254,12 +227,22 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
 
     QPen pe(d.axcolor, 0.0);
     p->setPen(pe);
+
+    // 1. draw background, before drawables
     if(d.bgcolor.isValid()) {
         p->setBrush(d.bgcolor);
         p->drawEllipse(d.bounding_r);
         p->setBrush(Qt::NoBrush);
     }
 
+    // 2. draw drawables with z <=0
+    QList<QuCircularPlotDrawable_I *> _drawables = d.drawables.values();
+    foreach (QuCircularPlotDrawable_I *drawable, _drawables) {
+        if(drawable->z() <= 0 && drawable->scales())
+            drawable->draw(p, this, inr, outr, rect, widget);
+    }
+
+    // 3. draw bounds if enabled
     if(d.show_bounds) {
         QRectF cr(c.x() - outr, c.y() - outr, 2 * outr, 2 * outr); // outer
         p->drawEllipse(cr);
@@ -276,7 +259,7 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
         p->drawText(QPointF(R - outr * cos(atxtub), R - outr * sin(atxtub)), QString::number(!d.scale_inverted ? d.yub : d.ylb));
     }
 
-
+    // 4. draw baseline
     if(d.baseline >= d.ylb && d.baseline <= d.yub) {
         // draw circle
         double yp = (outr - inr) * (d.baseline - d.ylb)  / (d.yub - d.ylb);
@@ -298,7 +281,7 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
         }
     }
 
-    // draw curves
+    // 5. draw curves
     foreach(const QuCircularPlotCurve* c, d.curves) {
         QPointF *points = this->m_get_points(c, R, xmin, xmax, ymin, ymax, inr, outr);
         if(c->selected() >= 0 && c->selected() < c->size()) {
@@ -327,6 +310,7 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
         delete [] points;
     }
 
+    // 6. draw drawables with positive z
     foreach (QuCircularPlotDrawable_I *drawable, _drawables) {
         if(drawable->z() > 0 && drawable->scales())
             drawable->draw(p, this, inr, outr, rect, widget);
@@ -512,6 +496,46 @@ QList<QuCircularPlotDrawable_I *> QuCircularPlotEngine::drawables() const {
     return d.drawables.values();
 }
 
+void QuCircularPlotEngine::onCurveBoundsChanged() {
+    m_get_bounds_from_curves(&d.xmin, &d.xmax, &d.ymin, &d.ymax, &d.maxdatasiz);
+    if(d.x_autoscale) {
+        d.xlb = d.xmin; d.xub = d.xmax;
+        setXBounds(d.xlb, d.xub);
+    }
+    if(d.y_autoscale) {
+        d.ylb = d.ymin; d.yub = d.ymax;
+        setYBounds(d.ylb, d.yub);
+    }
+}
+
+// d.ymin, d.ymax, d.xmin, d.xmax updated upon curve data change
+void QuCircularPlotEngine::m_update_scales() {
+    if(d.y_autoscale)  {
+        setYBounds(d.ylb, d.yub);
+    }
+    if(d.x_autoscale) {
+        setXBounds(d.xlb, d.xub);
+    }
+}
+
+void QuCircularPlotEngine::m_autoscale_enabled() {
+    foreach(QuCircularPlotCurve *c, d.curves)
+        c->minmax_update();
+    m_get_bounds_from_curves(&d.xlb, &d.xub, &d.ylb, &d.yub, &d.maxdatasiz);
+    m_update_scales();
+    emit dirty();
+}
+
+void QuCircularPlotEngine::setXAutoscaleEnabled(bool en) {
+    d.x_autoscale = en;
+    if(en) m_autoscale_enabled();
+}
+
+void QuCircularPlotEngine::setYAutoscaleEnabled(bool en) {
+    d.y_autoscale = en;
+    if(en) m_autoscale_enabled();
+}
+
 void QuCircularPlotEngine::setYLowerBound(double m) {
     d.y_autoscale = false;
     d.ylb = m;
@@ -536,25 +560,18 @@ void QuCircularPlotEngine::setXUpperBound(double m) {
     emit dirty();
 }
 
-void QuCircularPlotEngine::setXAutoscaleEnabled(bool en) {
-    d.x_autoscale = en;
-    if(en) {
-        foreach(QuCircularPlotCurve *c, d.curves)
-            c->minmax_update();
-    }
-    m_update_scales();
+void QuCircularPlotEngine::setXBounds(double xm, double xM) {
+    d.xlb = xm;
+    d.xub = xM;
     emit dirty();
 }
 
-void QuCircularPlotEngine::setYAutoscaleEnabled(bool en) {
-    d.y_autoscale = en;
-    if(en) {
-        foreach(QuCircularPlotCurve *c, d.curves)
-            c->minmax_update();
-    }
-    m_update_scales();
+void QuCircularPlotEngine::setYBounds(double ym, double yM) {
+    d.ylb = ym;
+    d.yub = yM;
     emit dirty();
 }
+
 
 void QuCircularPlotEngine::setScaleInverted(bool inve) {
     d.scale_inverted = inve;
