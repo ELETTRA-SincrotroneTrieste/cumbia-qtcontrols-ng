@@ -32,43 +32,43 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     base/circularplot/qucircularplotdisksector.cpp \
     base/circularplot/qucircularplotselectionvalue.cpp \
-    base/out_of_bounds_distortions.cpp \
-    base/qucircularplotattributes.cpp \
-    base/qucircularplotconfigurator.cpp \
-    base/qucircularplotcurve.cpp \
-    base/qucircularplotcurveselectionevents.cpp \
-    base/qucircularplotengine.cpp \
-    base/qunumericclickrepeater.cpp \
-    base/qunumericengine.cpp \
-    base/qunumericitem.cpp \
-    base/qunumericwidget.cpp \
-    base/quzoomer.cpp \
-    base/quzoomevents.cpp \
-    controls/qunumericcontrol_w.cpp \
-    base/qucircularplotwidget.cpp \
-    base/qucircularplotitem.cpp
+    base/circularplot/out_of_bounds_distortions.cpp \
+    base/circularplot/qucircularplotattributes.cpp \
+    base/circularplot/qucircularplotconfigurator.cpp \
+    base/circularplot/qucircularplotcurve.cpp \
+    base/circularplot/qucircularplotcurveselectionevents.cpp \
+    base/circularplot/qucircularplotengine.cpp \
+    base/circularplot/quzoomer.cpp \
+    base/circularplot/quzoomevents.cpp \
+    base/circularplot/qucircularplotwidget.cpp \
+    base/circularplot/qucircularplotitem.cpp \
+    controls/numeric/qunumericcontrol_w.cpp \
+    base/numeric/qunumericclickrepeater.cpp \
+    base/numeric/qunumericengine.cpp \
+    base/numeric/qunumericwidget.cpp \
+    base/numeric/qunumericitem.cpp
 
 
 HEADERS += \
     base/circularplot/qucircularplot.h \
     base/circularplot/qucircularplotdisksector.h \
     base/circularplot/qucircularplotselectionvalue.h \
-    base/out_of_bounds_distortions.h \
-    base/qucircularplot_drawable_i.h \
-    base/qucircularplotattributes.h \
-    base/qucircularplotconfigurator.h \
-    base/qucircularplotcurve.h \
-    base/qucircularplotcurveselectionevents.h \
-    base/qucircularplotengine.h \
-    base/qunumericclickrepeater.h \
-    base/qunumericengine.h \
-    base/qunumericitem.h \
-    base/qunumericwidget.h \
-    base/quzoomer.h \
-    base/quzoomevents.h \
-    controls/qunumericcontrol_w.h \
-    base/qucircularplotwidget.h \
-    base/qucircularplotitem.h
+    base/circularplot/out_of_bounds_distortions.h \
+    base/circularplot/qucircularplot_drawable_i.h \
+    base/circularplot/qucircularplotattributes.h \
+    base/circularplot/qucircularplotconfigurator.h \
+    base/circularplot/qucircularplotcurve.h \
+    base/circularplot/qucircularplotcurveselectionevents.h \
+    base/circularplot/qucircularplotengine.h \
+    base/circularplot/quzoomer.h \
+    base/circularplot/quzoomevents.h \
+    base/circularplot/qucircularplotwidget.h \
+    base/circularplot/qucircularplotitem.h \
+    base/numeric/qunumericclickrepeater.h \
+    base/numeric/qunumericengine.h \
+    base/numeric/qunumericitem.h \
+    base/numeric/qunumericwidget.h \
+    controls/numeric/qunumericcontrol_w.h
 
 DISTFILES += \
     Doxyfile
@@ -111,7 +111,7 @@ CONFIG += create_pc create_prl no_install_prl
     QMAKE_PKGCONFIG_VERSION = $${VERSION}
     QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 
-INCLUDEPATH += base controls
+INCLUDEPATH += base controls base/numeric base/circularplot controls/numeric
 
 # remove ourselves from -l (.pri)
 LIBS -= -l$${cumbia_qtcontrols_ng_LIB}
