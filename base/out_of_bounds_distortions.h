@@ -1,5 +1,5 @@
-#ifndef OOBTRANSFORM_H
-#define OOBTRANSFORM_H
+#ifndef OOBDISTORT_H
+#define OOBDISTORT_H
 
 #include <math.h>
 
@@ -36,4 +36,4 @@ public:
 };
 
 
-#endif // OOBTRANSFORM_H
+#endif // OOBDISTORT_H

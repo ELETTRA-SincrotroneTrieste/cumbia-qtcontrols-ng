@@ -50,6 +50,7 @@ SOURCES += \
 
 
 HEADERS += \
+    base/circularplot/qucircularplot.h \
     base/circularplot/qucircularplotdisksector.h \
     base/circularplot/qucircularplotselectionvalue.h \
     base/out_of_bounds_distortions.h \
@@ -95,7 +96,7 @@ unix {
 #message("=====================================")
 
     !android-g++ {
-    #    INSTALLS += doc
+        INSTALLS += doc
     }
 } # unix
 

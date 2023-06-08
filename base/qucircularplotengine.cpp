@@ -20,22 +20,8 @@
 
 QuCircularPlotEngineData::QuCircularPlotEngineData()
     : bounding_r(0, 0, 100, 100), a0(0), a1(360.0),
-    xlb(0.0), xub(0.0), ylb(0.0), yub(0.0),
-    xmin(0.0), xmax(0.0), ymin(0.0), ymax(0.0), baseline(500.0),
-    x_autoscale(true), y_autoscale(true), scale_inverted(false),
-    show_values(false), show_points(false), show_bounds(true),
-    show_curves(true),
-    show_xax(true), show_origin(true) , y_axes(0) {
-    radius_factor = 0.5;
-    inner_radius_factor = 0.2;
-    outer_radius_factor = 0.8;
-    crv_edit_r = 3.5;
-    csel_pt_r = 1.2;
+    xmin(0.0), xmax(0.0), ymin(0.0), ymax(0.0) {
     maxdatasiz = 0;
-    oob_xform = new OOBLogDistort;
-    //    oob_xform = new OOBTransform;
-    bgcolor = QColor(Qt::white);
-    axcolor = QColor(Qt::lightGray);
 }
 
 QuCircularPlotEngine::QuCircularPlotEngine(QObject *parent, const QFont& f, QuZoomer *zoomer, QuCircularPlotCurveSelectionEvents* selev, QuZoomEvents *ze)
@@ -44,12 +30,15 @@ QuCircularPlotEngine::QuCircularPlotEngine(QObject *parent, const QFont& f, QuZo
     d.zoomer = zoomer;
     d.selection_ev = selev;
     d.zoom_ev = ze;
+    a.geom.oob_distortion = new OOBLogDistort;
     connect(d.zoom_ev, SIGNAL(zoomRectChanged(QRectF)), d.zoomer, SLOT(setZoomRect(QRectF)));
     connect(d.zoom_ev, SIGNAL(moveRect(QPointF,QPointF)), d.zoomer, SLOT(moveZoom(QPointF,QPointF)));
     connect(d.zoom_ev, SIGNAL(unzoom()), d.zoomer, SLOT(unzoom()));
     connect(d.zoom_ev, SIGNAL(zoomRectChanging(QPointF,QPointF)), d.zoomer, SLOT(zoomRectChanging(QPointF,QPointF)));
     connect(d.zoom_ev, SIGNAL(clicked(QPointF,Qt::MouseButton,Qt::KeyboardModifiers)),
-            d.zoomer, SLOT(map(QPointF,Qt::MouseButton,Qt::KeyboardModifiers)));
+            d.zoomer, SLOT(mapClick(QPointF,Qt::MouseButton,Qt::KeyboardModifiers)));
+    connect(d.zoomer, SIGNAL(clicked(QPointF,Qt::MouseButton,Qt::KeyboardModifiers)),
+            this, SIGNAL(clicked(QPointF,Qt::MouseButton,Qt::KeyboardModifiers)));
     connect(d.selection_ev, SIGNAL(selected(QPointF)), this, SLOT(select(QPointF)));
     connect(d.selection_ev, SIGNAL(deselected()), this, SLOT(clearSelection()));
     connect(d.selection_ev, SIGNAL(selectionMoved(double,double)), this, SLOT(moveSelection(double,double)));
@@ -120,7 +109,7 @@ void QuCircularPlotEngine::m_get_bounds_from_curves(double *x, double *X, double
 void QuCircularPlotEngine::m_get_bounds_distorted(double *x, double *X,
                                         double *y, double *Y) const
 {
-    d.oob_xform->bounds_distort(x, X, y, Y, d.xlb, d.xub, d.ylb, d.yub, d.xmin, d.xmax, d.ymin, d.ymax);
+    a.geom.oob_distortion->bounds_distort(x, X, y, Y, a.axes.x.lb, a.axes.x.ub, a.axes.y.lb, a.axes.y.ub, d.xmin, d.xmax, d.ymin, d.ymax);
 }
 
 // convert a y coordinate of a point in logical coords to an y value according to
@@ -129,10 +118,10 @@ double QuCircularPlotEngine::m_map_yp2y(const QPointF &p, const double& ylb, con
     const QPointF &pc = d.bounding_r.center();
     const double l = sqrt((p.y() - pc.y()) * (p.y() - pc.y()) + (p.x() - pc.x()) * (p.x() - pc.x()));
     // span in logical coords
-    const double &s = (R * d.outer_radius_factor)  - R * d.inner_radius_factor;
-    qDebug() << __PRETTY_FUNCTION__ << p << "y span" << yub - ylb << "s" << s  << "R" << R << "inner" <<  d.inner_radius_factor <<
-        "outer factor" << d.outer_radius_factor;
-    double len = !d.scale_inverted ? l - R * d.inner_radius_factor : R * d.outer_radius_factor - l;
+    const double &s = (R * a.geom.outer_radius_factor)  - R * a.geom.inner_radius_factor;
+    qDebug() << __PRETTY_FUNCTION__ << p << "y span" << yub - ylb << "s" << s  << "R" << R << "inner" <<  a.geom.inner_radius_factor <<
+        "outer factor" << a.geom.outer_radius_factor;
+    double len = !a.axes.y.scale_inverted ? l - R * a.geom.inner_radius_factor : R * a.geom.outer_radius_factor - l;
     return len * (yub - ylb) / s + ylb;
 }
 
@@ -142,7 +131,7 @@ void QuCircularPlotEngine::select(const QPointF &pt) {
     int idx = -1;
     QSet<QuCircularPlotCurve *> intersecting_crvs;
     const double &R = qMin(d.bounding_r.width(), d.bounding_r.height()) / 2.0;
-    const double &inr = R * d.inner_radius_factor, &outr = R * d.outer_radius_factor;
+    const double &inr = R * a.geom.inner_radius_factor, &outr = R * a.geom.outer_radius_factor;
     double xmin, xmax, ymin, ymax;
     m_get_bounds_distorted(&xmin, &xmax, &ymin, &ymax);
     double min = -1.0;
@@ -171,7 +160,7 @@ void QuCircularPlotEngine::select(const QPointF &pt) {
         printf("%s ( \e[1;32m %f\e[0m,\e[1;32m%f\e[0m ), ", qstoc(c->source()), c->x_data().at(idx), c->y_data().at(idx));
     }
     printf("\n");
-    d.selection_ev->select(QRectF(closest.x() - d.crv_edit_r, closest.y() - d.crv_edit_r, 2 * d.crv_edit_r, 2 * d.crv_edit_r));
+    d.selection_ev->select(QRectF(closest.x() - a.geom.selection.aradius, closest.y() - a.geom.selection.aradius, 2 * a.geom.selection.aradius, 2 * a.geom.selection.aradius));
     emit selected(p);
     emit closestPoint(QList<QuCircularPlotCurve *>(intersecting_crvs.begin(), intersecting_crvs.end()), idx, closest);
     emit dirty();
@@ -185,7 +174,7 @@ void QuCircularPlotEngine::moveSelection(const double &dx, const double& dy) {
     sr.moveCenter(p);
     d.selection_ev->select(sr);
     double R = qMin(d.bounding_r.width(), d.bounding_r.height()) / 2.0;
-    double y = m_map_yp2y(p, d.ylb, d.yub, R);
+    double y = m_map_yp2y(p, a.axes.y.lb, a.axes.y.ub, R);
     printf("QuCircularPlotEngine::m_selection_moved \e[0;32mselection moved\e[0m -->  pt.y %f mapped to y %f\n", p.y(), y);
     foreach(QuCircularPlotCurve *c, d.curves) {
         if(c->y_data().size() > c->selected()) {
@@ -221,16 +210,16 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
 
 
     QPen txtpen(Qt::gray, 0.0);
-    if(d.show_values || d.show_bounds) {
+    if(a.paint.show_values || a.paint.show_bounds) {
         p->setFont(d.scaled_font);
     }
 
-    QPen pe(d.axcolor, 0.0);
+    QPen pe(a.paint.colors.axes, 0.0);
     p->setPen(pe);
 
     // 1. draw background, before drawables
-    if(d.bgcolor.isValid()) {
-        p->setBrush(d.bgcolor);
+    if(a.paint.colors.background.isValid()) {
+        p->setBrush(a.paint.colors.background);
         p->drawEllipse(d.bounding_r);
         p->setBrush(Qt::NoBrush);
     }
@@ -243,7 +232,7 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
     }
 
     // 3. draw bounds if enabled
-    if(d.show_bounds) {
+    if(a.paint.show_bounds) {
         QRectF cr(c.x() - outr, c.y() - outr, 2 * outr, 2 * outr); // outer
         p->drawEllipse(cr);
         cr.setRect(c.x() - inr, c.y() - inr, 2 * inr, 2 * inr); // inner
@@ -255,19 +244,19 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
         const double & atxtlb = d.a0 + aspan / 4.0;
         const double &atxtub = d.a0 + aspan / 4.0;
 
-        p->drawText(QPointF(R - inr * cos(atxtlb), R - inr * sin(atxtlb)), QString::number(!d.scale_inverted ? d.ylb : d.yub));
-        p->drawText(QPointF(R - outr * cos(atxtub), R - outr * sin(atxtub)), QString::number(!d.scale_inverted ? d.yub : d.ylb));
+        p->drawText(QPointF(R - inr * cos(atxtlb), R - inr * sin(atxtlb)), QString::number(!a.axes.y.scale_inverted ? a.axes.y.lb : a.axes.y.ub));
+        p->drawText(QPointF(R - outr * cos(atxtub), R - outr * sin(atxtub)), QString::number(!a.axes.y.scale_inverted ? a.axes.y.ub : a.axes.y.lb));
     }
 
     // 4. draw baseline
-    if(d.baseline >= d.ylb && d.baseline <= d.yub) {
+    if(a.axes.x.baseline >= a.axes.y.lb && a.axes.x.baseline <= a.axes.y.ub) {
         // draw circle
-        double yp = (outr - inr) * (d.baseline - d.ylb)  / (d.yub - d.ylb);
-        double baseline_ra = !d.scale_inverted ? inr + yp : outr - yp;
+        double yp = (outr - inr) * (a.axes.x.baseline - a.axes.y.lb)  / (a.axes.y.ub - a.axes.y.lb);
+        double baseline_ra = !a.axes.y.scale_inverted ? inr + yp : outr - yp;
         QRectF cr(c.x() - baseline_ra, c.y() - baseline_ra, 2 * baseline_ra, 2 * baseline_ra); // circle bounding rect
         p->drawEllipse(cr);
 
-        if(d.show_origin) {
+        if(a.paint.show_origin) {
             pe.setColor(Qt::black);
             p->setPen(pe);
             double a0 = m_to_rad(d.a0);
@@ -277,7 +266,7 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
             p->drawLine(p0, p1);
             p->setPen(txtpen);
             p1.setX((p0.x() + p1.x())  / 2);
-            p->drawText(p1, QString::number(d.baseline));
+            p->drawText(p1, QString::number(a.axes.x.baseline));
         }
     }
 
@@ -294,15 +283,15 @@ void QuCircularPlotEngine::m_paint(QPainter *p, double R, double inr,  double ou
                 }
             }// draw selection point
             p->setBrush(QColor("yellow"));
-            p->drawEllipse(points[c->selected()], d.csel_pt_r, d.csel_pt_r);
+            p->drawEllipse(points[c->selected()], a.geom.selection.aradius, a.geom.selection.aradius);
             p->setBrush(Qt::NoBrush);
         }
         p->setPen(c->pen());
-        if(d.show_curves)
+        if(a.paint.show_curves)
             p->drawPolyline(points, c->size());
-        if(d.show_points)
+        if(a.paint.show_points)
             p->drawPoints(points, c->size());
-        if(d.show_values) {
+        if(a.paint.show_values) {
             p->setPen(txtpen);
             for(int i = 0; i < c->size(); i++)
                 p->drawText(points[i], QString::number(c->y_data()[i]));
@@ -323,7 +312,7 @@ void QuCircularPlotEngine::paint(QPainter *p, const QRectF &rect, QWidget *wi) {
     float xr = 0.0f, yr = 0.0f, xp = 0.0, yp = 0.0f;
 
     double R = qMin(rect.width(), rect.height()) / 2.0;
-    double inr =  R * d.inner_radius_factor, outr = R * d.outer_radius_factor;
+    double inr =  R * a.geom.inner_radius_factor, outr = R * a.geom.outer_radius_factor;
 
     QList<QuCircularPlotDrawable_I *> _drawables = d.drawables.values();
     foreach (QuCircularPlotDrawable_I *drawable, _drawables) {
@@ -401,28 +390,21 @@ QPointF* QuCircularPlotEngine::m_get_points(const QuCircularPlotCurve *c,
     const QVector<double>& yv = c->y_data();
     for(int i = 0; i < c->size(); i++) {
         const double &x = xv[i];
-        double y = d.oob_xform->y_distort(yv[i], d.ylb, d.yub, d.ymin, d.ymax);
-        const double &a = m_to_rad(d.a0) + (x - xmin) * aspan / (xmax - xmin);
+        double y = a.geom.oob_distortion->y_distort(yv[i], a.axes.y.lb, a.axes.y.ub, d.ymin, d.ymax);
+        const double &arad = m_to_rad(d.a0) + (x - xmin) * aspan / (xmax - xmin);
         double dr;
-        if(y <= d.yub && y >= d.ylb) {
 
-            dr = (y - d.ylb) * (outr - inr) / (d.yub - d.ylb);
+        if(y <= a.axes.y.ub && y >= a.axes.y.lb) {
+            dr = (y - a.axes.y.lb) * (outr - inr) / (a.axes.y.ub - a.axes.y.lb);
         }
-        else if(y < d.ylb) {
-            dr = -(d.ylb - y) * inr / (d.ylb - ymin);
-            printf("QuCircularPlotEngine::m_get_points: y is %f ymin is %f ylb is %f dr is \e[1;31m%f\e[0m\n",
-                   y, ymin, d.ylb, dr);
+        else if(y < a.axes.y.lb) {
+            dr = -(a.axes.y.lb - y) * inr / (a.axes.y.lb - ymin);
         }
         else {
-            dr = outr - inr + (R - outr) * (y - d.yub) / (ymax - d.yub);
-            printf("QuCircularPlotEngine::m_get_points: y is %f ymax is %f yub is %f dr is \e[0;31m%f\e[0m\n",
-                   y, ymax, d.yub, dr);
+            dr = outr - inr + (R - outr) * (y - a.axes.y.ub) / (ymax - a.axes.y.ub);
         }
-        double r = !d.scale_inverted ? inr + dr : outr - dr;
-        points[i] = QPointF(R - r * cos(a), R - r * sin(a));
-        //        pretty_pri("x %f -> angle %f y %f P(%f,%f) dr %f [inr %f outr %f] Y[%f-%f] curves[y:%f Y:%f]",
-        //                   xv[i], m_to_deg(a), y, points[i].x(), points[i].y(), dr, inr, outr, d.ylb, d.yub,
-        //                   ymin, ymax);
+        double r = !a.axes.y.scale_inverted ? inr + dr : outr - dr;
+        points[i] = QPointF(R - r * cos(arad), R - r * sin(arad));
     }
     return points;
 }
@@ -436,58 +418,80 @@ QSizeF QuCircularPlotEngine::minimumSize()  {
 }
 
 void QuCircularPlotEngine::setOutOfBoundsTransform(OOBDistort *c) {
-    if(d.oob_xform)
-        delete d.oob_xform;
-    d.oob_xform = c;
+    if(a.geom.oob_distortion)
+        delete a.geom.oob_distortion;
+    a.geom.oob_distortion = c;
     emit dirty();
 }
 
 bool QuCircularPlotEngine::showValues() const {
-    return d.show_values;
+    return a.paint.show_values;
 }
 
 bool QuCircularPlotEngine::showPoints() const {
-    return d.show_points;
+    return a.paint.show_points;
 }
 
 bool QuCircularPlotEngine::showCurves() const   {
-    return d.show_curves;
+    return a.paint.show_curves;
 }
 
 bool QuCircularPlotEngine::showXAxis() const {
-    return d.show_xax;
+    return a.paint.show_xax;
 }
 
 int QuCircularPlotEngine::showYAxes() const {
-    return d.y_axes;
+    return a.paint.y_axes;
 }
 
 bool QuCircularPlotEngine::showBounds() const {
-    return d.show_bounds;
+    return a.paint.show_bounds;
 }
 
 bool QuCircularPlotEngine::scaleInverted() const {
-    return d.scale_inverted;
+    return a.axes.y.scale_inverted;
 }
 
 void QuCircularPlotEngine::setCurveEditRadius(float r) {
-    d.crv_edit_r = r;
+    a.geom.selection.aradius = r;
     emit dirty();
 }
 
 void QuCircularPlotEngine::setCurveSelectionPointRadius(float r) {
-    d.csel_pt_r = r;
+    a.geom.selection.yp_radius = r;
     emit dirty();
 }
 
 float QuCircularPlotEngine::curveEditRadius()  const {
-    return d.crv_edit_r;
+    return a.geom.selection.aradius;
 }
 
 float QuCircularPlotEngine::curveSelectedPointRadius()  const {
-    return d.csel_pt_r;
+    return a.geom.selection.yp_radius;
 }
 
+/*!
+ * \brief add a QuCircularPlotDrawable_I object which will be drawn within
+ *        QuCircularPlotEngine::paint according to its z position
+ *
+ * \param dra an object implementing the QuCircularPlotDrawable_I interface.
+ *
+ * The QuCircularPlotDrawable_I::z value determines the order in which each drawable
+ * is painted. Plot background is drawn before everything else. Then drawables with
+ * negative z are drawn. Axes, bounds, curves follow. Drawables with positive z are
+ * then painted.
+ *
+ * Drawables that *scale* are drawn according to the painter transformation (zoom,
+ * if applied). Those that do not scale are drawn before the transformation is applied
+ * to the painter or after the painter is restored (always according to the *z position*.
+ *
+ * \see QuCircularPlotDrawable_I
+ *
+ * Drawables can be used to decorate the plot. For example, the y value of the selected
+ * point can be shown at the center of the plot (QuCircularPlotSelectionValue), or the
+ * plot can be divided in "sectors" (QuCircularPlotDiskSector).
+ *
+ */
 void QuCircularPlotEngine::addDrawable(QuCircularPlotDrawable_I *dra) {
     d.drawables.insert(dra->z(), dra);
 }
@@ -496,126 +500,157 @@ QList<QuCircularPlotDrawable_I *> QuCircularPlotEngine::drawables() const {
     return d.drawables.values();
 }
 
+QRectF QuCircularPlotEngine::boundingRect() const {
+    return d.bounding_r;
+}
+
 void QuCircularPlotEngine::onCurveBoundsChanged() {
     m_get_bounds_from_curves(&d.xmin, &d.xmax, &d.ymin, &d.ymax, &d.maxdatasiz);
-    if(d.x_autoscale) {
-        d.xlb = d.xmin; d.xub = d.xmax;
-        setXBounds(d.xlb, d.xub);
+    if(a.axes.x.autoscale) {
+        a.axes.x.lb = d.xmin; a.axes.x.ub = d.xmax;
+        setXBounds(a.axes.x.lb, a.axes.x.ub);
     }
-    if(d.y_autoscale) {
-        d.ylb = d.ymin; d.yub = d.ymax;
-        setYBounds(d.ylb, d.yub);
+    if(a.axes.y.autoscale) {
+        a.axes.y.lb = d.ymin; a.axes.y.ub = d.ymax;
+        setYBounds(a.axes.y.lb, a.axes.y.ub);
     }
 }
 
 // d.ymin, d.ymax, d.xmin, d.xmax updated upon curve data change
 void QuCircularPlotEngine::m_update_scales() {
-    if(d.y_autoscale)  {
-        setYBounds(d.ylb, d.yub);
+    if(a.axes.y.autoscale)  {
+        setYBounds(a.axes.y.lb, a.axes.y.ub);
     }
-    if(d.x_autoscale) {
-        setXBounds(d.xlb, d.xub);
+    if(a.axes.x.autoscale) {
+        setXBounds(a.axes.x.lb, a.axes.x.ub);
     }
 }
 
 void QuCircularPlotEngine::m_autoscale_enabled() {
     foreach(QuCircularPlotCurve *c, d.curves)
         c->minmax_update();
-    m_get_bounds_from_curves(&d.xlb, &d.xub, &d.ylb, &d.yub, &d.maxdatasiz);
+    m_get_bounds_from_curves(&a.axes.x.lb, &a.axes.x.ub, &a.axes.y.lb, &a.axes.y.ub, &d.maxdatasiz);
     m_update_scales();
     emit dirty();
 }
 
+/*!
+ * \brief enable or disable the x axis autoscale
+ * \param en true autoscale is enabled and the x scale is updated immediately
+ *        according to the bounds of all the curves
+ * \param en false autoscale is disabled. Current x axis bounds are left untouched
+ * \note For the x axis, it is assumed that x values are odered from smallest to
+ *       greatest
+ */
 void QuCircularPlotEngine::setXAutoscaleEnabled(bool en) {
-    d.x_autoscale = en;
+    a.axes.x.autoscale = en;
     if(en) m_autoscale_enabled();
 }
 
+/*!
+ * \brief enable or disable the y axis autoscale
+ * \param en true autoscale is enabled and the y scale is updated immediately
+ *        according to the bounds of all the curves
+ * \param en false autoscale is disabled. Current y axis bounds are left untouched
+ */
 void QuCircularPlotEngine::setYAutoscaleEnabled(bool en) {
-    d.y_autoscale = en;
+    a.axes.y.autoscale = en;
     if(en) m_autoscale_enabled();
 }
 
+/*!
+ * \brief disable y axis autoscale and set the lower bound
+ * \param m new lower bound
+ */
 void QuCircularPlotEngine::setYLowerBound(double m) {
-    d.y_autoscale = false;
-    d.ylb = m;
+    a.axes.y.autoscale = false;
+    a.axes.y.lb = m;
     emit dirty();
 }
 
+/*!
+ * \brief disable y axis autoscale and set the upper bound
+ * \param m new upper bound
+ */
 void QuCircularPlotEngine::setYUpperBound(double m) {
-    d.y_autoscale = false;
-    d.yub = m;
+    a.axes.y.autoscale = false;
+    a.axes.y.ub = m;
     emit dirty();
 }
 
+/*!
+ * \brief disable x axis autoscale and set the lower bound
+ * \param m new lower bound
+ */
 void QuCircularPlotEngine::setXLowerBound(double m) {
-    d.x_autoscale = false;
-    d.xlb = m;
+    a.axes.x.autoscale = false;
+    a.axes.x.lb = m;
     emit dirty();
 }
 
+/*!
+ * \brief disable x axis autoscale and set the upper bound
+ * \param m new upper bound
+ */
 void QuCircularPlotEngine::setXUpperBound(double m) {
-    d.x_autoscale = false;
-    d.xub = m;
+    a.axes.x.autoscale = false;
+    a.axes.x.ub = m;
     emit dirty();
 }
 
 void QuCircularPlotEngine::setXBounds(double xm, double xM) {
-    d.xlb = xm;
-    d.xub = xM;
+    a.axes.x.autoscale = false;
+    a.axes.x.lb = xm;
+    a.axes.x.ub = xM;
     emit dirty();
 }
 
 void QuCircularPlotEngine::setYBounds(double ym, double yM) {
-    d.ylb = ym;
-    d.yub = yM;
+    a.axes.y.autoscale = false;
+    a.axes.y.lb = ym;
+    a.axes.y.ub = yM;
     emit dirty();
 }
 
 
 void QuCircularPlotEngine::setScaleInverted(bool inve) {
-    d.scale_inverted = inve;
+    a.axes.y.scale_inverted = inve;
     clearSelection();
     emit dirty();
 }
 
-void QuCircularPlotEngine::setRadiusFactor(float f) {
-    d.radius_factor = f;
-    emit dirty();
-}
-
 void QuCircularPlotEngine::setInnerRadiusFactor(float f) {
-    d.inner_radius_factor = f;
+    a.geom.inner_radius_factor = f;
     emit dirty();
 }
 
 void QuCircularPlotEngine::setOuterRadiusFactor(float f) {
-    d.outer_radius_factor = f;
+    a.geom.outer_radius_factor = f;
     emit dirty();
 }
 
 double QuCircularPlotEngine::yLowerBound() const {
-    return d.ylb;
+    return a.axes.y.lb;
 }
 
 double QuCircularPlotEngine::yUpperBound() const {
-    return d.yub;
+    return a.axes.y.ub;
 }
 
 double QuCircularPlotEngine::xLowerBound() const {
-    return d.xlb;
+    return a.axes.x.lb;
 }
 
 double QuCircularPlotEngine::xUpperBound() const {
-    return d.xub;
+    return a.axes.x.ub;
 }
 
 QColor QuCircularPlotEngine::background() const {
-    return d.bgcolor;
+    return a.paint.colors.background;
 }
 
 QColor QuCircularPlotEngine::axesColor() const {
-    return d.axcolor;
+    return a.paint.colors.axes;
 }
 
 QuZoomer *QuCircularPlotEngine::zoomer() const {
@@ -630,16 +665,12 @@ QObject *QuCircularPlotEngine::plot() const {
     return parent();
 }
 
-float QuCircularPlotEngine::radiusFactor() const {
-    return d.radius_factor;
-}
-
 float QuCircularPlotEngine::innerRadiusFactor() const {
-    return d.inner_radius_factor;
+    return a.geom.inner_radius_factor;
 }
 
 float QuCircularPlotEngine::outerRadiusFactor() const {
-    return d.outer_radius_factor;
+    return a.geom.outer_radius_factor;
 }
 
 
@@ -652,23 +683,23 @@ constexpr double QuCircularPlotEngine::m_to_deg(double rad) {
 }
 
 void QuCircularPlotEngine::setShowValues(bool show) {
-    d.show_values = show;
+    a.paint.show_values = show;
 }
 
 void QuCircularPlotEngine::setShowPoints(bool show) {
-    d.show_points = show;
+    a.paint.show_points = show;
 }
 
 void QuCircularPlotEngine::setShowCurves(bool show) {
-    d.show_curves = show;
+    a.paint.show_curves = show;
 }
 
 void QuCircularPlotEngine::setShowYAxes(int count) {
-    d.y_axes = count;
+    a.paint.y_axes = count;
 }
 
 void QuCircularPlotEngine::setShowBounds(bool show) {
-    d.show_bounds = show;
+    a.paint.show_bounds = show;
 }
 
 void QuCircularPlotEngine::recalculateTxtFont() {
@@ -682,10 +713,31 @@ void QuCircularPlotEngine::recalculateTxtFont() {
 }
 
 void QuCircularPlotEngine::setBackground(const QColor &c) {
-    d.bgcolor = c;
+    a.paint.colors.background = c;
 }
 
 void QuCircularPlotEngine::setAxesColor(const QColor &c) {
-    d.axcolor = c;
+    a.paint.colors.axes = c;
 }
 
+/*!
+ * \brief convenience alias for either *a* memeber or attributes method
+ * \return a reference to the qucircularplot_attributes held by this plot
+ *
+ * \par Note
+ * *a* is a public member that can be directly accessed and modified by the clients
+ */
+qucircularplot_attributes &QuCircularPlotEngine::att()  {
+    return a;
+}
+
+/*!
+ * \brief convenience alias for either *a* memeber or att method
+ * \return a reference to the qucircularplot_attributes held by this plot
+ *
+ * \par Note
+ * *a* is a public member that can be directly accessed and modified by the clients
+ */
+qucircularplot_attributes &QuCircularPlotEngine::attributes() {
+    return a;
+}

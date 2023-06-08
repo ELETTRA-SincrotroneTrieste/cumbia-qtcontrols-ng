@@ -64,7 +64,7 @@ bool QuZoomEvents::eventFilter(QObject *watched, QEvent *event) {
         }
         else if(move)
             d->press_pt = QPointF();
-        else if(release && pos == d->press_pt && butt == Qt::LeftButton) {
+        else if(release && pos == d->press_pt/* && butt == Qt::LeftButton*/) {
             d->press_pt = QPointF();
             clickd = true;
         }

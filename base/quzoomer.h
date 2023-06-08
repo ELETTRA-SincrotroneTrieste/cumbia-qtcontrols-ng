@@ -34,11 +34,12 @@ public slots:
     void moveZoom(const QPointF& p1, const QPointF& p2);
     void unzoom();
     void zoomRectChanging(const QPointF& topl, const QPointF& botr);
-    void map(const QPointF& p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod);
+    void mapClick(const QPointF& p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod);
 
 
 signals:
     void zoomChanged(); // update widget
+    void moved(double dx, double dy);
     void clicked(const QPointF& p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod);
 
 private:

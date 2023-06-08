@@ -39,22 +39,21 @@ const QRectF &QuZoomer::zoomArea() const {
 }
 
 void QuZoomer::setZoomRect(const QRectF &r) {
-    qDebug() << __PRETTY_FUNCTION__ << r << "mapped" << d->T.mapRect(r);
     d->m_zstack.append(d->T.inverted().mapRect(r));
     d->changed = true;
     emit zoomChanged();
 }
 
 void QuZoomer::moveZoom(const QPointF &p1, const QPointF &p2) {
+    // divide by the scale factors t.m11 and t.m22 to keep the movement anchored to the mouse
+    const float dx = (p2.x()  - p1.x()) / d->T.m11(), dy = (p2.y() - p1.y()) / d->T.m22();
     for(int i = 0; i < d->m_zstack.size(); i++) {
-//        qDebug() << __PRETTY_FUNCTION__ << p1 << p2 << "TRANSFORM" << d->T;
-        // divide by the scale factors t.m11 and t.m22 to keep the movement anchored to the mouse
-        const float dx = (p2.x()  - p1.x()) / d->T.m11(), dy = (p2.y() - p1.y()) / d->T.m22();
         d->m_zstack[i].moveLeft(d->m_zstack[i].left() - dx);
         d->m_zstack[i].moveTop(d->m_zstack[i].top() - dy);
     }
     d->changed = true;
     emit zoomChanged();
+    emit moved(p2.x()  - p1.x(), p2.y() - p1.y());
 }
 
 void QuZoomer::unzoom() {
@@ -71,7 +70,7 @@ void QuZoomer::zoomRectChanging(const QPointF &topl, const QPointF &botr) {
     emit zoomChanged();
 }
 
-void QuZoomer::map(const QPointF &p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod) {
+void QuZoomer::mapClick(const QPointF &p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod) {
     emit clicked(d->T.inverted().map(p), butt, mod);
 }
 

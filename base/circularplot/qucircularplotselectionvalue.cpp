@@ -39,13 +39,13 @@ int QuCircularPlotSelectionValue::z() const {
     return 10;
 }
 
-void QuCircularPlotSelectionValue::draw(QPainter *p, const QuCircularPlotEngine *, double inner_radius, double , const QRectF &rect, QWidget *) {
+void QuCircularPlotSelectionValue::draw(QPainter *p, const QuCircularPlotEngine *, double in_r, double , const QRectF &rect, QWidget *) {
     if(m_i >= 0) {
         QFont f = p->font();
         QString n = QString::asprintf(m_format.toStdString().c_str(), m_v);
         QFontMetrics fm(f);
         float len = fm.horizontalAdvance(n);
-        const float maxlen = 1.6 * inner_radius;
+        const float maxlen = 1.6 * in_r;
         if(m_rect != rect  || m_v_changed) {
             while(fm.height() < maxlen || len < maxlen) {
                 f.setPointSize(f.pointSize() + 1);
@@ -59,7 +59,14 @@ void QuCircularPlotSelectionValue::draw(QPainter *p, const QuCircularPlotEngine 
             }
         }
         p->setFont(f);
-        p->drawText(QPointF(rect.center().x() - len / 2.0, rect.center().y() + (float) fm.height() / 4.0), n);
+        const QPointF& c = rect.center();
+//        QBrush saveb = p->brush();
+//        QColor circlec(Qt::white);
+//        circlec.setAlpha(140);
+//        p->setBrush(circlec);
+//        p->drawEllipse(c.x() - in_r, c.y() - in_r, 2 * in_r, 2 * in_r);
+//        p->setBrush(saveb);
+        p->drawText(QPointF(c.x() - len / 2.0, c.y() + (float) fm.height() / 4.0), n);
 
         m_v_changed = false;
     }

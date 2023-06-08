@@ -16,6 +16,9 @@ public:
         }
         dirty = true;
         txt_dist = -1.0;
+
+        draw_from = -1.0;
+        draw_to = 1.0;
     }
 
     QStringList sections;
@@ -24,6 +27,8 @@ public:
     bool dirty;
     QRectF rect;
     QFont font;
+    float draw_from, draw_to;
+    QColor bgcol; // background color
 };
 
 QuCircularPlotDiskSector::QuCircularPlotDiskSector()
@@ -44,6 +49,10 @@ void QuCircularPlotDiskSector::setSectionColors(const QVector<QColor> &c) {
     d->colors = c;
 }
 
+void QuCircularPlotDiskSector::setBackgroundColor(const QColor &c) {
+    d->bgcol = c;
+}
+
 void QuCircularPlotDiskSector::setTextDist(const float &f) {
     d->txt_dist = f;
 }
@@ -56,8 +65,45 @@ QStringList QuCircularPlotDiskSector::sections() const {
     return d->sections;
 }
 
+QColor QuCircularPlotDiskSector::backgroundColor() const {
+    return d->bgcol;
+}
+
 float QuCircularPlotDiskSector::textDist() const {
     return d->txt_dist;
+}
+
+int QuCircularPlotDiskSector::index(const QPointF &pt) {
+    if(d->rect.isValid()) {
+        const QPointF& c = d->rect.center();
+        float alpha;
+        if(pt.x() <= c.x() && pt.y() <= c.y()) {
+            alpha = atan((c.y() - pt.y()) / (c.x() - pt.x()));
+        }
+        else if(pt.x() > c.x() && pt.y() <= c.y()) {
+            alpha = M_PI / 2.0 + atan((pt.x() - c.x()) / (c.y() - pt.y()));
+        }
+        else if(pt.x() > c.x() && pt.y() > c.y()) {
+            alpha = M_PI + atan((pt.y() - c.y()) / (pt.x() - c.x()));
+        }
+        else {
+            alpha = 3 * M_PI / 2.0 + atan((c.x() - pt.x()) / (pt.y() - c.y()));
+        }
+        double a = 2 * M_PI / d->sections.size();
+        for(int i = 0; i < d->sections.size(); i++) {
+            if(alpha >= i * a && alpha < a * (i + 1))
+                return i;
+        }
+    }
+    return -1;
+}
+
+void QuCircularPlotDiskSector::setDrawFrom(float from) {
+    d->draw_from = from;
+}
+
+void QuCircularPlotDiskSector::setDrawTo(float to) {
+    d->draw_to = to;
 }
 
 bool QuCircularPlotDiskSector::scales() {
@@ -143,5 +189,17 @@ void QuCircularPlotDiskSector::draw(QPainter *p, const QuCircularPlotEngine *, d
         p->drawText(pt, d->sections[i]);
     }
 
-
+    if(d->bgcol.isValid() || sb != Qt::NoBrush) {
+        if(d->draw_from < 0)
+            d->draw_from = outer_radius;
+        if(d->draw_to < 0)
+            d->draw_to = R;
+        if(!d->bgcol.isValid() && sb != Qt::NoBrush)
+            p->drawEllipse(c, d->draw_from, d->draw_from);
+        else if(d->bgcol.isValid()) {
+            p->setBrush(d->bgcol);
+            p->drawEllipse(c, d->draw_from, d->draw_from);
+            p->setBrush(sb); // and restore brush
+        }
+    }
 }

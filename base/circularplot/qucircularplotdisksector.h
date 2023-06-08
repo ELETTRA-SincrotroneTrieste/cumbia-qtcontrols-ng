@@ -6,6 +6,7 @@
 #include <QColor>
 
 class QuCircularPlotDiskSector_P;
+class QPointF;
 
 class QuCircularPlotDiskSector : public QuCircularPlotDrawable_I
 {
@@ -15,11 +16,18 @@ public:
 
     void setSections(const QStringList& names);
     void setSectionColors(const QVector<QColor>& c);
+    void setBackgroundColor(const QColor& c);
     void setTextDist(const float& f);
 
     QVector<QColor> sectionColors() const;
     QStringList sections() const;
+    QColor backgroundColor() const;
     float textDist() const;
+
+    int index(const QPointF& pt);
+
+    void setDrawFrom(float from);
+    void setDrawTo(float to);
 
     // QuCircularPlotDrawable_I interface
 public:

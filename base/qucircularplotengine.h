@@ -11,6 +11,7 @@
 #include <math.h>
 #include "qucircularplotcurve.h"
 #include "qucircularplotcurveselectionevents.h"
+#include "qucircularplotattributes.h"
 
 class QStyleOptionGraphicsItem;
 class QPainter;
@@ -27,35 +28,59 @@ public:
     QFont font, scaled_font;
     QMap<QString, QuCircularPlotCurve *> curves;
     double a0, a1; // angle start, angle end
-    double xlb, xub, ylb, yub; // "axis" bounds, either manual or auto
     double xmin, xmax, ymin, ymax; // min and max from curves
-    double baseline; // x axis pos, default at y = 0.0
-    bool x_autoscale, y_autoscale, scale_inverted;
     int maxdatasiz;
-
-    double radius, radius_factor, inner_radius_factor, outer_radius_factor;
-
-    float crv_edit_r, csel_pt_r; // selection circle and point
-
-    OOBDistort *oob_xform;
-    bool show_values, show_points, show_bounds; // default false
-    bool show_curves, show_xax, show_origin; // default: true
-    int y_axes; // default: show 0 Y axes
 
     QuZoomer *zoomer;
     QuCircularPlotCurveSelectionEvents *selection_ev;
     QuZoomEvents *zoom_ev;
 
-    QColor bgcolor, axcolor;
-
     QMultiMap<int, QuCircularPlotDrawable_I *> drawables;
 };
 
+/*!
+ * \brief Engine shared by either QuCircularPlotItem or QuCircularPlotWidget that stores configuration
+ *        and does all the painting and zooming and stores the data
+ *
+ *  QuCircularPlotItem::engine and QuCircularPlotWidget::engine return a reference to their
+ *  QuCircularPlotEngine, that shall be used by clients to access all operations, as well as
+ *  signals and slots.
+ *
+ *  \par Plot configuration
+ *  Plot settings are held by the *qucircularplot_attributes* public member named *a*
+ *  QuCircularPlotEngine::att and QuCircularPlotEngine::attributes are convenience
+ *  methods that return a (non const) reference to *a*.
+ *  \see qucircularplot_attributes
+ *
+ *  \par Example
+ *
+ *  In this example we set up a QGraphicsPlotItem with one curve
+ *
+ *  \code
+    QuCircularPlotI *ni = new QuCircularPlotI(nullptr, QSize(300, 300));
+    QuCircularPlotEngine *pie = ni->engine();
+    qucircularplot_attributes &a = pie->a;
+    a.axes.y.autoscale = true;  // enable y axis autoscale
+    a.geom.inner_radius_factor = 0.1; // widen inter axes area
+    a.paint.colors.background = QColor(Qt::white);  // light color scheme
+    ni->setObjectName("plot_" + s);
+    ni->setFlag(QGraphicsItem::ItemIsMovable, true);
+    scene->addItem(ni); // add the item to a (previously allocated) QGraphicsScene
+    ni->setPos(10, 10);
+    QuCircularPlotCurve *crv = pie->addCurve("curve 1");
+    QVector<double> x{0,1,2,3,4,5}, y{0.0, 0.5, -0.5, 0.4, -0.4. 0.1};
+    crv->setData(x, y);
+    // or ni->setData("curve 1", x, y);
+ *  \endcode
+ */
 class QuCircularPlotEngine : public QObject, public QuCircularPlotCurveListener
 {
     Q_OBJECT
 public:
-    QuCircularPlotEngineData d;
+
+    struct qucircularplot_attributes a; //!< plot configuration @see qucircularplot_attributes
+    struct qucircularplot_attributes& att();
+    struct qucircularplot_attributes& attributes() ;
 
     explicit QuCircularPlotEngine(QObject *parent, const QFont &f, QuZoomer *zoomer, QuCircularPlotCurveSelectionEvents* selev, QuZoomEvents* ze);
     virtual  ~QuCircularPlotEngine();
@@ -75,15 +100,6 @@ public:
 
     QColor background() const;
     QColor axesColor() const;
-
-    /*!
-     * \brief radiusFactor is a factor from 0 to 1 indicating where to draw the circle
-     *        in the available area
-     * \return the value of the radius factor.
-     * \par Default value
-     * The default value is 0.4
-     */
-    float radiusFactor() const;
 
     float innerRadiusFactor() const;
     float outerRadiusFactor() const;
@@ -109,6 +125,8 @@ public:
     void addDrawable(QuCircularPlotDrawable_I *dra);
     QList<QuCircularPlotDrawable_I *> drawables() const;
 
+    QRectF boundingRect() const;
+
 public slots:
     void setYLowerBound(double m);
     void setYUpperBound(double m);
@@ -120,7 +138,6 @@ public slots:
     void setYAutoscaleEnabled(bool en);
     void setScaleInverted(bool inve);
 
-    void setRadiusFactor(float f);
     void setInnerRadiusFactor(float f);
     void setOuterRadiusFactor(float f);
 
@@ -154,6 +171,7 @@ signals:
     void dirty(); // trigger update on item / widget
     void selectionChanged(QuCircularPlotCurve *c, int idx, double new_val);
     void selectionChanged(QObject *o, const QString& curve, int idx, double new_val);
+    void clicked(const QPointF& p, const Qt::MouseButton butt, Qt::KeyboardModifiers mod);
 
     /*!
      * \brief selectedYChanged is emitted when a selection on one (or more) curve(s) is active and the
@@ -189,6 +207,9 @@ private slots:
     // QuCircularPlotCurveListener interface
 private:
     void onCurveBoundsChanged();
+
+private:
+    QuCircularPlotEngineData d;
 };
 
 #endif // QUCIRCULARPLOTENGINE_H

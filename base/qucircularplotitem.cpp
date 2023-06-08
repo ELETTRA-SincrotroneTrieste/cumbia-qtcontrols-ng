@@ -58,7 +58,7 @@ QuCircularPlotEngine *QuCircularPlotI::engine() const {
 
 
 QRectF QuCircularPlotI::boundingRect() const {
-    return d->e->d.bounding_r;
+    return d->e->boundingRect();
 }
 
 void QuCircularPlotI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
