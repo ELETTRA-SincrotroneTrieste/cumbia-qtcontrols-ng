@@ -14,6 +14,7 @@
 #include <math.h>
 #include <qucircularplotconfigurator.h>
 #include <QSet>
+#include <qregularexpression.h>
 
 #define CHECK_MARK "✓"
 
@@ -58,8 +59,22 @@ QuCircularPlotCurve *QuCircularPlotEngine::addCurve(const QString& src) {
     return d.curves[src];
 }
 
+/*!
+ * \brief find a curve either by exact match or regexp
+ * \param src the exact name of the curve (usually, its *source*) or a regular expression
+ * \return the found curve, if any. nullptr otherwise.
+ *
+ * First an exact match is searched using *src* as key. If unsuccessful, a regex based search
+ * is performed.
+ */
 QuCircularPlotCurve *QuCircularPlotEngine::findCurve(const QString &src) const {
-    return d.curves.contains(src) ? d.curves[src] : nullptr;
+    QuCircularPlotCurve *c = d.curves.contains(src) ? d.curves[src] : nullptr;
+    if(!c) {
+        const QStringList& keys = d.curves.keys();
+        int i = keys.indexOf(QRegularExpression(src));
+        if(i > -1) c = d.curves[keys[i]];
+    }
+    return c;
 }
 
 void QuCircularPlotEngine::setData(const QString &src, const QVector<double> &xdata, const QVector<double> &ydata){
