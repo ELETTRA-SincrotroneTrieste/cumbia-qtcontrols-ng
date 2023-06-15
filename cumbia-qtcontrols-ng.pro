@@ -18,6 +18,16 @@ DEFINES -= QT_NO_DEBUG_OUTPUT
 
 DEFINES += CUMBIA_QTCONTROLS_NG_LIBRARY
 
+DEFINES += CUMBIA_QTCONTROLS_NG_VERSION_STR=\"\\\"$${VERSION}\\\"\" \
+    CUMBIA_QTCONTROLS_NG_VERSION=$${VERSION_HEX} \
+    VER_MAJ=$${VER_MAJ} \
+    VER_MIN=$${VER_MIN} \
+    VER_FIX=$${VER_FIX} \
+    SHAREDIR=\"\\\"$${SHAREDIR}\\\"\"  \
+    DOCDIR=\"\\\"$${DOC_DIR}\\\"\"  \
+    INSTALLROOT=\"\\\"$${INSTALL_ROOT}\\\"\"  \
+    LIBDIR=\"\\\"$${LIBDIR}\\\"\"
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -28,6 +38,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+# change the place where you want the documentation and other files to be installed
+SHAREDIR = $${INSTALL_ROOT}/share
 
 SOURCES += \
     base/circularplot/qucircularplotdisksector.cpp \
@@ -42,6 +55,51 @@ SOURCES += \
     base/circularplot/quzoomevents.cpp \
     base/circularplot/qucircularplotwidget.cpp \
     base/circularplot/qucircularplotitem.cpp \
+    \
+    base/qgraphicsplot/axes/axesmanager.cpp \
+    base/qgraphicsplot/axes/axiscouple.cpp \
+    base/qgraphicsplot/axes/scaleitem.cpp \
+    base/qgraphicsplot/axes/scaleitemprivate.cpp \
+    base/qgraphicsplot/colorpalette.cpp \
+    base/qgraphicsplot/curve/curveitem.cpp \
+    base/qgraphicsplot/curve/curveitemprivate.cpp \
+    base/qgraphicsplot/curve/data.cpp \
+    base/qgraphicsplot/curve/itempositionchangelistener.cpp \
+    base/qgraphicsplot/curve/painters/circleitemset.cpp \
+    base/qgraphicsplot/curve/painters/dotspainter.cpp \
+    base/qgraphicsplot/curve/painters/dotspainterprivate.cpp \
+    base/qgraphicsplot/curve/painters/histogrampainter.cpp \
+    base/qgraphicsplot/curve/painters/histogrampainterprivate.cpp \
+    base/qgraphicsplot/curve/painters/linepainter.cpp \
+    base/qgraphicsplot/curve/painters/linepainterprivate.cpp \
+    base/qgraphicsplot/curve/painters/stepspainter.cpp \
+    base/qgraphicsplot/curve/painters/stepspainterprivate.cpp \
+    base/qgraphicsplot/curve/point.cpp \
+    base/qgraphicsplot/curve/pointdata.cpp \
+    base/qgraphicsplot/curve/pointprivate.cpp \
+    base/qgraphicsplot/curve/scenecurve.cpp \
+    base/qgraphicsplot/curve/scenecurveprivate.cpp \
+    base/qgraphicsplot/externalscalewidget.cpp \
+    base/qgraphicsplot/horizontalscalewidget.cpp \
+    base/qgraphicsplot/items/itemmovelistener.cpp \
+    base/qgraphicsplot/items/legenditem.cpp \
+    base/qgraphicsplot/items/markeritem.cpp \
+    base/qgraphicsplot/items/markeritemprivate.cpp \
+    base/qgraphicsplot/items/targetitem.cpp \
+    base/qgraphicsplot/items/targetitemprivate.cpp \
+    base/qgraphicsplot/plotsaver/plotscenewidgetsaver.cpp \
+    base/qgraphicsplot/plotscenewidget.cpp \
+    base/qgraphicsplot/plugins/qgraphicsplotplugin.cpp \
+    base/qgraphicsplot/plugins/qrc_qgraphicsplotplugin.cpp \
+    base/qgraphicsplot/properties/propertydialog.cpp \
+    base/qgraphicsplot/properties/settingsloader.cpp \
+    base/qgraphicsplot/qgraphicsplotitem.cpp \
+    base/qgraphicsplot/qgraphicsplotitem_private.cpp \
+    base/qgraphicsplot/qgraphicszoomer.cpp \
+    base/qgraphicsplot/scalelabelinterface.cpp \
+    base/qgraphicsplot/scalelabels/timescalelabel.cpp \
+    base/qgraphicsplot/verticalscalewidget.cpp \
+    \
     controls/numeric/qunumericcontrol_w.cpp \
     base/numeric/qunumericclickrepeater.cpp \
     base/numeric/qunumericengine.cpp \
@@ -68,10 +126,60 @@ HEADERS += \
     base/numeric/qunumericengine.h \
     base/numeric/qunumericitem.h \
     base/numeric/qunumericwidget.h \
+    base/qgraphicsplot/axes/axesmanager.h \
+    base/qgraphicsplot/axes/axiscouple.h \
+    base/qgraphicsplot/axes/scaleitem.h \
+    base/qgraphicsplot/axes/scaleitemprivate.h \
+    base/qgraphicsplot/axischangelistener.h \
+    base/qgraphicsplot/colorpalette.h \
+    base/qgraphicsplot/colors.h \
+    base/qgraphicsplot/curve/curvechangelistener.h \
+    base/qgraphicsplot/curve/curveitem.h \
+    base/qgraphicsplot/curve/curveitemprivate.h \
+    base/qgraphicsplot/curve/data.h \
+    base/qgraphicsplot/curve/itemmovelistener.h \
+    base/qgraphicsplot/curve/itempainterinterface.h \
+    base/qgraphicsplot/curve/itempositionchangelistener.h \
+    base/qgraphicsplot/curve/painters/circleitemset.h \
+    base/qgraphicsplot/curve/painters/dotspainter.h \
+    base/qgraphicsplot/curve/painters/dotspainterprivate.h \
+    base/qgraphicsplot/curve/painters/histogrampainter.h \
+    base/qgraphicsplot/curve/painters/histogrampainterprivate.h \
+    base/qgraphicsplot/curve/painters/linepainter.h \
+    base/qgraphicsplot/curve/painters/linepainterprivate.h \
+    base/qgraphicsplot/curve/painters/stepspainter.h \
+    base/qgraphicsplot/curve/painters/stepspainterprivate.h \
+    base/qgraphicsplot/curve/point.h \
+    base/qgraphicsplot/curve/pointdata.h \
+    base/qgraphicsplot/curve/pointprivate.h \
+    base/qgraphicsplot/curve/scenecurve.h \
+    base/qgraphicsplot/curve/scenecurveprivate.h \
+    base/qgraphicsplot/externalscalewidget.h \
+    base/qgraphicsplot/horizontalscalewidget.h \
+    base/qgraphicsplot/items/itemmovelistener.h \
+    base/qgraphicsplot/items/legenditem.h \
+    base/qgraphicsplot/items/markeritem.h \
+    base/qgraphicsplot/items/markeritemprivate.h \
+    base/qgraphicsplot/items/targetitem.h \
+    base/qgraphicsplot/items/targetitemprivate.h \
+    base/qgraphicsplot/mouseeventlistener.h \
+    base/qgraphicsplot/plotgeometryeventlistener.h \
+    base/qgraphicsplot/plotsaver/plotscenewidgetsaver.h \
+    base/qgraphicsplot/plotscenewidget.h \
+    base/qgraphicsplot/plugins/qgraphicsplotplugin.h \
+    base/qgraphicsplot/properties/propertydialog.h \
+    base/qgraphicsplot/properties/settingsloader.h \
+    base/qgraphicsplot/qgraphicsplotitem.h \
+    base/qgraphicsplot/qgraphicsplotitem_private.h \
+    base/qgraphicsplot/qgraphicsplotmacros.h \
+    base/qgraphicsplot/qgraphicszoomer.h \
+    base/qgraphicsplot/scalelabelinterface.h \
+    base/qgraphicsplot/scalelabels/timescalelabel.h \
+    base/qgraphicsplot/verticalscalewidget.h \
+    base/qgraphicsplot/xyplotinterface.h \
     controls/numeric/qunumericcontrol_w.h
 
-DISTFILES += \
-    Doxyfile
+DISTFILES +=
 
 unix {
     doc.commands = \
@@ -111,10 +219,15 @@ CONFIG += create_pc create_prl no_install_prl
     QMAKE_PKGCONFIG_VERSION = $${VERSION}
     QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 
-INCLUDEPATH += base controls base/numeric base/circularplot controls/numeric
+INCLUDEPATH += base controls base/numeric base/circularplot controls/numeric \
+    base/qgraphicsplot/axes base/qgraphicsplot/plotsaver base/qgraphicsplot/properties \
+    base/qgraphicsplot/curve  base/qgraphicsplot/extscaleplotscenewidget \
+    base/qgraphicsplot/items  base/qgraphicsplot/
 
 # remove ourselves from -l (.pri)
 LIBS -= -l$${cumbia_qtcontrols_ng_LIB}
 
 # RESOURCES += \
 #    cumbia-qtcontrols-ng.qrc
+
+
