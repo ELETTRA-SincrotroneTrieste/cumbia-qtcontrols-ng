@@ -1,0 +1,372 @@
+\doxysection{plotscenewidget.\+h}
+\label{plotscenewidget_8h_source}\index{plotscenewidget.h@{plotscenewidget.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef PLOTSCENEWIDGET\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define PLOTSCENEWIDGET\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QGraphicsView>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QPair>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}scaleitem.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}xyplotinterface.h"{}}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#if QT\_VERSION < 0x040800}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#error "{}Please use at least Qt 4.8 to build this library and the applications using it"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }PlotSceneWidgetPrivate;}
+\DoxyCodeLine{14 \textcolor{keyword}{class }PointData;}
+\DoxyCodeLine{15 \textcolor{keyword}{class }Point;}
+\DoxyCodeLine{16 \textcolor{keyword}{class }CurveChangeListener;}
+\DoxyCodeLine{17 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{18 \textcolor{keyword}{class }AxesManager;}
+\DoxyCodeLine{19 \textcolor{keyword}{class }PlotGeometryEventListener;}
+\DoxyCodeLine{20 \textcolor{keyword}{class }MouseEventListener;}
+\DoxyCodeLine{21 \textcolor{keyword}{class }LegendItem;}
+\DoxyCodeLine{22 \textcolor{keyword}{class }QGraphicsZoomer;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{166 \textcolor{keyword}{class  }PlotSceneWidget : \textcolor{keyword}{public} QGraphicsView, \textcolor{keyword}{public} XYPlotInterface}
+\DoxyCodeLine{167 \{}
+\DoxyCodeLine{168     Q\_PROPERTY(\textcolor{keywordtype}{bool} xScaleEnabled READ xScaleEnabled WRITE setXScaleEnabled)}
+\DoxyCodeLine{169     Q\_PROPERTY(\textcolor{keywordtype}{bool} yScaleEnabled READ yScaleEnabled WRITE setYScaleEnabled)}
+\DoxyCodeLine{170     Q\_PROPERTY(\textcolor{keywordtype}{bool} mouseZoomEnabled READ mouseZoomEnabled WRITE setMouseZoomEnabled)}
+\DoxyCodeLine{171     Q\_PROPERTY(\textcolor{keywordtype}{bool} scaleSceneOnResizeEnabled READ scaleSceneOnResizeEnabled WRITE setScaleSceneOnResizeEnabled)}
+\DoxyCodeLine{172     Q\_PROPERTY(\textcolor{keywordtype}{double} plotAreaPercentageWidth READ plotAreaPercentageWidth WRITE setPlotAreaPercentageWidth)}
+\DoxyCodeLine{173     Q\_PROPERTY(\textcolor{keywordtype}{double} plotAreaPercentageHeight READ plotAreaPercentageHeight WRITE setPlotAreaPercentageHeight)}
+\DoxyCodeLine{174     Q\_PROPERTY(\textcolor{keywordtype}{double} plotAreaTopLeftXPercentage READ plotAreaTopLeftXPercentage WRITE setPlotAreaTopLeftXPercentage)}
+\DoxyCodeLine{175     Q\_PROPERTY(\textcolor{keywordtype}{double} plotAreaTopLeftYPercentage READ plotAreaTopLeftYPercentage WRITE setPlotAreaTopLeftYPercentage)}
+\DoxyCodeLine{176     Q\_PROPERTY(\textcolor{keywordtype}{bool} painterAntiAlias READ painterAntiAlias WRITE setPainterAntiAlias)}
+\DoxyCodeLine{177     Q\_PROPERTY(\textcolor{keywordtype}{bool} painterHQGLAntiAlias READ painterHQGLAntiAlias WRITE setPainterHQGLAntiAlias)}
+\DoxyCodeLine{178     Q\_PROPERTY(\textcolor{keywordtype}{bool} smoothPixmapTransform READ smoothPixmapTransform WRITE setSmoothPixmapTransform)}
+\DoxyCodeLine{179     Q\_PROPERTY(\textcolor{keywordtype}{bool} dontSavePainterState READ dontSavePainterState WRITE setDontSavePainterState)}
+\DoxyCodeLine{180     Q\_PROPERTY(\textcolor{keywordtype}{bool} dontAdjustForAntialiasing READ dontAdjustForAntialiasing WRITE setDontAdjustForAntialiasing)}
+\DoxyCodeLine{181     Q\_PROPERTY(\textcolor{keywordtype}{bool} cacheBackground READ cacheBackground WRITE setCacheBackground)}
+\DoxyCodeLine{182     Q\_PROPERTY(\textcolor{keywordtype}{bool} manualSceneUpdate READ  manualSceneUpdate WRITE setManualSceneUpdate)}
+\DoxyCodeLine{183     Q\_PROPERTY(\textcolor{keywordtype}{int} refreshPeriod READ refreshPeriod WRITE setRefreshPeriod)}
+\DoxyCodeLine{184     Q\_PROPERTY(\textcolor{keywordtype}{double} defaultXAxisOriginPosPercentage READ defaultXAxisOriginPosPercentage WRITE setDefaultXAxisOriginPosPercentage)}
+\DoxyCodeLine{185     Q\_PROPERTY(\textcolor{keywordtype}{double} defaultYAxisOriginPosPercentage READ defaultYAxisOriginPosPercentage WRITE setDefaultYAxisOriginPosPercentage)}
+\DoxyCodeLine{186     Q\_PROPERTY(\textcolor{keywordtype}{bool} modifiedPaintEvent READ modifiedPaintEvent WRITE setModifiedPaintEvent)}
+\DoxyCodeLine{187     Q\_PROPERTY(\textcolor{keywordtype}{bool} scrollBarsEnabled READ scrollBarsEnabled WRITE setScrollBarsEnabled)}
+\DoxyCodeLine{188     Q\_PROPERTY(\textcolor{keywordtype}{bool} legendVisible READ legendVisible WRITE setLegendVisible)}
+\DoxyCodeLine{189     Q\_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor)}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{191     Q\_OBJECT}
+\DoxyCodeLine{192 \textcolor{keyword}{public}:}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194     \textcolor{keyword}{enum} Axis \{ xBottom, yLeft, xTop, yRight, User = 100 \};}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196     \textcolor{keyword}{explicit} PlotSceneWidget(QWidget *parent = 0, \textcolor{keywordtype}{bool} useOpenGl = \textcolor{keyword}{false});}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{198     \textcolor{keyword}{explicit} PlotSceneWidget(QWidget *parent, \textcolor{keywordtype}{bool} initDefaultAxes, \textcolor{keywordtype}{bool} useOpenGl = \textcolor{keyword}{false});}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200     \textcolor{keywordtype}{bool} xScaleEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{201 }
+\DoxyCodeLine{202     \textcolor{keywordtype}{bool} yScaleEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204     \textcolor{keywordtype}{bool} scaleSceneOnMouseScroll() \textcolor{keyword}{const};}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206     \textcolor{keywordtype}{bool} sceneRectToWidgetGeometry() \textcolor{keyword}{const};}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208     \textcolor{keywordtype}{bool} mouseZoomEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210     \textcolor{keywordtype}{bool} modifiedPaintEvent() \textcolor{keyword}{const};}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212     \textcolor{keywordtype}{bool} smoothPixmapTransform() \textcolor{keyword}{const};}
+\DoxyCodeLine{213 }
+\DoxyCodeLine{214     \textcolor{keywordtype}{bool} legendVisible() \textcolor{keyword}{const};}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} boundsChanged();}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218     \textcolor{keywordtype}{void} installPlotGeometryChangeListener(PlotGeometryEventListener *l);}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{220     \textcolor{keywordtype}{void} removePlotGeometryChangeListener(PlotGeometryEventListener *l);}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222     \textcolor{keywordtype}{void} installMouseEventListener(MouseEventListener *l);}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224     \textcolor{keywordtype}{void} removeMouseEventListener(MouseEventListener* l);}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226     QColor backgroundColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{228     QList<Point *> getPoints() \textcolor{keyword}{const};}
+\DoxyCodeLine{229 }
+\DoxyCodeLine{235     ScaleItem *xScaleItem() \textcolor{keyword}{const};}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{242     ScaleItem *yScaleItem() \textcolor{keyword}{const};}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{254     ScaleItem* scaleItem(ScaleItem::Id \textcolor{keywordtype}{id}) \textcolor{keyword}{const};}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256     ScaleItem* associatedAxis(ScaleItem::Id otherAxisId) \textcolor{keyword}{const};}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258     QPair<double, double> associatedOriginPosPercentage(ScaleItem::Id xAxisId, ScaleItem::Id yAxisId, \textcolor{keywordtype}{bool} *ok) \textcolor{keyword}{const};}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260     \textcolor{keywordtype}{void} addConfigurableObjects(\textcolor{keyword}{const} QString\& title, QObject *\textcolor{keywordtype}{object});}
+\DoxyCodeLine{261 }
+\DoxyCodeLine{262     \textcolor{keywordtype}{void} removeConfigurableObjects(\textcolor{keyword}{const} QString\& title);}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{270     \textcolor{keywordtype}{void} setSettingsKey(\textcolor{keyword}{const} QString\& key);}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{272     QString settingsKey() \textcolor{keyword}{const};}
+\DoxyCodeLine{273 }
+\DoxyCodeLine{274     \textcolor{keywordtype}{void} loadConfigurationProperties();}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276     QPointF invTransform(\textcolor{keyword}{const} QPointF\& pSceneCoord);}
+\DoxyCodeLine{277 }
+\DoxyCodeLine{278     \textcolor{keywordtype}{double} invTransform(\textcolor{keyword}{const} \textcolor{keywordtype}{double} xCoord, ScaleItem* scaleItem) \textcolor{keyword}{const};}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{288     \textcolor{keywordtype}{double} transform(\textcolor{keyword}{const} \textcolor{keywordtype}{double} x, ScaleItem* scaleItem) \textcolor{keyword}{const};}
+\DoxyCodeLine{289 }
+\DoxyCodeLine{290     QPointF invTransform(\textcolor{keyword}{const} QPointF\& pSceneCoord, ScaleItem* xScaleItem, ScaleItem* yScaleItem) \textcolor{keyword}{const};}
+\DoxyCodeLine{291 }
+\DoxyCodeLine{292     \textcolor{keywordtype}{void} addCurve(SceneCurve *curve);}
+\DoxyCodeLine{293 }
+\DoxyCodeLine{302     SceneCurve * addCurve(\textcolor{keyword}{const} QString\& name);}
+\DoxyCodeLine{303 }
+\DoxyCodeLine{311     SceneCurve *addCurve(\textcolor{keyword}{const} QString \&name, ScaleItem *xScaleItem, ScaleItem *yScaleItem);}
+\DoxyCodeLine{312 }
+\DoxyCodeLine{319     SceneCurve *findCurve(\textcolor{keyword}{const} QString\& name);}
+\DoxyCodeLine{320 }
+\DoxyCodeLine{324     QList<SceneCurve *> getCurves() \textcolor{keyword}{const};}
+\DoxyCodeLine{325 }
+\DoxyCodeLine{326     SceneCurve *addLineCurve(\textcolor{keyword}{const} QString\& name, ScaleItem *xScaleItem = NULL, ScaleItem *yScaleItem = NULL);}
+\DoxyCodeLine{327 }
+\DoxyCodeLine{328     \textcolor{keywordtype}{void} curveAboutToBeDestroyed(\textcolor{keyword}{const} QString\& name, \textcolor{keywordtype}{bool} deleteCurve = \textcolor{keyword}{true});}
+\DoxyCodeLine{329 }
+\DoxyCodeLine{334     QList<SceneCurve *> curvesForAxes(ScaleItem::Id axisId, ScaleItem::Orientation orientation) \textcolor{keyword}{const};}
+\DoxyCodeLine{335 }
+\DoxyCodeLine{342     AxesManager *axesManager() \textcolor{keyword}{const};}
+\DoxyCodeLine{343 }
+\DoxyCodeLine{344     QRectF plotRect() \textcolor{keyword}{const};}
+\DoxyCodeLine{345 }
+\DoxyCodeLine{346     \textcolor{keywordtype}{double} plotAreaPercentageWidth() \textcolor{keyword}{const};}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{348     \textcolor{keywordtype}{double} plotAreaPercentageHeight() \textcolor{keyword}{const};}
+\DoxyCodeLine{349 }
+\DoxyCodeLine{350     \textcolor{keywordtype}{double} plotAreaTopLeftXPercentage() \textcolor{keyword}{const};}
+\DoxyCodeLine{351 }
+\DoxyCodeLine{352     \textcolor{keywordtype}{double} plotAreaTopLeftYPercentage () \textcolor{keyword}{const};}
+\DoxyCodeLine{353 }
+\DoxyCodeLine{354     \textcolor{keywordtype}{double} originPosPercentage(ScaleItem *scaleIt) \textcolor{keyword}{const};}
+\DoxyCodeLine{355 }
+\DoxyCodeLine{356     \textcolor{keywordtype}{double} defaultXAxisOriginPosPercentage() \textcolor{keyword}{const};}
+\DoxyCodeLine{357 }
+\DoxyCodeLine{358     \textcolor{keywordtype}{double} defaultYAxisOriginPosPercentage() \textcolor{keyword}{const};}
+\DoxyCodeLine{359 }
+\DoxyCodeLine{360     \textcolor{keywordtype}{bool} painterAntiAlias() \textcolor{keyword}{const};}
+\DoxyCodeLine{361 }
+\DoxyCodeLine{362     \textcolor{keywordtype}{bool} painterHQGLAntiAlias() \textcolor{keyword}{const};}
+\DoxyCodeLine{363 }
+\DoxyCodeLine{364     \textcolor{keywordtype}{bool} dontSavePainterState() \textcolor{keyword}{const};}
+\DoxyCodeLine{365 }
+\DoxyCodeLine{366     \textcolor{keywordtype}{bool} dontAdjustForAntialiasing() \textcolor{keyword}{const};}
+\DoxyCodeLine{367 }
+\DoxyCodeLine{368     \textcolor{keywordtype}{bool} cacheBackground() \textcolor{keyword}{const};}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{370     \textcolor{keywordtype}{double} xAxisLowerBound() \textcolor{keyword}{const};}
+\DoxyCodeLine{371 }
+\DoxyCodeLine{372     \textcolor{keywordtype}{double} yAxisLowerBound() \textcolor{keyword}{const};}
+\DoxyCodeLine{373 }
+\DoxyCodeLine{374     \textcolor{keywordtype}{double} xAxisUpperBound() \textcolor{keyword}{const};}
+\DoxyCodeLine{375 }
+\DoxyCodeLine{376     \textcolor{keywordtype}{double} yAxisUpperBound() \textcolor{keyword}{const};}
+\DoxyCodeLine{377 }
+\DoxyCodeLine{378     \textcolor{keywordtype}{bool} xAxisAutoscaleEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{379 }
+\DoxyCodeLine{380     \textcolor{keywordtype}{bool} yAxisAutoscaleEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{381 }
+\DoxyCodeLine{382     \textcolor{keywordtype}{bool} xAxisLabelsOutsideCanvas() \textcolor{keyword}{const};}
+\DoxyCodeLine{383 }
+\DoxyCodeLine{384     \textcolor{keywordtype}{bool} yAxisLabelsOutsideCanvas() \textcolor{keyword}{const};}
+\DoxyCodeLine{385 }
+\DoxyCodeLine{396     \textcolor{keywordtype}{int} refreshPeriod() \textcolor{keyword}{const};}
+\DoxyCodeLine{397 }
+\DoxyCodeLine{403     \textcolor{keywordtype}{bool} manualSceneUpdate() \textcolor{keyword}{const};}
+\DoxyCodeLine{404 }
+\DoxyCodeLine{433     QList<SceneCurve *> getClosest(QPointF \&closestPos, \textcolor{keywordtype}{int} *closestIndex, \textcolor{keyword}{const} QPointF \&viewPos);}
+\DoxyCodeLine{434 }
+\DoxyCodeLine{435     \textcolor{keywordtype}{bool} inZoom() \textcolor{keyword}{const};}
+\DoxyCodeLine{436 }
+\DoxyCodeLine{437     \textcolor{keywordtype}{int} zoomLevel() \textcolor{keyword}{const};}
+\DoxyCodeLine{438 }
+\DoxyCodeLine{439     \textcolor{keywordtype}{bool} scrollBarsEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{440 }
+\DoxyCodeLine{441     LegendItem *legendItem() \textcolor{keyword}{const};}
+\DoxyCodeLine{442 }
+\DoxyCodeLine{443     QGraphicsZoomer * zoomer() \textcolor{keyword}{const};}
+\DoxyCodeLine{444 }
+\DoxyCodeLine{445     ScaleItem *addAxis(ScaleItem::Orientation o, ScaleItem::Id \textcolor{keywordtype}{id}, ScaleItem *associatedAxis);}
+\DoxyCodeLine{446 }
+\DoxyCodeLine{447     \textcolor{keywordtype}{void} removeAxis(ScaleItem::Id \textcolor{keywordtype}{id});}
+\DoxyCodeLine{448 }
+\DoxyCodeLine{449     \textcolor{keywordtype}{void} clearAxes(\textcolor{keywordtype}{bool} all = \textcolor{keyword}{false}, ScaleItem::Orientation o = ScaleItem::Vertical);}
+\DoxyCodeLine{450 }
+\DoxyCodeLine{451     \textcolor{keywordtype}{void} clear();}
+\DoxyCodeLine{452 }
+\DoxyCodeLine{453 signals:}
+\DoxyCodeLine{454 }
+\DoxyCodeLine{459     \textcolor{keywordtype}{void} clicked(\textcolor{keyword}{const} QPointF\& pos);}
+\DoxyCodeLine{460 }
+\DoxyCodeLine{478     \textcolor{keywordtype}{void} plotRectChanged(\textcolor{keyword}{const} QRectF\& newRect);}
+\DoxyCodeLine{479 }
+\DoxyCodeLine{489     \textcolor{keywordtype}{void} plotAreaChanged(\textcolor{keyword}{const} QSizeF\& newSize);}
+\DoxyCodeLine{490 }
+\DoxyCodeLine{508     \textcolor{keywordtype}{void} curveAboutToBeRemoved(SceneCurve *c);}
+\DoxyCodeLine{509 }
+\DoxyCodeLine{524     \textcolor{keywordtype}{void} curveAdded(SceneCurve *curve);}
+\DoxyCodeLine{525 }
+\DoxyCodeLine{534     \textcolor{keywordtype}{void} viewScaleChanged(\textcolor{keywordtype}{double} dx, \textcolor{keywordtype}{double} dy);}
+\DoxyCodeLine{535 }
+\DoxyCodeLine{549     \textcolor{keywordtype}{void} viewScaleChanged(\textcolor{keywordtype}{double} scale);}
+\DoxyCodeLine{550     }
+\DoxyCodeLine{551 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{552 }
+\DoxyCodeLine{553     \textcolor{keywordtype}{void} setXScaleEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{554     \textcolor{keywordtype}{void} setYScaleEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{555 }
+\DoxyCodeLine{556     \textcolor{keywordtype}{void} setScaleSceneOnResizeEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{557 }
+\DoxyCodeLine{558     \textcolor{keywordtype}{void} setMouseZoomEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{559 }
+\DoxyCodeLine{560     \textcolor{keywordtype}{bool} scaleSceneOnResizeEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{561 }
+\DoxyCodeLine{573     \textcolor{keywordtype}{void} setSceneRectToWidgetGeometry(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{574 }
+\DoxyCodeLine{580     \textcolor{keywordtype}{void} setScaleSceneOnMouseScroll(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{581 }
+\DoxyCodeLine{582     \textcolor{keywordtype}{void} setDontSavePainterState(\textcolor{keywordtype}{bool} dont);}
+\DoxyCodeLine{583 }
+\DoxyCodeLine{584     \textcolor{keywordtype}{void} setDontAdjustForAntialiasing(\textcolor{keywordtype}{bool} dont);}
+\DoxyCodeLine{585 }
+\DoxyCodeLine{586     \textcolor{keywordtype}{void} setSmoothPixmapTransform(\textcolor{keywordtype}{bool} enable);}
+\DoxyCodeLine{587 }
+\DoxyCodeLine{588     \textcolor{keywordtype}{void} setCacheBackground(\textcolor{keywordtype}{bool} cache);}
+\DoxyCodeLine{589 }
+\DoxyCodeLine{590     \textcolor{keywordtype}{void} setModifiedPaintEvent(\textcolor{keywordtype}{bool} mod);}
+\DoxyCodeLine{591 }
+\DoxyCodeLine{592     \textcolor{keywordtype}{void} resetTransformMatrix();}
+\DoxyCodeLine{593 }
+\DoxyCodeLine{635     \textcolor{keywordtype}{void} setManualSceneUpdate(\textcolor{keywordtype}{bool} manual);}
+\DoxyCodeLine{636 }
+\DoxyCodeLine{655     \textcolor{keywordtype}{void} setRefreshPeriod(\textcolor{keywordtype}{int} period);}
+\DoxyCodeLine{656 }
+\DoxyCodeLine{657     \textcolor{keywordtype}{void} executePropertyDialog();}
+\DoxyCodeLine{658 }
+\DoxyCodeLine{659     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} appendData(\textcolor{keyword}{const} QString\& curveName, \textcolor{keywordtype}{double} x, \textcolor{keywordtype}{double} y);}
+\DoxyCodeLine{660 }
+\DoxyCodeLine{661     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} appendData(\textcolor{keyword}{const} QString\& curveName, \textcolor{keyword}{const} QVector<double>\& xData, \textcolor{keyword}{const} QVector<double> \&yData);}
+\DoxyCodeLine{662 }
+\DoxyCodeLine{663     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} setData(\textcolor{keyword}{const} QString\& curveName,}
+\DoxyCodeLine{664                          \textcolor{keyword}{const} QVector< double > \&xData,}
+\DoxyCodeLine{665                          \textcolor{keyword}{const} QVector< double > \&yData);}
+\DoxyCodeLine{666 }
+\DoxyCodeLine{667     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} setData(\textcolor{keyword}{const} QString\& curveName,}
+\DoxyCodeLine{668                          \textcolor{keyword}{const} QVector< double > \&yData);}
+\DoxyCodeLine{669 }
+\DoxyCodeLine{670     \textcolor{comment}{/* the following section configures the area of the scene occupied by the plot */}}
+\DoxyCodeLine{671 }
+\DoxyCodeLine{696     \textcolor{keywordtype}{void} setPlotAreaTopLeftPercentage(\textcolor{keywordtype}{double} widthPercent, \textcolor{keywordtype}{double} heightPercent);}
+\DoxyCodeLine{697 }
+\DoxyCodeLine{717     \textcolor{keywordtype}{void} setPlotAreaPercentage(\textcolor{keywordtype}{double} widthPercent, \textcolor{keywordtype}{double} heightPercent);}
+\DoxyCodeLine{718 }
+\DoxyCodeLine{722     \textcolor{keywordtype}{void} setPlotAreaPercentageWidth(\textcolor{keywordtype}{double} widthPercent);}
+\DoxyCodeLine{723 }
+\DoxyCodeLine{727     \textcolor{keywordtype}{void} setPlotAreaPercentageHeight(\textcolor{keywordtype}{double} heightPercent);}
+\DoxyCodeLine{728 }
+\DoxyCodeLine{732     \textcolor{keywordtype}{void} setPlotAreaTopLeftXPercentage(\textcolor{keywordtype}{double} xPercent);}
+\DoxyCodeLine{733 }
+\DoxyCodeLine{737     \textcolor{keywordtype}{void} setPlotAreaTopLeftYPercentage(\textcolor{keywordtype}{double} yPercent);}
+\DoxyCodeLine{738 }
+\DoxyCodeLine{739     \textcolor{keywordtype}{void} setOriginPosPercentage(ScaleItem *scaleIt, \textcolor{keywordtype}{double} percent);}
+\DoxyCodeLine{740 }
+\DoxyCodeLine{741     \textcolor{keywordtype}{void} setDefaultXAxisOriginPosPercentage(\textcolor{keywordtype}{double} percent);}
+\DoxyCodeLine{742 }
+\DoxyCodeLine{743     \textcolor{keywordtype}{void} setDefaultYAxisOriginPosPercentage(\textcolor{keywordtype}{double} percent);}
+\DoxyCodeLine{744 }
+\DoxyCodeLine{752     \textcolor{keywordtype}{void} setPainterAntiAlias(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{753 }
+\DoxyCodeLine{764     \textcolor{keywordtype}{void} setPainterHQGLAntiAlias(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{765 }
+\DoxyCodeLine{766     \textcolor{keywordtype}{void} setScrollBarsEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{767 }
+\DoxyCodeLine{768     \textcolor{keywordtype}{void} setLegendVisible(\textcolor{keywordtype}{bool} visible);}
+\DoxyCodeLine{769 }
+\DoxyCodeLine{770     \textcolor{keywordtype}{void} setXAxisLowerBound(\textcolor{keywordtype}{double} xlb);}
+\DoxyCodeLine{771 }
+\DoxyCodeLine{772     \textcolor{keywordtype}{void} setYAxisLowerBound(\textcolor{keywordtype}{double} ylb);}
+\DoxyCodeLine{773 }
+\DoxyCodeLine{774     \textcolor{keywordtype}{void} setXAxisUpperBound(\textcolor{keywordtype}{double} xub);}
+\DoxyCodeLine{775 }
+\DoxyCodeLine{776     \textcolor{keywordtype}{void} setYAxisUpperBound(\textcolor{keywordtype}{double} yub);}
+\DoxyCodeLine{777 }
+\DoxyCodeLine{778     \textcolor{keywordtype}{void} setXAxisAutoscaleEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{779 }
+\DoxyCodeLine{780     \textcolor{keywordtype}{void} setYAxisAutoscaleEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{781 }
+\DoxyCodeLine{782     \textcolor{keywordtype}{void} setXAxisLabelsOutsideCanvas(\textcolor{keywordtype}{bool} outside);}
+\DoxyCodeLine{783 }
+\DoxyCodeLine{784     \textcolor{keywordtype}{void} setYAxisLabelsOutsideCanvas(\textcolor{keywordtype}{bool} outside);}
+\DoxyCodeLine{785 }
+\DoxyCodeLine{786     \textcolor{keywordtype}{void} setBackgroundColor(\textcolor{keyword}{const} QColor\&) \textcolor{keyword}{const};}
+\DoxyCodeLine{787 }
+\DoxyCodeLine{788     \textcolor{comment}{/* end scene area configuration methods */}}
+\DoxyCodeLine{789 }
+\DoxyCodeLine{790     \textcolor{keywordtype}{void} scale(qreal sx, qreal sy);}
+\DoxyCodeLine{791 }
+\DoxyCodeLine{792     \textcolor{keywordtype}{void} fitIn();}
+\DoxyCodeLine{793 }
+\DoxyCodeLine{794     \textcolor{keywordtype}{void} saveData();}
+\DoxyCodeLine{795 }
+\DoxyCodeLine{796     \textcolor{keyword}{virtual} QMenu *createContextMenu();}
+\DoxyCodeLine{797 }
+\DoxyCodeLine{798 \textcolor{keyword}{protected} slots:}
+\DoxyCodeLine{799     \textcolor{keywordtype}{void} curveAboutToBeDestroyed(QObject *crv);}
+\DoxyCodeLine{800 }
+\DoxyCodeLine{801     \textcolor{keywordtype}{void} removeAxis(QObject *axis);}
+\DoxyCodeLine{802 }
+\DoxyCodeLine{803 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{804 }
+\DoxyCodeLine{809     \textcolor{keywordtype}{void} showEvent(QShowEvent *event);}
+\DoxyCodeLine{810 }
+\DoxyCodeLine{811     \textcolor{keywordtype}{void} mouseMoveEvent(QMouseEvent *event);}
+\DoxyCodeLine{812 }
+\DoxyCodeLine{813     \textcolor{keywordtype}{void} wheelEvent(QWheelEvent *event);}
+\DoxyCodeLine{814 }
+\DoxyCodeLine{815     \textcolor{keywordtype}{void} contextMenuEvent(QContextMenuEvent *event);}
+\DoxyCodeLine{816 }
+\DoxyCodeLine{817     \textcolor{keywordtype}{void} mousePressEvent(QMouseEvent *event);}
+\DoxyCodeLine{818 }
+\DoxyCodeLine{819     \textcolor{keywordtype}{void} mouseReleaseEvent(QMouseEvent *event);}
+\DoxyCodeLine{820 }
+\DoxyCodeLine{821     \textcolor{keywordtype}{void} mouseDoubleClickEvent(QMouseEvent *);}
+\DoxyCodeLine{822 }
+\DoxyCodeLine{823     \textcolor{keywordtype}{void} mSwitchAxesCurvesForeground();}
+\DoxyCodeLine{824 }
+\DoxyCodeLine{833     \textcolor{keywordtype}{void} recalculatePlotRect();}
+\DoxyCodeLine{834 }
+\DoxyCodeLine{835     \textcolor{keywordtype}{void} resizeEvent(QResizeEvent *event);}
+\DoxyCodeLine{836 }
+\DoxyCodeLine{837     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} event(QEvent *event);}
+\DoxyCodeLine{838 }
+\DoxyCodeLine{839     \textcolor{keywordtype}{void} notifyPlotAreaChanged();}
+\DoxyCodeLine{840 }
+\DoxyCodeLine{841     \textcolor{keywordtype}{void} paintEvent(QPaintEvent *event);}
+\DoxyCodeLine{842 }
+\DoxyCodeLine{843 \textcolor{keyword}{protected} slots:}
+\DoxyCodeLine{844 }
+\DoxyCodeLine{845     \textcolor{keywordtype}{void} sceneRectChanged(\textcolor{keyword}{const} QRectF \&);}
+\DoxyCodeLine{846 }
+\DoxyCodeLine{847     \textcolor{keywordtype}{void} hScrollBarValueChanged(\textcolor{keywordtype}{int} value);}
+\DoxyCodeLine{848 }
+\DoxyCodeLine{849     \textcolor{keywordtype}{void} vScrollBarValueChanged(\textcolor{keywordtype}{int} value);}
+\DoxyCodeLine{850 }
+\DoxyCodeLine{851 \textcolor{keyword}{private}:}
+\DoxyCodeLine{852     PlotSceneWidgetPrivate *d\_ptr;}
+\DoxyCodeLine{853 }
+\DoxyCodeLine{854     \textcolor{keywordtype}{void} initPlot(\textcolor{keywordtype}{bool} useOpenGl);}
+\DoxyCodeLine{855 }
+\DoxyCodeLine{856     \textcolor{keywordtype}{void} initDefaultAxes();}
+\DoxyCodeLine{857     }
+\DoxyCodeLine{858 \};}
+\DoxyCodeLine{859 }
+\DoxyCodeLine{860 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// XYSCENE\_H}}
+
+\end{DoxyCode}

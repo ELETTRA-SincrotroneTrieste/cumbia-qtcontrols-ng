@@ -1,0 +1,53 @@
+\doxysection{itempainterinterface.\+h}
+\label{itempainterinterface_8h_source}\index{itempainterinterface.h@{itempainterinterface.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef ITEMPAINTERINTERFACE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define ITEMPAINTERINTERFACE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{class }QPainter;}
+\DoxyCodeLine{5 \textcolor{keyword}{class }QStyleOptionGraphicsItem;}
+\DoxyCodeLine{6 \textcolor{keyword}{class }QWidget;}
+\DoxyCodeLine{7 \textcolor{keyword}{class }Point;}
+\DoxyCodeLine{8 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{9 \textcolor{keyword}{class }PlotSceneWidget;}
+\DoxyCodeLine{10 \textcolor{keyword}{class }QGraphicsObject;}
+\DoxyCodeLine{11 \textcolor{keyword}{class }CurveItem;}
+\DoxyCodeLine{12 \textcolor{keyword}{class }QPen;}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <QRectF>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{20 \textcolor{keyword}{class }ItemPainterInterface}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{public}:}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keyword}{enum} Type \{ Line = 0, Dot, Cross, Histogram, Step, Pie, CircleItemSet, User = 100 \};}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     ItemPainterInterface()}
+\DoxyCodeLine{27     \{}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{virtual} \string~ItemPainterInterface()}
+\DoxyCodeLine{31     \{}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{48     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw(SceneCurve *curve,}
+\DoxyCodeLine{49                       PlotSceneWidget* plot,}
+\DoxyCodeLine{50                       QPainter *painter,}
+\DoxyCodeLine{51                       \textcolor{keyword}{const} QStyleOptionGraphicsItem * option,}
+\DoxyCodeLine{52                       QWidget * widget = 0) = 0;}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54     \textcolor{keyword}{virtual} CurveItem *curveItem() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{72     \textcolor{keyword}{virtual} QSizeF elementSize() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} type() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     \textcolor{keyword}{virtual} QPen pen() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// ITEMPAINTERINTERFACE\_H}}
+
+\end{DoxyCode}

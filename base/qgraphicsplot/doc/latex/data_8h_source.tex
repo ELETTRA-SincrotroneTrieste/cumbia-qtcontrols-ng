@@ -1,0 +1,83 @@
+\doxysection{data.\+h}
+\label{data_8h_source}\index{data.h@{data.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DATA\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DATA\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QVector>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QPointF>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}point.h"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{9 \textcolor{keyword}{class }QRectF;}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }Data}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14     Data();}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keyword}{virtual} \string~Data();}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \textcolor{keywordtype}{double} xMin, xMax, yMin, yMax;}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keywordtype}{bool} xMinMaxUnset , yMinMaxUnset;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keywordtype}{bool} scalarMode;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keywordtype}{bool} xDataOrdered, yDataOrdered;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keywordtype}{bool} dataUnchanged() \textcolor{keyword}{const};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keywordtype}{void} cacheData();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     QVector<double> xData;}
+\DoxyCodeLine{32     QVector<double> yData;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     Point point(\textcolor{keywordtype}{int} index) \textcolor{keyword}{const};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \textcolor{keywordtype}{double} xpos(\textcolor{keywordtype}{int} index);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{keywordtype}{double} ypos(\textcolor{keywordtype}{int} index);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40     \textcolor{keywordtype}{void} remove(\textcolor{keywordtype}{int} index);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     \textcolor{keywordtype}{void} calculateXBounds();}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{keywordtype}{void} calculateYBounds();}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keywordtype}{void} calculateBounds();}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{void} markLastXDataValid(\textcolor{keywordtype}{int} lastValidPos) \{ lastValidXPos = lastValidPos; \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 }
+\DoxyCodeLine{73     \textcolor{keywordtype}{void} markLastYDataValid(\textcolor{keywordtype}{bool} lastValidPos) \{ lastValidYPos = lastValidPos; \}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keywordtype}{int} size() \textcolor{keyword}{const};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} setData(\textcolor{keyword}{const} QVector<double> \&xData, \textcolor{keyword}{const} QVector<double> \&yData);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     \textcolor{keywordtype}{void} setData(\textcolor{keyword}{const} QVector<double> \&yData);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keywordtype}{void} addPoint(\textcolor{keywordtype}{double} x, \textcolor{keywordtype}{double} y);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keywordtype}{void} addPoints(\textcolor{keyword}{const} QVector<double> \&xData, \textcolor{keyword}{const} QVector<double> \&yData);}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85     QVector<double> invalidDataPoints() \textcolor{keyword}{const};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{keywordtype}{void} resetMaxMin();}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{keyword}{private}:}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     \textcolor{keywordtype}{int} lastValidXPos, lastValidYPos;}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \textcolor{keywordtype}{bool} mXDataChanged, mYDataChanged;}
+\DoxyCodeLine{95     \textcolor{keywordtype}{bool} dataChanged;}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 \};}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// DATA\_H}}
+
+\end{DoxyCode}

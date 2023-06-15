@@ -1,0 +1,99 @@
+\doxysection{targetitem.\+h}
+\label{targetitem_8h_source}\index{targetitem.h@{targetitem.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TARGETITEM\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TARGETITEM\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QGraphicsObject>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <axischangelistener.h>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }ItemMoveListener;}
+\DoxyCodeLine{8 \textcolor{keyword}{class }ScaleItem;}
+\DoxyCodeLine{9 \textcolor{keyword}{class }PlotSceneWidget;}
+\DoxyCodeLine{10 \textcolor{keyword}{class }TargetItemPrivate;}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{41 \textcolor{keyword}{class }TargetItem : \textcolor{keyword}{public} QGraphicsObject, \textcolor{keyword}{public} AxisChangeListener}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43     Q\_OBJECT}
+\DoxyCodeLine{44 \textcolor{keyword}{public}:}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keyword}{enum} \{ Type = UserType + 101 \};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \textcolor{comment}{/* Enable the use of qgraphicsitem\_cast with this item. */}}
+\DoxyCodeLine{49     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} type()\textcolor{keyword}{ const}}
+\DoxyCodeLine{50 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{51         \textcolor{keywordflow}{return} Type;}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54     TargetItem(ScaleItem* xAxis, ScaleItem* yAxis, PlotSceneWidget* plot);}
+\DoxyCodeLine{55     \string~TargetItem();}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     QColor circleColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{bool} pointLabelEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \textcolor{keywordtype}{double} innerRadius() \textcolor{keyword}{const};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{keywordtype}{double} outerRadius() \textcolor{keyword}{const};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keywordtype}{double} radiusScaleDivider() \textcolor{keyword}{const};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \textcolor{keywordtype}{double} x() \textcolor{keyword}{const};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keywordtype}{double} y() \textcolor{keyword}{const};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} paint(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem * option, QWidget * widget = 0);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     QRectF boundingRect () \textcolor{keyword}{const};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keywordtype}{void} installItemMoveListener(ItemMoveListener *l);}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     ItemMoveListener *itemMoveListener() \textcolor{keyword}{const};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     \textcolor{keywordtype}{void} canvasRectChanged(\textcolor{keyword}{const} QRectF \&newRect);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{85     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} xAxisBoundsChanged(\textcolor{keywordtype}{double}, \textcolor{keywordtype}{double});}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{91     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} yAxisBoundsChanged(\textcolor{keywordtype}{double}, \textcolor{keywordtype}{double});}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{95     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} axisAutoscaleChanged(ScaleItem::Orientation, \textcolor{keywordtype}{bool} ) \{\}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} tickStepLenChanged(\textcolor{keywordtype}{double}) \{\}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void}  labelsFormatChanged(\textcolor{keyword}{const} QString \&) \{\}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103     \textcolor{keywordtype}{void} setCircleColor(\textcolor{keyword}{const} QColor \&c);}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105     \textcolor{keywordtype}{void} setPointLabelEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107     \textcolor{keywordtype}{void} setInnerRadius(\textcolor{keywordtype}{double} r);}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109     \textcolor{keywordtype}{void} setOuterRadius(\textcolor{keywordtype}{double} r);}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111     \textcolor{keywordtype}{void} setRadiusScaleDivider(\textcolor{keywordtype}{double} divider);}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113     \textcolor{keywordtype}{void} setX(\textcolor{keywordtype}{double} x);}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115     \textcolor{keywordtype}{void} setY(\textcolor{keywordtype}{double} y);}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117     \textcolor{keywordtype}{void} updatePosition();}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{120     \textcolor{keyword}{virtual} QVariant itemChange(GraphicsItemChange change, \textcolor{keyword}{const} QVariant \&value);}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122     \textcolor{keywordtype}{void} mousePressEvent(QGraphicsSceneMouseEvent *event);}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124     \textcolor{keywordtype}{void} mouseReleaseEvent(QGraphicsSceneMouseEvent *event);}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 \textcolor{keyword}{private}:}
+\DoxyCodeLine{127     TargetItemPrivate *d\_ptr;}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129     Q\_DECLARE\_PRIVATE(TargetItem)}
+\DoxyCodeLine{130 \};}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TARGETITEM\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,48 @@
+\doxysection{axesmanager.\+h}
+\label{axesmanager_8h_source}\index{axesmanager.h@{axesmanager.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef AXESMANAGER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define AXESMANAGER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QList>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QPair>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <axiscouple.h>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <scaleitem.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }AxesManager}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     AxesManager();}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \textcolor{keywordtype}{void} addCouple(\textcolor{keyword}{const} AxisCouple \&c) \{ axes.append(c); \}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keywordtype}{void} removeCouple(\textcolor{keyword}{const} AxisCouple \&c) \{ axes.removeAll(c); \}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} removeDuplicateCouples();}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     ScaleItem *getAxis(ScaleItem::Id axisId) \textcolor{keyword}{const};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{32     QList<AxisCouple>\& getAxisCouples()  \{ \textcolor{keywordflow}{return} axes; \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     QList<ScaleItem *> getAllAxes() \textcolor{keyword}{const};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     QList<ScaleItem *> getAxes(\textcolor{keywordtype}{bool} all, ScaleItem::Orientation o) \textcolor{keyword}{const};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{keywordtype}{void} clearAxes(\textcolor{keywordtype}{bool} all, ScaleItem::Orientation o);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{48     ScaleItem *getAssociatedAxis(ScaleItem::Id otherAxis);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{65     QPair<double, double> getOriginPosPercentage(ScaleItem::Id oneAxisId, ScaleItem::Id otherAxisId, \textcolor{keywordtype}{bool} *ok);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     AxisCouple *findIncompleteCouple(ScaleItem *item);}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keywordtype}{int} count() \textcolor{keyword}{const};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     QList<AxisCouple> axes;}
+\DoxyCodeLine{72 \};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// AXESMANAGER\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,32 @@
+\doxysection{pointdata.\+h}
+\label{pointdata_8h_source}\index{pointdata.h@{pointdata.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef POINTDATA\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define POINTDATA\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <time.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QtAlgorithms>} \textcolor{comment}{/* qreal */}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <QMetaType>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }PointData}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10 \textcolor{keyword}{public}:}
+\DoxyCodeLine{11     PointData(\textcolor{keywordtype}{double} \_x, \textcolor{keywordtype}{double} \_y, time\_t ts = 0, qreal = 0);}
+\DoxyCodeLine{12     PointData();}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keywordtype}{double} x;}
+\DoxyCodeLine{15     \textcolor{keywordtype}{double} y;}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     qreal order;}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     time\_t timestamp;}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keywordtype}{bool} valid;}
+\DoxyCodeLine{22 \};}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 Q\_DECLARE\_METATYPE(PointData)}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// POINTDATA\_H}}
+
+\end{DoxyCode}

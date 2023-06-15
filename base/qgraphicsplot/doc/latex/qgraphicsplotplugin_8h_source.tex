@@ -1,0 +1,108 @@
+\doxysection{qgraphicsplotplugin.\+h}
+\label{qgraphicsplotplugin_8h_source}\index{qgraphicsplotplugin.h@{qgraphicsplotplugin.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef QGRAPHICSPLOTPLUGINCUSTOMWIDGETINTERFACE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define QGRAPHICSPLOTPLUGINCUSTOMWIDGETINTERFACE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QObject>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#if QT\_VERSION >= 0x050500}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{        \#include <QtUiPlugin/QDesignerCustomWidgetInterface>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{        \#include <QtDesigner/QDesignerCustomWidgetInterface>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }QGraphicsPlotPluginCustomWidgetInterface :}
+\DoxyCodeLine{12         \textcolor{keyword}{public} QObject,}
+\DoxyCodeLine{13         \textcolor{keyword}{public} QDesignerCustomWidgetInterface}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15     Q\_OBJECT}
+\DoxyCodeLine{16     Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{17 \textcolor{keyword}{public}:}
+\DoxyCodeLine{18     QGraphicsPlotPluginCustomWidgetInterface(QObject *parent = 0);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} isContainer()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}}
+\DoxyCodeLine{21     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} isInitialized()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} d\_isInitialized; \}}
+\DoxyCodeLine{22     \textcolor{keyword}{virtual} QIcon icon()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} d\_icon; \}}
+\DoxyCodeLine{23     \textcolor{keyword}{virtual} QString codeTemplate()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} d\_codeTemplate; \}}
+\DoxyCodeLine{24     \textcolor{keyword}{virtual} QString domXml()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} d\_domXml; \}}
+\DoxyCodeLine{25     \textcolor{keyword}{virtual} QString group()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}QGraphicsPlot"{}}; \}}
+\DoxyCodeLine{26     \textcolor{keyword}{virtual} QString includeFile()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} d\_include; \}}
+\DoxyCodeLine{27     \textcolor{keyword}{virtual} QString name()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} d\_name; \}}
+\DoxyCodeLine{28     \textcolor{keyword}{virtual} QString toolTip()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} d\_toolTip; \}}
+\DoxyCodeLine{29     \textcolor{keyword}{virtual} QString whatsThis()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} d\_whatsThis; \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} initialize(QDesignerFormEditorInterface *);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{35     QString d\_name;}
+\DoxyCodeLine{36     QString d\_include;}
+\DoxyCodeLine{37     QString d\_toolTip;}
+\DoxyCodeLine{38     QString d\_whatsThis;}
+\DoxyCodeLine{39     QString d\_domXml;}
+\DoxyCodeLine{40     QString d\_codeTemplate;}
+\DoxyCodeLine{41     QIcon d\_icon;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{private}:}
+\DoxyCodeLine{44     \textcolor{keywordtype}{bool} d\_isInitialized;}
+\DoxyCodeLine{45 signals:}
+\DoxyCodeLine{46     }
+\DoxyCodeLine{47 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{48     }
+\DoxyCodeLine{49 \};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{keyword}{class }CustomWidgetCollectionInterface: \textcolor{keyword}{public} QObject, \textcolor{keyword}{public} QDesignerCustomWidgetCollectionInterface}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{54     Q\_OBJECT}
+\DoxyCodeLine{55     Q\_INTERFACES(QDesignerCustomWidgetCollectionInterface)}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#if QT\_VERSION >= 0x050000}}
+\DoxyCodeLine{58         Q\_PLUGIN\_METADATA(IID \textcolor{stringliteral}{"{}org.qt-\/project.Qt.QDesignerCustomWidgetCollectionInterface"{}})}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{public}:}
+\DoxyCodeLine{62     CustomWidgetCollectionInterface(QObject *parent = NULL);}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     \textcolor{keyword}{virtual} QList<QDesignerCustomWidgetInterface*> customWidgets() \textcolor{keyword}{const};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{keyword}{private}:}
+\DoxyCodeLine{67     QList<QDesignerCustomWidgetInterface*> d\_plugins;}
+\DoxyCodeLine{68 \};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{keyword}{class }ExternalHorizontalScaleWidgetPlugin : \textcolor{keyword}{public} QGraphicsPlotPluginCustomWidgetInterface}
+\DoxyCodeLine{71 \{}
+\DoxyCodeLine{72     Q\_OBJECT}
+\DoxyCodeLine{73     Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{keyword}{public}:}
+\DoxyCodeLine{76     ExternalHorizontalScaleWidgetPlugin(QObject *parent);}
+\DoxyCodeLine{77     \textcolor{keyword}{virtual} QWidget *createWidget(QWidget *parent);}
+\DoxyCodeLine{78 \};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{keyword}{class }ExternalVerticalScaleWidgetPlugin : \textcolor{keyword}{public} QGraphicsPlotPluginCustomWidgetInterface}
+\DoxyCodeLine{81 \{}
+\DoxyCodeLine{82     Q\_OBJECT}
+\DoxyCodeLine{83     Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 \textcolor{keyword}{public}:}
+\DoxyCodeLine{86     ExternalVerticalScaleWidgetPlugin(QObject *parent);}
+\DoxyCodeLine{87     \textcolor{keyword}{virtual} QWidget *createWidget(QWidget *parent);}
+\DoxyCodeLine{88 \};}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{keyword}{class }PlotSceneWidgetPlugin: \textcolor{keyword}{public} QGraphicsPlotPluginCustomWidgetInterface}
+\DoxyCodeLine{91 \{}
+\DoxyCodeLine{92     Q\_OBJECT}
+\DoxyCodeLine{93     Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \textcolor{keyword}{public}:}
+\DoxyCodeLine{96     PlotSceneWidgetPlugin(QObject *parent);}
+\DoxyCodeLine{97     \textcolor{keyword}{virtual} QWidget *createWidget(QWidget *parent);}
+\DoxyCodeLine{98 \};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// QGRAPHICSPLOTPLUGINCUSTOMWIDGETINTERFACE\_H}}
+
+\end{DoxyCode}

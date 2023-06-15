@@ -1,0 +1,84 @@
+\doxysection{markeritem.\+h}
+\label{markeritem_8h_source}\index{markeritem.h@{markeritem.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef MARKERITEM\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define MARKERITEM\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QGraphicsObject>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <mouseeventlistener.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <scenecurve.h>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }MarkerItemPrivate;}
+\DoxyCodeLine{9 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{55 \textcolor{keyword}{class }MarkerItem : \textcolor{keyword}{public} QGraphicsObject, \textcolor{keyword}{public} MouseEventListener}
+\DoxyCodeLine{56 \{}
+\DoxyCodeLine{57     Q\_OBJECT}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     Q\_PROPERTY(\textcolor{keywordtype}{bool} decorationEnabled READ decorationEnabled WRITE setDecorationEnabled)}
+\DoxyCodeLine{60     Q\_PROPERTY(QColor textColor READ textColor WRITE setTextColor)}
+\DoxyCodeLine{61     Q\_PROPERTY(QColor pointColor READ pointColor WRITE setPointColor)}
+\DoxyCodeLine{62     Q\_PROPERTY(QColor pointBorderColor READ pointBorderColor WRITE setPointBorderColor)}
+\DoxyCodeLine{63     Q\_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor)}
+\DoxyCodeLine{64     Q\_PROPERTY(\textcolor{keywordtype}{double} dotRadius READ dotRadius WRITE setDotRadius)}
+\DoxyCodeLine{65     Q\_PROPERTY(\textcolor{keywordtype}{bool} itemIgnoresTransformations READ itemIgnoresTransformations WRITE setItemIgnoresTransformations)}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{public}:}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keyword}{enum} \{ Type = UserType + 201 \};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     MarkerItem(QGraphicsObject *parent);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{keyword}{virtual} \string~MarkerItem();}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} mouseClickEvent(PlotSceneWidget *plot, \textcolor{keyword}{const} QPointF \&pos);}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} mouseReleaseEvent(PlotSceneWidget* plot, QMouseEvent* e);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} mouseDoubleClickEvent(PlotSceneWidget *, QMouseEvent *);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} paint(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem *option, QWidget *widget);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keyword}{virtual} QRectF boundingRect() \textcolor{keyword}{const};}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85     QColor textColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     QColor  pointColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89     QColor pointBorderColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     QColor backgroundColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93     \textcolor{keywordtype}{bool} decorationEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95     \textcolor{keywordtype}{double} dotRadius() \textcolor{keyword}{const};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     \textcolor{keywordtype}{bool} itemIgnoresTransformations() \textcolor{keyword}{const};}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{100     \textcolor{keywordtype}{void} setTextColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     \textcolor{keywordtype}{void} setPointColor(\textcolor{keyword}{const} QColor\& pointC);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104     \textcolor{keywordtype}{void} setPointBorderColor(\textcolor{keyword}{const} QColor\& bc);}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \textcolor{keywordtype}{void} setBackgroundColor(\textcolor{keyword}{const} QColor\& bgc);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108     \textcolor{keywordtype}{void} setDecorationEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110     \textcolor{keywordtype}{void} setDotRadius(\textcolor{keywordtype}{double} r);}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112     \textcolor{keywordtype}{void} removeCurve(SceneCurve *c);}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114     \textcolor{keywordtype}{void} setItemIgnoresTransformations(\textcolor{keywordtype}{bool} ign);}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116 \textcolor{keyword}{private}:}
+\DoxyCodeLine{117     MarkerItemPrivate *d\_ptr;}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119     Q\_DECLARE\_PRIVATE(MarkerItem)}
+\DoxyCodeLine{120 \};}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// MARKERITEM\_H}}
+
+\end{DoxyCode}

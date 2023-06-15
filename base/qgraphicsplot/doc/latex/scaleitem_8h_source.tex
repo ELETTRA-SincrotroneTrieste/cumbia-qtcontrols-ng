@@ -1,0 +1,230 @@
+\doxysection{scaleitem.\+h}
+\label{scaleitem_8h_source}\index{scaleitem.h@{scaleitem.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef SCALEITEM\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define SCALEITEM\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QGraphicsObject>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <plotgeometryeventlistener.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <QFont>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <QDateTime>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }ScaleItemPrivate;}
+\DoxyCodeLine{10 \textcolor{keyword}{class }PlotSceneWidget;}
+\DoxyCodeLine{11 \textcolor{keyword}{class }AxisChangeListener;}
+\DoxyCodeLine{12 \textcolor{keyword}{class }ScaleLabelInterface;}
+\DoxyCodeLine{13 \textcolor{keyword}{class }QDateTime;}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 }
+\DoxyCodeLine{47 \textcolor{keyword}{class }ScaleItem : \textcolor{keyword}{public} QGraphicsObject, \textcolor{keyword}{public} PlotGeometryEventListener}
+\DoxyCodeLine{48 \{}
+\DoxyCodeLine{49 Q\_OBJECT}
+\DoxyCodeLine{50     Q\_PROPERTY(\textcolor{keywordtype}{double} tickStepLen READ tickStepLen WRITE setTickStepLen)}
+\DoxyCodeLine{51     Q\_PROPERTY(\textcolor{keywordtype}{bool} axisLabelsEnabled READ axisLabelsEnabled WRITE setAxisLabelsEnabled)}
+\DoxyCodeLine{52     Q\_PROPERTY(\textcolor{keywordtype}{bool} gridEnabled READ gridEnabled WRITE setGridEnabled)}
+\DoxyCodeLine{53     Q\_PROPERTY(\textcolor{keywordtype}{double} axisLabelsRotation READ axisLabelsRotation WRITE setAxisLabelsRotation)}
+\DoxyCodeLine{54     Q\_PROPERTY(QString axisLabelsFormat READ axisLabelsFormat WRITE setAxisLabelsFormat)}
+\DoxyCodeLine{55     Q\_PROPERTY(QColor gridColor READ gridColor WRITE setGridColor)}
+\DoxyCodeLine{56     Q\_PROPERTY(QColor axisColor READ axisColor WRITE setAxisColor)}
+\DoxyCodeLine{57     Q\_PROPERTY(QColor axisTitleColor READ axisTitleColor WRITE setAxisTitleColor)}
+\DoxyCodeLine{58     Q\_PROPERTY(QString axisTitle READ axisTitle WRITE setAxisTitle)}
+\DoxyCodeLine{59     Q\_PROPERTY(QFont axisTitleFont READ axisTitleFont WRITE setAxisTitleFont)}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     Q\_PROPERTY(\textcolor{keywordtype}{double} upperBound READ upperBound WRITE setUpperBound)}
+\DoxyCodeLine{62     Q\_PROPERTY(\textcolor{keywordtype}{double} lowerBound READ lowerBound WRITE setLowerBound)}
+\DoxyCodeLine{63     Q\_PROPERTY(QDateTime lowerBoundDateTime READ lowerBoundDateTime WRITE setLowerBoundDateTime)}
+\DoxyCodeLine{64     Q\_PROPERTY(QDateTime upperBoundDateTime READ upperBoundDateTime WRITE setUpperBoundDateTime)}
+\DoxyCodeLine{65     Q\_PROPERTY(\textcolor{keywordtype}{bool} axisAutoscaleEnabled READ axisAutoscaleEnabled WRITE setAxisAutoscaleEnabled)}
+\DoxyCodeLine{66     Q\_PROPERTY(\textcolor{keywordtype}{double} axisLabelDist READ axisLabelDist WRITE setAxisLabelDist)}
+\DoxyCodeLine{67     Q\_PROPERTY(\textcolor{keywordtype}{bool} axisLabelsOutsideCanvas READ axisLabelsOutsideCanvas WRITE setAxisLabelsOutsideCanvas)}
+\DoxyCodeLine{68     Q\_PROPERTY(QFont font READ font WRITE setFont)}
+\DoxyCodeLine{69     Q\_PROPERTY(qreal zValue READ zValue WRITE setZValue)}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{keyword}{public}:}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{keyword}{enum} \{ Type = UserType + 2 \};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{comment}{/* Enable the use of qgraphicsitem\_cast with this item. */}}
+\DoxyCodeLine{76     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} type()\textcolor{keyword}{ const}}
+\DoxyCodeLine{77 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{78         \textcolor{keywordflow}{return} Type;}
+\DoxyCodeLine{79     \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{enum} Orientation \{ Horizontal, Vertical \};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{90     \textcolor{keyword}{enum} Id  \{ xBottom, yLeft, xTop, yRight, User = 100 \};}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     \textcolor{keyword}{virtual} \string~ScaleItem();}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     ScaleItem(Orientation o, PlotSceneWidget *view, Id \textcolor{keywordtype}{id});}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96     \textcolor{keywordtype}{void} setOrientation(Orientation o);}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98     Orientation orientation() \textcolor{keyword}{const};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100     Id axisId() \textcolor{keyword}{const};}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     \textcolor{keywordtype}{double} tickStepLen() \textcolor{keyword}{const};}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104     \textcolor{keywordtype}{double} axisLabelsRotation() \textcolor{keyword}{const};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     QString axisLabelsFormat() \textcolor{keyword}{const};}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108     \textcolor{keywordtype}{bool} gridEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110     \textcolor{keywordtype}{bool} axisLabelsEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112     QColor gridColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114     QColor axisColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116     QRectF boundingRect () \textcolor{keyword}{const};}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118     \textcolor{keywordtype}{double} upperBound() \textcolor{keyword}{const};}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120     \textcolor{keywordtype}{double} lowerBound() \textcolor{keyword}{const};}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122     QDateTime lowerBoundDateTime() \textcolor{keyword}{const};}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124     QDateTime upperBoundDateTime() \textcolor{keyword}{const};}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126     QDateTime doubleToDateTime(\textcolor{keywordtype}{double} d) \textcolor{keyword}{const};}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128     \textcolor{keywordtype}{bool} axisAutoscaleEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130     \textcolor{keywordtype}{void} adjustScaleBounds(\textcolor{keywordtype}{double} newMin, \textcolor{keywordtype}{double} newMax);}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132     \textcolor{keywordtype}{double} axisLabelDist() \textcolor{keyword}{const};}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134     \textcolor{keywordtype}{bool} axisLabelsOutsideCanvas() \textcolor{keyword}{const};}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136     QFont font() \textcolor{keyword}{const};}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138     QFont axisTitleFont() \textcolor{keyword}{const};}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140     QColor axisTitleColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142     QString axisTitle() \textcolor{keyword}{const};}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144     \textcolor{comment}{/* implementation of ItemChangeListener}}
+\DoxyCodeLine{145 \textcolor{comment}{     *}}
+\DoxyCodeLine{146 \textcolor{comment}{     */}}
+\DoxyCodeLine{147     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} fullVectorUpdate();}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149     \textcolor{keywordtype}{void} affectingBoundsPointsRemoved();}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{154     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotRectChanged(\textcolor{keyword}{const} QRectF \&newRect);}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotAreaChanged(\textcolor{keyword}{const} QSizeF \&area);}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} scrollBarChanged(Qt::Orientation orientation, \textcolor{keywordtype}{int} value);}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotZoomLevelChanged(\textcolor{keywordtype}{int} level);}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{165     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} itemsAboutToBeDrawn();}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167     \textcolor{keywordtype}{void} installAxisChangeListener(AxisChangeListener *l);}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169     \textcolor{keywordtype}{void} removeAxisChangeListener(AxisChangeListener *l);}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171     \textcolor{keywordtype}{void} installScaleLabelInterface(ScaleLabelInterface *iface);}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173     ScaleLabelInterface *scaleLabelInterface() \textcolor{keyword}{const};}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175     \textcolor{keywordtype}{void} removeScaleLabelInterface();}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{177     QString label(\textcolor{keywordtype}{double} value) \textcolor{keyword}{const};}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179     \textcolor{keywordtype}{double} maxLabelWidth() \textcolor{keyword}{const};}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181     \textcolor{keywordtype}{double} canvasWidth, scaledCanvasWidth;}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183     \textcolor{keywordtype}{double} canvasHeight, scaledCanvasHeight;}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185     QRectF canvasRect() \textcolor{keyword}{const};}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187     \textcolor{keywordtype}{void} setAutoscaleMargin(\textcolor{keywordtype}{double} spanPercent);}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189     \textcolor{keywordtype}{double} autoscaleMargin() \textcolor{keyword}{const};}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{191 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193     \textcolor{keywordtype}{void} setTickStepLen(\textcolor{keywordtype}{double} len);}
+\DoxyCodeLine{194 }
+\DoxyCodeLine{195     \textcolor{keywordtype}{void} setAxisLabelsEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197     \textcolor{keywordtype}{void} setAxisLabelsRotation(\textcolor{keywordtype}{double} angle);}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199     \textcolor{keywordtype}{void} setAxisLabelsFormat(\textcolor{keyword}{const} QString\& fmt);}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201     \textcolor{keywordtype}{void} setGridEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203     \textcolor{keywordtype}{void} setGridColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{205     \textcolor{keywordtype}{void} setAxisColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207     \textcolor{keywordtype}{void} setUpperBound(\textcolor{keywordtype}{double} ub);}
+\DoxyCodeLine{208 }
+\DoxyCodeLine{209     \textcolor{keywordtype}{void} setLowerBound(\textcolor{keywordtype}{double} lb);}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211     \textcolor{keywordtype}{void} setLowerBoundDateTime(\textcolor{keyword}{const} QDateTime\& t);}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213     \textcolor{keywordtype}{void} setUpperBoundDateTime(\textcolor{keyword}{const} QDateTime\& t);}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215     \textcolor{keywordtype}{void} setAxisAutoscaleEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217     \textcolor{keywordtype}{void} setBounds(\textcolor{keywordtype}{double} lowerBound, \textcolor{keywordtype}{double} upperBound);}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} redraw();}
+\DoxyCodeLine{220 }
+\DoxyCodeLine{221     \textcolor{keywordtype}{void} setBoundsFromCurves();}
+\DoxyCodeLine{222 }
+\DoxyCodeLine{223     \textcolor{keywordtype}{void} setAxisLabelDist(\textcolor{keywordtype}{double} d);}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225     \textcolor{keywordtype}{void} setAxisLabelsOutsideCanvas(\textcolor{keywordtype}{bool} outside);}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227     \textcolor{keywordtype}{void} setFont(\textcolor{keyword}{const} QFont\& f);}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{229     \textcolor{keywordtype}{void} setAxisTitleFont(\textcolor{keyword}{const} QFont \&fo);}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{231     \textcolor{keywordtype}{void} setAxisTitleColor(\textcolor{keyword}{const} QColor \& co);}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233     \textcolor{keywordtype}{void} setAxisTitle(\textcolor{keyword}{const} QString \& ti);}
+\DoxyCodeLine{234 }
+\DoxyCodeLine{235     \textcolor{keywordtype}{void} updateLabelsCache();}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{237 signals:}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{245     \textcolor{keywordtype}{void} upperBoundChanged(\textcolor{keywordtype}{double} max);}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{253     \textcolor{keywordtype}{void} lowerBoundChanged(\textcolor{keywordtype}{double} min);}
+\DoxyCodeLine{254 }
+\DoxyCodeLine{263     \textcolor{keywordtype}{void} autoscaleEnabledChanged(\textcolor{keywordtype}{bool} enabled);}
+\DoxyCodeLine{264 }
+\DoxyCodeLine{265 }
+\DoxyCodeLine{266 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268     \textcolor{keywordtype}{void} mNotifyBoundsChanged();}
+\DoxyCodeLine{269 }
+\DoxyCodeLine{270     \textcolor{keywordtype}{void} updateLabelsFormat(\textcolor{keyword}{const} QString\& desiredFormat);}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{272     \textcolor{keywordtype}{double} updateStepLen();}
+\DoxyCodeLine{273 }
+\DoxyCodeLine{274     \textcolor{keywordtype}{void} paint(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem * option, QWidget * widget = 0);}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276 \textcolor{keyword}{private}:}
+\DoxyCodeLine{277     ScaleItemPrivate* d\_ptr;}
+\DoxyCodeLine{278 }
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280     \textcolor{keywordtype}{int} mGetDecimals(\textcolor{keywordtype}{double} q);}
+\DoxyCodeLine{281 }
+\DoxyCodeLine{282     \textcolor{keywordtype}{void} mRecalculateAxisTitleSize();}
+\DoxyCodeLine{283 }
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285     Q\_DECLARE\_PRIVATE(ScaleItem)}
+\DoxyCodeLine{286 \};}
+\DoxyCodeLine{287 }
+\DoxyCodeLine{288 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// SCALEITEM\_H}}
+
+\end{DoxyCode}

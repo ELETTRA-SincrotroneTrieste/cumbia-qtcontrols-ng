@@ -1,0 +1,169 @@
+\doxysection{externalscalewidget.\+h}
+\label{externalscalewidget_8h_source}\index{externalscalewidget.h@{externalscalewidget.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef EXTERNALSCALEWIDGET\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define EXTERNALSCALEWIDGET\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QWidget>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <axischangelistener.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <QPen>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <plotgeometryeventlistener.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }ScalePrivate;}
+\DoxyCodeLine{10 \textcolor{keyword}{class }QScrollArea;}
+\DoxyCodeLine{11 \textcolor{keyword}{class }ScaleLabelInterface;}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{190 \textcolor{keyword}{class }ExternalScaleWidget :}
+\DoxyCodeLine{191         \textcolor{keyword}{public} QWidget,}
+\DoxyCodeLine{192         \textcolor{keyword}{public} AxisChangeListener,}
+\DoxyCodeLine{193         \textcolor{keyword}{public} PlotGeometryEventListener}
+\DoxyCodeLine{194 \{}
+\DoxyCodeLine{195     Q\_OBJECT}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197     Q\_PROPERTY(\textcolor{keywordtype}{double} minimum READ minimum WRITE setMinimum)}
+\DoxyCodeLine{198     Q\_PROPERTY(\textcolor{keywordtype}{double} maximum READ maximum WRITE setMaximum)}
+\DoxyCodeLine{199     Q\_PROPERTY(\textcolor{keywordtype}{double} tickStepLen READ tickStepLen WRITE setTickStepLen)}
+\DoxyCodeLine{200     Q\_PROPERTY(\textcolor{keywordtype}{double} originPercentage READ originPercentage WRITE setOriginPercentage)}
+\DoxyCodeLine{201     Q\_PROPERTY(\textcolor{keywordtype}{double} scaleFactor READ scaleFactor WRITE setScaleFactor)}
+\DoxyCodeLine{202     Q\_PROPERTY(\textcolor{keywordtype}{double} labelRotation READ labelRotation WRITE setLabelRotation)}
+\DoxyCodeLine{203     Q\_PROPERTY(\textcolor{keywordtype}{int} tickLen READ tickLen WRITE setTickLen)}
+\DoxyCodeLine{204     Q\_PROPERTY(\textcolor{keywordtype}{int} labelDistFromTick READ labelDistFromTick WRITE setLabelDistFromTick)}
+\DoxyCodeLine{205     Q\_PROPERTY(\textcolor{keywordtype}{bool} isInverted READ isInverted WRITE setInverted)}
+\DoxyCodeLine{206     Q\_PROPERTY(\textcolor{keywordtype}{bool} horizontal READ horizontal WRITE setHorizontal)}
+\DoxyCodeLine{207     Q\_PROPERTY(\textcolor{keywordtype}{bool} tickDrawingInverted READ tickDrawingInverted WRITE setTickDrawingInverted)}
+\DoxyCodeLine{208     Q\_PROPERTY(QString format READ format WRITE setFormat)}
+\DoxyCodeLine{209     Q\_PROPERTY(\textcolor{keywordtype}{bool} syncAxisTicksWithPlot READ syncAxisTicksWithPlot WRITE setSyncAxisTicksWithPlot)}
+\DoxyCodeLine{210     Q\_PROPERTY(\textcolor{keywordtype}{bool} syncAxisLabelsWithPlot READ syncAxisLabelsWithPlot WRITE setSyncAxisLabelsWithPlot)}
+\DoxyCodeLine{211     Q\_PROPERTY(\textcolor{keywordtype}{double} margin READ margin WRITE setMargin)}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213 \textcolor{keyword}{public}:}
+\DoxyCodeLine{214     \textcolor{keyword}{explicit} ExternalScaleWidget(QWidget *parent, ScaleItem::Orientation o = ScaleItem::Horizontal);}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216     ScaleItem::Orientation orientation() \textcolor{keyword}{const};}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218     \textcolor{keywordtype}{void} setOrientation(ScaleItem::Orientation o);}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{220     \textcolor{keywordtype}{double} minimum() \textcolor{keyword}{const};}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222     \textcolor{keywordtype}{double} maximum() \textcolor{keyword}{const};}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224     \textcolor{keywordtype}{double} margin() \textcolor{keyword}{const};}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226     \textcolor{keywordtype}{bool} isInverted() \textcolor{keyword}{const};}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{228     \textcolor{keywordtype}{bool} horizontal() \textcolor{keyword}{const};}
+\DoxyCodeLine{229 }
+\DoxyCodeLine{230     \textcolor{keywordtype}{int} tickLen() \textcolor{keyword}{const};}
+\DoxyCodeLine{231 }
+\DoxyCodeLine{232     \textcolor{keywordtype}{int} labelDistFromTick() \textcolor{keyword}{const};}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234     \textcolor{keywordtype}{double} tickStepLen() \textcolor{keyword}{const};}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236     \textcolor{keywordtype}{double} originPercentage() \textcolor{keyword}{const};}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238     \textcolor{keywordtype}{double} scaleFactor() \textcolor{keyword}{const};}
+\DoxyCodeLine{239 }
+\DoxyCodeLine{240     \textcolor{keywordtype}{double} labelRotation() \textcolor{keyword}{const};}
+\DoxyCodeLine{241 }
+\DoxyCodeLine{242     \textcolor{keywordtype}{bool} syncAxisTicksWithPlot() \textcolor{keyword}{const};}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244     \textcolor{keywordtype}{bool} syncAxisLabelsWithPlot() \textcolor{keyword}{const};}
+\DoxyCodeLine{245 }
+\DoxyCodeLine{246     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} xAxisBoundsChanged(\textcolor{keywordtype}{double} lower, \textcolor{keywordtype}{double} upper);}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{248     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} yAxisBoundsChanged(\textcolor{keywordtype}{double} lower, \textcolor{keywordtype}{double} upper);}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} axisAutoscaleChanged(ScaleItem::Orientation o, \textcolor{keywordtype}{bool} autoscale);}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} canvasRectChanged(\textcolor{keyword}{const} QRectF\& newRect);}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} tickStepLenChanged(\textcolor{keywordtype}{double}  len);}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} labelsFormatChanged(\textcolor{keyword}{const} QString\& format);}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258     \textcolor{comment}{/* v-\/-\/-\/-\/ reimplemented from plot event listener -\/-\/-\/v */}}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotRectChanged(\textcolor{keyword}{const} QRectF \&newRect);}
+\DoxyCodeLine{261 }
+\DoxyCodeLine{262     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotAreaChanged(\textcolor{keyword}{const} QSizeF \&area);}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{264     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} scrollBarChanged(Qt::Orientation orientation, \textcolor{keywordtype}{int} value);}
+\DoxyCodeLine{265 }
+\DoxyCodeLine{266     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotZoomLevelChanged(\textcolor{keywordtype}{int} ) \{\}}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268     \textcolor{comment}{/* \string^-\/-\/-\/ end of PlotEventListener method implementations */}}
+\DoxyCodeLine{269 }
+\DoxyCodeLine{270     QString format() \textcolor{keyword}{const};}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{272     Qt::Alignment alignment() \textcolor{keyword}{const};}
+\DoxyCodeLine{273 }
+\DoxyCodeLine{274     \textcolor{keywordtype}{bool} tickDrawingInverted() \textcolor{keyword}{const};}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276     \textcolor{keywordtype}{void} installScaleLabelInterface(ScaleLabelInterface *);}
+\DoxyCodeLine{277 }
+\DoxyCodeLine{278     \textcolor{keywordtype}{void} removeScaleLabelInterface();}
+\DoxyCodeLine{279     }
+\DoxyCodeLine{280 signals:}
+\DoxyCodeLine{281     }
+\DoxyCodeLine{282 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{283     \textcolor{keywordtype}{void} setMinimum(\textcolor{keywordtype}{double} min);}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285     \textcolor{keywordtype}{void} setMaximum(\textcolor{keywordtype}{double} max);}
+\DoxyCodeLine{286 }
+\DoxyCodeLine{287     \textcolor{keywordtype}{void} scrollChanged(\textcolor{keywordtype}{int} value);}
+\DoxyCodeLine{288 }
+\DoxyCodeLine{289     \textcolor{keywordtype}{void} scrollRangeChanged(\textcolor{keywordtype}{int} min, \textcolor{keywordtype}{int} max);}
+\DoxyCodeLine{290 }
+\DoxyCodeLine{291     \textcolor{keywordtype}{void} areaChanged(\textcolor{keyword}{const} QSizeF \&size);}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{293     \textcolor{keywordtype}{void} setInverted(\textcolor{keywordtype}{bool});}
+\DoxyCodeLine{294 }
+\DoxyCodeLine{295     \textcolor{keywordtype}{void} setTickLen(\textcolor{keywordtype}{int} len);}
+\DoxyCodeLine{296 }
+\DoxyCodeLine{297     \textcolor{keywordtype}{void} setLabelDistFromTick(\textcolor{keywordtype}{int} d);}
+\DoxyCodeLine{298 }
+\DoxyCodeLine{299     \textcolor{keywordtype}{void} setTickStepLen(\textcolor{keywordtype}{double} tickStepLen);}
+\DoxyCodeLine{300 }
+\DoxyCodeLine{301     \textcolor{keywordtype}{void} setAlignment(Qt::Alignment alignment);}
+\DoxyCodeLine{302 }
+\DoxyCodeLine{303     \textcolor{keywordtype}{void} setMargin(\textcolor{keywordtype}{double} margin);}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{305     \textcolor{keywordtype}{void} setOriginPercentage(\textcolor{keywordtype}{double} percent);}
+\DoxyCodeLine{306 }
+\DoxyCodeLine{307     \textcolor{keywordtype}{void} setScaleFactor(\textcolor{keywordtype}{double});}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{309     \textcolor{keywordtype}{void} setHorizontal(\textcolor{keywordtype}{bool} h);}
+\DoxyCodeLine{310 }
+\DoxyCodeLine{311     \textcolor{keywordtype}{void} setFormat(\textcolor{keyword}{const} QString\& fmt);}
+\DoxyCodeLine{312 }
+\DoxyCodeLine{313     \textcolor{keywordtype}{void} setTickDrawingInverted(\textcolor{keywordtype}{bool} inverted);}
+\DoxyCodeLine{314 }
+\DoxyCodeLine{315     \textcolor{keywordtype}{void} setLabelRotation(\textcolor{keywordtype}{double} r);}
+\DoxyCodeLine{316 }
+\DoxyCodeLine{317     \textcolor{keywordtype}{void} setSyncAxisTicksWithPlot(\textcolor{keywordtype}{bool} sync);}
+\DoxyCodeLine{318 }
+\DoxyCodeLine{319     \textcolor{keywordtype}{void} setSyncAxisLabelsWithPlot(\textcolor{keywordtype}{bool} sync);}
+\DoxyCodeLine{320 }
+\DoxyCodeLine{321     QPen pen() \textcolor{keyword}{const};}
+\DoxyCodeLine{322 }
+\DoxyCodeLine{323     \textcolor{keywordtype}{void} setPen(\textcolor{keyword}{const} QPen\& p);}
+\DoxyCodeLine{324 }
+\DoxyCodeLine{325 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{326     \textcolor{keywordtype}{void} paintEvent(QPaintEvent *);}
+\DoxyCodeLine{327 }
+\DoxyCodeLine{328     \textcolor{keyword}{virtual} QSize minimumSizeHint() \textcolor{keyword}{const};}
+\DoxyCodeLine{329 }
+\DoxyCodeLine{330     \textcolor{keywordtype}{int} mCalculateLongestLabelWidth() \textcolor{keyword}{const};}
+\DoxyCodeLine{331 }
+\DoxyCodeLine{332 \textcolor{keyword}{private}:}
+\DoxyCodeLine{333 }
+\DoxyCodeLine{334     ScalePrivate* d\_ptr;}
+\DoxyCodeLine{335 }
+\DoxyCodeLine{336     Q\_DECLARE\_PRIVATE(Scale)}
+\DoxyCodeLine{337     }
+\DoxyCodeLine{338 \};}
+\DoxyCodeLine{339 }
+\DoxyCodeLine{340 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// SCALE\_H}}
+
+\end{DoxyCode}

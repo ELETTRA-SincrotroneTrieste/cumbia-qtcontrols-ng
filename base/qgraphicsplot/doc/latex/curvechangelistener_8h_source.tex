@@ -1,0 +1,39 @@
+\doxysection{curvechangelistener.\+h}
+\label{curvechangelistener_8h_source}\index{curvechangelistener.h@{curvechangelistener.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CURVECHANGELISTENER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CURVECHANGELISTENER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{class }Point;}
+\DoxyCodeLine{5 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }CurveChangeListener}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9 \textcolor{keyword}{public}:}
+\DoxyCodeLine{10     CurveChangeListener() \{\}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} itemAdded(\textcolor{keyword}{const} Point \&pt) = 0;}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} itemAboutToBeRemoved(\textcolor{keyword}{const} Point \&pt) = 0;}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} itemRemoved(\textcolor{keyword}{const} Point \&pt) = 0;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} fullVectorUpdate() = 0;}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} bufferSizeChanged(\textcolor{keywordtype}{int} newSize) = 0;}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} minXChanged(\textcolor{keywordtype}{double} min) = 0;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} maxXChanged(\textcolor{keywordtype}{double} max) = 0;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} minYChanged(\textcolor{keywordtype}{double}  min) = 0;}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} maxYChanged(\textcolor{keywordtype}{double} max) = 0;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} affectingBoundsPointsRemoved() = 0;}
+\DoxyCodeLine{31 \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// ITEMCHANGELISTENER\_H}}
+
+\end{DoxyCode}

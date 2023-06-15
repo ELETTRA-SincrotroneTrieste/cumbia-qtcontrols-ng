@@ -1,0 +1,55 @@
+\doxysection{xycirclepainter.\+h}
+\label{xycirclepainter_8h_source}\index{xycirclepainter.h@{xycirclepainter.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef XYCIRCLEPAINTER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define XYCIRCLEPAINTER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}itempainterinterface.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QRectF>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <QColor>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }XYCirclePainterPrivate;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }XYCirclePainter : \textcolor{keyword}{public} ItemPainterInterface}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12 \textcolor{keyword}{public}:}
+\DoxyCodeLine{13     XYCirclePainter(Point *item);}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem *option, QWidget *widget);}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keyword}{virtual} QRectF boundingRect() \textcolor{keyword}{const};}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \textcolor{keywordtype}{void} setRadius(qreal r);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keywordtype}{void} setColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     QColor color() \textcolor{keyword}{const};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     qreal radius() \textcolor{keyword}{const};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     QColor borderColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keywordtype}{void} setBorderEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keywordtype}{bool} borderEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} setBorderColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keywordtype}{void} setGradientEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keywordtype}{bool} gradientEnabled() \textcolor{keyword}{const};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{keywordtype}{void} setGradientStopColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     QColor gradientStopColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{private}:}
+\DoxyCodeLine{44     XYCirclePainterPrivate* d\_ptr;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     Q\_DECLARE\_PRIVATE(XYCirclePainter)}
+\DoxyCodeLine{47 \};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// XYCIRCLEPAINTER\_H}}
+
+\end{DoxyCode}

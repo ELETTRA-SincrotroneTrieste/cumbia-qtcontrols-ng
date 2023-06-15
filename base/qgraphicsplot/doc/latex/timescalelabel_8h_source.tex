@@ -1,0 +1,42 @@
+\doxysection{timescalelabel.\+h}
+\label{timescalelabel_8h_source}\index{timescalelabel.h@{timescalelabel.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TIMESCALELABEL\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TIMESCALELABEL\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <scalelabelinterface.h>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{class }TimeScaleLabelPrivate}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8 \textcolor{keyword}{public}:}
+\DoxyCodeLine{9     TimeScaleLabelPrivate() \{\}}
+\DoxyCodeLine{10     \textcolor{keywordtype}{bool} showDate;}
+\DoxyCodeLine{11 \};}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{class }TimeScaleLabel : \textcolor{keyword}{public} ScaleLabelInterface}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     TimeScaleLabel(\textcolor{keywordtype}{bool} showDate = \textcolor{keyword}{false});}
+\DoxyCodeLine{19     \textcolor{keyword}{virtual} \string~TimeScaleLabel();}
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} QString label(\textcolor{keywordtype}{double} value) \textcolor{keyword}{const};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} setShowDate(\textcolor{keywordtype}{bool} show);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keywordtype}{bool} showDate() \textcolor{keyword}{const};}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keyword}{virtual} ScaleLabelInterface::Type type() \textcolor{keyword}{const};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{keyword}{virtual} QString longestLabel() \textcolor{keyword}{const};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{private}:}
+\DoxyCodeLine{32     Q\_DECLARE\_PRIVATE(TimeScaleLabel)}
+\DoxyCodeLine{33     TimeScaleLabelPrivate *d\_ptr;}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TIMESCALELABEL\_H}}
+
+\end{DoxyCode}

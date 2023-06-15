@@ -1,0 +1,35 @@
+\doxysection{zoomer.\+h}
+\label{zoomer_8h_source}\index{zoomer.h@{zoomer.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef ZOOMER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define ZOOMER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{class }PlotSceneWidget;}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{class }ZoomerPrivate;}
+\DoxyCodeLine{7 \textcolor{keyword}{class }QRectF;}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }Zoomer}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11 \textcolor{keyword}{public}:}
+\DoxyCodeLine{12     \textcolor{keyword}{explicit} Zoomer(PlotSceneWidget *plot);}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keywordtype}{void} zoom(\textcolor{keyword}{const} QRectF\& zoomRect);}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \textcolor{keywordtype}{void} setZoomRect(\textcolor{keyword}{const} QRectF\& r);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keywordtype}{void} setBaseScale(\textcolor{keywordtype}{double} sx, \textcolor{keywordtype}{double} sy);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keywordtype}{bool} inZoom() \textcolor{keyword}{const};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} unzoom();}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{private}:}
+\DoxyCodeLine{26     ZoomerPrivate *d\_ptr;}
+\DoxyCodeLine{27 \};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// ZOOMER\_H}}
+
+\end{DoxyCode}

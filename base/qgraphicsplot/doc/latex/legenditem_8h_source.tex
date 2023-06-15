@@ -1,0 +1,66 @@
+\doxysection{legenditem.\+h}
+\label{legenditem_8h_source}\index{legenditem.h@{legenditem.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef LEGENDITEM\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define LEGENDITEM\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QGraphicsObject>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QGraphicsScene>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{8 \textcolor{keyword}{class }LegendItemPrivate;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{27 \textcolor{keyword}{class }LegendItem : \textcolor{keyword}{public} QGraphicsObject}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29     Q\_PROPERTY(\textcolor{keywordtype}{bool} isVisible READ isVisible WRITE setVisible)}
+\DoxyCodeLine{30     Q\_PROPERTY(\textcolor{keywordtype}{double} zValue READ zValue WRITE setZValue)}
+\DoxyCodeLine{31     Q\_PROPERTY(\textcolor{keywordtype}{bool} fillBackground READ fillBackground WRITE setFillBackground)}
+\DoxyCodeLine{32     Q\_PROPERTY(\textcolor{keywordtype}{bool} drawBoundingRect READ drawBoundingRect WRITE setDrawBoundingRect)}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     Q\_OBJECT}
+\DoxyCodeLine{35 \textcolor{keyword}{public}:}
+\DoxyCodeLine{36     \textcolor{keyword}{explicit} LegendItem(QGraphicsScene *parent = 0);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{keywordtype}{void} paint(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem *option, QWidget *widget);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40     \textcolor{keywordtype}{bool} fillBackground() \textcolor{keyword}{const};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     \textcolor{keywordtype}{bool} drawBoundingRect() \textcolor{keyword}{const};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{keywordtype}{bool} isVisible() \textcolor{keyword}{const};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     QRectF boundingRect() \textcolor{keyword}{const};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \textcolor{keywordtype}{void} setCurveAlias(\textcolor{keyword}{const} QString\& realName, \textcolor{keyword}{const} QString\& alias);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     QString curveAlias(\textcolor{keyword}{const} QString\& realName) \textcolor{keyword}{const};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52     QString curveRealName(\textcolor{keyword}{const} QString\& alias) \textcolor{keyword}{const};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54     \textcolor{keywordtype}{void} removeCurveAlias(\textcolor{keyword}{const} QString\& realName);}
+\DoxyCodeLine{55     }
+\DoxyCodeLine{56     QColor getColor(SceneCurve *curve);}
+\DoxyCodeLine{57 signals:}
+\DoxyCodeLine{58     }
+\DoxyCodeLine{59 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \textcolor{keywordtype}{void} setVisible(\textcolor{keywordtype}{bool} isVisible);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{keywordtype}{void} newCurveAdded(SceneCurve *curve);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keywordtype}{void} curveRemoved(SceneCurve *c);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \textcolor{keywordtype}{void} setDrawBoundingRect(\textcolor{keywordtype}{bool} br);}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keywordtype}{void} setFillBackground(\textcolor{keywordtype}{bool} fill);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{keyword}{private}:}
+\DoxyCodeLine{73     LegendItemPrivate *d\_ptr;}
+\DoxyCodeLine{74     }
+\DoxyCodeLine{75 \};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// LEGENDITEM\_H}}
+
+\end{DoxyCode}

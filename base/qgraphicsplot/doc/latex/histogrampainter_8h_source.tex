@@ -1,0 +1,72 @@
+\doxysection{histogrampainter.\+h}
+\label{histogrampainter_8h_source}\index{histogrampainter.h@{histogrampainter.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef HISTOGRAMPAINTER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define HISTOGRAMPAINTER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{class }CurveItem;}
+\DoxyCodeLine{5 \textcolor{keyword}{class }HistogramPainterPrivate;}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <QObject>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <itempainterinterface.h>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <QColor>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }HistogramPainter :  \textcolor{keyword}{public} QObject, \textcolor{keyword}{public} ItemPainterInterface}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13     Q\_PROPERTY(\textcolor{keywordtype}{double} width READ width WRITE setWidth)}
+\DoxyCodeLine{14     Q\_PROPERTY(\textcolor{keywordtype}{double} baseLine READ baseLine WRITE setBaseLine)}
+\DoxyCodeLine{15     Q\_PROPERTY(QColor color READ color WRITE setColor)}
+\DoxyCodeLine{16     Q\_PROPERTY(\textcolor{keywordtype}{bool} autoWidth READ autoWidth WRITE setAutoWidth)}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     Q\_OBJECT}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{public}:}
+\DoxyCodeLine{21     HistogramPainter(CurveItem* curveItem);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw(SceneCurve *curve,}
+\DoxyCodeLine{24                       PlotSceneWidget* plot,}
+\DoxyCodeLine{25                       QPainter *painter,}
+\DoxyCodeLine{26                       \textcolor{keyword}{const} QStyleOptionGraphicsItem * option,}
+\DoxyCodeLine{27                       QWidget * widget = 0);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keyword}{virtual} CurveItem* curveItem() \textcolor{keyword}{const};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keyword}{virtual} QSizeF elementSize() \textcolor{keyword}{const};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} type() \textcolor{keyword}{const};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     QColor color() \textcolor{keyword}{const};}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keywordtype}{double} width() \textcolor{keyword}{const};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{keywordtype}{double} baseLine() \textcolor{keyword}{const};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keywordtype}{bool} autoWidth() \textcolor{keyword}{const};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     QColor colorAt(\textcolor{keywordtype}{int} index) \textcolor{keyword}{const};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     QPen pen() \textcolor{keyword}{const};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keywordtype}{void} setAutoWidth(\textcolor{keywordtype}{bool} aw);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keywordtype}{void} setWidth(\textcolor{keywordtype}{double} w);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \textcolor{keywordtype}{void} setBaseLine(\textcolor{keywordtype}{double} baseline);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{keywordtype}{void} setColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{keywordtype}{void} setColorAt(\textcolor{keywordtype}{int} index, \textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{private}:}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     Q\_DECLARE\_PRIVATE(HistogramPainter)}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     HistogramPainterPrivate *d\_ptr;}
+\DoxyCodeLine{64 \};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// HISTOGRAMPAINTER\_H}}
+
+\end{DoxyCode}

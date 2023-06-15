@@ -1,0 +1,36 @@
+\doxysection{graphicsscene.\+h}
+\label{graphicsscene_8h_source}\index{graphicsscene.h@{graphicsscene.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef GRAPHICSSCENE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define GRAPHICSSCENE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QGraphicsScene>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QRectF>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }GraphicsScenePrivate;}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }GraphicsScene : \textcolor{keyword}{public} QGraphicsScene}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     Q\_OBJECT}
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14     GraphicsScene(QObject * parent = 0);}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \textcolor{keywordtype}{void} setZoomRect(\textcolor{keyword}{const} QRectF\& p);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     QRectF zoomRect() \textcolor{keyword}{const};}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} drawForeground(QPainter * painter, \textcolor{keyword}{const} QRectF \& rect );}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{private}:}
+\DoxyCodeLine{26     Q\_DECLARE\_PRIVATE(GraphicsScene)}
+\DoxyCodeLine{27     GraphicsScenePrivate *d\_ptr;}
+\DoxyCodeLine{28 \};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// GRAPHICSSCENE\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,61 @@
+\doxysection{plotscenewidgetsaver.\+h}
+\label{plotscenewidgetsaver_8h_source}\index{plotscenewidgetsaver.h@{plotscenewidgetsaver.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/* taken from qtcontrols/src/eplotlight/plotsaver.h (and relative .cpp)}}
+\DoxyCodeLine{2 \textcolor{comment}{ * and slightly adapted.}}
+\DoxyCodeLine{3 \textcolor{comment}{ */}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef PLOTSCENEWIDGET\_SAVER\_H}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define PLOTSCENEWIDGET\_SAVER\_H}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <QList>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}scenecurve.h"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <QDialog>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }OptionsDialog : \textcolor{keyword}{public} QDialog}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15     Q\_OBJECT}
+\DoxyCodeLine{16 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17     OptionsDialog(QWidget *parent, \textcolor{keywordtype}{double} xSample, \textcolor{keywordtype}{double} ySample);}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     QString xFormat() \textcolor{keyword}{const};}
+\DoxyCodeLine{20     QString yFormat() \textcolor{keyword}{const};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keywordtype}{bool} dateTimeFormat() \textcolor{keyword}{const};}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keywordtype}{double} xSample, ySample;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     QString timestampToDateTimeString(\textcolor{keywordtype}{double} timestamp, \textcolor{keyword}{const} QString\& format);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{30     \textcolor{keywordtype}{void} setDateTimeFormatEnabled(\textcolor{keywordtype}{bool} en);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{protected} slots:}
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} updateXExample(\textcolor{keyword}{const} QString\& format);}
+\DoxyCodeLine{34     \textcolor{keywordtype}{void} updateYExample(\textcolor{keyword}{const} QString\& format);}
+\DoxyCodeLine{35     \textcolor{keywordtype}{void} setDateTimeFormat(\textcolor{keywordtype}{bool} timeScale);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{private}:}
+\DoxyCodeLine{38     \textcolor{keywordtype}{bool} mDateTimeFormat;}
+\DoxyCodeLine{39 \};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{class }PlotSceneWidgetSaver}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43   \textcolor{keyword}{public}:}
+\DoxyCodeLine{44     PlotSceneWidgetSaver();}
+\DoxyCodeLine{45         }
+\DoxyCodeLine{46     \textcolor{keywordtype}{bool} save(\textcolor{keyword}{const} QList<SceneCurve *>curves, \textcolor{keywordtype}{bool} timeScale);}
+\DoxyCodeLine{47         }
+\DoxyCodeLine{48         QString errorMessage() \{ \textcolor{keywordflow}{return} d\_errorMessage; \}}
+\DoxyCodeLine{49         QString fileName() \{ \textcolor{keywordflow}{return} d\_fileName; \}}
+\DoxyCodeLine{50         }
+\DoxyCodeLine{51   \textcolor{keyword}{private}:}
+\DoxyCodeLine{52         QString d\_errorMessage, d\_fileName;}
+\DoxyCodeLine{53 \};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

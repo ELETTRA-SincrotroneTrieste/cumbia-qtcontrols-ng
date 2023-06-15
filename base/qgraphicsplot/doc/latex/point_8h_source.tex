@@ -1,0 +1,64 @@
+\doxysection{point.\+h}
+\label{point_8h_source}\index{point.h@{point.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef POINT\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define POINT\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{class }PointPrivate;}
+\DoxyCodeLine{5 \textcolor{keyword}{class }PlotSceneWidget;}
+\DoxyCodeLine{6 \textcolor{keyword}{class }PointData;}
+\DoxyCodeLine{7 \textcolor{keyword}{class }ScaleItem;}
+\DoxyCodeLine{8 \textcolor{keyword}{class }ItemPositionChangeListener;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <QPointF>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <QList>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{20 \textcolor{keyword}{class }Point}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22     \textcolor{keyword}{friend} \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{23 \textcolor{keyword}{public}:}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keyword}{explicit} Point(\textcolor{keyword}{const} PointData\& data, ScaleItem* xAxis, ScaleItem *yAxis);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     Point(\textcolor{keywordtype}{double} x, \textcolor{keywordtype}{double} y);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keyword}{virtual} \string~Point();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keywordtype}{double} updateXPos(PlotSceneWidget *view);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keywordtype}{double} updateYPos(PlotSceneWidget *view);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{40     QPointF updatePosition(PlotSceneWidget *view);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{47     QPointF pos() \textcolor{keyword}{const};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keyword}{const} PointData \&pointDataR() \textcolor{keyword}{const};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     PointData pointData() \textcolor{keyword}{const};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{void} setPointData(\textcolor{keyword}{const} PointData\& pd);}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \textcolor{keywordtype}{void} setPos(\textcolor{keyword}{const} QPointF \&pos);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{keywordtype}{void} setPos(qreal x, qreal y);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keywordtype}{double} x, y;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \textcolor{keywordtype}{double} xpos, ypos;}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{keyword}{private}:}
+\DoxyCodeLine{74     PointPrivate *d\_ptr;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     Q\_DECLARE\_PRIVATE(Point)}
+\DoxyCodeLine{77 \};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// XYITEM\_H}}
+
+\end{DoxyCode}

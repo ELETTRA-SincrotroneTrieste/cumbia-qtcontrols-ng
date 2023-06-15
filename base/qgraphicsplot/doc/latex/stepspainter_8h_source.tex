@@ -1,0 +1,68 @@
+\doxysection{stepspainter.\+h}
+\label{stepspainter_8h_source}\index{stepspainter.h@{stepspainter.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef STEPSPAINTER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define STEPSPAINTER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <itempainterinterface.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QObject>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <QPen>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }StepsPainterPrivate;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }StepsPainter : \textcolor{keyword}{public} QObject, \textcolor{keyword}{public} ItemPainterInterface}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     Q\_PROPERTY(QColor lineColor READ lineColor WRITE setLineColor)}
+\DoxyCodeLine{13     Q\_PROPERTY(\textcolor{keywordtype}{double} lineWidth READ lineWidth WRITE setLineWidth)}
+\DoxyCodeLine{14     Q\_PROPERTY(QPen linePen READ linePen WRITE setLinePen)}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     Q\_OBJECT}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{public}:}
+\DoxyCodeLine{19     \textcolor{keyword}{explicit} StepsPainter(CurveItem *curveItem);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keyword}{virtual} \string~StepsPainter();}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw(SceneCurve *curve,}
+\DoxyCodeLine{24                       PlotSceneWidget* plot,}
+\DoxyCodeLine{25                       QPainter *painter,}
+\DoxyCodeLine{26                       \textcolor{keyword}{const} QStyleOptionGraphicsItem * option,}
+\DoxyCodeLine{27                       QWidget * widget = 0);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keyword}{virtual} CurveItem* curveItem() \textcolor{keyword}{const};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keyword}{virtual} QSizeF elementSize() \textcolor{keyword}{const};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} type() \textcolor{keyword}{const};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{42     QColor lineColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{51     \textcolor{keywordtype}{double} lineWidth() \textcolor{keyword}{const};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{57     QPen linePen() \textcolor{keyword}{const};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     QPen pen() \textcolor{keyword}{const};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{69     \textcolor{keywordtype}{void} setLineColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} setLineWidth(\textcolor{keywordtype}{double} w);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{83     \textcolor{keywordtype}{void} setLinePen(\textcolor{keyword}{const} QPen\& p);}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 signals:}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{keyword}{private}:}
+\DoxyCodeLine{91     Q\_DECLARE\_PRIVATE(StepsPainter)}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93     StepsPainterPrivate* d\_ptr;}
+\DoxyCodeLine{94 \};}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// STEPSPAINTER\_H}}
+
+\end{DoxyCode}

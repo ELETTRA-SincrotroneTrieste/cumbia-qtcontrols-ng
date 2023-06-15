@@ -1,0 +1,29 @@
+\doxysection{xyplotinterface.\+h}
+\label{xyplotinterface_8h_source}\index{xyplotinterface.h@{xyplotinterface.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef XYPLOTINTERFACE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define XYPLOTINTERFACE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{class }PointData;}
+\DoxyCodeLine{5 \textcolor{keyword}{class }Point;}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }XYPlotInterface}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9 \textcolor{keyword}{public}:}
+\DoxyCodeLine{10     XYPlotInterface() \{\}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} appendData(\textcolor{keyword}{const} QString\& curveName, \textcolor{keywordtype}{double} x, \textcolor{keywordtype}{double} y) = 0;}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} setData(\textcolor{keyword}{const} QString\& curveName,}
+\DoxyCodeLine{15                          \textcolor{keyword}{const} QVector< double > \&xData,}
+\DoxyCodeLine{16                          \textcolor{keyword}{const} QVector< double > \&yData) = 0;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} setData(\textcolor{keyword}{const} QString\& curveName,}
+\DoxyCodeLine{19                          \textcolor{keyword}{const} QVector< double > \&yData) = 0;}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// XYPLOTINTERFACE\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,79 @@
+\doxysection{curveitem.\+h}
+\label{curveitem_8h_source}\index{curveitem.h@{curveitem.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CURVEITEM\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CURVEITEM\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QGraphicsObject>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QAbstractGraphicsShapeItem>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}axischangelistener.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}curvechangelistener.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <QPen>}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{11 \textcolor{keyword}{class }CurveItemPrivate;}
+\DoxyCodeLine{12 \textcolor{keyword}{class }ItemPainterInterface;}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{50 \textcolor{keyword}{class }CurveItem : \textcolor{keyword}{public} QGraphicsObject, \textcolor{keyword}{public} CurveChangeListener}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     Q\_PROPERTY(\textcolor{keywordtype}{bool} visible READ isVisible WRITE setVisible)}
+\DoxyCodeLine{54     Q\_PROPERTY(qreal zValue READ zValue WRITE setZValue)}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     Q\_OBJECT}
+\DoxyCodeLine{57 \textcolor{keyword}{public}:}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     CurveItem(SceneCurve *curve);}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \textcolor{keyword}{virtual} \string~CurveItem();}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     SceneCurve *sceneCurve() \textcolor{keyword}{const};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keyword}{virtual} QRectF boundingRect() \textcolor{keyword}{const};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} itemAboutToBeAdded(\textcolor{keyword}{const} Point \&) \{\}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} itemAdded(\textcolor{keyword}{const} Point \&pt);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} itemAboutToBeRemoved(\textcolor{keyword}{const} Point \&pt);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} itemRemoved(\textcolor{keyword}{const} Point \&) \{\}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} bufferSizeChanged(\textcolor{keywordtype}{int} ) \{\}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} minXChanged(\textcolor{keywordtype}{double} ) \{\}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} maxXChanged(\textcolor{keywordtype}{double} ) \{\}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} minYChanged(\textcolor{keywordtype}{double}  )  \{\}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} maxYChanged(\textcolor{keywordtype}{double} ) \{\}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} fullVectorUpdate();}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} affectingBoundsPointsRemoved() \{\}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89     \textcolor{keywordtype}{void} installItemPainterInterface(ItemPainterInterface *itemPainterInterface);}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     \textcolor{keywordtype}{void} removeItemPainterInterface(ItemPainterInterface *itemPainterInterface);}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93     QList<ItemPainterInterface *>itemPainters() \textcolor{keyword}{const};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95     ItemPainterInterface *itemPainter() \textcolor{keyword}{const};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{101     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} paint(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem * option, QWidget * widget = 0);}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{keyword}{private}:}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     Q\_DECLARE\_PRIVATE(CurveItem)}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108     CurveItemPrivate *d\_ptr;}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \};}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CURVEITEM\_H}}
+
+\end{DoxyCode}

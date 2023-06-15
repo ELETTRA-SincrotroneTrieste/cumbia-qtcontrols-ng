@@ -1,0 +1,62 @@
+\doxysection{linepainter.\+h}
+\label{linepainter_8h_source}\index{linepainter.h@{linepainter.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef LINEPAINTER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define LINEPAINTER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <itempainterinterface.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QObject>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <QPen>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }LinePainterPrivate;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }LinePainter : \textcolor{keyword}{public} QObject, \textcolor{keyword}{public} ItemPainterInterface}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     Q\_PROPERTY(QColor lineColor READ lineColor WRITE setLineColor)}
+\DoxyCodeLine{13     Q\_PROPERTY(\textcolor{keywordtype}{double} lineWidth READ lineWidth WRITE setLineWidth)}
+\DoxyCodeLine{14     Q\_PROPERTY(QPen linePen READ linePen WRITE setLinePen)}
+\DoxyCodeLine{15     Q\_OBJECT}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{public}:}
+\DoxyCodeLine{18     LinePainter(CurveItem* curveItem);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} \string~LinePainter();}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw(SceneCurve *curve,}
+\DoxyCodeLine{23                       PlotSceneWidget* plot,}
+\DoxyCodeLine{24                       QPainter *painter,}
+\DoxyCodeLine{25                       \textcolor{keyword}{const} QStyleOptionGraphicsItem * option,}
+\DoxyCodeLine{26                       QWidget * widget = 0);}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{keyword}{virtual} CurveItem* curveItem() \textcolor{keyword}{const};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{virtual} QSizeF elementSize() \textcolor{keyword}{const};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} type() \textcolor{keyword}{const};}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{41     QColor lineColor() \textcolor{keyword}{const};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{50     \textcolor{keywordtype}{double} lineWidth() \textcolor{keyword}{const};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{56     QPen linePen() \textcolor{keyword}{const};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{62     QPen pen() \textcolor{keyword}{const};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{72     \textcolor{keywordtype}{void} setLineColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{80     \textcolor{keywordtype}{void} setLineWidth(\textcolor{keywordtype}{double} w);}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{86     \textcolor{keywordtype}{void} setLinePen(\textcolor{keyword}{const} QPen\& p);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88 \textcolor{keyword}{private}:}
+\DoxyCodeLine{89     Q\_DECLARE\_PRIVATE(LinePainter)}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     LinePainterPrivate* d\_ptr;}
+\DoxyCodeLine{92 \};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// LINEPAINTER\_H}}
+
+\end{DoxyCode}

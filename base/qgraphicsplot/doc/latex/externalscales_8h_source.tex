@@ -1,0 +1,40 @@
+\doxysection{externalscales.\+h}
+\label{externalscales_8h_source}\index{externalscales.h@{externalscales.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef XYGSCENE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define XYGSCENE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QWidget>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{class }CircleItemSet;}
+\DoxyCodeLine{7 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{namespace }Ui \{}
+\DoxyCodeLine{10 \textcolor{keyword}{class }Widget;}
+\DoxyCodeLine{11 \}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }ExternalScales : \textcolor{keyword}{public} QWidget}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15     Q\_OBJECT}
+\DoxyCodeLine{16     }
+\DoxyCodeLine{17 \textcolor{keyword}{public}:}
+\DoxyCodeLine{18     \textcolor{keyword}{explicit} ExternalScales(QWidget *parent = 0);}
+\DoxyCodeLine{19     \string~ExternalScales();}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{private} slots:}
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} createData();}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{private}:}
+\DoxyCodeLine{25     Ui::Widget *ui;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keywordtype}{int} mCnt;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     QList<SceneCurve *> curves;}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keywordtype}{double} x1, y1, x2, y2;}
+\DoxyCodeLine{32 \};}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// XYGSCENE\_H}}
+
+\end{DoxyCode}

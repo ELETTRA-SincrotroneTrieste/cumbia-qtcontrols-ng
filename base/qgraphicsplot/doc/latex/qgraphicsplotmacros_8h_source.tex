@@ -1,0 +1,98 @@
+\doxysection{qgraphicsplotmacros.\+h}
+\label{qgraphicsplotmacros_8h_source}\index{qgraphicsplotmacros.h@{qgraphicsplotmacros.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef QTANGO\_MACROS\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define QTANGO\_MACROS\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{    \#ifndef NO\_PRINTINFO}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define pwarn(x, args...) do \{ if(getenv("{}QTANGO\_PRINT"{}})) \{printf("{}\(\backslash\)e[1;33m* \(\backslash\)e[0;4mwarning\(\backslash\)e[0m: "{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define perr(x, args...) do \{  if(!getenv("{}QTANGO\_NOPRINT\_ERRORS"{}})) \{fprintf(stderr, "{}\(\backslash\)e[1;31m* \(\backslash\)e[0;4merror\(\backslash\)e[0m: "{}); printf(x, \#\#args); printf("{}\(\backslash\)n"{});\} \}while(0)}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define pinfo(x, args...) do \{  if(getenv("{}QTANGO\_PRINT"{}})) \{printf("{}\(\backslash\)e[1;35m* \(\backslash\)e[0;4minfo\(\backslash\)e[0m: "{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{comment}{/* like pinfo but without newline */}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#define pinfononl(x, args...) do \{  if(getenv("{}QTANGO\_PRINT"{}})) \{printf("{}\(\backslash\)e[1;35m* \(\backslash\)e[0;4minfo\(\backslash\)e[0m: "{}), printf(x, \#\#args); \} \}while(0)}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#define pok(x, args...) do \{  if(getenv("{}QTANGO\_PRINT"{}})) \{printf("{}\(\backslash\)033[1;32m* \(\backslash\)033[0m"{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{21                 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#define padd(x, args...) do \{ if(getenv("{}QTANGO\_PRINT"{}})) \{printf("{}\(\backslash\)033[1;32m+ \(\backslash\)033[0m"{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{23                 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#define pwrn(x, args...) do \{ if(getenv("{}QTANGO\_PRINT"{}})) \{printf("{}\(\backslash\)033[1;33m* \(\backslash\)033[0m"{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#define pdelete(x, args...) do \{   if(getenv("{}QTANGO\_PRINT"{}})) \{printf("{}\(\backslash\)e[1;32mX \(\backslash\)e[0m"{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define pnodelete(x, args...) do \{ if(getenv("{}QTANGO\_PRINT"{}})) \{ printf("{}\(\backslash\)e[1;31mX \(\backslash\)e[0m"{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{29                 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#define pstep(x, args...) do \{ if(getenv("{}QTANGO\_PRINT"{}})) \{ printf("{}   \(\backslash\)e[0;37m-\/\(\backslash\)e[0m "{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{31                 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#define pstepl2(x, args ...) do \{  if(getenv("{}QTANGO\_PRINT"{}})) \{ printf("{}    \(\backslash\)e[0;37m-\/\(\backslash\)e[0m "{}), printf(x, \#\#args), printf("{}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#define qprintf(x, args ...) do  \{  if(getenv("{}QTANGO\_QPRINTF"{}})) \{printf(x, \#\#args); \} \}while(0)}
+\DoxyCodeLine{35                 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#define qstoc(x)                                x.toStdString().c\_str() }}
+\DoxyCodeLine{37                 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#define qslisttoc(x)    do \{ if(getenv("{}QTANGO\_PRINT"{}})) \{ printf("{}  \{ "{}); for(int i = 0; i < x.size(); i++) printf("{}\(\backslash\)"{}\%s\(\backslash\)"{}, "{}, qstoc(x[i])); printf("{}\(\backslash\)b\(\backslash\)b \}\(\backslash\)n"{}); \} \}while(0)}
+\DoxyCodeLine{39                 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#define qobjinfo(o)                     o-\/>metaObject()-\/>className()}}
+\DoxyCodeLine{41                 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{                \#define qobjname(o)                     o-\/>objectName().toStdString().c\_str()}}
+\DoxyCodeLine{43                 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{                \#define objinfo(o) \(\backslash\)}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{                      QString("{}\%1 \(\backslash\)"{}\%2\(\backslash\)"{}"{}}).arg(((o != NULL \&\& o-\/>metaObject() != NULL \&\& \(\backslash\)}
+\DoxyCodeLine{46                         o-\/>metaObject()-\/>className() != NULL) ?  o-\/>metaObject()-\/>className() \(\backslash\)}
+\DoxyCodeLine{47                         : QString("{}object or meta object is null\(\backslash\)n   -\/ Please create a proxy reader or writer passing a QObject not null to obtain class name and object name here.\(\backslash\)n  "{}))) \(\backslash\)}
+\DoxyCodeLine{48                         .arg(((o != NULL) ?  (o-\/>objectName()) :  \(\backslash\)}
+\DoxyCodeLine{49                          QString("{}object is null"{}))).toStdString().c\_str()}
+\DoxyCodeLine{50                 }
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{        \#else}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{                \#define pwarn(x, args...)               do \{\}while(0)}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{                \#define perr(x, args...)                        do \{\}while(0)}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{                \#define pinfo(x, args...)                       do \{\}while(0)}}
+\DoxyCodeLine{59                   }
+\DoxyCodeLine{60 \textcolor{preprocessor}{                \#define pinfononl(x, args...)    do \{\}while(0)}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{                \#define pok(x, args...)                         do \{\}while(0)}}
+\DoxyCodeLine{63                 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{                \#define pwrn(x, args...)                        do \{\}while(0)}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{                \#define pdelete(x, args...)             do \{\}while(0)}}
+\DoxyCodeLine{67                 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{                \#define padd(x, args...)        do \{\}while(0)}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{                \#define pnodelete(x, args...)           do \{\}while(0)}}
+\DoxyCodeLine{71                 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{                \#define qstoc(x)                                "{}"{}}}
+\DoxyCodeLine{73                 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{                \#define qobjinfo(o)                     "{}"{}}}
+\DoxyCodeLine{75                 }
+\DoxyCodeLine{76 \textcolor{preprocessor}{                \#define qobjname(o)                     "{}"{}}}
+\DoxyCodeLine{77                 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{                \#define objinfo(o)                      "{}"{}}}
+\DoxyCodeLine{79                 }
+\DoxyCodeLine{80 \textcolor{preprocessor}{                \#define pstep(x, args...)               do \{\}while(0)}}
+\DoxyCodeLine{81                 }
+\DoxyCodeLine{82 \textcolor{preprocessor}{                \#define pstepl2(x, args...)             do \{\}while(0)}}
+\DoxyCodeLine{83                 }
+\DoxyCodeLine{84 \textcolor{preprocessor}{                \#define qslisttoc(x)                    do \{\}while(0)}}
+\DoxyCodeLine{85                   }
+\DoxyCodeLine{86 \textcolor{preprocessor}{                \#define qprintf(x, args...)             do \{\}while(0)}}
+\DoxyCodeLine{87                 }
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{preprocessor}{        \#endif}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{92 }
+
+\end{DoxyCode}

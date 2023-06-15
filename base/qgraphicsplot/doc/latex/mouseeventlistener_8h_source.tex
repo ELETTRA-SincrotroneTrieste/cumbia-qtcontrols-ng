@@ -1,0 +1,30 @@
+\doxysection{mouseeventlistener.\+h}
+\label{mouseeventlistener_8h_source}\index{mouseeventlistener.h@{mouseeventlistener.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef MOUSEEVENTLISTENER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define MOUSEEVENTLISTENER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{class }QMouseEvent;}
+\DoxyCodeLine{5 \textcolor{keyword}{class }QPointF;}
+\DoxyCodeLine{6 \textcolor{keyword}{class }PlotSceneWidget;}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }MouseEventListener}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16     MouseEventListener() \{\}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} mousePressEvent(PlotSceneWidget *, QMouseEvent *) \{\}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} mouseReleaseEvent(PlotSceneWidget *, QMouseEvent *) \{\}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} mouseMoveEvent(PlotSceneWidget *, QMouseEvent *) \{\}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} mouseClickEvent(PlotSceneWidget *, \textcolor{keyword}{const} QPointF\& ) \{\}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} mouseDoubleClickEvent(PlotSceneWidget *, QMouseEvent *) \{\}}
+\DoxyCodeLine{27 \};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// MOUSEEVENTLISTENER\_H}}
+
+\end{DoxyCode}

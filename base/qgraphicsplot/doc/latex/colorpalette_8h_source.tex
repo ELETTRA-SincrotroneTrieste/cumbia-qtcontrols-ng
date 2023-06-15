@@ -1,0 +1,28 @@
+\doxysection{colorpalette.\+h}
+\label{colorpalette_8h_source}\index{colorpalette.h@{colorpalette.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef COLORPALETTE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define COLORPALETTE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QList>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QColor>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}colors.h"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }ColorPalette}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10 \textcolor{keyword}{public}:}
+\DoxyCodeLine{11     ColorPalette();}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     QColor getColor(\textcolor{keywordtype}{int} index) \textcolor{keyword}{const};}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keywordtype}{void} addColor(\textcolor{keyword}{const} QColor\& c);}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{private}:}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     QList<QColor> mColors;}
+\DoxyCodeLine{20 \};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// COLORPALETTE\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,58 @@
+\doxysection{extscaleplotscenewidget.\+h}
+\label{extscaleplotscenewidget_8h_source}\index{extscaleplotscenewidget.h@{extscaleplotscenewidget.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef EXTSCALEPLOTSCENEWIDGET\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define EXTSCALEPLOTSCENEWIDGET\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{class }ExtScalePlotSceneWidgetPrivate;}
+\DoxyCodeLine{5 \textcolor{keyword}{class }SceneCurve;}
+\DoxyCodeLine{6 \textcolor{keyword}{class }PlotSceneWidget;}
+\DoxyCodeLine{7 \textcolor{keyword}{class }ScaleItem;}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <scaleitem.h>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <QWidget>}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{class }ExtScalePlotSceneWidget : \textcolor{keyword}{public} QWidget}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14     Q\_OBJECT}
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16     \textcolor{keyword}{explicit} ExtScalePlotSceneWidget(QWidget *parent = 0, \textcolor{keywordtype}{bool} multiScale = \textcolor{keyword}{false});}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     SceneCurve * addCurve(\textcolor{keyword}{const} QString\& name, ScaleItem *xScale = NULL, ScaleItem *yScale = NULL,}
+\DoxyCodeLine{19                           \textcolor{keywordtype}{bool} addExtScale = \textcolor{keyword}{false});}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     ScaleItem* addAxis(ScaleItem::Orientation o, \textcolor{keyword}{const} QString\& axisName);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} addExternalScale(ScaleItem *axis, SceneCurve *curve);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     PlotSceneWidget *getPlot() \textcolor{keyword}{const};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keywordtype}{void} setMultiscale(\textcolor{keywordtype}{bool} multiscale);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keywordtype}{bool} multiscale() \textcolor{keyword}{const};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     ScaleItem *getAxis(ScaleItem::Id);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} removeCurve(\textcolor{keyword}{const} QString\& name);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keywordtype}{void} clear();}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     SceneCurve *addCurve(SceneCurve *curve, \textcolor{keywordtype}{bool} addExtScale);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{keywordtype}{void} removeAdditionalExternalScales();}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 signals:}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{keyword}{private}:}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     ScaleItem *configureNewScale(ScaleItem::Orientation, \textcolor{keyword}{const} QString \&curveName);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     ExtScalePlotSceneWidgetPrivate *d\_ptr;}
+\DoxyCodeLine{50 \};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// EXTSCALEPLOTSCENEWIDGET\_H}}
+
+\end{DoxyCode}

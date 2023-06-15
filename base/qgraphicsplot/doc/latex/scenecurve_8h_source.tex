@@ -1,0 +1,136 @@
+\doxysection{scenecurve.\+h}
+\label{scenecurve_8h_source}\index{scenecurve.h@{scenecurve.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef SCENECURVE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define SCENECURVE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QObject>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <plotscenewidget.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <axischangelistener.h>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <data.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }SceneCurvePrivate;}
+\DoxyCodeLine{10 \textcolor{keyword}{class }QGraphicsScene;}
+\DoxyCodeLine{11 \textcolor{keyword}{class }ScaleItem;}
+\DoxyCodeLine{12 \textcolor{keyword}{class }CurveChangeListener;}
+\DoxyCodeLine{13 \textcolor{keyword}{class }CurveItem;}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{class }SceneCurve : \textcolor{keyword}{public} QObject, \textcolor{keyword}{public} AxisChangeListener}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18     Q\_OBJECT}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     Q\_PROPERTY(\textcolor{keywordtype}{int} bufferSize READ bufferSize WRITE setBufferSize)}
+\DoxyCodeLine{21     Q\_PROPERTY(\textcolor{keywordtype}{bool} xDataIsOrdered READ xDataIsOrdered WRITE setXDataIsOrdered)}
+\DoxyCodeLine{22     Q\_PROPERTY(\textcolor{keywordtype}{bool} yDataIsOrdered READ yDataIsOrdered WRITE setYDataIsOrdered)}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{public}:}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keyword}{explicit} SceneCurve(PlotSceneWidget *sceneWidget,}
+\DoxyCodeLine{27                         \textcolor{keyword}{const} QString\& name,}
+\DoxyCodeLine{28                         ScaleItem* xAxis,}
+\DoxyCodeLine{29                         ScaleItem* yAxis);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keyword}{virtual} \string~SceneCurve();}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{37     PlotSceneWidget* plot() \textcolor{keyword}{const};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{43     QGraphicsScene *scene() \textcolor{keyword}{const};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{48     \textcolor{keywordtype}{int} dataSize() \textcolor{keyword}{const};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{int} bufferSize() \textcolor{keyword}{const};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{65     QString name() \textcolor{keyword}{const};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} addPoint(\textcolor{keywordtype}{double} x, \textcolor{keywordtype}{double} y);}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} addPoints(\textcolor{keyword}{const} QVector<double>\& xData, \textcolor{keyword}{const} QVector<double> \&yData);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     Data *data() \textcolor{keyword}{const};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{keywordtype}{void} setData(\textcolor{keyword}{const} QVector<double>\& xData, \textcolor{keyword}{const} QVector<double> \&yData);}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keywordtype}{void} setData(\textcolor{keyword}{const} QVector<double> \&yData);}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} installCurveChangeListener(CurveChangeListener *listener);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     QList<CurveChangeListener *>curveChangeListeners() \textcolor{keyword}{const};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keywordtype}{void} removeCurveChangeListener(CurveChangeListener *listener);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keywordtype}{void} removeCurveItem();}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85     \textcolor{keywordtype}{void} setCurveItem(CurveItem *curveItem);}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     CurveItem* curveItem() \textcolor{keyword}{const};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89     ScaleItem::Id associatedXAxisId() \textcolor{keyword}{const};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     ScaleItem::Id associatedYAxisId() \textcolor{keyword}{const};}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93     \textcolor{keyword}{virtual} \textcolor{keywordtype}{double} getMinX() \textcolor{keyword}{const};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95     \textcolor{keyword}{virtual} \textcolor{keywordtype}{double} getMinY() \textcolor{keyword}{const};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     \textcolor{keyword}{virtual} \textcolor{keywordtype}{double} getMaxX() \textcolor{keyword}{const};}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99     \textcolor{keyword}{virtual} \textcolor{keywordtype}{double} getMaxY() \textcolor{keyword}{const};}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101     ScaleItem* getXAxis() \textcolor{keyword}{const};}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103     ScaleItem* getYAxis() \textcolor{keyword}{const};}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105     \textcolor{keywordtype}{void} invalidateCache();}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107     \textcolor{keywordtype}{void} invalidateXCache();}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109     \textcolor{keywordtype}{void} invalidateYCache();}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111     \textcolor{keywordtype}{void} xAxisBoundsChanged(\textcolor{keywordtype}{double} xl, \textcolor{keywordtype}{double} xu);}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113     \textcolor{keywordtype}{void} yAxisBoundsChanged(\textcolor{keywordtype}{double} yl, \textcolor{keywordtype}{double} yu);}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{122     \textcolor{keywordtype}{void} axisAutoscaleChanged(ScaleItem::Orientation o, \textcolor{keywordtype}{bool} autoscale);}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{126     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} tickStepLenChanged(\textcolor{keywordtype}{double}  ) \{\}}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{130     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} labelsFormatChanged(\textcolor{keyword}{const} QString\& ) \{\}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132     \textcolor{keywordtype}{bool} xDataIsOrdered() \textcolor{keyword}{const};}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134     \textcolor{keywordtype}{bool} yDataIsOrdered() \textcolor{keyword}{const};}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{149     \textcolor{keyword}{const} QPointF* points();}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} canvasRectChanged(\textcolor{keyword}{const} QRectF\& newRect);}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153 signals:}
+\DoxyCodeLine{154     }
+\DoxyCodeLine{155 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157     \textcolor{keywordtype}{void} setBufferSize(\textcolor{keywordtype}{int} bufSiz);}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159     \textcolor{keywordtype}{void} setXDataIsOrdered(\textcolor{keywordtype}{bool} ordered);}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161     \textcolor{keywordtype}{void} setYDataIsOrdered(\textcolor{keywordtype}{bool} ordered);}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{165 \textcolor{keyword}{private}:}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168     \textcolor{keywordtype}{int} mCheckBufferSize();}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170     \textcolor{keywordtype}{bool} mRemovedItemAffectsBounds(\textcolor{keyword}{const} Point \&toRemovePt);}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172     SceneCurvePrivate *d\_ptr;}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174     Q\_DECLARE\_PRIVATE(SceneCurve)}
+\DoxyCodeLine{175     }
+\DoxyCodeLine{176 \};}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// SCENECURVE\_H}}
+
+\end{DoxyCode}

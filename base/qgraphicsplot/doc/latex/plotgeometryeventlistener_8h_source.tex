@@ -1,0 +1,26 @@
+\doxysection{plotgeometryeventlistener.\+h}
+\label{plotgeometryeventlistener_8h_source}\index{plotgeometryeventlistener.h@{plotgeometryeventlistener.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef PLOTGEOMETRYEVENTLISTENER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define PLOTGEOMETRYEVENTLISTENER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QRectF>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{19 \textcolor{keyword}{class }PlotGeometryEventListener}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21 \textcolor{keyword}{public}:}
+\DoxyCodeLine{22     PlotGeometryEventListener() \{\}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{34     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotRectChanged(\textcolor{keyword}{const} QRectF \&newRect) = 0;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{44     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotAreaChanged(\textcolor{keyword}{const} QSizeF \&area) = 0;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{54     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} scrollBarChanged(Qt::Orientation orientation, \textcolor{keywordtype}{int} value) = 0;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} plotZoomLevelChanged(\textcolor{keywordtype}{int} level ) = 0;}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// PLOTCHANGELISTENER\_H}}
+
+\end{DoxyCode}
