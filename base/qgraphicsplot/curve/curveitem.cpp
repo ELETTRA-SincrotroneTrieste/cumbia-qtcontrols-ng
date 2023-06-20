@@ -32,7 +32,6 @@ CurveItem::~CurveItem() {
     d_ptr->itemPainters.clear();
    delete d_ptr;
    d_ptr = NULL;
-   qDebug() << __FUNCTION__ << "exit";
 }
 
 SceneCurve *CurveItem::sceneCurve() const
@@ -187,7 +186,7 @@ void CurveItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
      * Great comments on
      * http://thesmithfam.org/blog/2007/02/03/qt-improving-qgraphicsview-performance/comment-page-1
      */
-    qDebug() << __PRETTY_FUNCTION__ << "exposed rect is " << option->exposedRect << "rect is " << option->rect;
+//    qDebug() << __PRETTY_FUNCTION__ << "exposed rect is " << option->exposedRect << "rect is " << option->rect;
 //    painter->setClipRect(option->exposedRect.toRect());
 
     if(d_ptr->itemPainters.size())

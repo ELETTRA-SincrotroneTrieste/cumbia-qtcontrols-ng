@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I../src -I../../src -I../../../src -I../../src -I../../src/curve -I../../src/axes -I../../../src -I../../../src/curve -I../../../src/axes -I../../../src/items -I. -I../../src -I../../src/curve -I../../src/axes -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I. -I/usr/lib/qt/mkspecs/linux-g++
+INCPATH       = -I. -I/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I. -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = spectrum1.0.0
 DISTDIR = /home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/examples/spectrum/.tmp/spectrum1.0.0
 LINK          = g++
 LFLAGS        = -fPIC
-LIBS          = $(SUBLIBS) -L.. -L../.. -L../../.. -lqgraphicsplot /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -L/usr/local/cumbia-libs/lib -lcumbia-qtcontrols-ng /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -322,13 +322,14 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
-		../../../../.qmake.stash \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
 		../examples.pro \
 		/usr/lib/qt/mkspecs/features/resolve_config.prf \
 		/usr/lib/qt/mkspecs/features/default_post.prf \
+		/usr/lib/qt/mkspecs/features/link_pkgconfig.prf \
 		/usr/lib/qt/mkspecs/features/ltcg.prf \
 		/usr/lib/qt/mkspecs/features/warn_on.prf \
 		/usr/lib/qt/mkspecs/features/qt.prf \
@@ -623,13 +624,14 @@ Makefile: spectrum.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mksp
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
-		../../../../.qmake.stash \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
 		../examples.pro \
 		/usr/lib/qt/mkspecs/features/resolve_config.prf \
 		/usr/lib/qt/mkspecs/features/default_post.prf \
+		/usr/lib/qt/mkspecs/features/link_pkgconfig.prf \
 		/usr/lib/qt/mkspecs/features/ltcg.prf \
 		/usr/lib/qt/mkspecs/features/warn_on.prf \
 		/usr/lib/qt/mkspecs/features/qt.prf \
@@ -913,13 +915,14 @@ Makefile: spectrum.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mksp
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
-../../../../.qmake.stash:
+.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
 ../examples.pro:
 /usr/lib/qt/mkspecs/features/resolve_config.prf:
 /usr/lib/qt/mkspecs/features/default_post.prf:
+/usr/lib/qt/mkspecs/features/link_pkgconfig.prf:
 /usr/lib/qt/mkspecs/features/ltcg.prf:
 /usr/lib/qt/mkspecs/features/warn_on.prf:
 /usr/lib/qt/mkspecs/features/qt.prf:
@@ -964,6 +967,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -991,7 +995,7 @@ compiler_moc_header_clean:
 moc_xygscene.cpp: xygscene.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/examples/spectrum/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/examples/spectrum -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/examples/src -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/src -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/src -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/src -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/src/curve -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/src/axes -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/src -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/src/curve -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/src/axes -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/src/items -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/examples/spectrum -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/src -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/src/curve -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/src/axes -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/12.2.1 -I/usr/include/c++/12.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/12.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.1/include-fixed -I/usr/include xygscene.h -o moc_xygscene.cpp
+	/usr/bin/moc $(DEFINES) --include /home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/examples/spectrum/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/qgraphicsplot/examples/spectrum -I/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/13.1.1 -I/usr/include/c++/13.1.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.1.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include-fixed -I/usr/include xygscene.h -o moc_xygscene.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1002,7 +1006,7 @@ compiler_uic_clean:
 	-$(DEL_FILE) ui_xygscene.h
 ui_xygscene.h: xygscene.ui \
 		/usr/bin/uic \
-		../../src/plotscenewidget.h
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/plotscenewidget.h
 	/usr/bin/uic xygscene.ui -o ui_xygscene.h
 
 compiler_yacc_decl_make_all:
@@ -1015,30 +1019,26 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: main.cpp xygscene.h \
-		../../src/plotscenewidget.h
+main.o: main.cpp xygscene.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 xygscene.o: xygscene.cpp xygscene.h \
-		../../src/circles/circleitemset.h \
-		../../src/curve/itempainterinterface.h \
-		../../src/curve/painters/linepainter.h \
-		../../src/curve/painters/dotspainter.h \
-		../../src/colors.h \
-		../../src/curve/curveitem.h \
-		../../src/axischangelistener.h \
-		../../src/axes/scaleitem.h \
-		../../src/plotgeometryeventlistener.h \
-		../../src/curve/curvechangelistener.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/linepainter.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/itempainterinterface.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/curveitem.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/axischangelistener.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/scaleitem.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/plotgeometryeventlistener.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/curvechangelistener.h \
 		ui_xygscene.h \
-		../../src/plotscenewidget.h \
-		../../src/items/markeritem.h \
-		../../src/mouseeventlistener.h \
-		../../src/curve/scenecurve.h \
-		../../src/qgraphicsplotitem.h \
-		../../src/xyplotinterface.h \
-		../../src/curve/data.h \
-		../../src/curve/point.h
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/plotscenewidget.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/markeritem.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/mouseeventlistener.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/scenecurve.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/qgraphicsplotitem.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/xyplotinterface.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/data.h \
+		/usr/local/cumbia-libs/include/cumbia-qtcontrols-ng/point.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o xygscene.o xygscene.cpp
 
 moc_xygscene.o: moc_xygscene.cpp 

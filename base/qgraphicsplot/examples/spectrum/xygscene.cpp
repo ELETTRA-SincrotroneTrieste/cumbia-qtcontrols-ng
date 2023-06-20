@@ -1,9 +1,6 @@
 #include "xygscene.h"
-#include "../../src/circles/circleitemset.h"
-#include "curve/painters/linepainter.h"
-#include "curve/painters/dotspainter.h"
-#include "../../src/colors.h"
-#include "curve/curveitem.h"
+#include <linepainter.h>
+#include <curveitem.h>
 #include "ui_xygscene.h"
 
 #include <QTimer>
@@ -11,9 +8,8 @@
 #include <stdio.h>
 #include <QtDebug>
 #include <math.h>
-#include "items/markeritem.h"
-
-#include "curve/scenecurve.h"
+#include <markeritem.h>
+#include <scenecurve.h>
 
 XYSceneTest::XYSceneTest(QWidget *parent) :
     QWidget(parent),
@@ -48,9 +44,9 @@ XYSceneTest::XYSceneTest(QWidget *parent) :
     qDebug() << "setto settings key " << qApp->applicationName();
 //    ui->graphicsPlot->setSettingsKey(qApp->applicationName());
 
-    QList<QColor> palette = QList<QColor> () << KDARKWATER << KDARKBLUE << KGRAY <<
-                                                 KYELLOW << KCAMEL << KDARKCYAN <<
-                                                   KDARKPINK << KVERYDARKVIOLET;
+    QList<QColor> palette = QList<QColor> () << QColor("green") << QColor("blue") << QColor("gray") <<
+                            QColor("yellow") << QColor("orange") << QColor("cyan") <<
+                            QColor("violet") << QColor("red");
 
     /* x axis will have at most bufsiz points */
 //    ui->graphicsPlot->xScaleItem()->setBounds(0, bufsiz / (double) ui->sbPrecision->value());

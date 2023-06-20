@@ -23,7 +23,6 @@ class QGraphicsZoomer;
 
 /** \brief The main class that contains the plot canvas.
   *
-  * \mainpage
   *
   * This library can draw curves on a plot canvas.
   * Each curve is represented by a SceneCurve. A SceneCurve contains the data of the curve.
@@ -551,7 +550,7 @@ public slots:
     void setXAxisAutoscaleEnabled(bool en);
     void setYAxisAutoscaleEnabled(bool en);
 
-    void setBackgroundColor(const QColor&) const;
+    void setBackgroundColor(const QColor&);
 
     /* end scene area configuration methods */
 

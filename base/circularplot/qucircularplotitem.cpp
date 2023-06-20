@@ -65,22 +65,6 @@ void QuCircularPlotI::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     d->e->paint(painter, option->rect, widget);
 }
 
-void QuCircularPlotI::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
-    QGraphicsObject::contextMenuEvent(event);
-}
-
-void QuCircularPlotI::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    QGraphicsObject::mousePressEvent(event);
-}
-
-void QuCircularPlotI::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
-    QGraphicsObject::hoverMoveEvent(event);
-}
-
-void QuCircularPlotI::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
-    QGraphicsObject::hoverLeaveEvent(event);
-}
-
 QVariant QuCircularPlotI::itemChange(GraphicsItemChange change, const QVariant &value) {
     if(change == QGraphicsItem::ItemScaleChange ||
         change == QGraphicsItem::ItemVisibleChange) {
@@ -90,10 +74,3 @@ QVariant QuCircularPlotI::itemChange(GraphicsItemChange change, const QVariant &
     return QGraphicsObject::itemChange(change, value);
 }
 
-void QuCircularPlotI::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-    QGraphicsObject::mouseReleaseEvent(event);
-}
-
-void QuCircularPlotI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
-    QGraphicsObject::mouseDoubleClickEvent(event);
-}

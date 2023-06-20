@@ -778,7 +778,6 @@ void ScaleItem::updateLabelsFormat(const QString& desiredFormat)
                 d->actualLabelsFormat = "%.0f";
             else
                 d->actualLabelsFormat = QString("%.%1f").arg(mGetDecimals(q));
-            qDebug() << __PRETTY_FUNCTION__ << q << "devvicmals" << mGetDecimals(q);
         }
     }
     /* notify axis label format has changed */
@@ -1111,8 +1110,6 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
     if(d->plotArea != plota)  {
         foreach(AxisChangeListener* l, d->axisChangeListeners)
             l->plotAreaChanged(plota);
-        printf("\e[1;31mplot area changed!!!\e[0m\n");
-        qDebug() << "plot area changed from " << d->plotArea << "to" << plota;
         d->plotArea = plota;
     }
     plotAreaW = plota.width();

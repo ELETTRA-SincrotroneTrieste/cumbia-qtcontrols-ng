@@ -6,12 +6,6 @@ greaterThan(QT_MAJOR_VERSION, 5) {
 }
 
 
-INCLUDEPATH += ../src ../../src ../../../src 
-INCLUDEPATH += ../../src ../../src/curve ../../src/axes
-INCLUDEPATH += ../../../src ../../../src/curve ../../../src/axes ../../../src/items
-
-LIBS += -L.. -L../.. -L../../.. -lqgraphicsplot$${VER_SUFFIX}
-
 TEMPLATE = subdirs
 SUBDIRS = agingcircles scalar spectrum externalscales  scalartime
 CONFIG += ordered

@@ -1,1 +1,0 @@
-#include "qucircularplotattributes.h"

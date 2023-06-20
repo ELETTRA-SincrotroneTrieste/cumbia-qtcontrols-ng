@@ -5,7 +5,6 @@
 #include "qgraphicsplotitem_private.h"
 #include "curvechangelistener.h"
 #include "properties/settingsloader.h"
-#include "colors.h"
 #include "curve/scenecurve.h"
 #include "curve/curveitem.h"
 #include "painters/linepainter.h"
@@ -18,7 +17,6 @@
 #include "scalelabelinterface.h"
 #include "items/legenditem.h"
 #include "plotsaver/plotscenewidgetsaver.h"
-#include <QGLWidget>
 #include <QPainter>
 #include <QPaintEvent>
 #include <QMouseEvent>
@@ -876,8 +874,6 @@ bool QGraphicsPlotItem::m_check_axis_bounds(SceneCurve *c) {
         bounds_changed |= xi->setBoundsFromCurves();
     if(yi->axisAutoscaleEnabled() && !inZoom())
         bounds_changed |= yi->setBoundsFromCurves();
-    printf("QGraphicsPlotItem::m_check_axis_bounds x autoscale %d y autoscale %d in zoom %d bounds changed %d\n", xi->axisAutoscaleEnabled(),
-           yi->axisAutoscaleEnabled(), inZoom(), bounds_changed);
     return bounds_changed;
 }
 
@@ -1436,7 +1432,7 @@ bool QGraphicsPlotItem::legendVisible() const
     return d->legendItem->isVisible();
 }
 
-void QGraphicsPlotItem::setBackgroundColor(const QColor& c) const {
+void QGraphicsPlotItem::setBackgroundColor(const QColor& c) {
     d->backgroundColor = c;
 }
 

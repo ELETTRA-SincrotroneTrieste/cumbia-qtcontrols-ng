@@ -46,7 +46,6 @@ SOURCES += \
     base/circularplot/qucircularplotdisksector.cpp \
     base/circularplot/qucircularplotselectionvalue.cpp \
     base/circularplot/out_of_bounds_distortions.cpp \
-    base/circularplot/qucircularplotattributes.cpp \
     base/circularplot/qucircularplotconfigurator.cpp \
     base/circularplot/qucircularplotcurve.cpp \
     base/circularplot/qucircularplotcurveselectionevents.cpp \
@@ -108,7 +107,6 @@ SOURCES += \
 
 
 HEADERS += \
-    base/circularplot/qucircularplot.h \
     base/circularplot/qucircularplotdisksector.h \
     base/circularplot/qucircularplotselectionvalue.h \
     base/circularplot/out_of_bounds_distortions.h \

@@ -35,7 +35,6 @@ QuCircularPlotW::~QuCircularPlotW() {
     delete d;
 }
 
-
 QSize QuCircularPlotW::sizeHint() const {
     return d->e->minimumSize().toSize();
 }
@@ -44,46 +43,23 @@ QSize QuCircularPlotW::minimumSizeHint() const {
     return d->e->minimumSize().toSize();
 }
 
-void QuCircularPlotW::setData(const QString &src, const QVector<double> &xdata, const QVector<double> &ydata)
-{
-
-}
-
-void QuCircularPlotW::mousePressEvent(QMouseEvent *event) {
-    if(event->button() == Qt::LeftButton) {
-        update();
-    } else {
-        QWidget::mousePressEvent(event);
-    }
-}
-
-void QuCircularPlotW::mouseReleaseEvent(QMouseEvent *event) {
-    if(event->button() == Qt::LeftButton) {
-        update();
-
-    } else {
-        QWidget::mousePressEvent(event);
-    }
-}
-
-void QuCircularPlotW::mouseDoubleClickEvent(QMouseEvent *event) {
-
-}
-
-void QuCircularPlotW::mouseMoveEvent(QMouseEvent *event) {
+void QuCircularPlotW::setData(const QString &src, const QVector<double> &xdata, const QVector<double> &ydata) {
+    d->e->setData(src, xdata, ydata);
     update();
-}
-
-void QuCircularPlotW::leaveEvent(QEvent *event) {
-    QWidget::leaveEvent(event);
 }
 
 void QuCircularPlotW::paintEvent(QPaintEvent *event) {
     QPainter p(this);
+    d->e->paint(&p, event->rect(), this);
     QRect r = rect();
     r.setRight(r.right() - 1);
     r.setBottom(r.bottom() - 1);
     d->e->paint(&p, r, this);
+}
+
+void QuCircularPlotW::resizeEvent(QResizeEvent *re) {
+    QWidget::resizeEvent(re);
+    d->e->recalculateTxtFont();
 }
 
 void QuCircularPlotW::changeEvent(QEvent *e) {

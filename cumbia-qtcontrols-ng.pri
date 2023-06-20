@@ -49,3 +49,6 @@ QT       += widgets svg opengl
 
 LIBS += -L$${INSTALL_ROOT}/lib -l$${cumbia_qtcontrols_ng_LIB}
 
+DISTFILES += \
+    $$PWD/cumbia-qtcontrols-ng.md
+

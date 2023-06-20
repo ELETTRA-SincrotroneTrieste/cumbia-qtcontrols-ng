@@ -4,11 +4,13 @@
 
 include(../examples.pro)
 
+
 TEMPLATE = app
 CONFIG += debug
+CONFIG += link_pkgconfig
+PKGCONFIG += cumbia-qtcontrols-ng
 TARGET = spectrum
 DEPENDPATH += .
-INCLUDEPATH += . ../../src ../../src/curve ../../src/axes
 
 QT += widgets
 

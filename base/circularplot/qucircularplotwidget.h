@@ -5,6 +5,27 @@
 
 class QuCircularPlotW_P;
 
+/*!
+ * \brief A QWidget representing a circular plot
+ *
+ * QuCircularPlotW draws
+ * curves on a circle, between a lower and an upper bound circumference
+ *
+ * \see QuCircularPlotEngine
+ * \see QuCircularPlotItem
+ *
+ * Refer to the QuCircularPlotEngine for further information and an example.
+ *
+ * \code
+   QuCircularPlotWidget *cw = new QuCircularPlotWidget(this); // this pointer to QWidget
+   QuCircularPlotEngine *pie = cw->engine();  // get the plot engine
+   // now use QuCircularPlotEngine interface to configure the plot
+ * \endcode
+ *
+ * QuCircularPlotW and QuCircularPlotItem share the same painting engine to draw their contents
+ * using the classical QWidget and the QGraphicsView/QGraphicsScene technologies respectively.
+ *
+ */
 class QuCircularPlotW : public QWidget
 {
     Q_OBJECT
@@ -22,17 +43,12 @@ public:
     QSize minimumSizeHint() const;
 
 public slots:
-
     void setData(const QString& src, const QVector<double>& xdata, const QVector<double>& ydata);
 
 
 protected:
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void mouseDoubleClickEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void leaveEvent(QEvent *event);
     void paintEvent(QPaintEvent *event);
+    void resizeEvent(QResizeEvent *re);
 
     void changeEvent(QEvent *e);
 };

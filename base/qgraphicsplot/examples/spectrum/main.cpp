@@ -1,7 +1,5 @@
 #include <QApplication>
 #include "xygscene.h"
-#include "../../src/plotscenewidget.h"
-
 
 int main(int argc, char *argv[])
 {
