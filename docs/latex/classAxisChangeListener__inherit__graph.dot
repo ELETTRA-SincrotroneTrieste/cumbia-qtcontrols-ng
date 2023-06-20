@@ -1,0 +1,20 @@
+digraph "AxisChangeListener"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="AxisChangeListener",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="A listener for axis change events."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="ExternalScaleWidget",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classExternalScaleWidget.html",tooltip="A widget to configure and draw a scale external to a PlotSceneWidget or any other scroll area whose c..."];
+  Node2 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="HorizontalScaleWidget",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classHorizontalScaleWidget.html",tooltip="Convenience class that creates a horizontal scale."];
+  Node2 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="VerticalScaleWidget",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classVerticalScaleWidget.html",tooltip="Convenience class that creates a vertical scale."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="QGraphicsZoomer",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classQGraphicsZoomer.html",tooltip=" "];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="SceneCurve",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classSceneCurve.html",tooltip=" "];
+  Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="TargetItem",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classTargetItem.html",tooltip="A QGraphicsObject that can be moved and can be attached to a writer in order to write a value accordi..."];
+}

@@ -1,0 +1,344 @@
+\doxysection{Vertical\+Scale\+Widget Class Reference}
+\label{classVerticalScaleWidget}\index{VerticalScaleWidget@{VerticalScaleWidget}}
+
+
+Convenience class that creates a vertical scale.  
+
+
+
+
+{\ttfamily \#include $<$verticalscalewidget.\+h$>$}
+
+
+
+Inheritance diagram for Vertical\+Scale\+Widget\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Vertical\+Scale\+Widget} (QWidget $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Creates an \doxyref{External\+Scale\+Widget}{p.}{classExternalScaleWidget} initialized to be a vertical scale. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \textbf{ External\+Scale\+Widget}}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ External\+Scale\+Widget} (QWidget $\ast$parent, \textbf{ Scale\+Item\+::\+Orientation} o=\textbf{ Scale\+Item\+::\+Horizontal})
+\item 
+\textbf{ Scale\+Item\+::\+Orientation} \textbf{ orientation} () const
+\item 
+void \textbf{ set\+Orientation} (\textbf{ Scale\+Item\+::\+Orientation} o)
+\item 
+double \textbf{ minimum} () const
+\item 
+double \textbf{ maximum} () const
+\item 
+double \textbf{ margin} () const
+\item 
+bool \textbf{ is\+Inverted} () const
+\item 
+bool \textbf{ horizontal} () const
+\item 
+int \textbf{ tick\+Len} () const
+\item 
+int \textbf{ label\+Dist\+From\+Tick} () const
+\item 
+double \textbf{ tick\+Step\+Len} () const
+\item 
+double \textbf{ origin\+Percentage} () const
+\item 
+double \textbf{ scale\+Factor} () const
+\item 
+double \textbf{ label\+Rotation} () const
+\item 
+bool \textbf{ sync\+Axis\+Ticks\+With\+Plot} () const
+\item 
+bool \textbf{ sync\+Axis\+Labels\+With\+Plot} () const
+\item 
+virtual void \textbf{ x\+Axis\+Bounds\+Changed} (double lower, double upper)
+\begin{DoxyCompactList}\small\item\em x axis bounds notification \end{DoxyCompactList}\item 
+virtual void \textbf{ y\+Axis\+Bounds\+Changed} (double lower, double upper)
+\begin{DoxyCompactList}\small\item\em y axis bounds notification \end{DoxyCompactList}\item 
+virtual void \textbf{ axis\+Autoscale\+Changed} (\textbf{ Scale\+Item\+::\+Orientation} o, bool autoscale)
+\begin{DoxyCompactList}\small\item\em x axis auto scale property change notification \end{DoxyCompactList}\item 
+virtual void \textbf{ plot\+Area\+Changed} (const QRectF \&new\+Rect)
+\begin{DoxyCompactList}\small\item\em notifies when the canvas area changes. \end{DoxyCompactList}\item 
+virtual void \textbf{ tick\+Step\+Len\+Changed} (double len)
+\begin{DoxyCompactList}\small\item\em notifies listeners about tick step len changes. \end{DoxyCompactList}\item 
+virtual void \textbf{ labels\+Format\+Changed} (const QString \&\textbf{ format})
+\begin{DoxyCompactList}\small\item\em when the labels format changes, labels\+Format\+Changed is used \end{DoxyCompactList}\item 
+virtual void \textbf{ plot\+Rect\+Changed} (const QRectF \&new\+Rect)
+\begin{DoxyCompactList}\small\item\em does nothing. We are not actually interested in the plot rect \end{DoxyCompactList}\item 
+virtual void \textbf{ plot\+Area\+Changed} (const QSizeF \&area)
+\begin{DoxyCompactList}\small\item\em pure virtual method that needs to be reimplemented in order to be notified when the plot area changes. \end{DoxyCompactList}\item 
+virtual void \textbf{ scroll\+Bar\+Changed} (Qt\+::\+Orientation \textbf{ orientation}, int value)
+\item 
+virtual void \textbf{ plot\+Zoom\+Level\+Changed} (int)
+\item 
+QString \textbf{ format} () const
+\item 
+Qt\+::\+Alignment \textbf{ alignment} () const
+\item 
+bool \textbf{ tick\+Drawing\+Inverted} () const
+\item 
+void \textbf{ install\+Scale\+Label\+Interface} (\textbf{ Scale\+Label\+Interface} $\ast$)
+\begin{DoxyCompactList}\small\item\em When the scale is drawn, the value (in double format) is passed to the installed implementation of \doxyref{Scale\+Label\+Interface}{p.}{classScaleLabelInterface}. The returned QString is used to draw the label corresponding to the value. \end{DoxyCompactList}\item 
+void \textbf{ remove\+Scale\+Label\+Interface} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \textbf{ Axis\+Change\+Listener}}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Axis\+Change\+Listener} ()
+\item 
+virtual void \textbf{ x\+Axis\+Bounds\+Changed} (double lower, double upper)=0
+\begin{DoxyCompactList}\small\item\em x axis bounds notification \end{DoxyCompactList}\item 
+virtual void \textbf{ y\+Axis\+Bounds\+Changed} (double lower, double upper)=0
+\begin{DoxyCompactList}\small\item\em y axis bounds notification \end{DoxyCompactList}\item 
+virtual void \textbf{ axis\+Autoscale\+Changed} (\textbf{ Scale\+Item\+::\+Orientation} o, bool autoscale)=0
+\begin{DoxyCompactList}\small\item\em x axis auto scale property change notification \end{DoxyCompactList}\item 
+virtual void \textbf{ plot\+Area\+Changed} (const QRectF \&new\+Rect)=0
+\begin{DoxyCompactList}\small\item\em notifies when the canvas area changes. \end{DoxyCompactList}\item 
+virtual void \textbf{ tick\+Step\+Len\+Changed} (double value)=0
+\begin{DoxyCompactList}\small\item\em notifies listeners about tick step len changes. \end{DoxyCompactList}\item 
+virtual void \textbf{ labels\+Format\+Changed} (const QString \&new\+Format)=0
+\begin{DoxyCompactList}\small\item\em when the labels format changes, labels\+Format\+Changed is used \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \textbf{ Plot\+Geometry\+Event\+Listener}}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Plot\+Geometry\+Event\+Listener} ()
+\item 
+virtual void \textbf{ plot\+Rect\+Changed} (const QRectF \&new\+Rect)=0
+\begin{DoxyCompactList}\small\item\em pure virtual method that needs to be reimplemented in order to be notified when the plot rect changes \end{DoxyCompactList}\item 
+virtual void \textbf{ plot\+Area\+Changed} (const QSizeF \&area)=0
+\begin{DoxyCompactList}\small\item\em pure virtual method that needs to be reimplemented in order to be notified when the plot area changes. \end{DoxyCompactList}\item 
+virtual void \textbf{ plot\+Zoom\+Level\+Changed} (int level)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ minimum}
+\item 
+double \textbf{ maximum}
+\item 
+double \textbf{ tick\+Step\+Len}
+\item 
+double \textbf{ origin\+Percentage}
+\item 
+double \textbf{ label\+Rotation}
+\item 
+int \textbf{ tick\+Len}
+\item 
+int \textbf{ label\+Dist\+From\+Tick}
+\item 
+bool \textbf{ is\+Inverted}
+\item 
+bool \textbf{ horizontal}
+\item 
+bool \textbf{ tick\+Drawing\+Inverted}
+\item 
+QString \textbf{ format}
+\item 
+bool \textbf{ sync\+Axis\+Ticks\+With\+Plot}
+\item 
+bool \textbf{ sync\+Axis\+Labels\+With\+Plot}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties inherited from \textbf{ External\+Scale\+Widget}}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ minimum}
+\item 
+double \textbf{ maximum}
+\item 
+double \textbf{ tick\+Step\+Len}
+\item 
+double \textbf{ origin\+Percentage}
+\item 
+double \textbf{ scale\+Factor}
+\item 
+double \textbf{ label\+Rotation}
+\item 
+int \textbf{ tick\+Len}
+\item 
+int \textbf{ label\+Dist\+From\+Tick}
+\item 
+bool \textbf{ is\+Inverted}
+\item 
+bool \textbf{ horizontal}
+\item 
+bool \textbf{ tick\+Drawing\+Inverted}
+\item 
+QString \textbf{ format}
+\item 
+bool \textbf{ sync\+Axis\+Ticks\+With\+Plot}
+\item 
+bool \textbf{ sync\+Axis\+Labels\+With\+Plot}
+\item 
+double \textbf{ margin}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Public Slots inherited from \textbf{ External\+Scale\+Widget}}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ set\+Minimum} (double min)
+\item 
+void \textbf{ set\+Maximum} (double max)
+\item 
+void \textbf{ scroll\+Changed} (int value)
+\item 
+void \textbf{ scroll\+Range\+Changed} (int min, int max)
+\item 
+void \textbf{ area\+Changed} (const QSizeF \&size)
+\item 
+void \textbf{ set\+Inverted} (bool)
+\item 
+void \textbf{ set\+Tick\+Len} (int len)
+\item 
+void \textbf{ set\+Label\+Dist\+From\+Tick} (int d)
+\item 
+void \textbf{ set\+Tick\+Step\+Len} (double \textbf{ tick\+Step\+Len})
+\item 
+void \textbf{ set\+Alignment} (Qt\+::\+Alignment \textbf{ alignment})
+\item 
+void \textbf{ set\+Margin} (double \textbf{ margin})
+\item 
+void \textbf{ set\+Origin\+Percentage} (double percent)
+\item 
+void \textbf{ set\+Scale\+Factor} (double)
+\item 
+void \textbf{ set\+Horizontal} (bool h)
+\item 
+void \textbf{ set\+Format} (const QString \&fmt)
+\item 
+void \textbf{ set\+Tick\+Drawing\+Inverted} (bool inverted)
+\item 
+void \textbf{ set\+Label\+Rotation} (double r)
+\item 
+void \textbf{ set\+Sync\+Axis\+Ticks\+With\+Plot} (bool sync)
+\item 
+void \textbf{ set\+Sync\+Axis\+Labels\+With\+Plot} (bool sync)
+\item 
+QPen \textbf{ pen} () const
+\item 
+void \textbf{ set\+Pen} (const QPen \&p)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \textbf{ External\+Scale\+Widget}}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ paint\+Event} (QPaint\+Event $\ast$)
+\item 
+virtual QSize \textbf{ minimum\+Size\+Hint} () const
+\begin{DoxyCompactList}\small\item\em returns the minimum size hint. \end{DoxyCompactList}\item 
+int \textbf{ m\+Calculate\+Longest\+Label\+Width} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Convenience class that creates a vertical scale. 
+
+Read the \doxyref{External\+Scale\+Widget}{p.}{classExternalScaleWidget} class documentation for full details. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classVerticalScaleWidget_ab596850ff325af368b486c7c726ec8df}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!VerticalScaleWidget@{VerticalScaleWidget}}
+\index{VerticalScaleWidget@{VerticalScaleWidget}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{VerticalScaleWidget()}
+{\footnotesize\ttfamily Vertical\+Scale\+Widget\+::\+Vertical\+Scale\+Widget (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent }\end{DoxyParamCaption})}
+
+
+
+Creates an \doxyref{External\+Scale\+Widget}{p.}{classExternalScaleWidget} initialized to be a vertical scale. 
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{External\+Scale\+Widget}{p.}{classExternalScaleWidget} 
+
+\doxyref{Horizontal\+Scale\+Widget}{p.}{classHorizontalScaleWidget} 
+\end{DoxySeeAlso}
+
+
+References \textbf{ External\+Scale\+Widget\+::set\+Label\+Dist\+From\+Tick()}.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\label{classVerticalScaleWidget_a0446efabbc746e6666de5fa349c4e55f}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!format@{format}}
+\index{format@{format}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{format}
+{\footnotesize\ttfamily QString Vertical\+Scale\+Widget\+::format\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a416fe9ae059e8d7100d9cafb5a148340}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!horizontal@{horizontal}}
+\index{horizontal@{horizontal}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{horizontal}
+{\footnotesize\ttfamily bool Vertical\+Scale\+Widget\+::horizontal\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a864232663150ff609a785df6ecc42a4f}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!isInverted@{isInverted}}
+\index{isInverted@{isInverted}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{isInverted}
+{\footnotesize\ttfamily bool Vertical\+Scale\+Widget\+::is\+Inverted\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a6379c77ccd44d2f80514b211f3e95c47}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!labelDistFromTick@{labelDistFromTick}}
+\index{labelDistFromTick@{labelDistFromTick}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{labelDistFromTick}
+{\footnotesize\ttfamily int Vertical\+Scale\+Widget\+::label\+Dist\+From\+Tick\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_ac130129c64caeeee2688547423405e4d}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!labelRotation@{labelRotation}}
+\index{labelRotation@{labelRotation}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{labelRotation}
+{\footnotesize\ttfamily double Vertical\+Scale\+Widget\+::label\+Rotation\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a6a86a4c218e698b0e3ce95f572eff106}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!maximum@{maximum}}
+\index{maximum@{maximum}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{maximum}
+{\footnotesize\ttfamily double Vertical\+Scale\+Widget\+::maximum\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a8334435d54bdd79725dfd4fe9f54fad1}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!minimum@{minimum}}
+\index{minimum@{minimum}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{minimum}
+{\footnotesize\ttfamily double Vertical\+Scale\+Widget\+::minimum\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a9c6f172441f26f82c2066478f7980672}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!originPercentage@{originPercentage}}
+\index{originPercentage@{originPercentage}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{originPercentage}
+{\footnotesize\ttfamily double Vertical\+Scale\+Widget\+::origin\+Percentage\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a2268d10b47f4e57b7d85b262eb38b088}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!syncAxisLabelsWithPlot@{syncAxisLabelsWithPlot}}
+\index{syncAxisLabelsWithPlot@{syncAxisLabelsWithPlot}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{syncAxisLabelsWithPlot}
+{\footnotesize\ttfamily bool Vertical\+Scale\+Widget\+::sync\+Axis\+Labels\+With\+Plot\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a3f59ac3d1835999e05d0b1ce826fc4ab}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!syncAxisTicksWithPlot@{syncAxisTicksWithPlot}}
+\index{syncAxisTicksWithPlot@{syncAxisTicksWithPlot}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{syncAxisTicksWithPlot}
+{\footnotesize\ttfamily bool Vertical\+Scale\+Widget\+::sync\+Axis\+Ticks\+With\+Plot\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a0c2eacc93ea92408a28df7943aff6e11}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!tickDrawingInverted@{tickDrawingInverted}}
+\index{tickDrawingInverted@{tickDrawingInverted}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{tickDrawingInverted}
+{\footnotesize\ttfamily bool Vertical\+Scale\+Widget\+::tick\+Drawing\+Inverted\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a99fe475151057b1b10fbf1f31e2e3aa2}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!tickLen@{tickLen}}
+\index{tickLen@{tickLen}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{tickLen}
+{\footnotesize\ttfamily int Vertical\+Scale\+Widget\+::tick\+Len\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classVerticalScaleWidget_a492d954d1e1f64f1bb6ee91200ee0341}} 
+\index{VerticalScaleWidget@{VerticalScaleWidget}!tickStepLen@{tickStepLen}}
+\index{tickStepLen@{tickStepLen}!VerticalScaleWidget@{VerticalScaleWidget}}
+\doxysubsubsection{tickStepLen}
+{\footnotesize\ttfamily double Vertical\+Scale\+Widget\+::tick\+Step\+Len\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ verticalscalewidget.\+h}\item 
+\textbf{ verticalscalewidget.\+cpp}\end{DoxyCompactItemize}

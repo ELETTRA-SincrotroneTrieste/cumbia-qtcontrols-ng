@@ -1,0 +1,7 @@
+<map id="PlotGeometryEventListener" name="PlotGeometryEventListener">
+<area shape="rect" id="node1" title="This is an interface that you can subclass to be notified when the plot rect changes." alt="" coords="145,5,327,32"/>
+<area shape="rect" id="node2" href="$classExternalScaleWidget.html" title="A widget to configure and draw a scale external to a PlotSceneWidget or any other scroll area whose c..." alt="" coords="96,80,240,107"/>
+<area shape="rect" id="node5" href="$classScaleItem.html" title="The QGraphicsObject that draws a plot scale on a PlotSceneWidget." alt="" coords="264,80,344,107"/>
+<area shape="rect" id="node3" href="$classHorizontalScaleWidget.html" title="Convenience class that creates a horizontal scale." alt="" coords="5,155,160,181"/>
+<area shape="rect" id="node4" href="$classVerticalScaleWidget.html" title="Convenience class that creates a vertical scale." alt="" coords="184,155,322,181"/>
+</map>

@@ -1,0 +1,18 @@
+digraph "ExternalScaleWidget"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="ExternalScaleWidget",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="A widget to configure and draw a scale external to a PlotSceneWidget or any other scroll area whose c..."];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="QWidget",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="AxisChangeListener",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classAxisChangeListener.html",tooltip="A listener for axis change events."];
+  Node4 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="PlotGeometryEventListener",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classPlotGeometryEventListener.html",tooltip="This is an interface that you can subclass to be notified when the plot rect changes."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="HorizontalScaleWidget",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classHorizontalScaleWidget.html",tooltip="Convenience class that creates a horizontal scale."];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="VerticalScaleWidget",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classVerticalScaleWidget.html",tooltip="Convenience class that creates a vertical scale."];
+}

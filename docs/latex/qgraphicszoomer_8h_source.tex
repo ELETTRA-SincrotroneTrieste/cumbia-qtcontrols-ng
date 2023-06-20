@@ -1,0 +1,59 @@
+\doxysection{qgraphicszoomer.\+h}
+\label{qgraphicszoomer_8h_source}\index{qgraphicszoomer.h@{qgraphicszoomer.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ QGRAPHICSZOOMER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ QGRAPHICSZOOMER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <axischangelistener.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }QGraphicsPlotItem;}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }QGraphicsZoomerPrivate;}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }QRectF;}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }ScaleItem;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }QGraphicsZoomer\ :\ \ \textcolor{keyword}{public}\ AxisChangeListener}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{explicit}\ QGraphicsZoomer(QGraphicsPlotItem\ *plot);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ addScale(ScaleItem\ *scale);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ removeScale(ScaleItem\ *scale);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~QGraphicsZoomer();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ zoom(\textcolor{keyword}{const}\ QRectF\&\ zoomRect);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ inZoom()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ unzoom();}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ clear();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ stackSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ plotAreaChanged(\textcolor{keyword}{const}\ QRectF\ \&newRect);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ xAxisBoundsChanged(\textcolor{keywordtype}{double}\ ,\ \textcolor{keywordtype}{double}\ )\ \{\}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ yAxisBoundsChanged(\textcolor{keywordtype}{double}\ ,\ \textcolor{keywordtype}{double}\ )\ \{\}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ axisAutoscaleChanged(ScaleItem::Orientation\ o,\ \textcolor{keywordtype}{bool}\ as);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ tickStepLenChanged(\textcolor{keywordtype}{double}\ \ )\ \{\}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ labelsFormatChanged(\textcolor{keyword}{const}\ QString\&\ )\ \{\}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ ScaleItem\ *xAxis()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ ScaleItem\ *yAxis()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ QGraphicsZoomerPrivate\ *d\_ptr;}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ZOOMER\_H}}
+
+\end{DoxyCode}

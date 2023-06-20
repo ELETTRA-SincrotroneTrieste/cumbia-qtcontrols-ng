@@ -1,0 +1,389 @@
+\doxysection{Qu\+NumericW Class Reference}
+\label{classQuNumericW}\index{QuNumericW@{QuNumericW}}
+
+
+{\ttfamily \#include $<$qunumericwidget.\+h$>$}
+
+
+
+Inheritance diagram for Qu\+NumericW\+:
+% FIG 0
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ set\+Value} (double v)
+\item 
+void \textbf{ set\+Show\+Apply} (bool s)
+\item 
+void \textbf{ set\+Maximum} (double v)
+\item 
+void \textbf{ set\+Minimum} (double v)
+\item 
+void \textbf{ set\+Int\+Digits} (int i)
+\item 
+void \textbf{ set\+Dec\+Digits} (int d)
+\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ value\+Changed} (double v)
+\item 
+void \textbf{ minimum\+Changed} (double m)
+\item 
+void \textbf{ maximum\+Changed} (double M)
+\item 
+void \textbf{ int\+Digits\+Changed} (int id)
+\item 
+void \textbf{ dec\+Digits\+Changed} (int dd)
+\item 
+void \textbf{ clicked} (double val)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Qu\+NumericW} (QWidget $\ast$parent=nullptr)
+\item 
+virtual \textbf{ $\sim$\+Qu\+NumericW} ()
+\item 
+QSize \textbf{ size\+Hint} () const
+\item 
+QSize \textbf{ minimum\+Size\+Hint} () const
+\item 
+double \textbf{ maximum} () const
+\item 
+double \textbf{ value} () const
+\item 
+double \textbf{ minimum} () const
+\item 
+int \textbf{ int\+Digits} () const
+\item 
+int \textbf{ dec\+Digits} () const
+\item 
+bool \textbf{ show\+Apply} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ mouse\+Press\+Event} (QMouse\+Event $\ast$event)
+\item 
+void \textbf{ mouse\+Release\+Event} (QMouse\+Event $\ast$event)
+\item 
+void \textbf{ mouse\+Double\+Click\+Event} (QMouse\+Event $\ast$event)
+\item 
+void \textbf{ mouse\+Move\+Event} (QMouse\+Event $\ast$event)
+\item 
+void \textbf{ wheel\+Event} (QWheel\+Event $\ast$event)
+\item 
+void \textbf{ leave\+Event} (QEvent $\ast$event)
+\item 
+void \textbf{ paint\+Event} (QPaint\+Event $\ast$event)
+\item 
+void \textbf{ change\+Event} (QEvent $\ast$e)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ int\+Digits}
+\item 
+int \textbf{ dec\+Digits}
+\item 
+double \textbf{ value}
+\item 
+double \textbf{ maximum}
+\item 
+double \textbf{ minimum}
+\item 
+bool \textbf{ show\+Apply}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classQuNumericW_acdf20e65a09a9442e37d00d978700fdc}} 
+\index{QuNumericW@{QuNumericW}!QuNumericW@{QuNumericW}}
+\index{QuNumericW@{QuNumericW}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{QuNumericW()}
+{\footnotesize\ttfamily Qu\+Numeric\+W\+::\+Qu\+NumericW (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+References \textbf{ clicked()}, \textbf{ dec\+Digits\+Changed()}, \textbf{ int\+Digits\+Changed()}, \textbf{ maximum\+Changed()}, \textbf{ minimum\+Changed()}, and \textbf{ value\+Changed()}.
+
+\mbox{\label{classQuNumericW_a047237252d5c0ece166b3b3f6dbc8476}} 
+\index{QuNumericW@{QuNumericW}!````~QuNumericW@{$\sim$QuNumericW}}
+\index{````~QuNumericW@{$\sim$QuNumericW}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{$\sim$QuNumericW()}
+{\footnotesize\ttfamily Qu\+Numeric\+W\+::$\sim$\+Qu\+NumericW (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{classQuNumericW_ab1706a22907ca256b8e33db366606683}} 
+\index{QuNumericW@{QuNumericW}!changeEvent@{changeEvent}}
+\index{changeEvent@{changeEvent}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{changeEvent()}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::change\+Event (\begin{DoxyParamCaption}\item[{QEvent $\ast$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{classQuNumericW_a0ff7a1760a368d9d9be45cca08663dad}} 
+\index{QuNumericW@{QuNumericW}!clicked@{clicked}}
+\index{clicked@{clicked}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{clicked}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::clicked (\begin{DoxyParamCaption}\item[{double}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+apply button clicked while the display value is val 
+
+Referenced by \textbf{ Qu\+Numeric\+W()}.
+
+\mbox{\label{classQuNumericW_abec717801b24d39aae00f5644e6ce1d7}} 
+\index{QuNumericW@{QuNumericW}!decDigits@{decDigits}}
+\index{decDigits@{decDigits}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{decDigits()}
+{\footnotesize\ttfamily int Qu\+Numeric\+W\+::dec\+Digits (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classQuNumericW_a4d1a9230c29d31aa10b97800b62a8d14}} 
+\index{QuNumericW@{QuNumericW}!decDigitsChanged@{decDigitsChanged}}
+\index{decDigitsChanged@{decDigitsChanged}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{decDigitsChanged}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::dec\+Digits\+Changed (\begin{DoxyParamCaption}\item[{int}]{dd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ Qu\+Numeric\+W()}.
+
+\mbox{\label{classQuNumericW_a91b4ab216d5df800a8146d06a22a9520}} 
+\index{QuNumericW@{QuNumericW}!intDigits@{intDigits}}
+\index{intDigits@{intDigits}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{intDigits()}
+{\footnotesize\ttfamily int Qu\+Numeric\+W\+::int\+Digits (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classQuNumericW_a940b945667c045c610530861b64819e5}} 
+\index{QuNumericW@{QuNumericW}!intDigitsChanged@{intDigitsChanged}}
+\index{intDigitsChanged@{intDigitsChanged}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{intDigitsChanged}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::int\+Digits\+Changed (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ Qu\+Numeric\+W()}.
+
+\mbox{\label{classQuNumericW_a686d6e63ba5df7b1fc8a4902e0a85303}} 
+\index{QuNumericW@{QuNumericW}!leaveEvent@{leaveEvent}}
+\index{leaveEvent@{leaveEvent}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{leaveEvent()}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::leave\+Event (\begin{DoxyParamCaption}\item[{QEvent $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{classQuNumericW_af8dd00c6767ee50dc07ac6ca176fc2f0}} 
+\index{QuNumericW@{QuNumericW}!maximum@{maximum}}
+\index{maximum@{maximum}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{maximum()}
+{\footnotesize\ttfamily double Qu\+Numeric\+W\+::maximum (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classQuNumericW_a7d000a182519beb6a3d79bf1ab8a9047}} 
+\index{QuNumericW@{QuNumericW}!maximumChanged@{maximumChanged}}
+\index{maximumChanged@{maximumChanged}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{maximumChanged}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::maximum\+Changed (\begin{DoxyParamCaption}\item[{double}]{M }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ Qu\+Numeric\+W()}.
+
+\mbox{\label{classQuNumericW_a5b22a5a05a6d18d05efea711b6349f52}} 
+\index{QuNumericW@{QuNumericW}!minimum@{minimum}}
+\index{minimum@{minimum}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{minimum()}
+{\footnotesize\ttfamily double Qu\+Numeric\+W\+::minimum (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classQuNumericW_a557aa2c2e188171eee60e5b76611bf16}} 
+\index{QuNumericW@{QuNumericW}!minimumChanged@{minimumChanged}}
+\index{minimumChanged@{minimumChanged}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{minimumChanged}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::minimum\+Changed (\begin{DoxyParamCaption}\item[{double}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ Qu\+Numeric\+W()}.
+
+\mbox{\label{classQuNumericW_aa5dca6c8e791eba443ca636639045e05}} 
+\index{QuNumericW@{QuNumericW}!minimumSizeHint@{minimumSizeHint}}
+\index{minimumSizeHint@{minimumSizeHint}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{minimumSizeHint()}
+{\footnotesize\ttfamily QSize Qu\+Numeric\+W\+::minimum\+Size\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classQuNumericW_a7ca7c9f1bc72c11fe20b92d3963cb262}} 
+\index{QuNumericW@{QuNumericW}!mouseDoubleClickEvent@{mouseDoubleClickEvent}}
+\index{mouseDoubleClickEvent@{mouseDoubleClickEvent}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{mouseDoubleClickEvent()}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::mouse\+Double\+Click\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{classQuNumericW_a653d1d37c40bd1b3a7cc5e440a365b62}} 
+\index{QuNumericW@{QuNumericW}!mouseMoveEvent@{mouseMoveEvent}}
+\index{mouseMoveEvent@{mouseMoveEvent}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{mouseMoveEvent()}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::mouse\+Move\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{classQuNumericW_a83423c35ebd05ea0b674876003544a27}} 
+\index{QuNumericW@{QuNumericW}!mousePressEvent@{mousePressEvent}}
+\index{mousePressEvent@{mousePressEvent}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{mousePressEvent()}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{classQuNumericW_a94d912bb10166e9d03e0cdc9fe96d191}} 
+\index{QuNumericW@{QuNumericW}!mouseReleaseEvent@{mouseReleaseEvent}}
+\index{mouseReleaseEvent@{mouseReleaseEvent}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{mouseReleaseEvent()}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::mouse\+Release\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{classQuNumericW_aefc1cbff179db5ab0d870e9c626a947c}} 
+\index{QuNumericW@{QuNumericW}!paintEvent@{paintEvent}}
+\index{paintEvent@{paintEvent}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{paintEvent()}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::paint\+Event (\begin{DoxyParamCaption}\item[{QPaint\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{classQuNumericW_a96e2cbfa8c73cd61f81e717408eedeeb}} 
+\index{QuNumericW@{QuNumericW}!setDecDigits@{setDecDigits}}
+\index{setDecDigits@{setDecDigits}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{setDecDigits}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::set\+Dec\+Digits (\begin{DoxyParamCaption}\item[{int}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+sets number of deciam digits to be displayed 
+\begin{DoxyParams}{Parameters}
+{\em d} & number of digits \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by \textbf{ Qu\+Numeric\+Control\+W\+::on\+Update()}.
+
+\mbox{\label{classQuNumericW_a87eb6c25fad1d29db7ca704a77ea3bb1}} 
+\index{QuNumericW@{QuNumericW}!setIntDigits@{setIntDigits}}
+\index{setIntDigits@{setIntDigits}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{setIntDigits}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::set\+Int\+Digits (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+returns the minimum value of the widget \begin{DoxyReturn}{Returns}
+min val sets number of integer digits to be displayed 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em i} & number of digits \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by \textbf{ Qu\+Numeric\+Control\+W\+::on\+Update()}.
+
+\mbox{\label{classQuNumericW_a30d9ec3c8d9b9cf014bee637eebf49a6}} 
+\index{QuNumericW@{QuNumericW}!setMaximum@{setMaximum}}
+\index{setMaximum@{setMaximum}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{setMaximum}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::set\+Maximum (\begin{DoxyParamCaption}\item[{double}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Referenced by \textbf{ Qu\+Numeric\+Control\+W\+::on\+Update()}.
+
+\mbox{\label{classQuNumericW_ac4cfef1a33de3564e0d1e26381f6ece3}} 
+\index{QuNumericW@{QuNumericW}!setMinimum@{setMinimum}}
+\index{setMinimum@{setMinimum}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{setMinimum}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::set\+Minimum (\begin{DoxyParamCaption}\item[{double}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Referenced by \textbf{ Qu\+Numeric\+Control\+W\+::on\+Update()}.
+
+\mbox{\label{classQuNumericW_a02c36902f788015df995ecbdb68b171f}} 
+\index{QuNumericW@{QuNumericW}!setShowApply@{setShowApply}}
+\index{setShowApply@{setShowApply}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{setShowApply}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::set\+Show\+Apply (\begin{DoxyParamCaption}\item[{bool}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classQuNumericW_a497dca45dbb2b2ca079c018820153cc4}} 
+\index{QuNumericW@{QuNumericW}!setValue@{setValue}}
+\index{setValue@{setValue}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{setValue}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::set\+Value (\begin{DoxyParamCaption}\item[{double}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Referenced by \textbf{ Qu\+Numeric\+Control\+W\+::on\+Update()}.
+
+\mbox{\label{classQuNumericW_a12a3b355ba03e8c3586c9a763b517f38}} 
+\index{QuNumericW@{QuNumericW}!showApply@{showApply}}
+\index{showApply@{showApply}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{showApply()}
+{\footnotesize\ttfamily bool Qu\+Numeric\+W\+::show\+Apply (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classQuNumericW_a11cccc7eef545ffb2725e65fbec59c80}} 
+\index{QuNumericW@{QuNumericW}!sizeHint@{sizeHint}}
+\index{sizeHint@{sizeHint}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{sizeHint()}
+{\footnotesize\ttfamily QSize Qu\+Numeric\+W\+::size\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classQuNumericW_afa525ab010c9d0a5d24f5bd51a8c216e}} 
+\index{QuNumericW@{QuNumericW}!value@{value}}
+\index{value@{value}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{value()}
+{\footnotesize\ttfamily double Qu\+Numeric\+W\+::value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classQuNumericW_a52a805bab14650f468b850e93df65a8d}} 
+\index{QuNumericW@{QuNumericW}!valueChanged@{valueChanged}}
+\index{valueChanged@{valueChanged}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{valueChanged}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::value\+Changed (\begin{DoxyParamCaption}\item[{double}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ Qu\+Numeric\+W()}.
+
+\mbox{\label{classQuNumericW_a261282a8c67cf7ab4cef82b0d896c587}} 
+\index{QuNumericW@{QuNumericW}!wheelEvent@{wheelEvent}}
+\index{wheelEvent@{wheelEvent}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{wheelEvent()}
+{\footnotesize\ttfamily void Qu\+Numeric\+W\+::wheel\+Event (\begin{DoxyParamCaption}\item[{QWheel\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\label{classQuNumericW_a76991b9f89b59cb65e71d79e16d0dc0f}} 
+\index{QuNumericW@{QuNumericW}!decDigits@{decDigits}}
+\index{decDigits@{decDigits}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{decDigits}
+{\footnotesize\ttfamily int Qu\+Numeric\+W\+::dec\+Digits\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classQuNumericW_ac1ff30da812e07f89ada6ed8d78707da}} 
+\index{QuNumericW@{QuNumericW}!intDigits@{intDigits}}
+\index{intDigits@{intDigits}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{intDigits}
+{\footnotesize\ttfamily int Qu\+Numeric\+W\+::int\+Digits\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classQuNumericW_a422289ba32e2acc6c1ddffb06c7d16fc}} 
+\index{QuNumericW@{QuNumericW}!maximum@{maximum}}
+\index{maximum@{maximum}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{maximum}
+{\footnotesize\ttfamily double Qu\+Numeric\+W\+::maximum\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classQuNumericW_aa2b6cdb450fbf0986a07f8cf15182a91}} 
+\index{QuNumericW@{QuNumericW}!minimum@{minimum}}
+\index{minimum@{minimum}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{minimum}
+{\footnotesize\ttfamily double Qu\+Numeric\+W\+::minimum\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classQuNumericW_a2115f57b0f0383838b8e8251308f61e3}} 
+\index{QuNumericW@{QuNumericW}!showApply@{showApply}}
+\index{showApply@{showApply}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{showApply}
+{\footnotesize\ttfamily bool Qu\+Numeric\+W\+::show\+Apply\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classQuNumericW_af158eecd3a2304b8931e9f6cfea265c8}} 
+\index{QuNumericW@{QuNumericW}!value@{value}}
+\index{value@{value}!QuNumericW@{QuNumericW}}
+\doxysubsubsection{value}
+{\footnotesize\ttfamily double Qu\+Numeric\+W\+::value\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ qunumericwidget.\+h}\item 
+\textbf{ qunumericwidget.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,10 @@
+digraph "OOBDistort"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="OOBDistort",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="The OOBDistort class linearly distorts (no distortion) x and y when out of bounds."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="OOBLogDistort",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classOOBLogDistort.html",tooltip="Applies a logarithmic distortion to x and y values when they are out of bounds."];
+}

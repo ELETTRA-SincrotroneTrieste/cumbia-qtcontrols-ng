@@ -1,0 +1,13 @@
+<map id="curveitem.h" name="curveitem.h">
+<area shape="rect" id="node1" title=" " alt="" coords="345,5,435,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,229,127,256"/>
+<area shape="rect" id="node3" title=" " alt="" coords="100,80,296,107"/>
+<area shape="rect" id="node4" href="$axischangelistener_8h.html" title=" " alt="" coords="320,80,460,107"/>
+<area shape="rect" id="node10" href="$curvechangelistener_8h.html" title=" " alt="" coords="484,80,632,107"/>
+<area shape="rect" id="node11" title=" " alt="" coords="656,80,711,107"/>
+<area shape="rect" id="node5" href="$scaleitem_8h.html" title=" " alt="" coords="343,155,432,181"/>
+<area shape="rect" id="node6" href="$plotgeometryeventlistener_8h.html" title=" " alt="" coords="153,229,334,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="359,229,416,256"/>
+<area shape="rect" id="node9" title=" " alt="" coords="441,229,529,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="210,304,277,331"/>
+</map>

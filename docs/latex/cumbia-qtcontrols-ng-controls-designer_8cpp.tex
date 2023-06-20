@@ -1,0 +1,46 @@
+\doxysection{cumbia-\/qtcontrols-\/ng-\/controls-\/designer.cpp File Reference}
+\label{cumbia-qtcontrols-ng-controls-designer_8cpp}\index{cumbia-\/qtcontrols-\/ng-\/controls-\/designer.cpp@{cumbia-\/qtcontrols-\/ng-\/controls-\/designer.cpp}}
+{\ttfamily \#include \char`\"{}cumbia-\/qtcontrols-\/ng-\/controls-\/designer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cupluginloader.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$QPlugin\+Loader$>$}\newline
+{\ttfamily \#include $<$cuformulaplugininterface.\+h$>$}\newline
+{\ttfamily \#include $<$cumbiatango.\+h$>$}\newline
+{\ttfamily \#include $<$cumacros.\+h$>$}\newline
+{\ttfamily \#include $<$cuthreadfactoryimpl.\+h$>$}\newline
+{\ttfamily \#include $<$qthreadseventbridgefactory.\+h$>$}\newline
+{\ttfamily \#include $<$cutcontrolsreader.\+h$>$}\newline
+{\ttfamily \#include $<$cutcontrolswriter.\+h$>$}\newline
+{\ttfamily \#include $<$cutangoactionfactories.\+h$>$}\newline
+{\ttfamily \#include $<$cutango-\/world.\+h$>$}\newline
+{\ttfamily \#include $<$culog.\+h$>$}\newline
+{\ttfamily \#include $<$qulogimpl.\+h$>$}\newline
+{\ttfamily \#include $<$cuservices.\+h$>$}\newline
+{\ttfamily \#include $<$cuserviceprovider.\+h$>$}\newline
+{\ttfamily \#include $<$cumbiapool.\+h$>$}\newline
+{\ttfamily \#include $<$QDrag\+Enter\+Event$>$}\newline
+{\ttfamily \#include $<$QDrop\+Event$>$}\newline
+{\ttfamily \#include $<$QDesigner\+Form\+Window\+Interface$>$}\newline
+{\ttfamily \#include $<$QDesigner\+Form\+Window\+Cursor\+Interface$>$}\newline
+{\ttfamily \#include $<$QDesigner\+Form\+Editor\+Interface$>$}\newline
+{\ttfamily \#include $<$QExtension\+Manager$>$}\newline
+{\ttfamily \#include $<$QMime\+Data$>$}\newline
+{\ttfamily \#include $<$QAction$>$}\newline
+{\ttfamily \#include $<$quapps.\+h$>$}\newline
+{\ttfamily \#include $<$QScroll\+Area$>$}\newline
+{\ttfamily \#include $<$qunumericcontrol\+\_\+w.\+h$>$}\newline
+Include dependency graph for cumbia-\/qtcontrols-\/ng-\/controls-\/designer.cpp\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ SOURCE\+\_\+\+REGEXP}~\char`\"{}(([A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]$\ast$[\+:]\{1\}[0-\/9]+[/])?(([A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+/[A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+/[A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+([/]\{1,1\}$\vert$[-\/$>$]\{2,2\})[A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+)$\vert$(\textbackslash{}\textbackslash{}\$[1-\/9]$\ast$([/]\{1,1\}$\vert$[-\/$>$]\{2\})[A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+))\{1\}([\textbackslash{}\textbackslash{}(]\{1\}[\&A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.,]+[\textbackslash{}\textbackslash{})]\{1\})?[;]?)\{1,\}\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\label{cumbia-qtcontrols-ng-controls-designer_8cpp_a9a577eb745e35dd4977c9ee8e7120b4c}} 
+\index{cumbia-\/qtcontrols-\/ng-\/controls-\/designer.cpp@{cumbia-\/qtcontrols-\/ng-\/controls-\/designer.cpp}!SOURCE\_REGEXP@{SOURCE\_REGEXP}}
+\index{SOURCE\_REGEXP@{SOURCE\_REGEXP}!cumbia-\/qtcontrols-\/ng-\/controls-\/designer.cpp@{cumbia-\/qtcontrols-\/ng-\/controls-\/designer.cpp}}
+\doxysubsubsection{SOURCE\_REGEXP}
+{\footnotesize\ttfamily \#define SOURCE\+\_\+\+REGEXP~\char`\"{}(([A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]$\ast$[\+:]\{1\}[0-\/9]+[/])?(([A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+/[A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+/[A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+([/]\{1,1\}$\vert$[-\/$>$]\{2,2\})[A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+)$\vert$(\textbackslash{}\textbackslash{}\$[1-\/9]$\ast$([/]\{1,1\}$\vert$[-\/$>$]\{2\})[A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.]+))\{1\}([\textbackslash{}\textbackslash{}(]\{1\}[\&A-\/Za-\/z\+\_\+0-\/9\textbackslash{}\textbackslash{}.,]+[\textbackslash{}\textbackslash{})]\{1\})?[;]?)\{1,\}\char`\"{}}
+

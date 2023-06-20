@@ -1,0 +1,98 @@
+\doxysection{qgraphicsplotmacros.\+h}
+\label{qgraphicsplotmacros_8h_source}\index{qgraphicsplotmacros.h@{qgraphicsplotmacros.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ QTANGO\_MACROS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ QTANGO\_MACROS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ NO\_PRINTINFO}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ pwarn(x,\ args...)\ do\ \{\ if(getenv("{}QTANGO\_PRINT"{}}))\ \{printf("{}\(\backslash\)e[1;33m*\ \(\backslash\)e[0;4mwarning\(\backslash\)e[0m:\ "{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ perr(x,\ args...)\ do\ \{\ \ if(!getenv("{}QTANGO\_NOPRINT\_ERRORS"{}}))\ \{fprintf(stderr,\ "{}\(\backslash\)e[1;31m*\ \(\backslash\)e[0;4merror\(\backslash\)e[0m:\ "{});\ printf(x,\ \#\#args);\ printf("{}\(\backslash\)n"{});\}\ \}while(0)}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ pinfo(x,\ args...)\ do\ \{\ \ if(getenv("{}QTANGO\_PRINT"{}}))\ \{printf("{}\(\backslash\)e[1;35m*\ \(\backslash\)e[0;4minfo\(\backslash\)e[0m:\ "{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*\ like\ pinfo\ but\ without\ newline\ */}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ pinfononl(x,\ args...)\ do\ \{\ \ if(getenv("{}QTANGO\_PRINT"{}}))\ \{printf("{}\(\backslash\)e[1;35m*\ \(\backslash\)e[0;4minfo\(\backslash\)e[0m:\ "{}),\ printf(x,\ \#\#args);\ \}\ \}while(0)}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ pok(x,\ args...)\ do\ \{\ \ if(getenv("{}QTANGO\_PRINT"{}}))\ \{printf("{}\(\backslash\)033[1;32m*\ \(\backslash\)033[0m"{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ padd(x,\ args...)\ do\ \{\ if(getenv("{}QTANGO\_PRINT"{}}))\ \{printf("{}\(\backslash\)033[1;32m+\ \(\backslash\)033[0m"{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ pwrn(x,\ args...)\ do\ \{\ if(getenv("{}QTANGO\_PRINT"{}}))\ \{printf("{}\(\backslash\)033[1;33m*\ \(\backslash\)033[0m"{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ pdelete(x,\ args...)\ do\ \{\ \ \ if(getenv("{}QTANGO\_PRINT"{}}))\ \{printf("{}\(\backslash\)e[1;32mX\ \(\backslash\)e[0m"{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ pnodelete(x,\ args...)\ do\ \{\ if(getenv("{}QTANGO\_PRINT"{}}))\ \{\ printf("{}\(\backslash\)e[1;31mX\ \(\backslash\)e[0m"{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ pstep(x,\ args...)\ do\ \{\ if(getenv("{}QTANGO\_PRINT"{}}))\ \{\ printf("{}\ \ \ \(\backslash\)e[0;37m-\/\(\backslash\)e[0m\ "{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ pstepl2(x,\ args\ ...)\ do\ \{\ \ if(getenv("{}QTANGO\_PRINT"{}}))\ \{\ printf("{}\ \ \ \ \(\backslash\)e[0;37m-\/\(\backslash\)e[0m\ "{}),\ printf(x,\ \#\#args),\ printf("{}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ qprintf(x,\ args\ ...)\ do\ \ \{\ \ if(getenv("{}QTANGO\_QPRINTF"{}}))\ \{printf(x,\ \#\#args);\ \}\ \}while(0)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ qstoc(x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.toStdString().c\_str()\ }}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ qslisttoc(x)\ \ \ \ do\ \{\ if(getenv("{}QTANGO\_PRINT"{}}))\ \{\ printf("{}\ \ \{\ "{});\ for(int\ i\ =\ 0;\ i\ <\ x.size();\ i++)\ printf("{}\(\backslash\)"{}\%s\(\backslash\)"{},\ "{},\ qstoc(x[i]));\ printf("{}\(\backslash\)b\(\backslash\)b\ \}\(\backslash\)n"{});\ \}\ \}while(0)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ qobjinfo(o)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ o-\/>metaObject()-\/>className()}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ qobjname(o)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ o-\/>objectName().toStdString().c\_str()}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ objinfo(o)\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString("{}\%1\ \(\backslash\)"{}\%2\(\backslash\)"{}"{}}).arg(((o\ !=\ NULL\ \&\&\ o-\/>metaObject()\ !=\ NULL\ \&\&\ \(\backslash\)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ o-\/>metaObject()-\/>className()\ !=\ NULL)\ ?\ \ o-\/>metaObject()-\/>className()\ \(\backslash\)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QString("{}object\ or\ meta\ object\ is\ null\(\backslash\)n\ \ \ -\/\ Please\ create\ a\ proxy\ reader\ or\ writer\ passing\ a\ QObject\ not\ null\ to\ obtain\ class\ name\ and\ object\ name\ here.\(\backslash\)n\ \ "{})))\ \(\backslash\)}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(((o\ !=\ NULL)\ ?\ \ (o-\/>objectName())\ :\ \ \(\backslash\)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString("{}object\ is\ null"{}))).toStdString().c\_str()}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pwarn(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ perr(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pinfo(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pinfononl(x,\ args...)\ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pok(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pwrn(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pdelete(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ padd(x,\ args...)\ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pnodelete(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ qstoc(x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}"{}}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ qobjinfo(o)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}"{}}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ qobjname(o)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}"{}}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ objinfo(o)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}"{}}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pstep(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ pstepl2(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ qslisttoc(x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ qprintf(x,\ args...)\ \ \ \ \ \ \ \ \ \ \ \ \ do\ \{\}while(0)}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ }
+
+\end{DoxyCode}

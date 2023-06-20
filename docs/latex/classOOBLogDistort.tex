@@ -1,0 +1,118 @@
+\doxysection{OOBLog\+Distort Class Reference}
+\label{classOOBLogDistort}\index{OOBLogDistort@{OOBLogDistort}}
+
+
+Applies a logarithmic distortion to x and y values when they are out of bounds.  
+
+
+
+
+{\ttfamily \#include $<$out\+\_\+of\+\_\+bounds\+\_\+distortions.\+h$>$}
+
+
+
+Inheritance diagram for OOBLog\+Distort\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ OOBLog\+Distort} (float base=M\+\_\+E)
+\item 
+virtual \textbf{ $\sim$\+OOBLog\+Distort} ()
+\item 
+virtual double \textbf{ x\+\_\+distort} (double v, const double \&xlb, const double \&xub, const double \&xmin, const double \&xmax) const
+\item 
+virtual double \textbf{ y\+\_\+distort} (double v, const double \&ylb, const double \&yub, const double \&ymin, const double \&ymax) const
+\item 
+virtual void \textbf{ bounds\+\_\+distort} (double $\ast$x, double $\ast$X, double $\ast$y, double $\ast$Y, const double \&xlb, const double \&xub, const double \&ylb, const double \&yub, const double \&xmin, const double \&xmax, const double \&ymin, const double \&ymax) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \textbf{ OOBDistort}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \textbf{ $\sim$\+OOBDistort} ()
+\item 
+virtual double \textbf{ x\+\_\+distort} (double v, const double \&xlb, const double \&xub, const double \&xmin, const double \&xmax) const
+\item 
+virtual double \textbf{ y\+\_\+distort} (double v, const double \&ylb, const double \&yub, const double \&ymin, const double \&ymax) const
+\item 
+virtual void \textbf{ bounds\+\_\+distort} (double $\ast$x, double $\ast$X, double $\ast$y, double $\ast$Y, const double \&xlb, const double \&xub, const double \&ylb, const double \&yub, const double \&xmin, const double \&xmax, const double \&ymin, const double \&ymax) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \textbf{ m\+\_\+base}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Applies a logarithmic distortion to x and y values when they are out of bounds. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classOOBLogDistort_a151053559399c824872c8f15179a6f9c}} 
+\index{OOBLogDistort@{OOBLogDistort}!OOBLogDistort@{OOBLogDistort}}
+\index{OOBLogDistort@{OOBLogDistort}!OOBLogDistort@{OOBLogDistort}}
+\doxysubsubsection{OOBLogDistort()}
+{\footnotesize\ttfamily OOBLog\+Distort\+::\+OOBLog\+Distort (\begin{DoxyParamCaption}\item[{float}]{base = {\ttfamily M\+\_\+E} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+References \textbf{ m\+\_\+base}.
+
+\mbox{\label{classOOBLogDistort_af3c0ab1b727513fec434aa2efa4f616d}} 
+\index{OOBLogDistort@{OOBLogDistort}!````~OOBLogDistort@{$\sim$OOBLogDistort}}
+\index{````~OOBLogDistort@{$\sim$OOBLogDistort}!OOBLogDistort@{OOBLogDistort}}
+\doxysubsubsection{$\sim$OOBLogDistort()}
+{\footnotesize\ttfamily virtual OOBLog\+Distort\+::$\sim$\+OOBLog\+Distort (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{classOOBLogDistort_aea55a9a39bbdfebb566d9a01fc1755e5}} 
+\index{OOBLogDistort@{OOBLogDistort}!bounds\_distort@{bounds\_distort}}
+\index{bounds\_distort@{bounds\_distort}!OOBLogDistort@{OOBLogDistort}}
+\doxysubsubsection{bounds\_distort()}
+{\footnotesize\ttfamily void OOBLog\+Distort\+::bounds\+\_\+distort (\begin{DoxyParamCaption}\item[{double $\ast$}]{x,  }\item[{double $\ast$}]{X,  }\item[{double $\ast$}]{y,  }\item[{double $\ast$}]{Y,  }\item[{const double \&}]{xlb,  }\item[{const double \&}]{xub,  }\item[{const double \&}]{ylb,  }\item[{const double \&}]{yub,  }\item[{const double \&}]{xmin,  }\item[{const double \&}]{xmax,  }\item[{const double \&}]{ymin,  }\item[{const double \&}]{ymax }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \textbf{ OOBDistort} \doxyref{}{p.}{classOOBDistort_a42c8274978685373f9b81f694e090fd0}.
+
+\mbox{\label{classOOBLogDistort_a039c7556592984534185bfa9ac984ad5}} 
+\index{OOBLogDistort@{OOBLogDistort}!x\_distort@{x\_distort}}
+\index{x\_distort@{x\_distort}!OOBLogDistort@{OOBLogDistort}}
+\doxysubsubsection{x\_distort()}
+{\footnotesize\ttfamily double OOBLog\+Distort\+::x\+\_\+distort (\begin{DoxyParamCaption}\item[{double}]{v,  }\item[{const double \&}]{xlb,  }\item[{const double \&}]{xub,  }\item[{const double \&}]{xmin,  }\item[{const double \&}]{xmax }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \textbf{ OOBDistort} \doxyref{}{p.}{classOOBDistort_a56e2b9218e88d8b6e07df14ee5fbadba}.
+
+\mbox{\label{classOOBLogDistort_ac011f177bdc7f1527f306b7f8d39e899}} 
+\index{OOBLogDistort@{OOBLogDistort}!y\_distort@{y\_distort}}
+\index{y\_distort@{y\_distort}!OOBLogDistort@{OOBLogDistort}}
+\doxysubsubsection{y\_distort()}
+{\footnotesize\ttfamily double OOBLog\+Distort\+::y\+\_\+distort (\begin{DoxyParamCaption}\item[{double}]{v,  }\item[{const double \&}]{ylb,  }\item[{const double \&}]{yub,  }\item[{const double \&}]{ymin,  }\item[{const double \&}]{ymax }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \textbf{ OOBDistort} \doxyref{}{p.}{classOOBDistort_afea2b31d651d69c39999cc21575a49af}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{classOOBLogDistort_a23bbd783093dd2910a33c84f1832a29d}} 
+\index{OOBLogDistort@{OOBLogDistort}!m\_base@{m\_base}}
+\index{m\_base@{m\_base}!OOBLogDistort@{OOBLogDistort}}
+\doxysubsubsection{m\_base}
+{\footnotesize\ttfamily float OOBLog\+Distort\+::m\+\_\+base}
+
+
+
+Referenced by \textbf{ OOBLog\+Distort()}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ out\+\_\+of\+\_\+bounds\+\_\+distortions.\+h}\item 
+\textbf{ out\+\_\+of\+\_\+bounds\+\_\+distortions.\+cpp}\end{DoxyCompactItemize}

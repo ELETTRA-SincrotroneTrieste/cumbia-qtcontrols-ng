@@ -1,0 +1,98 @@
+\doxysection{circleitemset.\+h}
+\label{circleitemset_8h_source}\index{circleitemset.h@{circleitemset.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CIRCLEITEMSET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CIRCLEITEMSET\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <itempainterinterface.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QColor>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QList>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }CircleItemSet\ :\ \textcolor{keyword}{public}\ QObject,\ \textcolor{keyword}{public}\ ItemPainterInterface}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{int}\ numDifferentRadius\ READ\ numDifferentRadius\ WRITE\ setNumDifferentRadius)}
+\DoxyCodeLine{00012\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{double}\ maxRadius\ READ\ maxRadius\ WRITE\ setMaxRadius)}
+\DoxyCodeLine{00013\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{int}\ alphaChannel\ READ\ alphaChannel\ WRITE\ setAlphaChannel)}
+\DoxyCodeLine{00014\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{bool}\ gradientEnabled\ READ\ gradientEnabled\ WRITE\ setGradientEnabled)}
+\DoxyCodeLine{00015\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{bool}\ borderEnabled\ READ\ borderEnabled\ WRITE\ setBorderEnabled)}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ CircleItemSet(CurveItem\ *curveItem,\ \textcolor{keywordtype}{int}\ bufferSize,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ qreal\ maxRadius\ =\ 30,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numDifferentRadius\ =\ 10);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~CircleItemSet();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ type()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ QList<QColor>\ colorList()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mColorList;\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ bufferSize()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mBufferSize;\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{int}\ numDifferentRadius()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mNumDifferentRadius;\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ maxRadius()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mMaxRadius;\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{double}\ radiusScaleDivider()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mRadiusScaleDivider;\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{int}\ alphaChannel()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mAlphaChannel;\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ setGradientEnabled(\textcolor{keywordtype}{bool}\ en);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ gradientEnabled()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ setBorderEnabled(\textcolor{keywordtype}{bool}\ en);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ borderEnabled()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ bufferSizeChanged(\textcolor{keywordtype}{int}\ newSize);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ draw(SceneCurve\ *curve,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QPainter\ *painter,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStyleOptionGraphicsItem\ *\ option,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget\ *\ widget\ =\ 0);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{virtual}\ CurveItem\ *curveItem()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ QSizeF\ elementSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ setRadiusScaleDivider(\textcolor{keywordtype}{double}\ factor)\ \{\ mRadiusScaleDivider\ =\ factor;\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ setMaxRadius(\textcolor{keywordtype}{double}\ r)\ \{\ mMaxRadius\ =\ r;\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ setNumDifferentRadius(\textcolor{keywordtype}{int}\ nr)\ \{\ mNumDifferentRadius\ =\ nr;\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ setBufferSize(\textcolor{keywordtype}{int}\ bSize)\ \{\ mBufferSize\ =\ bSize;\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ setColorList(\textcolor{keyword}{const}\ QList<QColor>\&\ colors)\ \{\ mColorList\ =\ colors;\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ setAlphaChannel(\textcolor{keywordtype}{int}\ alpha)\ \{\ mAlphaChannel\ =\ alpha;\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00077\ \ \ \ \ QColor\ mCalculateColor(\textcolor{keywordtype}{int}\ idx,\ \textcolor{keywordtype}{int}\ nMax,\ \textcolor{keywordtype}{int}\ nStepsPerInterval)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ QList<QColor>\ mColorList;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ mBufferSize,\ mNumDifferentRadius,\ mAlphaChannel;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{double}\ mMaxRadius,\ mRadiusScaleDivider;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{bool}\ mBorderEnabled,\ mGradientEnabled;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ CurveItem\ *mCurveItem;}
+\DoxyCodeLine{00090\ \};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CIRCLEITEMSET\_H}}
+
+\end{DoxyCode}

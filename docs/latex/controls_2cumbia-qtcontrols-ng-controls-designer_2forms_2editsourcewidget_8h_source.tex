@@ -1,0 +1,44 @@
+\doxysection{controls/cumbia-\/qtcontrols-\/ng-\/controls-\/designer/forms/editsourcewidget.h}
+\label{controls_2cumbia-qtcontrols-ng-controls-designer_2forms_2editsourcewidget_8h_source}\index{editsourcewidget.h@{editsourcewidget.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ EDITSOURCEWIDGET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ EDITSOURCEWIDGET\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}ui\_editsourcewidget.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }CuFormulaParserI;}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }EditSourceWidget\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{explicit}\ EditSourceWidget(\textcolor{keywordtype}{int}\ index,\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ QString\ source()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ setSource(\textcolor{keyword}{const}\ QString\&\ s);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{bool}\ checkSource();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ signals:}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00025\ \textcolor{keyword}{protected}\ slots:}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ loadFromJs();}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ onFormulaEnabled(\textcolor{keywordtype}{bool}\ en);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ expressionValid();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_index;}
+\DoxyCodeLine{00033\ \ \ \ \ CuFormulaParserI\ *m\_formulaParserI;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ Ui::EditSourceWidget\ ui;}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ EDITSOURCEWIDGET\_H}}
+
+\end{DoxyCode}

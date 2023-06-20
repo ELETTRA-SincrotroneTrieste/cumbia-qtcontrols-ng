@@ -1,0 +1,53 @@
+\doxysection{qucircularplotcurve.\+h}
+\label{qucircularplotcurve_8h_source}\index{qucircularplotcurve.h@{qucircularplotcurve.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ QUCIRCULARPLOTCURVE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ QUCIRCULARPLOTCURVE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QVector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QPen>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }QuCircularPlotCurveP;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }QuCircularPlotCurveListener\ \{}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onCurveBoundsChanged()\ =\ 0;}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }QuCircularPlotCurve}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ QuCircularPlotCurve(\textcolor{keyword}{const}\ QString\ \&src,\ QuCircularPlotCurveListener\ *l,\ \textcolor{keyword}{const}\ QPen\&\ p\ =\ QPen(QColor(Qt::gray),\ 0.0f));}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~QuCircularPlotCurve();}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{const}\ QVector<double>\ \&x\_data()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{const}\ QVector<double>\ \&y\_data()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ QString\ source()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ setData(\textcolor{keyword}{const}\ QVector<double>\ \&x,\ \textcolor{keyword}{const}\ QVector<double>\&\ y);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ size()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ setPen(\textcolor{keyword}{const}\ QPen\&\ p);}
+\DoxyCodeLine{00028\ \ \ \ \ QPen\ pen()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}\ ymax()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{double}\ ymin()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ minmax\_update();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ selection}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ select(\textcolor{keywordtype}{int}\ idx);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ deselect();}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ selected()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ editable}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEditable()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ setEditable(\textcolor{keywordtype}{bool}\ e);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ \ \ QuCircularPlotCurveP\ *d;}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ QUCIRCULARPLOTCURVE\_H}}
+
+\end{DoxyCode}

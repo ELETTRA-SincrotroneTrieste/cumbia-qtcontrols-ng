@@ -1,0 +1,42 @@
+\doxysection{quzoomevents.\+h}
+\label{quzoomevents_8h_source}\index{quzoomevents.h@{quzoomevents.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ QUZOOMEVENTS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ QUZOOMEVENTS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QPointF>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }QuZoomEventsP;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }QuZoomEvents\ :\ \textcolor{keyword}{public}\ QObject}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{enum}\ Operation\ \{\ Zoom\ =\ 0,\ Move,\ EndOps\ \};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{explicit}\ QuZoomEvents(QObject\ *parent);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~QuZoomEvents();}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ QPointF\ p1,\ p2;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ setKeyboardModifier(Operation\ op,\ Qt::KeyboardModifier\ mod);}
+\DoxyCodeLine{00020\ \ \ \ \ Qt::KeyboardModifier\ keyboardModifier(Operation\ op)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ eventFilter(QObject\ *watched,\ QEvent\ *event);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ signals:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ zoomRectChanged(\textcolor{keyword}{const}\ QRectF\&\ r);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ unzoom();}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ moveRect(\textcolor{keyword}{const}\ QPointF\&\ p1,\ \textcolor{keyword}{const}\ QPointF\&\ p2);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ zoomRectChanging(\textcolor{keyword}{const}\ QPointF\ \&topl,\ \textcolor{keyword}{const}\ QPointF\ br);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ clicked(\textcolor{keyword}{const}\ QPointF\&\ pos,\ Qt::MouseButton\ button,\ Qt::KeyboardModifiers\ m);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ QuZoomEventsP\ *d;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ QUZOOMEVENTS\_H}}
+
+\end{DoxyCode}

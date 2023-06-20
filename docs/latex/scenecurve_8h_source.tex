@@ -1,0 +1,136 @@
+\doxysection{scenecurve.\+h}
+\label{scenecurve_8h_source}\index{scenecurve.h@{scenecurve.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SCENECURVE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SCENECURVE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <qgraphicsplotitem.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <axischangelistener.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <data.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }SceneCurvePrivate;}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }QGraphicsScene;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }ScaleItem;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }CurveChangeListener;}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }CurveItem;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }SceneCurve\ :\ \textcolor{keyword}{public}\ QObject,\ \textcolor{keyword}{public}\ AxisChangeListener}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{int}\ bufferSize\ READ\ bufferSize\ WRITE\ setBufferSize)}
+\DoxyCodeLine{00021\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{bool}\ xDataIsOrdered\ READ\ xDataIsOrdered\ WRITE\ setXDataIsOrdered)}
+\DoxyCodeLine{00022\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{bool}\ yDataIsOrdered\ READ\ yDataIsOrdered\ WRITE\ setYDataIsOrdered)}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{explicit}\ SceneCurve(QGraphicsPlotItem\ *sceneWidget,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\&\ name,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ScaleItem*\ xAxis,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ScaleItem*\ yAxis);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~SceneCurve();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ QGraphicsPlotItem*\ plot()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \ \ \ \ QGraphicsScene\ *scene()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{int}\ dataSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ bufferSize()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ \ \ \ \ QString\ name()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{virtual}\ QRectF\ addPoint(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{virtual}\ QRectF\ addPoints(\textcolor{keyword}{const}\ QVector<double>\&\ xData,\ \textcolor{keyword}{const}\ QVector<double>\ \&yData);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ Data\ *data()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ setData(\textcolor{keyword}{const}\ QVector<double>\&\ xData,\ \textcolor{keyword}{const}\ QVector<double>\ \&yData);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ setData(\textcolor{keyword}{const}\ QVector<double>\ \&yData);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ installCurveChangeListener(CurveChangeListener\ *listener);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ QList<CurveChangeListener\ *>curveChangeListeners()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ removeCurveChangeListener(CurveChangeListener\ *listener);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ removeCurveItem();}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ setCurveItem(CurveItem\ *curveItem);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ CurveItem*\ curveItem()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ ScaleItem::Id\ associatedXAxisId()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ ScaleItem::Id\ associatedYAxisId()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ getMinX()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ getMinY()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ getMaxX()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ getMaxY()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ ScaleItem*\ getXAxis()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ ScaleItem*\ getYAxis()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ invalidateCache();}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ invalidateXCache();}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ invalidateYCache();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ xAxisBoundsChanged(\textcolor{keywordtype}{double}\ xl,\ \textcolor{keywordtype}{double}\ xu);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ yAxisBoundsChanged(\textcolor{keywordtype}{double}\ yl,\ \textcolor{keywordtype}{double}\ yu);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ axisAutoscaleChanged(ScaleItem::Orientation\ o,\ \textcolor{keywordtype}{bool}\ autoscale);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ tickStepLenChanged(\textcolor{keywordtype}{double}\ \ )\ \{\}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ labelsFormatChanged(\textcolor{keyword}{const}\ QString\&\ )\ \{\}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{bool}\ xDataIsOrdered()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{bool}\ yDataIsOrdered()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{const}\ QPointF*\ points();}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ plotAreaChanged(\textcolor{keyword}{const}\ QRectF\&\ newRect);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ signals:}
+\DoxyCodeLine{00154\ \ \ \ \ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{void}\ setBufferSize(\textcolor{keywordtype}{int}\ bufSiz);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{void}\ setXDataIsOrdered(\textcolor{keywordtype}{bool}\ ordered);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ setYDataIsOrdered(\textcolor{keywordtype}{bool}\ ordered);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{int}\ mCheckBufferSize();}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{bool}\ mRemovedItemAffectsBounds(\textcolor{keyword}{const}\ Point\ \&toRemovePt);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ SceneCurvePrivate\ *d\_ptr;}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ Q\_DECLARE\_PRIVATE(SceneCurve)}
+\DoxyCodeLine{00175\ \ \ \ \ }
+\DoxyCodeLine{00176\ \};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SCENECURVE\_H}}
+
+\end{DoxyCode}

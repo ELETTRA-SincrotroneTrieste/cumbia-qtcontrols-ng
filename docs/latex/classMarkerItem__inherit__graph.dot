@@ -1,0 +1,12 @@
+digraph "MarkerItem"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="MarkerItem",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="When a mouse click event takes place into the plot, the closest point on the closest curve is marked ..."];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="QGraphicsObject",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="MouseEventListener",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classMouseEventListener.html",tooltip="an abstract class that can be used to be notified when a mouse event takes place"];
+}

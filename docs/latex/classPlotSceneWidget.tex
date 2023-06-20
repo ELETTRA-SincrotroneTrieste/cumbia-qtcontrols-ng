@@ -1,0 +1,357 @@
+\doxysection{Plot\+Scene\+Widget Class Reference}
+\label{classPlotSceneWidget}\index{PlotSceneWidget@{PlotSceneWidget}}
+
+
+{\ttfamily \#include $<$plotscenewidget.\+h$>$}
+
+
+
+Inheritance diagram for Plot\+Scene\+Widget\+:
+% FIG 0
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Scene\+Curve} $\ast$ \textbf{ add\+Curve} (const QString \&name)
+\item 
+void \textbf{ add\+Curve} (\textbf{ Scene\+Curve} $\ast$c)
+\item 
+void \textbf{ set\+Manual\+Scene\+Update} (bool manual)
+\item 
+void \textbf{ set\+Dont\+Save\+Painter\+State} (bool dont)
+\item 
+void \textbf{ set\+Dont\+Adjust\+For\+Antialiasing} (bool dont)
+\item 
+void \textbf{ set\+Scroll\+Bars\+Enabled} (bool en)
+\item 
+void \textbf{ set\+Painter\+HQGLAnti\+Alias} (bool en)
+\item 
+void \textbf{ set\+Smooth\+Pixmap\+Transform} (bool enable)
+\item 
+void \textbf{ set\+Painter\+Anti\+Alias} (bool en)
+\item 
+void \textbf{ set\+Cache\+Background} (bool cache)
+\item 
+void \textbf{ scale} (qreal sx, qreal sy)
+\item 
+void \textbf{ fit\+In} ()
+\item 
+void \textbf{ set\+Scene\+Rect\+To\+Widget\+Geometry} (bool en)
+\item 
+void \textbf{ reset\+Transform\+Matrix} ()
+\item 
+void \textbf{ set\+Mouse\+Zoom\+Enabled} (bool en)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Plot\+Scene\+Widget} (QWidget $\ast$parent, bool use\+Gl=false)
+\item 
+virtual \textbf{ $\sim$\+Plot\+Scene\+Widget} ()
+\item 
+\textbf{ Scale\+Item} $\ast$ \textbf{ x\+Scale\+Item} () const
+\item 
+\textbf{ Scale\+Item} $\ast$ \textbf{ y\+Scale\+Item} () const
+\item 
+\textbf{ QGraphics\+Plot\+Item} $\ast$ \textbf{ plot} () const
+\item 
+bool \textbf{ painter\+Anti\+Alias} () const
+\item 
+bool \textbf{ smooth\+Pixmap\+Transform} () const
+\item 
+bool \textbf{ painter\+HQGLAnti\+Alias} () const
+\item 
+bool \textbf{ dont\+Save\+Painter\+State} () const
+\item 
+bool \textbf{ dont\+Adjust\+For\+Antialiasing} () const
+\item 
+bool \textbf{ cache\+Background} () const
+\item 
+bool \textbf{ manual\+Scene\+Update} () const
+\item 
+bool \textbf{ scroll\+Bars\+Enabled} () const
+\item 
+void \textbf{ show\+Event} (QShow\+Event $\ast$event)
+\item 
+bool \textbf{ mouse\+Zoom\+Enabled} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ wheel\+Event} (QWheel\+Event $\ast$event)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ painter\+Anti\+Alias}
+\item 
+bool \textbf{ painter\+HQGLAnti\+Alias}
+\item 
+bool \textbf{ smooth\+Pixmap\+Transform}
+\item 
+bool \textbf{ dont\+Save\+Painter\+State}
+\item 
+bool \textbf{ dont\+Adjust\+For\+Antialiasing}
+\item 
+bool \textbf{ cache\+Background}
+\item 
+bool \textbf{ manual\+Scene\+Update}
+\item 
+bool \textbf{ scroll\+Bars\+Enabled}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classPlotSceneWidget_af66be1a62f10c24dc93db77e240eaadc}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!PlotSceneWidget@{PlotSceneWidget}}
+\index{PlotSceneWidget@{PlotSceneWidget}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{PlotSceneWidget()}
+{\footnotesize\ttfamily Plot\+Scene\+Widget\+::\+Plot\+Scene\+Widget (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent,  }\item[{bool}]{use\+Gl = {\ttfamily false} }\end{DoxyParamCaption})}
+
+\mbox{\label{classPlotSceneWidget_af09541838b7200ddc9a701a022cfeb80}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!````~PlotSceneWidget@{$\sim$PlotSceneWidget}}
+\index{````~PlotSceneWidget@{$\sim$PlotSceneWidget}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{$\sim$PlotSceneWidget()}
+{\footnotesize\ttfamily Plot\+Scene\+Widget\+::$\sim$\+Plot\+Scene\+Widget (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{classPlotSceneWidget_ae3bf64dfa4b9c8e2d3bf5ff8bfdc2a9e}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!addCurve@{addCurve}}
+\index{addCurve@{addCurve}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{addCurve\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \textbf{ Scene\+Curve} $\ast$ Plot\+Scene\+Widget\+::add\+Curve (\begin{DoxyParamCaption}\item[{const QString \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_aac2e871fab6ed0bfb70bb0f0b784a32c}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!addCurve@{addCurve}}
+\index{addCurve@{addCurve}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{addCurve\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::add\+Curve (\begin{DoxyParamCaption}\item[{\textbf{ Scene\+Curve} $\ast$}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_ad7f9a127a3218592b77882ae24f1a693}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!cacheBackground@{cacheBackground}}
+\index{cacheBackground@{cacheBackground}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{cacheBackground()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::cache\+Background (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_a4d1cec0a9aebfac36db70cac05f071cd}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!dontAdjustForAntialiasing@{dontAdjustForAntialiasing}}
+\index{dontAdjustForAntialiasing@{dontAdjustForAntialiasing}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{dontAdjustForAntialiasing()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::dont\+Adjust\+For\+Antialiasing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_a72cb2abd4ccae34d2338c9fec714302b}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!dontSavePainterState@{dontSavePainterState}}
+\index{dontSavePainterState@{dontSavePainterState}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{dontSavePainterState()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::dont\+Save\+Painter\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_a8f5b41672003e55011c21a1a485d5d84}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!fitIn@{fitIn}}
+\index{fitIn@{fitIn}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{fitIn}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::fit\+In (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_a3b958e32703caddd26c6eae550a6c113}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!manualSceneUpdate@{manualSceneUpdate}}
+\index{manualSceneUpdate@{manualSceneUpdate}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{manualSceneUpdate()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::manual\+Scene\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_a2c285c25884dc066a43d4471e7ab0fb4}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!mouseZoomEnabled@{mouseZoomEnabled}}
+\index{mouseZoomEnabled@{mouseZoomEnabled}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{mouseZoomEnabled()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::mouse\+Zoom\+Enabled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_a57041a3f184bba01e0bff922fd09f8e9}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!painterAntiAlias@{painterAntiAlias}}
+\index{painterAntiAlias@{painterAntiAlias}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{painterAntiAlias()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::painter\+Anti\+Alias (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_a809dd56c3689960718454a11a1cbb4ed}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!painterHQGLAntiAlias@{painterHQGLAntiAlias}}
+\index{painterHQGLAntiAlias@{painterHQGLAntiAlias}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{painterHQGLAntiAlias()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::painter\+HQGLAnti\+Alias (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_af2262bd82ace1a5cd42b458ee5b7467e}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!plot@{plot}}
+\index{plot@{plot}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{plot()}
+{\footnotesize\ttfamily \textbf{ QGraphics\+Plot\+Item} $\ast$ Plot\+Scene\+Widget\+::plot (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_a9d4748cd81e89f2f48a7dc060950d4f9}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!resetTransformMatrix@{resetTransformMatrix}}
+\index{resetTransformMatrix@{resetTransformMatrix}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{resetTransformMatrix}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::reset\+Transform\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_a242dee2399fe584cb902f437f227bc4a}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!scale@{scale}}
+\index{scale@{scale}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{scale}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::scale (\begin{DoxyParamCaption}\item[{qreal}]{sx,  }\item[{qreal}]{sy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Referenced by \textbf{ wheel\+Event()}.
+
+\mbox{\label{classPlotSceneWidget_a0cefaaa6cebfc02d70af0e94c83db293}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!scrollBarsEnabled@{scrollBarsEnabled}}
+\index{scrollBarsEnabled@{scrollBarsEnabled}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{scrollBarsEnabled()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::scroll\+Bars\+Enabled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_acf02b495e804f3e39a820d811030dab6}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setCacheBackground@{setCacheBackground}}
+\index{setCacheBackground@{setCacheBackground}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setCacheBackground}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Cache\+Background (\begin{DoxyParamCaption}\item[{bool}]{cache }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_a309373beca063169b2ae65f181db91dd}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setDontAdjustForAntialiasing@{setDontAdjustForAntialiasing}}
+\index{setDontAdjustForAntialiasing@{setDontAdjustForAntialiasing}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setDontAdjustForAntialiasing}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Dont\+Adjust\+For\+Antialiasing (\begin{DoxyParamCaption}\item[{bool}]{dont }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_a2f86d3b7b0d94c8f36234fb01512e740}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setDontSavePainterState@{setDontSavePainterState}}
+\index{setDontSavePainterState@{setDontSavePainterState}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setDontSavePainterState}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Dont\+Save\+Painter\+State (\begin{DoxyParamCaption}\item[{bool}]{dont }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_a7e5a8b76791128f7c19b75d42ba187d8}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setManualSceneUpdate@{setManualSceneUpdate}}
+\index{setManualSceneUpdate@{setManualSceneUpdate}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setManualSceneUpdate}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Manual\+Scene\+Update (\begin{DoxyParamCaption}\item[{bool}]{manual }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_af8d0033c74c0ec27ff3d535b10fd5248}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setMouseZoomEnabled@{setMouseZoomEnabled}}
+\index{setMouseZoomEnabled@{setMouseZoomEnabled}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setMouseZoomEnabled}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Mouse\+Zoom\+Enabled (\begin{DoxyParamCaption}\item[{bool}]{en }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_aea2868d230f7f307c1e5822b8a3394f8}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setPainterAntiAlias@{setPainterAntiAlias}}
+\index{setPainterAntiAlias@{setPainterAntiAlias}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setPainterAntiAlias}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Painter\+Anti\+Alias (\begin{DoxyParamCaption}\item[{bool}]{en }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_aa38ca549f0e94a9477679a7c6548d2f0}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setPainterHQGLAntiAlias@{setPainterHQGLAntiAlias}}
+\index{setPainterHQGLAntiAlias@{setPainterHQGLAntiAlias}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setPainterHQGLAntiAlias}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Painter\+HQGLAnti\+Alias (\begin{DoxyParamCaption}\item[{bool}]{en }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_a0ff5fa76c1f327b1ccbf1418ca45e39e}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setSceneRectToWidgetGeometry@{setSceneRectToWidgetGeometry}}
+\index{setSceneRectToWidgetGeometry@{setSceneRectToWidgetGeometry}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setSceneRectToWidgetGeometry}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Scene\+Rect\+To\+Widget\+Geometry (\begin{DoxyParamCaption}\item[{bool}]{en }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_aa11af80979e7737acd8a7108378768f5}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setScrollBarsEnabled@{setScrollBarsEnabled}}
+\index{setScrollBarsEnabled@{setScrollBarsEnabled}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setScrollBarsEnabled}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Scroll\+Bars\+Enabled (\begin{DoxyParamCaption}\item[{bool}]{en }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_acb8e9906185405d6b7e97d7c565e905b}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!setSmoothPixmapTransform@{setSmoothPixmapTransform}}
+\index{setSmoothPixmapTransform@{setSmoothPixmapTransform}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{setSmoothPixmapTransform}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::set\+Smooth\+Pixmap\+Transform (\begin{DoxyParamCaption}\item[{bool}]{enable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\label{classPlotSceneWidget_a448a2bcd80ff0fd61cbb9884b3b193e9}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!showEvent@{showEvent}}
+\index{showEvent@{showEvent}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{showEvent()}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::show\+Event (\begin{DoxyParamCaption}\item[{QShow\+Event $\ast$}]{event }\end{DoxyParamCaption})}
+
+\mbox{\label{classPlotSceneWidget_a0fa03009a50524962c8b0ad8c58aed39}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!smoothPixmapTransform@{smoothPixmapTransform}}
+\index{smoothPixmapTransform@{smoothPixmapTransform}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{smoothPixmapTransform()}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::smooth\+Pixmap\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_ab963a2203a7ec05053b866fa2b3f4233}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!wheelEvent@{wheelEvent}}
+\index{wheelEvent@{wheelEvent}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{wheelEvent()}
+{\footnotesize\ttfamily void Plot\+Scene\+Widget\+::wheel\+Event (\begin{DoxyParamCaption}\item[{QWheel\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+References \textbf{ scale()}.
+
+\mbox{\label{classPlotSceneWidget_a77e8a809d26525e04325cc4595fd9f5d}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!xScaleItem@{xScaleItem}}
+\index{xScaleItem@{xScaleItem}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{xScaleItem()}
+{\footnotesize\ttfamily \textbf{ Scale\+Item} $\ast$ Plot\+Scene\+Widget\+::x\+Scale\+Item (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{classPlotSceneWidget_a94b9df3c5be0dea79f8f85e480a4145c}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!yScaleItem@{yScaleItem}}
+\index{yScaleItem@{yScaleItem}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{yScaleItem()}
+{\footnotesize\ttfamily \textbf{ Scale\+Item} $\ast$ Plot\+Scene\+Widget\+::y\+Scale\+Item (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\label{classPlotSceneWidget_aa1c0b3bb4486d84ed5eeb94d002d475f}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!cacheBackground@{cacheBackground}}
+\index{cacheBackground@{cacheBackground}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{cacheBackground}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::cache\+Background\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classPlotSceneWidget_a1259eee103e299c2e9dde072ab1136f3}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!dontAdjustForAntialiasing@{dontAdjustForAntialiasing}}
+\index{dontAdjustForAntialiasing@{dontAdjustForAntialiasing}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{dontAdjustForAntialiasing}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::dont\+Adjust\+For\+Antialiasing\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classPlotSceneWidget_aafc5f5642d82ed36ca49b0a79e896535}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!dontSavePainterState@{dontSavePainterState}}
+\index{dontSavePainterState@{dontSavePainterState}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{dontSavePainterState}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::dont\+Save\+Painter\+State\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classPlotSceneWidget_a99431c197f0062d692fbd2fa211ac8d4}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!manualSceneUpdate@{manualSceneUpdate}}
+\index{manualSceneUpdate@{manualSceneUpdate}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{manualSceneUpdate}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::manual\+Scene\+Update\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classPlotSceneWidget_a9220892f84d9df2ee370064a019f92b6}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!painterAntiAlias@{painterAntiAlias}}
+\index{painterAntiAlias@{painterAntiAlias}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{painterAntiAlias}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::painter\+Anti\+Alias\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classPlotSceneWidget_ac4c1e65fbbfbe313743a1d4e25ce80f2}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!painterHQGLAntiAlias@{painterHQGLAntiAlias}}
+\index{painterHQGLAntiAlias@{painterHQGLAntiAlias}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{painterHQGLAntiAlias}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::painter\+HQGLAnti\+Alias\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classPlotSceneWidget_a92556f6b77284c9e0b511b1d5b2f8f59}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!scrollBarsEnabled@{scrollBarsEnabled}}
+\index{scrollBarsEnabled@{scrollBarsEnabled}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{scrollBarsEnabled}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::scroll\+Bars\+Enabled\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+\mbox{\label{classPlotSceneWidget_a5712ffb2af7ea23b9659872540306f88}} 
+\index{PlotSceneWidget@{PlotSceneWidget}!smoothPixmapTransform@{smoothPixmapTransform}}
+\index{smoothPixmapTransform@{smoothPixmapTransform}!PlotSceneWidget@{PlotSceneWidget}}
+\doxysubsubsection{smoothPixmapTransform}
+{\footnotesize\ttfamily bool Plot\+Scene\+Widget\+::smooth\+Pixmap\+Transform\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ plotscenewidget.\+h}\item 
+\textbf{ plotscenewidget.\+cpp}\end{DoxyCompactItemize}

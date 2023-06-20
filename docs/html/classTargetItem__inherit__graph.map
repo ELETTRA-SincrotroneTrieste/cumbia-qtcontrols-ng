@@ -1,0 +1,5 @@
+<map id="TargetItem" name="TargetItem">
+<area shape="rect" id="node1" title="A QGraphicsObject that can be moved and can be attached to a writer in order to write a value accordi..." alt="" coords="100,80,184,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,127,32"/>
+<area shape="rect" id="node3" href="$classAxisChangeListener.html" title="A listener for axis change events." alt="" coords="150,5,289,32"/>
+</map>

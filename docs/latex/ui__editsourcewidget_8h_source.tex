@@ -1,0 +1,138 @@
+\doxysection{ui\+\_\+editsourcewidget.\+h}
+\label{ui__editsourcewidget_8h_source}\index{ui\_editsourcewidget.h@{ui\_editsourcewidget.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/********************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ Form\ generated\ from\ reading\ UI\ file\ 'editsourcewidget.ui'}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ Created\ by:\ Qt\ User\ Interface\ Compiler\ version\ 5.15.8}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**}}
+\DoxyCodeLine{00006\ \textcolor{comment}{**\ WARNING!\ All\ changes\ made\ in\ this\ file\ will\ be\ lost\ when\ recompiling\ UI\ file!}}
+\DoxyCodeLine{00007\ \textcolor{comment}{********************************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ UI\_EDITSOURCEWIDGET\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ UI\_EDITSOURCEWIDGET\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QtCore/QVariant>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QtWidgets/QApplication>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QtWidgets/QGridLayout>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QtWidgets/QGroupBox>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QtWidgets/QLabel>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <QtWidgets/QLineEdit>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <QtWidgets/QPushButton>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <QtWidgets/QTextEdit>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <QtWidgets/QToolButton>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <QtWidgets/QWidget>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }Ui\_EditSourceWidget}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ QGridLayout\ *gridLayout;}
+\DoxyCodeLine{00029\ \ \ \ \ QToolButton\ *toolDevice;}
+\DoxyCodeLine{00030\ \ \ \ \ QGroupBox\ *gbFormula;}
+\DoxyCodeLine{00031\ \ \ \ \ QGridLayout\ *gridLayout\_2;}
+\DoxyCodeLine{00032\ \ \ \ \ QLabel\ *label;}
+\DoxyCodeLine{00033\ \ \ \ \ QLineEdit\ *leScriptPath;}
+\DoxyCodeLine{00034\ \ \ \ \ QTextEdit\ *teJsCode;}
+\DoxyCodeLine{00035\ \ \ \ \ QPushButton\ *pbFromJs;}
+\DoxyCodeLine{00036\ \ \ \ \ QLineEdit\ *leAlias;}
+\DoxyCodeLine{00037\ \ \ \ \ QLabel\ *labelPluginErr;}
+\DoxyCodeLine{00038\ \ \ \ \ QLineEdit\ *lineEdit;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUi(QWidget\ *EditSourceWidget)}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (EditSourceWidget-\/>objectName().isEmpty())}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ EditSourceWidget-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}EditSourceWidget"{}}));}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ EditSourceWidget-\/>resize(400,\ 300);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ gridLayout\ =\ \textcolor{keyword}{new}\ QGridLayout(EditSourceWidget);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ gridLayout-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}gridLayout"{}}));}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ toolDevice\ =\ \textcolor{keyword}{new}\ QToolButton(EditSourceWidget);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ toolDevice-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}toolDevice"{}}));}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ toolDevice-\/>setEnabled(\textcolor{keyword}{false});}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ gridLayout-\/>addWidget(toolDevice,\ 0,\ 1,\ 1,\ 1);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ gbFormula\ =\ \textcolor{keyword}{new}\ QGroupBox(EditSourceWidget);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ gbFormula-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}gbFormula"{}}));}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ gbFormula-\/>setAutoFillBackground(\textcolor{keyword}{false});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ gbFormula-\/>setStyleSheet(QString::fromUtf8(\textcolor{stringliteral}{"{}border-\/color:\ rgb(231,\ 55,\ 23);"{}}));}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ gbFormula-\/>setCheckable(\textcolor{keyword}{true});}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ gbFormula-\/>setChecked(\textcolor{keyword}{true});}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ gridLayout\_2\ =\ \textcolor{keyword}{new}\ QGridLayout(gbFormula);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ gridLayout\_2-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}gridLayout\_2"{}}));}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ label\ =\ \textcolor{keyword}{new}\ QLabel(gbFormula);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ label-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}label"{}}));}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ label-\/>setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ gridLayout\_2-\/>addWidget(label,\ 0,\ 0,\ 1,\ 1);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ leScriptPath\ =\ \textcolor{keyword}{new}\ QLineEdit(gbFormula);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ leScriptPath-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}leScriptPath"{}}));}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ leScriptPath-\/>setReadOnly(\textcolor{keyword}{true});}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ gridLayout\_2-\/>addWidget(leScriptPath,\ 2,\ 0,\ 1,\ 2);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ teJsCode\ =\ \textcolor{keyword}{new}\ QTextEdit(gbFormula);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ teJsCode-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}teJsCode"{}}));}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ gridLayout\_2-\/>addWidget(teJsCode,\ 1,\ 0,\ 1,\ 3);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ pbFromJs\ =\ \textcolor{keyword}{new}\ QPushButton(gbFormula);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ pbFromJs-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}pbFromJs"{}}));}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ gridLayout\_2-\/>addWidget(pbFromJs,\ 2,\ 2,\ 1,\ 1);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ leAlias\ =\ \textcolor{keyword}{new}\ QLineEdit(gbFormula);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ leAlias-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}leAlias"{}}));}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ gridLayout\_2-\/>addWidget(leAlias,\ 0,\ 1,\ 1,\ 2);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ labelPluginErr\ =\ \textcolor{keyword}{new}\ QLabel(gbFormula);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ labelPluginErr-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}labelPluginErr"{}}));}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ gridLayout\_2-\/>addWidget(labelPluginErr,\ 3,\ 0,\ 1,\ 3);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ gridLayout-\/>addWidget(gbFormula,\ 1,\ 0,\ 1,\ 2);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ lineEdit\ =\ \textcolor{keyword}{new}\ QLineEdit(EditSourceWidget);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ lineEdit-\/>setObjectName(QString::fromUtf8(\textcolor{stringliteral}{"{}lineEdit"{}}));}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ gridLayout-\/>addWidget(lineEdit,\ 0,\ 0,\ 1,\ 1);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ retranslateUi(EditSourceWidget);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ QMetaObject::connectSlotsByName(EditSourceWidget);}
+\DoxyCodeLine{00105\ \ \ \ \ \}\ \textcolor{comment}{//\ setupUi}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ retranslateUi(QWidget\ *EditSourceWidget)}
+\DoxyCodeLine{00108\ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ EditSourceWidget-\/>setWindowTitle(QCoreApplication::translate(\textcolor{stringliteral}{"{}EditSourceWidget"{}},\ \textcolor{stringliteral}{"{}Form"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ toolDevice-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}EditSourceWidget"{}},\ \textcolor{stringliteral}{"{}..."{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ gbFormula-\/>setTitle(QCoreApplication::translate(\textcolor{stringliteral}{"{}EditSourceWidget"{}},\ \textcolor{stringliteral}{"{}Formula"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ label-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}EditSourceWidget"{}},\ \textcolor{stringliteral}{"{}Source\ alias"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ pbFromJs-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}EditSourceWidget"{}},\ \textcolor{stringliteral}{"{}From\ js\ script..."{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#if\ QT\_CONFIG(tooltip)}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ leAlias-\/>setToolTip(QCoreApplication::translate(\textcolor{stringliteral}{"{}EditSourceWidget"{}},\ \textcolor{stringliteral}{"{}<html><head/><body><p\ align=\(\backslash\)"{}justify\(\backslash\)"{}>An\ alias\ for\ the\ source\ can\ be\ provided.</p><p\ align=\(\backslash\)"{}justify\(\backslash\)"{}><br/></p><p\ align=\(\backslash\)"{}justify\(\backslash\)"{}>If\ not\ empty,\ it\ will\ be\ stored\ into\ the\ \&quot;src\&quot;\ key\ of\ the\ data\ bundle.\ For\ example,\ if\ the\ formula\ sums\ the\ value\ of\ two\ sources,\ you\ could\ provide\ a\ short\ alias\ named\ <span\ style=\(\backslash\)"{}\ font-\/style:italic;\(\backslash\)"{}>sum</span>\ for\ the\ source.\ If\ empty,\ the\ \&quot;src\&quot;\ value\ will\ contain\ the\ comma\ separated\ list\ of\ sources</p></body></html>"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ QT\_CONFIG(tooltip)}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ labelPluginErr-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}EditSourceWidget"{}},\ \textcolor{stringliteral}{"{}plugin\ error"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#if\ QT\_CONFIG(tooltip)}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ lineEdit-\/>setToolTip(QCoreApplication::translate(\textcolor{stringliteral}{"{}EditSourceWidget"{}},\ \textcolor{stringliteral}{"{}<html><head><meta\ name=\(\backslash\)"{}qrichtext\(\backslash\)"{}\ content=\(\backslash\)"{}1\(\backslash\)"{}\ /></head><body\ style=\(\backslash\)"{}\ white-\/space:\ pre-\/wrap;\ font-\/family:Sans\ Serif;\ font-\/size:9pt;\ font-\/weight:400;\ font-\/style:normal;\ text-\/decoration:none;\(\backslash\)"{}><p\ style=\(\backslash\)"{}\ margin-\/top:0px;\ margin-\/bottom:0px;\ margin-\/left:0px;\ margin-\/right:0px;\ -\/qt-\/block-\/indent:0;\ text-\/indent:0px;\(\backslash\)"{}>Valid\ formats\ are:</p><p\ style=\(\backslash\)"{}\ margin-\/top:0px;\ margin-\/bottom:0px;\ margin-\/left:0px;\ margin-\/right:0px;\ -\/qt-\/block-\/indent:0;\ text-\/indent:0px;\(\backslash\)"{}>for\ attributes:\ <span\ style=\(\backslash\)"{}\ font-\/weight:600;\(\backslash\)"{}>tango/device/server/attribute</span></p><p\ style=\(\backslash\)"{}\ margin-\/top:0px;\ margin-\/bottom:0px;\ margin-\/left:0px;\ margin-\/right:0px;\ -\/qt-\/block-\/indent:0;\ text-\/indent:0px;\(\backslash\)"{}>for\ commands:\ <span\ style=\(\backslash\)"{}\ font-\/weight:600;\(\backslash\)"{}>tango/device/server-\/\&gt;command</span></p><p\ style=\(\backslash\)"{}-\/qt-\/paragraph-\/type:empty;\ margin-\/top:0px;\ margin-\/bottom:0px;\ margin-\/left:0px;\ margin-\/right:0px;\ -\/qt-\/block-\/indent:0;\ text-\/indent:0px;\(\backslash\)"{}></p><p\ style=\(\backslash\)"{}\ margin-\/top:0px;\ margin-\/bottom:0px;\ margin-\/left:0px;\ margin-\/right:0px;\ -\/qt-\/block-\/indent:0;\ text-\/indent"{}}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:0px;\(\backslash\)"{}>You\ can\ also\ specify\ a\ Tango\ Database:</p><p\ style=\(\backslash\)"{}\ margin-\/top:0px;\ margin-\/bottom:0px;\ margin-\/left:0px;\ margin-\/right:0px;\ -\/qt-\/block-\/indent:0;\ text-\/indent:0px;\(\backslash\)"{}>for\ attributes:\ <span\ style=\(\backslash\)"{}\ font-\/weight:600;\(\backslash\)"{}>host:port/tango/device/server/attribute</span></p><p\ style=\(\backslash\)"{}\ margin-\/top:0px;\ margin-\/bottom:0px;\ margin-\/left:0px;\ margin-\/right:0px;\ -\/qt-\/block-\/indent:0;\ text-\/indent:0px;\(\backslash\)"{}>for\ commands:\ <span\ style=\(\backslash\)"{}\ font-\/weight:600;\(\backslash\)"{}>host:port/tango/device/server-\/\&gt;command</span></p><p\ style=\(\backslash\)"{}-\/qt-\/paragraph-\/type:empty;\ margin-\/top:0px;\ margin-\/bottom:0px;\ margin-\/left:0px;\ margin-\/right:0px;\ -\/qt-\/block-\/indent:0;\ text-\/indent:0px;\(\backslash\)"{}></p></body></html>"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ QT\_CONFIG(tooltip)}}
+\DoxyCodeLine{00122\ \ \ \ \ \}\ \textcolor{comment}{//\ retranslateUi}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{class\ }EditSourceWidget:\ \textcolor{keyword}{public}\ Ui\_EditSourceWidget\ \{\};}
+\DoxyCodeLine{00128\ \}\ \textcolor{comment}{//\ namespace\ Ui}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UI\_EDITSOURCEWIDGET\_H}}
+
+\end{DoxyCode}

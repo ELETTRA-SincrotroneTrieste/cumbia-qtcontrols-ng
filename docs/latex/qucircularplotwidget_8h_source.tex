@@ -1,0 +1,41 @@
+\doxysection{qucircularplotwidget.\+h}
+\label{qucircularplotwidget_8h_source}\index{qucircularplotwidget.h@{qucircularplotwidget.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ QUCIRCULARPLOTWIDGET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ QUCIRCULARPLOTWIDGET\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }QuCircularPlotW\_P;}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }QuCircularPlotW\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{explicit}\ QuCircularPlotW(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \ \string~QuCircularPlotW();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ QuCircularPlotW\_P\ *d;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ QWidget\ interface}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \ \ QSize\ sizeHint()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00043\ \ \ \ \ QSize\ minimumSizeHint()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ setData(\textcolor{keyword}{const}\ QString\&\ src,\ \textcolor{keyword}{const}\ QVector<double>\&\ xdata,\ \textcolor{keyword}{const}\ QVector<double>\&\ ydata);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ paintEvent(QPaintEvent\ *event);}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ resizeEvent(QResizeEvent\ *re);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ changeEvent(QEvent\ *e);}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ QUCIRCULARPLOTWIDGET\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,14 @@
+digraph "qunumericengine.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="qunumericengine.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="qunumericengine.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$qunumericengine_8cpp.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="qunumericitem.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$qunumericitem_8cpp.html",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="qunumericwidget.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$qunumericwidget_8cpp.html",tooltip=" "];
+}

@@ -1,0 +1,201 @@
+\doxysection{Qu\+Zoom\+Events Class Reference}
+\label{classQuZoomEvents}\index{QuZoomEvents@{QuZoomEvents}}
+
+
+{\ttfamily \#include $<$quzoomevents.\+h$>$}
+
+
+
+Inheritance diagram for Qu\+Zoom\+Events\+:
+% FIG 0
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \textbf{ Operation} \{ \textbf{ Zoom} = 0
+, \textbf{ Move}
+, \textbf{ End\+Ops}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ zoom\+Rect\+Changed} (const QRectF \&r)
+\item 
+void \textbf{ unzoom} ()
+\item 
+void \textbf{ move\+Rect} (const QPointF \&\textbf{ p1}, const QPointF \&\textbf{ p2})
+\item 
+void \textbf{ zoom\+Rect\+Changing} (const QPointF \&topl, const QPointF br)
+\item 
+void \textbf{ clicked} (const QPointF \&pos, Qt\+::\+Mouse\+Button button, Qt\+::\+Keyboard\+Modifiers m)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Qu\+Zoom\+Events} (QObject $\ast$parent)
+\item 
+virtual \textbf{ $\sim$\+Qu\+Zoom\+Events} ()
+\item 
+void \textbf{ set\+Keyboard\+Modifier} (\textbf{ Operation} op, Qt\+::\+Keyboard\+Modifier mod)
+\item 
+Qt\+::\+Keyboard\+Modifier \textbf{ keyboard\+Modifier} (\textbf{ Operation} op) const
+\item 
+bool \textbf{ event\+Filter} (QObject $\ast$watched, QEvent $\ast$event)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QPointF \textbf{ p1}
+\item 
+QPointF \textbf{ p2}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\label{classQuZoomEvents_a872e69d40c557129a62d0fda7f1a83f5}} 
+\index{QuZoomEvents@{QuZoomEvents}!Operation@{Operation}}
+\index{Operation@{Operation}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{Operation}
+{\footnotesize\ttfamily enum \textbf{ Qu\+Zoom\+Events\+::\+Operation}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Zoom@{Zoom}!QuZoomEvents@{QuZoomEvents}}\index{QuZoomEvents@{QuZoomEvents}!Zoom@{Zoom}}}\mbox{\label{classQuZoomEvents_a872e69d40c557129a62d0fda7f1a83f5abd8eb5045bec122e2497da961d201ca4}} 
+Zoom&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Move@{Move}!QuZoomEvents@{QuZoomEvents}}\index{QuZoomEvents@{QuZoomEvents}!Move@{Move}}}\mbox{\label{classQuZoomEvents_a872e69d40c557129a62d0fda7f1a83f5a8138bf99a5d755cd81f7c97d833c0bc5}} 
+Move&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EndOps@{EndOps}!QuZoomEvents@{QuZoomEvents}}\index{QuZoomEvents@{QuZoomEvents}!EndOps@{EndOps}}}\mbox{\label{classQuZoomEvents_a872e69d40c557129a62d0fda7f1a83f5ae6c2a19830c8b1a0429076d42cefded8}} 
+End\+Ops&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classQuZoomEvents_a2e9514dbbd6b5e1e8c360f8db79bb22e}} 
+\index{QuZoomEvents@{QuZoomEvents}!QuZoomEvents@{QuZoomEvents}}
+\index{QuZoomEvents@{QuZoomEvents}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{QuZoomEvents()}
+{\footnotesize\ttfamily Qu\+Zoom\+Events\+::\+Qu\+Zoom\+Events (\begin{DoxyParamCaption}\item[{QObject $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\label{classQuZoomEvents_ad69ca8c2c02ca2a24e50b5ab4acfe975}} 
+\index{QuZoomEvents@{QuZoomEvents}!````~QuZoomEvents@{$\sim$QuZoomEvents}}
+\index{````~QuZoomEvents@{$\sim$QuZoomEvents}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{$\sim$QuZoomEvents()}
+{\footnotesize\ttfamily Qu\+Zoom\+Events\+::$\sim$\+Qu\+Zoom\+Events (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{classQuZoomEvents_aa8dd60c05105837b49520ecb903b3072}} 
+\index{QuZoomEvents@{QuZoomEvents}!clicked@{clicked}}
+\index{clicked@{clicked}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{clicked}
+{\footnotesize\ttfamily void Qu\+Zoom\+Events\+::clicked (\begin{DoxyParamCaption}\item[{const QPointF \&}]{pos,  }\item[{Qt\+::\+Mouse\+Button}]{button,  }\item[{Qt\+::\+Keyboard\+Modifiers}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ event\+Filter()}.
+
+\mbox{\label{classQuZoomEvents_ae55e2f9ee04589853a3d5d3cce91270d}} 
+\index{QuZoomEvents@{QuZoomEvents}!eventFilter@{eventFilter}}
+\index{eventFilter@{eventFilter}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{eventFilter()}
+{\footnotesize\ttfamily bool Qu\+Zoom\+Events\+::event\+Filter (\begin{DoxyParamCaption}\item[{QObject $\ast$}]{watched,  }\item[{QEvent $\ast$}]{event }\end{DoxyParamCaption})}
+
+
+
+References \textbf{ clicked()}, \textbf{ Move}, \textbf{ move\+Rect()}, \textbf{ p1}, \textbf{ p2}, \textbf{ perr}, \textbf{ unzoom()}, \textbf{ Zoom}, \textbf{ zoom\+Rect\+Changed()}, and \textbf{ zoom\+Rect\+Changing()}.
+
+\mbox{\label{classQuZoomEvents_aa79ca4873ef59cbc4da48f362089707f}} 
+\index{QuZoomEvents@{QuZoomEvents}!keyboardModifier@{keyboardModifier}}
+\index{keyboardModifier@{keyboardModifier}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{keyboardModifier()}
+{\footnotesize\ttfamily Qt\+::\+Keyboard\+Modifier Qu\+Zoom\+Events\+::keyboard\+Modifier (\begin{DoxyParamCaption}\item[{\textbf{ Operation}}]{op }\end{DoxyParamCaption}) const}
+
+
+
+References \textbf{ End\+Ops}.
+
+\mbox{\label{classQuZoomEvents_af4f39a070c4a9d10abb1972c0b8a550c}} 
+\index{QuZoomEvents@{QuZoomEvents}!moveRect@{moveRect}}
+\index{moveRect@{moveRect}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{moveRect}
+{\footnotesize\ttfamily void Qu\+Zoom\+Events\+::move\+Rect (\begin{DoxyParamCaption}\item[{const QPointF \&}]{p1,  }\item[{const QPointF \&}]{p2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ event\+Filter()}.
+
+\mbox{\label{classQuZoomEvents_a815dcd1e826675dc264e220e21948e67}} 
+\index{QuZoomEvents@{QuZoomEvents}!setKeyboardModifier@{setKeyboardModifier}}
+\index{setKeyboardModifier@{setKeyboardModifier}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{setKeyboardModifier()}
+{\footnotesize\ttfamily void Qu\+Zoom\+Events\+::set\+Keyboard\+Modifier (\begin{DoxyParamCaption}\item[{\textbf{ Operation}}]{op,  }\item[{Qt\+::\+Keyboard\+Modifier}]{mod }\end{DoxyParamCaption})}
+
+
+
+References \textbf{ End\+Ops}.
+
+\mbox{\label{classQuZoomEvents_a4064cea501a02eeb73b0634498376190}} 
+\index{QuZoomEvents@{QuZoomEvents}!unzoom@{unzoom}}
+\index{unzoom@{unzoom}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{unzoom}
+{\footnotesize\ttfamily void Qu\+Zoom\+Events\+::unzoom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ event\+Filter()}.
+
+\mbox{\label{classQuZoomEvents_a82ebf5c6ad4efc3a5f66c548fd1c4669}} 
+\index{QuZoomEvents@{QuZoomEvents}!zoomRectChanged@{zoomRectChanged}}
+\index{zoomRectChanged@{zoomRectChanged}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{zoomRectChanged}
+{\footnotesize\ttfamily void Qu\+Zoom\+Events\+::zoom\+Rect\+Changed (\begin{DoxyParamCaption}\item[{const QRectF \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ event\+Filter()}.
+
+\mbox{\label{classQuZoomEvents_aa2f65e9ca67be68e8966f9498bbb97ac}} 
+\index{QuZoomEvents@{QuZoomEvents}!zoomRectChanging@{zoomRectChanging}}
+\index{zoomRectChanging@{zoomRectChanging}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{zoomRectChanging}
+{\footnotesize\ttfamily void Qu\+Zoom\+Events\+::zoom\+Rect\+Changing (\begin{DoxyParamCaption}\item[{const QPointF \&}]{topl,  }\item[{const QPointF}]{br }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Referenced by \textbf{ event\+Filter()}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{classQuZoomEvents_a182e1589cfef5c481fb94efd2dbc8735}} 
+\index{QuZoomEvents@{QuZoomEvents}!p1@{p1}}
+\index{p1@{p1}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{p1}
+{\footnotesize\ttfamily QPointF Qu\+Zoom\+Events\+::p1}
+
+
+
+Referenced by \textbf{ event\+Filter()}.
+
+\mbox{\label{classQuZoomEvents_ae2259e4e897d2b7e68259996fa25d2d9}} 
+\index{QuZoomEvents@{QuZoomEvents}!p2@{p2}}
+\index{p2@{p2}!QuZoomEvents@{QuZoomEvents}}
+\doxysubsubsection{p2}
+{\footnotesize\ttfamily QPointF Qu\+Zoom\+Events\+::p2}
+
+
+
+Referenced by \textbf{ event\+Filter()}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ quzoomevents.\+h}\item 
+\textbf{ quzoomevents.\+cpp}\end{DoxyCompactItemize}

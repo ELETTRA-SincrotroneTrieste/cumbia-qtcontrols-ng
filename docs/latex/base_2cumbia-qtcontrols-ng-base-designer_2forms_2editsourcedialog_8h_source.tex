@@ -1,0 +1,63 @@
+\doxysection{base/cumbia-\/qtcontrols-\/ng-\/base-\/designer/forms/editsourcedialog.h}
+\label{base_2cumbia-qtcontrols-ng-base-designer_2forms_2editsourcedialog_8h_source}\index{editsourcedialog.h@{editsourcedialog.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/****************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ Copyright\ (C)\ 1992-\/2005\ Trolltech\ AS.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ This\ file\ is\ part\ of\ the\ Qt\ Designer\ of\ the\ Qt\ Toolkit.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{**}}
+\DoxyCodeLine{00007\ \textcolor{comment}{**\ This\ file\ may\ be\ used\ under\ the\ terms\ of\ the\ GNU\ General\ Public}}
+\DoxyCodeLine{00008\ \textcolor{comment}{**\ License\ version\ 2.0\ as\ published\ by\ the\ Free\ Software\ Foundation}}
+\DoxyCodeLine{00009\ \textcolor{comment}{**\ and\ appearing\ in\ the\ file\ LICENSE.GPL\ included\ in\ the\ packaging\ of}}
+\DoxyCodeLine{00010\ \textcolor{comment}{**\ this\ file.\ \ Please\ review\ the\ following\ information\ to\ ensure\ GNU}}
+\DoxyCodeLine{00011\ \textcolor{comment}{**\ General\ Public\ Licensing\ requirements\ will\ be\ met:}}
+\DoxyCodeLine{00012\ \textcolor{comment}{**\ http://www.trolltech.com/products/qt/opensource.html}}
+\DoxyCodeLine{00013\ \textcolor{comment}{**}}
+\DoxyCodeLine{00014\ \textcolor{comment}{**\ If\ you\ are\ unsure\ which\ license\ is\ appropriate\ for\ your\ use,\ please}}
+\DoxyCodeLine{00015\ \textcolor{comment}{**\ review\ the\ following\ information:}}
+\DoxyCodeLine{00016\ \textcolor{comment}{**\ http://www.trolltech.com/products/qt/licensing.html\ or\ contact\ the}}
+\DoxyCodeLine{00017\ \textcolor{comment}{**\ sales\ department\ at\ sales@trolltech.com.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{**}}
+\DoxyCodeLine{00019\ \textcolor{comment}{**\ This\ file\ is\ provided\ AS\ IS\ with\ NO\ WARRANTY\ OF\ ANY\ KIND,\ INCLUDING\ THE}}
+\DoxyCodeLine{00020\ \textcolor{comment}{**\ WARRANTY\ OF\ DESIGN,\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{**}}
+\DoxyCodeLine{00022\ \textcolor{comment}{****************************************************************************/}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#ifndef\ CUIMGPLUGIN\_EDITSOURCEDIALOG\_H}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ CUIMGPLUGIN\_EDITSOURCEDIALOG\_H}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}ui\_editsourcedialog.h"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }EditSourceDialog:\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ EditSourceDialog(QWidget\ *\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~EditSourceDialog();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ Ui::EditSourceDialog\ ui;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ QString\ source()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ setSource(\textcolor{keyword}{const}\ QString\&\ s);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ accept();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ checkSource();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ QString\ message();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{protected}\ slots:}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ addSrcTab();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ QString\ m\_message;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_multiSource;}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CUIMGPLUGIN\_EDITSOURCEDIALOG\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,108 @@
+\doxysection{qgraphicsplotplugin.\+h}
+\label{qgraphicsplotplugin_8h_source}\index{qgraphicsplotplugin.h@{qgraphicsplotplugin.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ QGRAPHICSPLOTPLUGINCUSTOMWIDGETINTERFACE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ QGRAPHICSPLOTPLUGINCUSTOMWIDGETINTERFACE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#if\ QT\_VERSION\ >=\ 0x050500}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <QtUiPlugin/QDesignerCustomWidgetInterface>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <QtDesigner/QDesignerCustomWidgetInterface>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }QGraphicsPlotPluginCustomWidgetInterface\ :}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ QObject,}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ QDesignerCustomWidgetInterface}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00016\ \ \ \ \ Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ QGraphicsPlotPluginCustomWidgetInterface(QObject\ *parent\ =\ 0);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isContainer()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isInitialized()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ d\_isInitialized;\ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ QIcon\ icon()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ d\_icon;\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ QString\ codeTemplate()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ d\_codeTemplate;\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ QString\ domXml()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ d\_domXml;\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ QString\ group()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}QGraphicsPlot"{}};\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ QString\ includeFile()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ d\_include;\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ QString\ name()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ d\_name;\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ QString\ toolTip()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ d\_toolTip;\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ QString\ whatsThis()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ d\_whatsThis;\ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ initialize(QDesignerFormEditorInterface\ *);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00035\ \ \ \ \ QString\ d\_name;}
+\DoxyCodeLine{00036\ \ \ \ \ QString\ d\_include;}
+\DoxyCodeLine{00037\ \ \ \ \ QString\ d\_toolTip;}
+\DoxyCodeLine{00038\ \ \ \ \ QString\ d\_whatsThis;}
+\DoxyCodeLine{00039\ \ \ \ \ QString\ d\_domXml;}
+\DoxyCodeLine{00040\ \ \ \ \ QString\ d\_codeTemplate;}
+\DoxyCodeLine{00041\ \ \ \ \ QIcon\ d\_icon;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ d\_isInitialized;}
+\DoxyCodeLine{00045\ signals:}
+\DoxyCodeLine{00046\ \ \ \ \ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00048\ \ \ \ \ }
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{class\ }CustomWidgetCollectionInterface:\ \textcolor{keyword}{public}\ QObject,\ \textcolor{keyword}{public}\ QDesignerCustomWidgetCollectionInterface}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00055\ \ \ \ \ Q\_INTERFACES(QDesignerCustomWidgetCollectionInterface)}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#if\ QT\_VERSION\ >=\ 0x050000}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ Q\_PLUGIN\_METADATA(IID\ \textcolor{stringliteral}{"{}org.qt-\/project.Qt.QDesignerCustomWidgetCollectionInterface"{}})}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00062\ \ \ \ \ CustomWidgetCollectionInterface(QObject\ *parent\ =\ NULL);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{virtual}\ QList<QDesignerCustomWidgetInterface*>\ customWidgets()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00067\ \ \ \ \ QList<QDesignerCustomWidgetInterface*>\ d\_plugins;}
+\DoxyCodeLine{00068\ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{class\ }ExternalHorizontalScaleWidgetPlugin\ :\ \textcolor{keyword}{public}\ QGraphicsPlotPluginCustomWidgetInterface}
+\DoxyCodeLine{00071\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00073\ \ \ \ \ Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00076\ \ \ \ \ ExternalHorizontalScaleWidgetPlugin(QObject\ *parent);}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{virtual}\ QWidget\ *createWidget(QWidget\ *parent);}
+\DoxyCodeLine{00078\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{class\ }ExternalVerticalScaleWidgetPlugin\ :\ \textcolor{keyword}{public}\ QGraphicsPlotPluginCustomWidgetInterface}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00083\ \ \ \ \ Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00086\ \ \ \ \ ExternalVerticalScaleWidgetPlugin(QObject\ *parent);}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{virtual}\ QWidget\ *createWidget(QWidget\ *parent);}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{class\ }PlotSceneWidgetPlugin:\ \textcolor{keyword}{public}\ QGraphicsPlotPluginCustomWidgetInterface}
+\DoxyCodeLine{00091\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00093\ \ \ \ \ Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00096\ \ \ \ \ PlotSceneWidgetPlugin(QObject\ *parent);}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ QWidget\ *createWidget(QWidget\ *parent);}
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ QGRAPHICSPLOTPLUGINCUSTOMWIDGETINTERFACE\_H}}
+
+\end{DoxyCode}
