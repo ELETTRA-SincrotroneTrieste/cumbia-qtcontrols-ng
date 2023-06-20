@@ -4,6 +4,10 @@ The new generation of *cumbia controls* focuses on the design of *high level sof
 components for custom-tailored data visualization as well as for synoptic applications
 
 
+## architecture
+
+![architecture diagram for cumbia-qtcontrols-ng components.](artwork/class-diagram.png)
+
 
 Circular plots draw curves along a circular x axis and a radial y axis.
 A QuCircularPlotEngine is used to store plot data and draw its contents.

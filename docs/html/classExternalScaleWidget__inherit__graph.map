@@ -1,8 +1,0 @@
-<map id="ExternalScaleWidget" name="ExternalScaleWidget">
-<area shape="rect" id="node1" title="A widget to configure and draw a scale external to a PlotSceneWidget or any other scroll area whose c..." alt="" coords="99,80,243,107"/>
-<area shape="rect" id="node5" href="$classHorizontalScaleWidget.html" title="Convenience class that creates a horizontal scale." alt="" coords="8,155,163,181"/>
-<area shape="rect" id="node6" href="$classVerticalScaleWidget.html" title="Convenience class that creates a vertical scale." alt="" coords="187,155,325,181"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,78,32"/>
-<area shape="rect" id="node3" href="$classAxisChangeListener.html" title="A listener for axis change events." alt="" coords="102,5,240,32"/>
-<area shape="rect" id="node4" href="$classPlotGeometryEventListener.html" title="This is an interface that you can subclass to be notified when the plot rect changes." alt="" coords="264,5,446,32"/>
-</map>

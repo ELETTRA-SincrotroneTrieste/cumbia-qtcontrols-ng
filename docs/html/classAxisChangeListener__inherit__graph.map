@@ -1,9 +1,0 @@
-<map id="AxisChangeListener" name="AxisChangeListener">
-<area shape="rect" id="node1" title="A listener for axis change events." alt="" coords="325,5,464,32"/>
-<area shape="rect" id="node2" href="$classExternalScaleWidget.html" title="A widget to configure and draw a scale external to a PlotSceneWidget or any other scroll area whose c..." alt="" coords="96,80,240,107"/>
-<area shape="rect" id="node5" href="$classQGraphicsZoomer.html" title=" " alt="" coords="264,80,392,107"/>
-<area shape="rect" id="node6" href="$classSceneCurve.html" title=" " alt="" coords="416,80,509,107"/>
-<area shape="rect" id="node7" href="$classTargetItem.html" title="A QGraphicsObject that can be moved and can be attached to a writer in order to write a value accordi..." alt="" coords="533,80,616,107"/>
-<area shape="rect" id="node3" href="$classHorizontalScaleWidget.html" title="Convenience class that creates a horizontal scale." alt="" coords="5,155,160,181"/>
-<area shape="rect" id="node4" href="$classVerticalScaleWidget.html" title="Convenience class that creates a vertical scale." alt="" coords="184,155,322,181"/>
-</map>

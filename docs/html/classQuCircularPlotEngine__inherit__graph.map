@@ -1,5 +1,0 @@
-<map id="QuCircularPlotEngine" name="QuCircularPlotEngine">
-<area shape="rect" id="node1" title="Engine shared by either QuCircularPlotItem or QuCircularPlotWidget that stores configuration and does..." alt="" coords="43,80,189,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,75,32"/>
-<area shape="rect" id="node3" href="$classQuCircularPlotCurveListener.html" title=" " alt="" coords="98,5,286,32"/>
-</map>

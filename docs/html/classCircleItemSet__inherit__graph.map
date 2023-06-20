@@ -1,5 +1,0 @@
-<map id="CircleItemSet" name="CircleItemSet">
-<area shape="rect" id="node1" title=" " alt="" coords="53,80,155,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,75,32"/>
-<area shape="rect" id="node3" href="$classItemPainterInterface.html" title="A class that can be installed in a CurveItem which is delegated to drawing." alt="" coords="98,5,238,32"/>
-</map>

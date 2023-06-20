@@ -1,4 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classOOBDistort.html" title="The OOBDistort class linearly distorts (no distortion) x and y when out of bounds." alt="" coords="5,5,95,32"/>
-<area shape="rect" id="node2" href="$classOOBLogDistort.html" title="Applies a logarithmic distortion to x and y values when they are out of bounds." alt="" coords="143,5,253,32"/>
-</map>

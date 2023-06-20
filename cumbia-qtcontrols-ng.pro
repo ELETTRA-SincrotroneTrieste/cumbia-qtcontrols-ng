@@ -184,7 +184,7 @@ unix {
     doxygen \
     Doxyfile;
 
-    doc.files = doc/*
+    doc.files = docs/*
     doc.path = $${CUMBIA_QTCONTROLS_NG_DOCDIR}
     QMAKE_EXTRA_TARGETS += doc
 

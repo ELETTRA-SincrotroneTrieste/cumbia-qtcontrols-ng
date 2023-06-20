@@ -1,4 +1,0 @@
-<map id="OOBLogDistort" name="OOBLogDistort">
-<area shape="rect" id="node1" title="Applies a logarithmic distortion to x and y values when they are out of bounds." alt="" coords="5,80,116,107"/>
-<area shape="rect" id="node2" href="$classOOBDistort.html" title="The OOBDistort class linearly distorts (no distortion) x and y when out of bounds." alt="" coords="16,5,105,32"/>
-</map>

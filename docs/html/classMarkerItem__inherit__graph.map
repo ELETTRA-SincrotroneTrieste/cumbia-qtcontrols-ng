@@ -1,5 +1,0 @@
-<map id="MarkerItem" name="MarkerItem">
-<area shape="rect" id="node1" title="When a mouse click event takes place into the plot, the closest point on the closest curve is marked ..." alt="" coords="100,80,187,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,127,32"/>
-<area shape="rect" id="node3" href="$classMouseEventListener.html" title="an abstract class that can be used to be notified when a mouse event takes place" alt="" coords="151,5,291,32"/>
-</map>
