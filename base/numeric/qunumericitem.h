@@ -5,6 +5,12 @@
 
 class QuNumericI_P;
 
+/*!
+ * \brief The QuNumericI is a QGraphicsObject that can be used to set a scalar value on a target
+ *
+ * \image html qunumeric-1.png "A QuNumericI (right) alongside a QuNumericW (its widget counterpart, left)."
+ * \image latex qunumeric-1.png "A QuNumericI (right) alongside a QuNumericW (its widget counterpart, left). width=10cm
+ */
 class QuNumericI : public QGraphicsObject
 {
     Q_OBJECT
