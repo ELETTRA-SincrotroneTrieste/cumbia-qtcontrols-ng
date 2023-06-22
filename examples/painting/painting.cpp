@@ -17,6 +17,7 @@ ZoomW::ZoomW(QWidget *parent)
     : QWidget(parent)
 {
     m_zoom_ev = new QuZoomEvents(this); // event filter
+    installEventFilter(m_zoom_ev);
     m_zoomer = new QuZoomer(this);
     connect(m_zoom_ev, SIGNAL(zoomRectChanged(QRectF)), m_zoomer, SLOT(setZoomRect(QRectF)));
     connect(m_zoom_ev, SIGNAL(moveRect(QPointF,QPointF)), m_zoomer, SLOT(moveZoom(QPointF,QPointF)));
