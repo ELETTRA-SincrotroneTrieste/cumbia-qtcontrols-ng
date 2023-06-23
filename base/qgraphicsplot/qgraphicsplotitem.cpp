@@ -1152,11 +1152,11 @@ void QGraphicsPlotItem::paint(QPainter *painter, const QStyleOptionGraphicsItem 
         painter->setPen(zoomAreaPen);
         painter->drawRect(d->zoomArea);
     }
-    QPen p(Qt::darkYellow);
-    QBrush b(Qt::yellow);
-    painter->setBrush(b);
-    painter->setPen(p);
-    painter->drawRect(d->updateRect);
+//    QPen p(Qt::darkYellow);
+//    QBrush b(Qt::yellow);
+//    painter->setBrush(b);
+//    painter->setPen(p);
+//    painter->drawRect(d->updateRect);
     if(d->backgroundColor.isValid()) {
         painter->setBrush(QBrush(d->backgroundColor));
         painter->drawRect(d->plotRect);
