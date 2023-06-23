@@ -196,22 +196,6 @@ void CurveItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     }
     else
         perr("CurveItem::paint(): no item painters installed!");
-
-    #ifdef DEBUG_PAINT
-
-    {
-        painter->setPen(Qt::green);
-        painter->drawRect(boundingRect());
-            painter->setPen(Qt::darkBlue);
-            painter->drawEllipse(boundingRect().topLeft(), 5, 5);
-            painter->setPen(Qt::red);
-            painter->drawRect(option->exposedRect.toRect());
-    }
-
-
-//    painter->setPen(Qt::red);
-//    painter->drawRect(d_ptr->updateRectDelete);
-    #endif
 }
 
 

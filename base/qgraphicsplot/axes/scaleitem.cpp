@@ -1220,9 +1220,10 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         labelp = o_pos.second == 0 ? (-px0 - d->maxlabelw +rLeft - d->tickWidth/2.0) : -d->axisLabelDist- d->maxlabelw;
 
 
-        if(d->enabled)
+        if(d->enabled) {
             painter->setPen(axisPen);
-        painter->drawLine(px0, rTop , px0, rBottom);
+            painter->drawLine(px0, rTop , px0, rBottom);
+        }
 
         d->mLastTickPos = plota.height() - 1 - ((plota.height() - 1) * (y0 - y1) / (y2 - y1) + rTop);
 
