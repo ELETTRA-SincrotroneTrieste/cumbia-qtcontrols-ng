@@ -58,6 +58,11 @@ public:
       */
     int bufferSize() const;
 
+    double baseline() const;
+
+    QPointF baseline0() const;
+    QPointF baseline1() const;
+
     /** \brief the curve name
       *
       * Each curve has a name by means of which it is identified by the owning plot (PlotSceneWidget)
@@ -73,6 +78,8 @@ public:
     void setData(const QVector<double>& xData, const QVector<double> &yData);
 
     void setData(const QVector<double> &yData);
+
+    void setBaseline(double val);
 
     void installCurveChangeListener(CurveChangeListener *listener);
 

@@ -66,18 +66,15 @@ SOURCES += \
     base/qgraphicsplot/curve/itempositionchangelistener.cpp \
     base/qgraphicsplot/curve/painters/circleitemset.cpp \
     base/qgraphicsplot/curve/painters/dotspainter.cpp \
-    base/qgraphicsplot/curve/painters/dotspainterprivate.cpp \
     base/qgraphicsplot/curve/painters/histogrampainter.cpp \
     base/qgraphicsplot/curve/painters/histogrampainterprivate.cpp \
     base/qgraphicsplot/curve/painters/linepainter.cpp \
-    base/qgraphicsplot/curve/painters/linepainterprivate.cpp \
     base/qgraphicsplot/curve/painters/stepspainter.cpp \
     base/qgraphicsplot/curve/painters/stepspainterprivate.cpp \
     base/qgraphicsplot/curve/point.cpp \
     base/qgraphicsplot/curve/pointdata.cpp \
     base/qgraphicsplot/curve/pointprivate.cpp \
     base/qgraphicsplot/curve/scenecurve.cpp \
-    base/qgraphicsplot/curve/scenecurveprivate.cpp \
     base/qgraphicsplot/externalscalewidget.cpp \
     base/qgraphicsplot/horizontalscalewidget.cpp \
     base/qgraphicsplot/items/itemmovelistener.cpp \

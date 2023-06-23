@@ -18,7 +18,7 @@ class CurveItem;
 class SceneCurvePrivate
 {
 public:
-    SceneCurvePrivate();
+    SceneCurvePrivate() {}
 
     QGraphicsPlotItem *plot;
 
@@ -40,6 +40,10 @@ public:
     Data *data;
 
     double xub, xlb, yub, ylb, xextension, yextension;
+    // desired baseline y value (defaults to 0)
+    double baseline;
+    // points to draw the baseline
+    QPointF base_p0, base_p1;
 
     int lastValidXPos, lastValidYPos;
 

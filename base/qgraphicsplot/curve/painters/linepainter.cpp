@@ -41,10 +41,23 @@ void LinePainter::draw(SceneCurve *curve,
             painter->drawEllipse(points[i], 3, 2.5);
         }
     }
-    if(points && d_ptr->brush != QBrush()) {
-        if(painter->brush() != d_ptr->brush)
+    if(points && d_ptr->brush != QBrush() && dataSiz > 1) {
+        if(painter->brush() != d_ptr->brush) {
             painter->setBrush(d_ptr->brush);
-        painter->drawPolygon(points, dataSiz);
+        }
+        // calculate baseline coord
+        double baseline = curve->baseline0().y();
+        QPointF* polyp = new QPointF[2 + dataSiz];
+        polyp[0] = QPointF(points[0].x(), baseline);
+        memcpy(polyp + 1, points, sizeof(QPointF) * dataSiz);
+        polyp[dataSiz + 1] = QPointF(points[dataSiz - 1].x(), baseline);
+        painter->drawPolygon(polyp, dataSiz + 2, Qt::WindingFill);
+        delete [] polyp;
+        if(d_ptr->draw_baseline) {
+            QPen p(d_ptr->brush.color().darker());
+            painter->setPen(p);
+            painter->drawLine(curve->baseline0(), curve->baseline1());
+        }
     }
     else if(points) {
         painter->drawPolyline(points, dataSiz);
@@ -102,6 +115,10 @@ QPen LinePainter::pen() const
     return d_ptr->pen;
 }
 
+bool LinePainter::drawBaseline() const {
+    return d_ptr->draw_baseline;
+}
+
 void LinePainter::setLineColor(const QColor& c)
 
 {
@@ -123,4 +140,8 @@ void LinePainter::setLinePen(const QPen& p)
 
 void LinePainter::setFillArea(const QBrush &b) {
     d_ptr->brush = b;
+}
+
+void LinePainter::setDrawBaseline(bool dra) {
+    d_ptr->draw_baseline = dra;
 }

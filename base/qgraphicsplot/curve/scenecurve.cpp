@@ -167,6 +167,7 @@ SceneCurve::SceneCurve(QGraphicsPlotItem *sceneWidget,
     d_ptr->curveItem = NULL;
     /* by default buffer size is unlimited */
     d_ptr->bufferSize = -1;
+    d_ptr->baseline = 0.0;
 
     //   this->installCurveChangeListener(xAxis);
     //   this->installCurveChangeListener(yAxis);
@@ -217,6 +218,35 @@ void SceneCurve::setBufferSize(int size)
 int SceneCurve::bufferSize() const
 {
     return d_ptr->bufferSize;
+}
+
+/*!
+ * \brief returns the value of the base line
+ * The baseline is used when the area of the curve needs be filled
+ */
+double SceneCurve::baseline() const {
+    return d_ptr->baseline;
+}
+
+/*!
+ * \brief first point to draw the baseline
+ *
+ * To get the updated coordinates of the first point of the baseline, points first
+ *
+ * \return the baseline p0
+ */
+QPointF SceneCurve::baseline0() const {
+    return d_ptr->base_p0;
+}
+
+/*!
+ * \brief SceneCurve::baseline1 returns the end coordinate of the baseline
+ *
+ * The y coordinate is the same as baseline0 while the x coordinate is the end of the x axis
+ * \return the end point of the baseline
+ */
+QPointF SceneCurve::baseline1() const {
+    return d_ptr->base_p1;
 }
 
 void SceneCurve::removeCurveChangeListener(CurveChangeListener *listener)
@@ -475,10 +505,21 @@ void SceneCurve::setData(const QVector<double> &yData)
     }
 }
 
+/*!
+ * \brief SceneCurve::setBaseline
+ * Set the value of the baseline, needed for filling the curve with a brush or the Sticks drawing style.
+ * The default value is 0.0.
+ *
+ * \param val	Value of the baseline
+ *
+ */
+void SceneCurve::setBaseline(double val) {
+    d_ptr->baseline = val;
+}
+
 const QPointF *SceneCurve::points()
 {
     int siz = d_ptr->data->size();
-
     if(siz <= 0)
         return NULL;
 
@@ -487,7 +528,7 @@ const QPointF *SceneCurve::points()
         return d_ptr->mPoints.constData();
     }
 
-
+    double pxlb, pxub;
     int index;
     /* calls of points() between subsequend calls of setData/appendData do not need
          * to recalculate all the points. Data is not changed.
@@ -543,6 +584,11 @@ const QPointF *SceneCurve::points()
 
         d_ptr->mPoints[index] = QPointF(xp, yp);
     }
+    pxlb = /*(d_ptr->canvasRectW - 1) * (d_ptr->xlb - d_ptr->xlb) / (d_ptr->xextension)*/ + d_ptr->canvasRectLeft;
+    pxub = (d_ptr->canvasRectW - 1) * (d_ptr->xub - d_ptr->xlb) / (d_ptr->xextension) + d_ptr->canvasRectLeft;
+
+    d_ptr->base_p0 = QPointF(pxlb, d_ptr->canvasRectH - 1 - ((d_ptr->canvasRectH - 1) * (d_ptr->baseline - d_ptr->ylb) / (d_ptr->yextension) + d_ptr->canvasRectTop));
+    d_ptr->base_p1 = QPointF(pxub, d_ptr->base_p0.y());
     /* we made the data object calculate all the positions for its points.
          * From the curve point of view, all its points positions are determined
          * We mark the x and y scene coordinates positions valid.

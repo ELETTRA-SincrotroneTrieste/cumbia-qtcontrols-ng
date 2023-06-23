@@ -60,6 +60,14 @@ public:
      */
     QPen pen() const;
 
+    /*!
+     * \brief drawBaseline returns true if the baseline drawing is enabled
+     * \see setDrawBaseline
+     *
+     * \note for the baseline to be drawn, setFillArea must be called with a valid brush
+     */
+    bool drawBaseline() const;
+
 public slots:
 
     /** \brief changes the color of the lines
@@ -85,6 +93,13 @@ public slots:
     void setLinePen(const QPen& p);
 
     void setFillArea(const QBrush& b);
+
+    /*!
+     * \brief enable drawing the baseline if a valid brush is set with setFillArea
+     * \param dra true draw the baseline
+     * \param dra false do not draw the baseline
+     */
+    void setDrawBaseline(bool dra);
 
 private:
     Q_DECLARE_PRIVATE(LinePainter)
