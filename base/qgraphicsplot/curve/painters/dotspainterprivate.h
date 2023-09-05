@@ -8,8 +8,6 @@ class CurveItem;
 class DotsPainterPrivate
 {
 public:
-    DotsPainterPrivate();
-
     QPen pen;
 
     QBrush brush;
