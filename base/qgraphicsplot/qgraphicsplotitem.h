@@ -174,11 +174,14 @@ class  QGraphicsPlotItem : public QGraphicsObject, public XYPlotInterface {
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor)
 
 public:
+    enum ItemType { QGraphicsPlotItemType = QGraphicsItem::UserType + 122 };
     enum Axis { xBottom, yLeft, xTop, yRight, User = 100 };
 
     explicit QGraphicsPlotItem(QGraphicsItem *parent = nullptr);
     explicit QGraphicsPlotItem(bool initDefaultAxes,  QGraphicsItem *parent = nullptr);
     virtual ~QGraphicsPlotItem();
+
+    int type() const;
 
     bool xScaleEnabled() const;
     bool yScaleEnabled() const;

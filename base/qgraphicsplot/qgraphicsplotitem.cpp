@@ -176,6 +176,10 @@ QGraphicsPlotItem::~QGraphicsPlotItem() {
     delete d;
 }
 
+int QGraphicsPlotItem::type() const {
+    return static_cast<int>(QGraphicsPlotItemType);
+}
+
 void QGraphicsPlotItem::initPlot()
 {
     qRegisterMetaType<PointData>("PointData");

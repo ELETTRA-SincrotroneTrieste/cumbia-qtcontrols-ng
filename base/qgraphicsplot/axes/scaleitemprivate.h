@@ -32,7 +32,7 @@ public:
 
     QString axisLabelsFormat,  actualLabelsFormat, axisTitle;
 
-    bool gridEnabled, autoScale, enabled;
+    bool gridEnabled, autoScale, enabled, ticksEnabled;
 
     QColor gridColor, axisColor, axisTitleColor;
 
