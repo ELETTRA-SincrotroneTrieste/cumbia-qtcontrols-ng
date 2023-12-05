@@ -1231,8 +1231,6 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         if(d->enabled) {
             painter->setPen(axisPen);
             painter->drawLine(px0, rTop , px0, rBottom);
-            qDebug() << "rtop" << rTop << "rbottom" << rBottom
-                     << "plotA" << plota << "bounding rect" << boundingRect();
         }
 
 //        d->mLastTickPos = plota.height() - 1 - ((plota.height() - 1) * (y0 - y1) / (y2 - y1) + rTop);
