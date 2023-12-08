@@ -499,7 +499,7 @@ void ExternalScaleWidget::paintEvent(QPaintEvent *)
             if(d_ptr->scaleLabelInterface)
                 valueStr = d_ptr->scaleLabelInterface->label(val);
             else
-                valueStr = QString().sprintf(qstoc(format), val);
+                valueStr = QString::asprintf(qstoc(format), val);
 
             if(d_ptr->labelRotation != 0)
             {
@@ -575,7 +575,7 @@ void ExternalScaleWidget::paintEvent(QPaintEvent *)
             if(d_ptr->scaleLabelInterface)
                 valueStr = d_ptr->scaleLabelInterface->label(val);
             else
-                valueStr = QString().sprintf(qstoc(format), val);
+                valueStr = QString::asprintf(qstoc(format), val);
 
             p.drawText(txtx + d_ptr->labelDistFromTick, tick + fontHeight/2 + offset_align, valueStr);
         }
@@ -588,7 +588,7 @@ int ExternalScaleWidget::mCalculateLongestLabelWidth() const
     QFont f = this->font();
     QFontMetrics fm(f);
     if(d_ptr->scaleLabelInterface)
-        return fm.width(d_ptr->scaleLabelInterface->longestLabel());
+        return fm.horizontalAdvance(d_ptr->scaleLabelInterface->longestLabel());
 
     int maxlabelwidth;
     /* suppose that, for a given format, max and min values, it is enough
@@ -601,11 +601,11 @@ int ExternalScaleWidget::mCalculateLongestLabelWidth() const
         format = "%.1f";
     else
         format = d_ptr->format;
-    s = s.sprintf(qstoc(format), d_ptr->min);
-    maxlabelwidth = fm.width(s);
-    s = s.sprintf(qstoc(format), d_ptr->max);
-    if(maxlabelwidth < fm.width(s))
-        maxlabelwidth = fm.width(s);
+    s = QString::asprintf(qstoc(format), d_ptr->min);
+    maxlabelwidth = fm.horizontalAdvance(s);
+    s = QString::asprintf(qstoc(format), d_ptr->max);
+    if(maxlabelwidth < fm.horizontalAdvance(s))
+        maxlabelwidth = fm.horizontalAdvance(s);
 
     return maxlabelwidth + 3; /* little correction, just to be sure */
 }

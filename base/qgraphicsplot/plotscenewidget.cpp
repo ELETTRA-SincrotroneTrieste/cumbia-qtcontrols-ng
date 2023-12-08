@@ -2,7 +2,7 @@
 #include "qgraphicsplotitem.h"
 #include "scaleitem.h"
 #include <QApplication>
-#include <QGLWidget>
+#include <QOpenGLWidget>
 #include <QScrollBar>
 #include <QTimer>
 #include <QWheelEvent>
@@ -21,7 +21,7 @@ PlotSceneWidget::PlotSceneWidget(QWidget *parent, bool useGl) : QGraphicsView(pa
     if(useGl || qApp->arguments().contains("--use-gl"))
     {
         d->useGl = true;
-        QGLWidget *glWidget = new QGLWidget(QGLFormat(QGL::SampleBuffers));
+        QOpenGLWidget *glWidget = new QOpenGLWidget();
         glWidget->makeCurrent();
         this->setViewport(glWidget);
         setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
@@ -113,7 +113,7 @@ void PlotSceneWidget::wheelEvent(QWheelEvent *e)
             //        else
             {
                 float dx, dy;
-                int d = e->delta();
+                int d = e->angleDelta().y();
                 /* save the first value of m11 and m22 transform matrix */
 //                if(d_ptr->firstScrollM11 < 0)
 //                {
@@ -131,7 +131,11 @@ void PlotSceneWidget::wheelEvent(QWheelEvent *e)
                     dx = 1.0/1.25;
                     dy = 1.0/1.25;
                 }
+#if QT_VERSION >= QT_VERSION_CHECK(5,14,0)
+                this->centerOn(e->position());
+#else
                 this->centerOn(e->pos());
+#endif
                 scale(dx, dy);
             }
         }
@@ -146,11 +150,6 @@ void PlotSceneWidget::setPainterAntiAlias(bool en)
 bool PlotSceneWidget::painterAntiAlias() const
 {
     return this->renderHints() & QPainter::Antialiasing;
-}
-
-void PlotSceneWidget::setPainterHQGLAntiAlias(bool en)
-{
-    setRenderHint(QPainter::HighQualityAntialiasing, en);
 }
 
 void PlotSceneWidget::setSmoothPixmapTransform(bool enable)
@@ -176,11 +175,6 @@ void PlotSceneWidget::setScrollBarsEnabled(bool en)
         setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     }
-}
-
-bool PlotSceneWidget::painterHQGLAntiAlias() const
-{
-    return this->renderHints() & QPainter::HighQualityAntialiasing;
 }
 
 void PlotSceneWidget::scale(qreal sx, qreal sy)

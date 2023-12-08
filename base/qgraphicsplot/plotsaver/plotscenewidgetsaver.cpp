@@ -114,12 +114,12 @@ void OptionsDialog::updateXExample(const QString& format)
     if(mDateTimeFormat)
         findChild<QLabel *>("xFormatLabel")->setText(timestampToDateTimeString(xSample, format));
     else
-        findChild<QLabel *>("xFormatLabel")->setText(QString().sprintf(qstoc(format), xSample));
+        findChild<QLabel *>("xFormatLabel")->setText(QString::asprintf(qstoc(format), xSample));
 }
 
 void OptionsDialog::updateYExample(const QString& format)
 {
-    findChild<QLabel *>("yFormatLabel")->setText(QString().sprintf(qstoc(format), ySample));
+    findChild<QLabel *>("yFormatLabel")->setText(QString::asprintf(qstoc(format), ySample));
 }
 
 void OptionsDialog::setDateTimeFormatEnabled(bool en)
@@ -159,7 +159,7 @@ QString OptionsDialog::timestampToDateTimeString(double x, const QString& format
     /* tango timestamp has microseconds */
     double usecs = (x - floor(x)) * 1e6;
     int msecs = qRound(usecs/1000.0);
-    dt.setTime_t(floor(x));
+    dt.setSecsSinceEpoch(floor(x));
     dt = dt.addMSecs(msecs);
     return dt.toString(qstoc(format));
 }
@@ -181,7 +181,7 @@ bool PlotSceneWidgetSaver::save(const QList<SceneCurve *> curves, bool timeScale
         SceneCurve *firstCurve = curves.first();
         int dataSize = firstCurve->dataSize();
         /* choose a random value inside the first curve to provide a sample value for the options dialog */
-        int index = floor(qrand() / (float) RAND_MAX * dataSize);
+        int index = floor(rand() / (float) RAND_MAX * dataSize);
         QString xFormat = "%f", yFormat = "%g";
         bool dateTimeFormat = false; /* the default, as ever in qtango */
         QString header, line;
@@ -220,7 +220,7 @@ bool PlotSceneWidgetSaver::save(const QList<SceneCurve *> curves, bool timeScale
                     /* we have to find the curve with the greatest number of data inside: not all curves
            * might have the same data size and we do not want to miss any (x,y) data.
            */
-                    qSort(sizes.begin(), sizes.end());
+                    std::sort(sizes.begin(), sizes.end());
                     int maxSize = sizes.last(); /* here we have the maximum data size among all curves */
                     for(int i = 0; i < maxSize; i++)
                     {
@@ -235,9 +235,9 @@ bool PlotSceneWidgetSaver::save(const QList<SceneCurve *> curves, bool timeScale
                                 if(dateTimeFormat)
                                     xVal = optionsDialog.timestampToDateTimeString(x, xFormat);
                                 else
-                                    xVal.sprintf(qstoc(xFormat), x);
+                                    xVal = QString::asprintf(qstoc(xFormat), x);
 
-                                yVal.sprintf(qstoc(yFormat), jthCurve->data()->yData.at(i));
+                                yVal = QString::asprintf(qstoc(yFormat), jthCurve->data()->yData.at(i));
                                 line += QString("%1,%2,").arg(xVal).arg(yVal);
                             }
                             else

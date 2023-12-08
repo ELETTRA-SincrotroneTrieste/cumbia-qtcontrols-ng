@@ -401,7 +401,7 @@ void ScaleItem::mNotifyBoundsChanged()
  * @param t a QDateTime representing the lower bound of the scale.
  *
  * \note the QDateTime is converted into a double with the millisecond
- *       precision: t.toTime_t() + 0.001 * t.time().msec()
+ *       precision: t.toSecsSinceEpoch() + 0.001 * t.time().msec()
  *
  * \note This method is useful when your scale is a time scale.
  *
@@ -413,7 +413,7 @@ void ScaleItem::mNotifyBoundsChanged()
  */
 void ScaleItem::setLowerBoundDateTime(const QDateTime& t)
 {
-    setLowerBound(t.toTime_t() + 0.001 * t.time().msec());
+    setLowerBound(t.toSecsSinceEpoch() + 0.001 * t.time().msec());
 }
 
 /** \brief Sets the upper bound according to a given QDateTime timestamp.
@@ -430,14 +430,14 @@ void ScaleItem::setLowerBoundDateTime(const QDateTime& t)
  */
 void ScaleItem::setUpperBoundDateTime(const QDateTime& t)
 {
-    setUpperBound(t.toTime_t() + 0.001 * t.time().msec());
+    setUpperBound(t.toSecsSinceEpoch() + 0.001 * t.time().msec());
 }
 
 QDateTime ScaleItem::doubleToDateTime(double d) const
 {
     double ms = d - floor(d);
     QDateTime t;
-    t.setTime_t(floor(d));
+    t.setSecsSinceEpoch(floor(d));
     t = t.addMSecs(ms);
     return t;
 }

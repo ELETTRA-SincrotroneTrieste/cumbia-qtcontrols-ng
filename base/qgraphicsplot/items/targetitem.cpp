@@ -143,7 +143,7 @@ void TargetItem::paint(QPainter *painter,
 
         /* for bounding rect */
         d_ptr->textHeight = fm.height();
-        d_ptr->textWidth = fm.width(txt);
+        d_ptr->textWidth = fm.horizontalAdvance(txt);
     }
     else
     {
