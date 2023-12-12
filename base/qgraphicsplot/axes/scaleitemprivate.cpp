@@ -17,7 +17,7 @@ ScaleItemPrivate::ScaleItemPrivate()
 
     axisLabelsFormat = "";
 
-    gridEnabled = true;
+    gridEnabled = ticksEnabled = true;
     gridColor = QColor(218, 221, 224); /* KLIGHTGRAY */
     axisColor = Qt::black;
     axisTitleColor = QColor(9, 13, 21); /* KALMOSTBLACK */

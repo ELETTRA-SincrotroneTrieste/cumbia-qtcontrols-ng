@@ -47,6 +47,10 @@ unix:!android-g++ {
 
 QT       += widgets svg opengl
 
+greaterThan(QT_MAJOR_VERSION, 5) {
+    QT += openglwidgets
+}
+
 LIBS += -L$${INSTALL_ROOT}/lib -l$${cumbia_qtcontrols_ng_LIB}
 
 DISTFILES += \

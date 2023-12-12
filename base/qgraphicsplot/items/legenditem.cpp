@@ -83,7 +83,7 @@ void LegendItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     double y = pos().y();
     QFont f = painter->font();
     QFontMetrics fm(f);
-    d_ptr->width = fm.width(d_ptr->longestCurveName) + margin;
+    d_ptr->width = fm.horizontalAdvance(d_ptr->longestCurveName) + margin;
     d_ptr->height = 0;
     foreach(SceneCurve *sc, d_ptr->curves)
         if(sc->curveItem() && sc->curveItem()->isVisible())

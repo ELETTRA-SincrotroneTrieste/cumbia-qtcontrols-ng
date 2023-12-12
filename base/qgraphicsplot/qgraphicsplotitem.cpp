@@ -176,6 +176,10 @@ QGraphicsPlotItem::~QGraphicsPlotItem() {
     delete d;
 }
 
+int QGraphicsPlotItem::type() const {
+    return static_cast<int>(QGraphicsPlotItemType);
+}
+
 void QGraphicsPlotItem::initPlot()
 {
     qRegisterMetaType<PointData>("PointData");
@@ -1013,8 +1017,9 @@ void QGraphicsPlotItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
     else if(event->button() == Qt::LeftButton && event->modifiers() & Qt::ControlModifier)
         mSwitchAxesCurvesForeground();
-    else if(!(event->modifiers() & Qt::ShiftModifier))
+    else if(!(event->modifiers() & Qt::ShiftModifier)) {
         ; // setDragMode(QGraphicsView::ScrollHandDrag);
+    }
 
     foreach(MouseEventListener* l, d->mouseEventListeners)
         l->mousePressEvent(this, event);
@@ -1068,7 +1073,7 @@ void QGraphicsPlotItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         }
         //update(); /* shouldn't be necessary */
     }
-    if(event->button() == Qt::MidButton)
+    if(event->button() == Qt::MiddleButton)
     {
         if(d->mouseZoomEnabled)
         {
@@ -1145,7 +1150,9 @@ void QGraphicsPlotItem::update(const QRectF& area) {
     QGraphicsObject::update(area);
 }
 
-void QGraphicsPlotItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+void QGraphicsPlotItem::paint(QPainter *painter,
+                              const QStyleOptionGraphicsItem *,
+                              QWidget *) {
     if(d->zoomArea.isValid()) {
         QPen zoomAreaPen(Qt::gray);
         zoomAreaPen.setStyle(Qt::DashLine);

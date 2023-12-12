@@ -1,7 +1,5 @@
 #include "scaleitem.h"
 #include "scaleitemprivate.h"
-#include "curve/point.h"
-#include "curve/pointdata.h"
 #include "curve/scenecurve.h"
 #include "scalelabelinterface.h"
 #include "curve/curveitem.h"
@@ -42,8 +40,7 @@ ScaleItem::~ScaleItem() {
   *
   */
 ScaleItem::ScaleItem(Orientation o, QGraphicsPlotItem *parent, ScaleItem::Id id)
-    : QGraphicsObject(parent), PlotGeometryEventListener()
-{
+    : QGraphicsObject(parent), PlotGeometryEventListener() {
     d = new ScaleItemPrivate();
     d->orientation = o;
     d->axisId = id;
@@ -63,8 +60,7 @@ ScaleItem::ScaleItem(Orientation o, QGraphicsPlotItem *parent, ScaleItem::Id id)
     plotAreaW = parent->boundingRect().width();
     plotAreaH = parent->boundingRect().height();
     d->actualTickStepLen = updateStepLen();
-    if(o == Vertical)
-    {
+    if(o == Vertical) {
         d->axisTitleFont.setBold(true);
         d->axisTitleFont.setPointSizeF(d->axisTitleFont.pointSizeF() + 1);
         d->axisLabelRotation = 0.0;
@@ -80,7 +76,10 @@ ScaleItem::ScaleItem(Orientation o, QGraphicsPlotItem *parent, ScaleItem::Id id)
      * initialized from the current plot rect
      */
     d->plotRect = parent->boundingRect();
-    //    this->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
+}
+
+int ScaleItem::type() const {
+    return ScaleItemType;
 }
 
 /** \brief Install an AxisChangeListener in order to be notified when axis bounds change
@@ -402,7 +401,7 @@ void ScaleItem::mNotifyBoundsChanged()
  * @param t a QDateTime representing the lower bound of the scale.
  *
  * \note the QDateTime is converted into a double with the millisecond
- *       precision: t.toTime_t() + 0.001 * t.time().msec()
+ *       precision: t.toSecsSinceEpoch() + 0.001 * t.time().msec()
  *
  * \note This method is useful when your scale is a time scale.
  *
@@ -414,7 +413,7 @@ void ScaleItem::mNotifyBoundsChanged()
  */
 void ScaleItem::setLowerBoundDateTime(const QDateTime& t)
 {
-    setLowerBound(t.toTime_t() + 0.001 * t.time().msec());
+    setLowerBound(t.toSecsSinceEpoch() + 0.001 * t.time().msec());
 }
 
 /** \brief Sets the upper bound according to a given QDateTime timestamp.
@@ -431,14 +430,14 @@ void ScaleItem::setLowerBoundDateTime(const QDateTime& t)
  */
 void ScaleItem::setUpperBoundDateTime(const QDateTime& t)
 {
-    setUpperBound(t.toTime_t() + 0.001 * t.time().msec());
+    setUpperBound(t.toSecsSinceEpoch() + 0.001 * t.time().msec());
 }
 
 QDateTime ScaleItem::doubleToDateTime(double d) const
 {
     double ms = d - floor(d);
     QDateTime t;
-    t.setTime_t(floor(d));
+    t.setSecsSinceEpoch(floor(d));
     t = t.addMSecs(ms);
     return t;
 }
@@ -573,6 +572,10 @@ bool ScaleItem::axisLabelsEnabled() const
     return d->labelsEnabled;
 }
 
+bool ScaleItem::ticksEnabled() const {
+    return d->ticksEnabled;
+}
+
 void ScaleItem::setAxisLabelsRotation(double angle)
 {
     d->axisLabelRotation = angle;
@@ -593,6 +596,11 @@ void ScaleItem::setAxisLabelsFormat(const QString& fmt) {
 
 QString ScaleItem::axisLabelsFormat() const {
     return d->axisLabelsFormat;
+}
+
+void ScaleItem::setTicksEnabled(bool en) {
+    d->ticksEnabled = en;
+    update();
 }
 
 void ScaleItem::setGridEnabled(bool en) {
@@ -1046,7 +1054,10 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
     }
 
     tickStepLen = d->actualTickStepLen;
-
+    float maxLabelW = (d->labelsEnabled ? d->maxlabelw : 0.0);
+    float tickW = (d->ticksEnabled ? d->tickWidth : 0.0);
+    float labelMargin = d->labelsEnabled ? d->labelMargin : 0.0;
+    float axisLabelDist = d->labelsEnabled ? d->axisLabelDist : 0.0;
     /* if actual x and/or y labels format is not initialized, calculate it */
     if(d->actualLabelsFormat.isEmpty())
         updateLabelsFormat(d->axisLabelsFormat);
@@ -1059,8 +1070,8 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         y1 = associatedAxis->lowerBound();
         y2 = associatedAxis->upperBound();
 
-        xMaxLabelSpace = d->maxlabelw + d->tickWidth + d->labelMargin;
-        yMaxLabelSpace = associatedAxis->maxLabelWidth() + d->tickWidth/2.0;
+        xMaxLabelSpace = maxLabelW + tickW + labelMargin;
+        yMaxLabelSpace = d->labelsEnabled ? (associatedAxis->maxLabelWidth() + tickW / 2.0) : 0.0;
         break;
 
     default:
@@ -1069,24 +1080,21 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         y1 = d->lowerBound;
         y2 = d->upperBound;/* x tick len: if set to -1 then automatically choose 20 steps */
 
-        xMaxLabelSpace = associatedAxis->maxLabelWidth() + d->tickWidth + d->labelMargin;
-        yMaxLabelSpace = d->maxlabelw + d->tickWidth/2.0;
+        xMaxLabelSpace = d->labelsEnabled ? associatedAxis->maxLabelWidth()+ tickW + labelMargin : 0.0;
+        yMaxLabelSpace = maxLabelW + tickW / 2.0;
         break;
     }
-
-    //    if(fm.height() > plotAreaH / 8)
-    //        xMaxLabelSpace = 0;
-    //    if(d->maxLabelWidth > plotAreaW / 8)
-    //        yMaxLabelSpace = 0;
-
     if(x1 == x2 || y1 == y2)
         return;
 
     x0 = x1 + (x2 - x1) * o_pos.first;
     y0 = y1 + (y2 - y1) * o_pos.second;
 
-    px0 = (plota.width() - 1) * (x0 - x1) / (x2 - x1) + rLeft;
-    py0 = plota.height() - 1 - ((plota.height() - 1) * (y0 - y1) / (y2 - y1) + rTop);
+//    px0 = (plota.width() - 1) * (x0 - x1) / (x2 - x1) + rLeft;
+//    py0 = plota.height() - 1 - ((plota.height() - 1) * (y0 - y1) / (y2 - y1) + rTop);
+
+    px0 = plota.width() * (x0 - x1) / (x2 - x1) + rLeft;
+    py0 = plota.height() - (plota.height()  * (y0 - y1) / (y2 - y1) + rTop);
 
     if(d->enabled) {
         if(px0 - yMaxLabelSpace < rLeft ||
@@ -1112,17 +1120,18 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
             l->plotAreaChanged(plota);
         d->plotArea = plota;
     }
+
     plotAreaW = plota.width();
     plotAreaH = plota.height();
 
     switch(d->orientation)
     {
     case ScaleItem::Horizontal:
-        py0 = plota.height() - 1 - ((plota.height() - 1) * (y0 - y1) / (y2 - y1) + rTop);
-        labelp = o_pos.first == 0 ? (rBottom - py0 + d->tickWidth/2.0 + d->labelMargin) : d->axisLabelDist;
+//        py0 = plota.height() - 1 - ((plota.height() - 1) * (y0 - y1) / (y2 - y1) + rTop);
+        py0 = plota.height() - ((plota.height()) * (y0 - y1) / (y2 - y1) + rTop);
+        labelp = o_pos.first == 0 ? (rBottom - py0 + tickW/2.0 + labelMargin) : axisLabelDist;
         painter->setPen(d->enabled ? axisPen : gridPen);
         painter->drawLine(rLeft, py0 , rRight, py0);
-
         /* draw ticks starting from origin */
         d->mLastTickPos = (plota.height() - 1) * (x0 - x1) / (x2 - x1) + rLeft;
 
@@ -1142,7 +1151,7 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
                 {
                     if(d->enabled) {
                         painter->setPen(axisPen);
-                        txtRect.setRect(0, 0, d->maxlabelw, labelHeight);
+                        txtRect.setRect(0, 0, maxLabelW, labelHeight);
                         painter->translate(px + labelHeight/2, labelp + py0);
                         painter->rotate(d->axisLabelRotation);
                         painter->drawText(txtRect, textLabel);
@@ -1152,9 +1161,9 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
                     d->mLastTickPos = px;
                 }
             }
-            if(d->enabled) {
+            if(d->enabled && d->ticksEnabled) {
                 painter->setPen(axisPen);
-                painter->drawLine(px, py0 - d->tickWidth/2.0, px, py0 + d->tickWidth/2.0);
+                painter->drawLine(px, py0 - tickW/2.0, px, py0 + tickW/2.0);
             }
             x = x + tickStepLen;
         }
@@ -1191,9 +1200,9 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
                 }
             }
             /* 3. draw ticks */
-            if(d->enabled) {
+            if(d->enabled && d->ticksEnabled) {
                 painter->setPen(axisPen);
-                painter->drawLine(px, py0 -d->tickWidth/2.0, px, py0 + d->tickWidth/2.0);
+                painter->drawLine(px, py0 -tickW/2.0, px, py0 + tickW/2.0);
             }
 
             x = x - tickStepLen;
@@ -1204,34 +1213,35 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         {
             painter->setFont(d->axisTitleFont);
             painter->setPen(QPen(d->axisTitleColor));
-            painter->drawText(rRight - d->mAxisTitleWidth - 4, py0 - d->tickWidth/2 - 1, d->axisTitle);
+            painter->drawText(rRight - d->mAxisTitleWidth - 4, py0 - tickW/2 - 1, d->axisTitle);
         }
         //        printf("\e[0m\n");
 
-        // painter->setPen(Qt::green);
-        //   painter->drawRect(boundingRect());
+//        painter->setPen(Qt::green);
+//          painter->drawRect(boundingRect());
 
         break;
 
     case Vertical:
     default:
-        px0 = (plota.width() - 1) * (x0 - x1) / (x2 - x1) + rLeft;
-
-        labelp = o_pos.second == 0 ? (-px0 - d->maxlabelw +rLeft - d->tickWidth/2.0) : -d->axisLabelDist- d->maxlabelw;
-
+//        px0 = (plota.width() - 1) * (x0 - x1) / (x2 - x1) + rLeft;
+        px0 = plota.width() * (x0 - x1) / (x2 - x1) + rLeft;
+        labelp = o_pos.second == 0 ? (-px0 - maxLabelW +rLeft - tickW/2.0) : -axisLabelDist - maxLabelW;
 
         if(d->enabled) {
             painter->setPen(axisPen);
             painter->drawLine(px0, rTop , px0, rBottom);
         }
 
-        d->mLastTickPos = plota.height() - 1 - ((plota.height() - 1) * (y0 - y1) / (y2 - y1) + rTop);
+//        d->mLastTickPos = plota.height() - 1 - ((plota.height() - 1) * (y0 - y1) / (y2 - y1) + rTop);
+        d->mLastTickPos = plota.height() -(plota.height() * (y0 - y1) / (y2 - y1) + rTop);
 
         /* draw ticks starting from origin */
         y = y0;
         while(y <= y2)
         {
-            py = (plota.height() - 1) - ((plota.height() - 1) * (y - y1) / (y2 - y1) + rTop);
+//            py = (plota.height() - 1) - ((plota.height() - 1) * (y - y1) / (y2 - y1) + rTop);
+            py = plota.height()  - (plota.height() * (y - y1) / (y2 - y1) + rTop);
 
             if(d->gridEnabled && y != y0 && d->enabled) /* y != y0 not to draw grid over axes */
             {
@@ -1239,15 +1249,15 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
                 painter->drawLine(rLeft, py, rRight, py);
             }
 
-            if(d->enabled) {
+            if(d->enabled && d->ticksEnabled) {
                 painter->setPen(axisPen);
-                painter->drawLine(px0 - d->tickWidth/2.0, py, px0 + d->tickWidth/2.0, py);
+                painter->drawLine(px0 - tickW/2.0, py, px0 + tickW/2.0, py);
             }
 
             if(d->labelsEnabled && xMaxLabelSpace > 0)
             {
                 textLabel = d->labelsCacheHash.value(y);
-                txtRect.setRect(labelp, -labelHeight/2, d->maxlabelw, fm.height());
+                txtRect.setRect(labelp, -labelHeight/2, maxLabelW, fm.height());
 
                 /* less than when  y positive, due to inverted Qt coordinate system for y axis */
                 if((py + fm.height() < d->mLastTickPos && py - fm.height()/2.0 >= 0) || y == y0)
@@ -1272,16 +1282,17 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
             /* y axis direction is inverted with respect to Qt coordinates system.
              * So sceneR.height() - ....
              */
-            py = plota.height() - 1 - ((plota.height() - 1) * (y - y1)/ (y2 - y1) + rTop);
+//            py = plota.height() - 1 - ((plota.height() - 1) * (y - y1)/ (y2 - y1) + rTop);
+           py = plota.height()  - ((plota.height() ) * (y - y1)/ (y2 - y1) + rTop);
 
             if(d->gridEnabled && d->enabled)   {
                 painter->setPen(gridPen);
                 painter->drawLine(rLeft, py, rRight, py);
             }
 
-            if(d->enabled) {
+            if(d->enabled  && d->ticksEnabled) {
                 painter->setPen(axisPen);
-                painter->drawLine(px0 - d->tickWidth/2.0, py, px0 + d->tickWidth/2.0, py);
+                painter->drawLine(px0 - tickW/2.0, py, px0 + tickW/2.0, py);
             }
 
             if(d->labelsEnabled && xMaxLabelSpace > 0) {
@@ -1309,7 +1320,7 @@ void ScaleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
             QPen axisTitlePen(d->axisTitleColor);
             axisTitlePen.setWidthF(0.0);
             painter->setPen(axisTitlePen);
-            painter->drawText(px0 + d->tickWidth/2.0 + 3, rTop + d->mAxisTitleHeight + 2,  d->axisTitle);
+            painter->drawText(px0 + tickW/2.0 + 3, rTop + d->mAxisTitleHeight + 2,  d->axisTitle);
         }
         //        painter->setPen(Qt::blue);
         //                QPen p = painter->pen();

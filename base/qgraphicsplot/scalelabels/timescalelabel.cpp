@@ -18,9 +18,9 @@ QString TimeScaleLabel::label(double value) const
 {
     QString ret;
     if(!d_ptr->showDate)
-        ret = QDateTime::fromTime_t(value).toString("hh:mm:ss");
+        ret = QDateTime::fromSecsSinceEpoch(value).toString("hh:mm:ss");
     else
-        ret = QDateTime::fromTime_t(value).toString("dd/MM hh:mm:ss");
+        ret = QDateTime::fromSecsSinceEpoch(value).toString("dd/MM hh:mm:ss");
     return ret;
 }
 

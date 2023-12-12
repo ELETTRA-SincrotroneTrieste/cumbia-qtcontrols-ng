@@ -13,7 +13,6 @@ class PlotSceneWidget : public QGraphicsView
     Q_OBJECT
 
     Q_PROPERTY(bool painterAntiAlias READ painterAntiAlias WRITE setPainterAntiAlias)
-    Q_PROPERTY(bool painterHQGLAntiAlias READ painterHQGLAntiAlias WRITE setPainterHQGLAntiAlias)
     Q_PROPERTY(bool smoothPixmapTransform READ smoothPixmapTransform WRITE setSmoothPixmapTransform)
     Q_PROPERTY(bool dontSavePainterState READ dontSavePainterState WRITE setDontSavePainterState)
     Q_PROPERTY(bool dontAdjustForAntialiasing READ dontAdjustForAntialiasing WRITE setDontAdjustForAntialiasing)
@@ -31,7 +30,6 @@ public:
 
     bool painterAntiAlias() const;
     bool smoothPixmapTransform() const;
-    bool painterHQGLAntiAlias() const;
     bool dontSavePainterState() const;
     bool dontAdjustForAntialiasing() const;
     bool cacheBackground() const;
@@ -49,7 +47,6 @@ public slots:
     void setDontSavePainterState(bool dont);
     void setDontAdjustForAntialiasing(bool dont);
     void setScrollBarsEnabled(bool en);
-    void setPainterHQGLAntiAlias(bool en);
     void setSmoothPixmapTransform(bool enable);
     void setPainterAntiAlias(bool en);
     void setCacheBackground(bool cache);

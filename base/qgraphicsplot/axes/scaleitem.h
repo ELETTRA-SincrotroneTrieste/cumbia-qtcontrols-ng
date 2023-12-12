@@ -69,13 +69,10 @@ Q_OBJECT
 
 public:
 
-    enum { Type = UserType + 2 };
+    enum GraphicsItemType { ScaleItemType = UserType + 2 };
 
     /* Enable the use of qgraphicsitem_cast with this item. */
-    virtual int type() const
-    {
-        return Type;
-    }
+    virtual int type() const;
 
     enum Orientation { Horizontal, Vertical };
 
@@ -107,6 +104,8 @@ public:
     bool gridEnabled() const;
 
     bool axisLabelsEnabled() const;
+
+    bool ticksEnabled() const;
 
     QColor gridColor() const;
 
@@ -181,51 +180,30 @@ public:
 public slots:
 
     void setTickStepLen(double len);
-
+    void setTicksEnabled(bool en);
     void setAxisLabelsEnabled(bool en);
-
     void setAxisLabelsRotation(double angle);
-
     void setAxisLabelsFormat(const QString& fmt);
-
     void setGridEnabled(bool en);
-
     void setGridColor(const QColor& c);
-
     void setAxisColor(const QColor& c);
-
     void setUpperBound(double ub);
-
     void setLowerBound(double lb);
-
     void setLowerBoundDateTime(const QDateTime& t);
-
     void setUpperBoundDateTime(const QDateTime& t);
-
     void setAxisAutoscaleEnabled(bool en);
-
     void setBounds(double lowerBound, double upperBound);
-
     bool setBoundsFromCurves();
-
     void setXlbAutoscaleMargin(double spanPercent);
     void setXubAutoscaleMargin(double spanPercent);
-
     void setYlbAutoscaleMargin(double spanPercent);
     void setYubAutoscaleMargin(double spanPercent);
-
     void setAxisLabelDist(double d);
-
     void setFont(const QFont& f);
-
     void setAxisTitleFont(const QFont &fo);
-
     void setAxisTitleColor(const QColor & co);
-
     void setAxisTitle(const QString & ti);
-
     void updateLabelsCache();
-
     void setVisible(bool visible);
 
 signals:
