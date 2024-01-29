@@ -177,7 +177,11 @@ void QuCircularPlotEngine::select(const QPointF &pt) {
     printf("\n");
     d.selection_ev->select(QRectF(closest.x() - a.geom.selection.aradius, closest.y() - a.geom.selection.aradius, 2 * a.geom.selection.aradius, 2 * a.geom.selection.aradius));
     emit selected(p);
+#if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
     emit closestPoint(QList<QuCircularPlotCurve *>(intersecting_crvs.begin(), intersecting_crvs.end()), idx, closest);
+#else
+    emit closestPoint(QList<QuCircularPlotCurve *>(intersecting_crvs.toList()), idx, closest);
+#endif
     emit dirty();
 }
 
