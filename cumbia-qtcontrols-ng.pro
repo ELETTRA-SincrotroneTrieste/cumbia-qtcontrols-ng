@@ -184,6 +184,7 @@ unix {
     doc.files = docs/*
     doc.path = $${CUMBIA_QTCONTROLS_NG_DOCDIR}
     QMAKE_EXTRA_TARGETS += doc
+    QMAKE_CXXFLAGS += -std=c++17
 
     inc.files = $${HEADERS}
     inc.path = $${CUMBIA_QTCONTROLS_NG_INCLUDES}
