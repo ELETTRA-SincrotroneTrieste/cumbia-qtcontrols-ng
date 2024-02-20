@@ -13,7 +13,7 @@ public:
     QuCircularPlotW_P(QWidget *o, const QFont& f) {
         QuCircularPlotCurveSelectionEvents *cse = new QuCircularPlotCurveSelectionEvents(o);
         QuZoomEvents *ze = new QuZoomEvents(o);
-        e = new QuCircularPlotEngine(o, f, new QuZoomer(o), cse, ze);
+        e = new QuCircularPlotEngine(o, f, QSize(100, 100), new QuZoomer(o), cse, ze);
         // circular plot engine takes the ownership of zoomer and zoom events
         o->installEventFilter(ze); // 2nd
         o->installEventFilter(cse); // activated first 1st
@@ -59,6 +59,7 @@ void QuCircularPlotW::paintEvent(QPaintEvent *event) {
 
 void QuCircularPlotW::resizeEvent(QResizeEvent *re) {
     QWidget::resizeEvent(re);
+    d->e->setSize(re->size());
     d->e->recalculateTxtFont();
 }
 

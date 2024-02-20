@@ -14,11 +14,10 @@
 
 class QuCircularPlotI_P {
 public:
-    QuCircularPlotI_P(QGraphicsObject *gobj, const QFont& f, const QSize& siz)
-        :  rect(0, 0, siz.width(), siz.height()) {
+    QuCircularPlotI_P(QGraphicsObject *gobj, const QFont& f, const QSize& siz) {
         QuCircularPlotCurveSelectionEvents *cse = new QuCircularPlotCurveSelectionEvents(gobj);
         QuZoomEvents *ze = new QuZoomEvents(gobj);
-        e = new QuCircularPlotEngine(gobj, f, new QuZoomer(gobj), cse, ze);
+        e = new QuCircularPlotEngine(gobj,f,  siz, new QuZoomer(gobj), cse, ze);
         // circular plot engine takes the ownership of zoomer and zoom events
         // If multiple event filters are installed on a single object, the filter that was installed last is activated first.
         gobj->installEventFilter(ze); // 2nd
@@ -28,7 +27,6 @@ public:
         delete e;
     }
     QuCircularPlotEngine *e;
-    QRectF rect;
 };
 
 QuCircularPlotI::QuCircularPlotI(QGraphicsItem *parent, const QSize &siz) : QGraphicsObject(parent) {

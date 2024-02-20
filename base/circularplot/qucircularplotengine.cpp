@@ -20,17 +20,23 @@
 
 
 QuCircularPlotEngineData::QuCircularPlotEngineData()
-    : bounding_r(0, 0, 100, 100), a0(0), a1(360.0),
+    : a0(0), a1(360.0),
     xmin(0.0), xmax(0.0), ymin(0.0), ymax(0.0) {
     maxdatasiz = 0;
 }
 
-QuCircularPlotEngine::QuCircularPlotEngine(QObject *parent, const QFont& f, QuZoomer *zoomer, QuCircularPlotCurveSelectionEvents* selev, QuZoomEvents *ze)
+QuCircularPlotEngine::QuCircularPlotEngine(QObject *parent,
+                                           const QFont& f,
+                                           const QSize &siz,
+                                           QuZoomer *zoomer,
+                                           QuCircularPlotCurveSelectionEvents* selev,
+                                           QuZoomEvents *ze)
     : QObject{parent}  {
     d.font = f;
     d.zoomer = zoomer;
     d.selection_ev = selev;
     d.zoom_ev = ze;
+    d.bounding_r = QRectF(0, 0, siz.width(), siz.height());
     a.geom.oob_distortion = new OOBLogDistort;
     connect(d.zoom_ev, SIGNAL(zoomRectChanged(QRectF)), d.zoomer, SLOT(setZoomRect(QRectF)));
     connect(d.zoom_ev, SIGNAL(moveRect(QPointF,QPointF)), d.zoomer, SLOT(moveZoom(QPointF,QPointF)));
@@ -433,7 +439,7 @@ void QuCircularPlotEngine::setFont(const QFont &f) {
 }
 
 QSizeF QuCircularPlotEngine::minimumSize()  {
-    return QSizeF(100,100);
+    return d.bounding_r.size();
 }
 
 void QuCircularPlotEngine::setOutOfBoundsTransform(OOBDistort *c) {
@@ -517,6 +523,14 @@ void QuCircularPlotEngine::addDrawable(QuCircularPlotDrawable_I *dra) {
 
 QList<QuCircularPlotDrawable_I *> QuCircularPlotEngine::drawables() const {
     return d.drawables.values();
+}
+
+void QuCircularPlotEngine::setSize(const QSizeF &s) {
+    d.bounding_r.setSize(s);
+}
+
+void QuCircularPlotEngine::setRect(const QRectF &r) {
+    d.bounding_r = r;
 }
 
 QRectF QuCircularPlotEngine::boundingRect() const {

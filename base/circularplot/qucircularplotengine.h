@@ -82,7 +82,12 @@ public:
     struct qucircularplot_attributes& att();
     struct qucircularplot_attributes& attributes() ;
 
-    explicit QuCircularPlotEngine(QObject *parent, const QFont &f, QuZoomer *zoomer, QuCircularPlotCurveSelectionEvents* selev, QuZoomEvents* ze);
+    explicit QuCircularPlotEngine(QObject *parent,
+                                  const QFont &f,
+                                  const QSize& siz,
+                                  QuZoomer *zoomer,
+                                  QuCircularPlotCurveSelectionEvents* selev,
+                                  QuZoomEvents* ze);
     virtual  ~QuCircularPlotEngine();
 
     QuCircularPlotCurve* addCurve(const QString& src);
@@ -125,6 +130,8 @@ public:
     void addDrawable(QuCircularPlotDrawable_I *dra);
     QList<QuCircularPlotDrawable_I *> drawables() const;
 
+    void setSize(const QSizeF& s);
+    void setRect(const QRectF& r);
     QRectF boundingRect() const;
 
 public slots:
