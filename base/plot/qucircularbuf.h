@@ -1,16 +1,16 @@
-#ifndef QUPLOTDATABUF_H
-#define QUPLOTDATABUF_H
+#ifndef QUCIRCULARBUF_H
+#define QUCIRCULARBUF_H
 
 #include <qwt_series_data.h>
 
 class QuPlotDataBufP;
 
 
-class QuPlotDataBuf : public QwtSeriesData< QPointF >
+class QuCircularBuf : public QwtSeriesData< QPointF >
 {
 public:
-    QuPlotDataBuf(size_t siz = 0);
-    virtual ~QuPlotDataBuf();
+    QuCircularBuf(size_t siz = 0);
+    virtual ~QuCircularBuf();
 
     void init(size_t bufsiz);
     double x0() const;
@@ -24,11 +24,6 @@ public:
 
     size_t resizebuf(size_t s);
     size_t bufsize() const;
-
-    void move(const std::vector<double>& y);
-    void move(const std::vector<double>& y, const std::vector<double> &x);
-    void set(const std::vector<double>& y);
-    void set(const std::vector<double>& x, const std::vector<double> &y);
 
     void append(double *xx, double *yy, size_t count);
     void append(double *yy, size_t count);
@@ -52,4 +47,4 @@ private:
     QuPlotDataBufP *d;
 };
 
-#endif // QUPLOTDATABUF_H
+#endif // QUCIRCULARBUF_H

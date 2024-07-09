@@ -55,6 +55,11 @@ SOURCES += \
     base/circularplot/qucircularplotwidget.cpp \
     base/circularplot/qucircularplotitem.cpp \
     \
+    base/plot/quarraybuf.cpp \
+    base/plot/quarrayplot.cpp \
+    base/plot/quarrayplotgl.cpp \
+    base/plot/qubufoptions.cpp \
+    base/plot/qucircularbuf.cpp \
     base/qgraphicsplot/axes/axesmanager.cpp \
     base/qgraphicsplot/axes/axiscouple.cpp \
     base/qgraphicsplot/axes/scaleitem.cpp \
@@ -121,6 +126,11 @@ HEADERS += \
     base/numeric/qunumericengine.h \
     base/numeric/qunumericitem.h \
     base/numeric/qunumericwidget.h \
+    base/plot/quarraybuf.h \
+    base/plot/quarrayplot.h \
+    base/plot/quarrayplotgl.h \
+    base/plot/qubufoptions.h \
+    base/plot/qucircularbuf.h \
     base/qgraphicsplot/axes/axesmanager.h \
     base/qgraphicsplot/axes/axiscouple.h \
     base/qgraphicsplot/axes/scaleitem.h \
@@ -218,7 +228,8 @@ CONFIG += create_pc create_prl no_install_prl
 INCLUDEPATH += base controls base/numeric base/circularplot controls/numeric \
     base/qgraphicsplot/axes base/qgraphicsplot/plotsaver base/qgraphicsplot/properties \
     base/qgraphicsplot/curve  base/qgraphicsplot/extscaleplotscenewidget \
-    base/qgraphicsplot/items  base/qgraphicsplot/
+    base/qgraphicsplot/items  base/qgraphicsplot/ \
+    base/plot
 
 # remove ourselves from -l (.pri)
 LIBS -= -l$${cumbia_qtcontrols_ng_LIB}

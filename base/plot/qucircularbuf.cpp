@@ -1,4 +1,4 @@
-#include "quplotdatabuf.h"
+#include "qucircularbuf.h"
 #include <cumacros.h>
 
 class QuPlotDataBufP {
@@ -11,12 +11,12 @@ public:
     double yb[2];
 };
 
-QuPlotDataBuf::QuPlotDataBuf(size_t siz) {
+QuCircularBuf::QuCircularBuf(size_t siz) {
     d = new QuPlotDataBufP();
     init(siz);
 }
 
-QuPlotDataBuf::~QuPlotDataBuf() {
+QuCircularBuf::~QuCircularBuf() {
     delete d;
 }
 
@@ -24,30 +24,30 @@ QuPlotDataBuf::~QuPlotDataBuf() {
  * \brief intialize x with values from 0 to siz - 1, y with zeroes
  * \param siz the *buffer* size
  */
-void QuPlotDataBuf::init(size_t bufsiz) {
+void QuCircularBuf::init(size_t bufsiz) {
     y.resize(bufsiz, 0);
     d->bufsiz = bufsiz;
     d->datasiz = d->first = 0;
     d->yb[0] = 1.0; d->yb[1] = -1.0; // min > max forces initialization
 }
 
-double QuPlotDataBuf::x0() const {
+double QuCircularBuf::x0() const {
     return d->xax_auto ? d->first : p(0).x();
 }
 
-double QuPlotDataBuf::xN() const {
+double QuCircularBuf::xN() const {
     return d->datasiz > 0 ? p(d->datasiz - 1).x() : -1;
 }
 
-bool QuPlotDataBuf::x_auto() const {
+bool QuCircularBuf::x_auto() const {
     return d->xax_auto;
 }
 
-size_t QuPlotDataBuf::first() const {
+size_t QuCircularBuf::first() const {
     return d->first;
 }
 
-QPointF QuPlotDataBuf::p(size_t i) const {
+QPointF QuCircularBuf::p(size_t i) const {
     QPointF r(-1.0, -1.0);
     if(i >= d->datasiz)
         return r;
@@ -55,26 +55,26 @@ QPointF QuPlotDataBuf::p(size_t i) const {
     return QPointF(d->xax_auto ? i : x[idx], y[idx]);
 }
 
-double QuPlotDataBuf::py(size_t i) const {
+double QuCircularBuf::py(size_t i) const {
     if(i >= d->datasiz)
         return -1;
     size_t idx = (d->first + i) % d->bufsiz;
     return  y[idx];
 }
 
-size_t QuPlotDataBuf::size() const {
+size_t QuCircularBuf::size() const {
     return d->datasiz;
 }
 
-size_t QuPlotDataBuf::bufsize() const {
+size_t QuCircularBuf::bufsize() const {
     return d->bufsiz;
 }
 
-QPointF QuPlotDataBuf::sample(size_t i) const {
+QPointF QuCircularBuf::sample(size_t i) const {
     return d->xax_auto ?  QPointF(i, py(i)) : p(i);
 }
 
-QRectF QuPlotDataBuf::boundingRect() const {
+QRectF QuCircularBuf::boundingRect() const {
     double x0 = d->xb_auto ? (x.size() > 0 && d->datasiz > 0 ? x[0] : 0) : 0,
         y0 = d->yb[0] == d->yb[1] ? 0 : d->yb[0],
         w = d->xb_auto ? (x.size() > 0 && d->datasiz > 0 ? x[d->datasiz - 1] - x[0] : 1000) : 1000,
@@ -90,7 +90,7 @@ QRectF QuPlotDataBuf::boundingRect() const {
  *
  * \return new size - old size
  */
-size_t QuPlotDataBuf::resizebuf(size_t s) {
+size_t QuCircularBuf::resizebuf(size_t s) {
     size_t oldsiz(d->bufsiz);
     std::vector<double> X, Y;
     if(s >= d->bufsiz) {
@@ -127,95 +127,7 @@ size_t QuPlotDataBuf::resizebuf(size_t s) {
     return d->bufsiz - oldsiz;
 }
 
-/*! \brief move _y into internal data y
- * \param _y data to be moved using std::move
- *
- * \par Important note
- * Use *move* only when you intend to use QuPlotDataBuf as a spectrum data storage
- *
- * \note y is public and can be changed directly when you never intend to use
- *       QuPlotDataBuf as a circular buffer
- */
-void QuPlotDataBuf::move(const std::vector<double> &_y) {
-    y = std::move(_y);
-    if(d->datasiz != y.size())
-        d->datasiz = y.size();
-    if(d->bufsiz != d->datasiz)
-        d->bufsiz = d->datasiz;
-
-    if(d->yb_auto) { // must find min and max in yy
-        auto [a, b] = std::minmax_element(y.begin(), y.end());
-        d->yb[0] = *a.base();
-        d->yb[1] = *b.base();
-    }
-}
-
-void QuPlotDataBuf::move(const std::vector<double> &_x, const std::vector<double> &_y) {
-    if(_x.size() == _y.size()) {
-        x = std::move(_x);
-        if(!d->xax_auto)
-            d->xax_auto = true;
-        if(d->datasiz != y.size())
-            d->datasiz = y.size();
-        if(d->bufsiz != d->datasiz)
-            d->bufsiz = d->datasiz;
-
-        if(d->yb_auto) { // must find min and max in yy
-            auto [a, b] = std::minmax_element(y.begin(), y.end());
-            d->yb[0] = *a.base();
-            d->yb[1] = *b.base();
-        }
-    }
-}
-
-/*!
- * \brief copy _y into y
- * \param _y data to be copied
- *
- * \note  y is a public variable that can be directly set
- * \note xax_auto property is set to true when explicitly setting the y array
- */
-void QuPlotDataBuf::set(const std::vector<double> &_y) {
-    y = _y;
-    d->datasiz = d->bufsiz = y.size();
-    d->first = 0;
-    d->xax_auto = true;
-    if(d->yb_auto) { // must find min and max in yy
-        auto [a, b] = std::minmax_element(y.begin(), y.end());
-        d->yb[0] = *a.base();
-        d->yb[1] = *b.base();
-    }
-}
-
-/*!
- * \brief copy from xx and yy
- * \param xx source for the x data
- * \param yy source for the y data
- *
- * This method sets xax_auto to false: xx data shall be used as custom x axis coordinates
- * (e.g. timestamps). Resets datasiz and bufsiz to xx.size() (which shall be equal to yy.size()).
- * In case of xx and yy sizes mismatch, no operation shall be done
- *
- * To leave this method efficient and general purpose, in the case you want to initialize
- * x and y with xx and yy and then *append* new data, call set and then resize to the
- * desired total buffer size. Then append.
- */
-void QuPlotDataBuf::set(const std::vector<double> &xx, const std::vector<double> &yy) {
-    if(xx.size() == yy.size()) {
-        y = yy;
-        x = xx;
-        if(!d->xax_auto)  d->xax_auto = false;
-        if(d->first != 0) d->first = 0;
-        d->datasiz = d->bufsiz = x.size();
-        if(d->yb_auto) { // must find min and max in yy
-            auto [a, b] = std::minmax_element(yy.begin(), yy.end());
-            d->yb[0] = *a.base();
-            d->yb[1] = *b.base();
-        }
-    }
-}
-
-void QuPlotDataBuf::append(double *xx, double *yy, size_t count) {
+void QuCircularBuf::append(double *xx, double *yy, size_t count) {
     if(d->datasiz == 0)
         x.resize(y.size());
     size_t next = (d->first + d->datasiz) % d->bufsiz;
@@ -241,7 +153,7 @@ void QuPlotDataBuf::append(double *xx, double *yy, size_t count) {
     d->xax_auto = false;
 }
 
-void QuPlotDataBuf::append(double *yy, size_t count) {
+void QuCircularBuf::append(double *yy, size_t count) {
     if(d->xax_auto) {
         size_t next = (d->first + d->datasiz) % d->bufsiz;
         for(size_t i = 0; i < count; i++ ) {
@@ -277,7 +189,7 @@ void QuPlotDataBuf::append(double *yy, size_t count) {
  * \param yy pointer to data
  * \param count number of elements in yy
  */
-void QuPlotDataBuf::insert(size_t idx, double *yy, size_t count) {
+void QuCircularBuf::insert(size_t idx, double *yy, size_t count) {
     if(d->xax_auto) {
         if(idx > d->datasiz) idx = d->datasiz;
         if(idx < 0) idx = 0;
@@ -322,7 +234,7 @@ void QuPlotDataBuf::insert(size_t idx, double *yy, size_t count) {
     }
 }
 
-void QuPlotDataBuf::insert(size_t idx, double *xx, double *yy, size_t count)
+void QuCircularBuf::insert(size_t idx, double *xx, double *yy, size_t count)
 {
     if(!d->xax_auto) {
         if(idx > d->datasiz) idx = d->datasiz;
@@ -371,7 +283,7 @@ void QuPlotDataBuf::insert(size_t idx, double *xx, double *yy, size_t count)
     }
 }
 
-void QuPlotDataBuf::setBoundsAuto(bool x, bool y) {
+void QuCircularBuf::setBoundsAuto(bool x, bool y) {
     d->xb_auto = x;
     d->yb_auto = y;
     if(y) { // reset min > max to force first initialization
@@ -379,11 +291,11 @@ void QuPlotDataBuf::setBoundsAuto(bool x, bool y) {
     }
 }
 
-bool QuPlotDataBuf::xBoundsAuto() {
+bool QuCircularBuf::xBoundsAuto() {
     return d->xb_auto;
 }
 
-bool QuPlotDataBuf::yBoundsAuto() {
+bool QuCircularBuf::yBoundsAuto() {
     return d->yb_auto;
 }
 
