@@ -1,7 +1,7 @@
 #include "quarraybuf.h"
 #include "cumacros.h"
 
-QuArrayBuf::QuArrayBuf() {}
+QuArrayBuf::QuArrayBuf() : QwtSeriesData<QPointF>(), datasiz{0} {}
 
 
 size_t QuArrayBuf::size() const {
@@ -19,30 +19,30 @@ QRectF QuArrayBuf::boundingRect() const {
 }
 
 void QuArrayBuf::move(const std::vector<double> &ya) {
-    datasiz = ya.size();
+    const size_t &s = ya.size();
     y = std::move(ya);
-    m_bounds_calc(o.xb_auto, o.yb_auto);
+    m_bounds_calc(o.xb_auto, o.yb_auto, datasiz != s);
+    datasiz = s;
 }
 
 void QuArrayBuf::set(const std::vector<double> &ya) {
-    datasiz = ya.size();
+    const size_t &s = ya.size();
     y = ya;
-    m_bounds_calc(o.xb_auto, o.yb_auto);
-    if(o.yb_auto) { // must find min and max in yy
-        auto [a, b] = std::minmax_element(y.begin(), y.end());
-        o.ylb = *a.base();
-        o.yub = *b.base();
-    }
+    m_bounds_calc(o.xb_auto, o.yb_auto, datasiz != s); // inline
+    datasiz = ya.size();
 }
 
-void QuArrayBuf::m_bounds_calc(bool xa, bool ya) {
+inline void QuArrayBuf::m_bounds_calc(bool xa, bool ya, bool datasiz_changed) {
     if(ya) { // must find min and max in yy
         auto [a, b] = std::minmax_element(y.begin(), y.end());
         o.ylb = *a.base();
         o.yub = *b.base();
     }
-    if(xa && x.size() == datasiz) {
+    if(xa && x.size() == y.size()) {
         o.xlb = x[0];
         o.xub = x[datasiz - 1];
+    } else if(xa && datasiz_changed) {
+        o.xlb = 0;
+        o.xub = y.size() - 1;
     }
 }

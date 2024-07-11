@@ -17,13 +17,14 @@ public:
     void move(const std::vector<double>& y);
     void set(const std::vector<double>& y);
 
+    QuBuf_O o;
+
 private:
     std::vector<double> x, y;
     size_t datasiz;
-    QuBuf_O o;
 
 
-    inline void m_bounds_calc(bool xa, bool ya);
+    inline void m_bounds_calc(bool xa, bool ya, bool datasiz_changed);
 };
 
 #endif // QUARRAYBUF_H

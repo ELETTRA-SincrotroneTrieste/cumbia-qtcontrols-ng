@@ -60,6 +60,9 @@ SOURCES += \
     base/plot/quarrayplotgl.cpp \
     base/plot/qubufoptions.cpp \
     base/plot/qucircularbuf.cpp \
+    base/plot/qucurves.cpp \
+    base/plot/quplotdataconnector.cpp \
+    base/plot/quscalarplot.cpp \
     base/qgraphicsplot/axes/axesmanager.cpp \
     base/qgraphicsplot/axes/axiscouple.cpp \
     base/qgraphicsplot/axes/scaleitem.cpp \
@@ -131,6 +134,9 @@ HEADERS += \
     base/plot/quarrayplotgl.h \
     base/plot/qubufoptions.h \
     base/plot/qucircularbuf.h \
+    base/plot/qucurves.h \
+    base/plot/quplotdataconnector.h \
+    base/plot/quscalarplot.h \
     base/qgraphicsplot/axes/axesmanager.h \
     base/qgraphicsplot/axes/axiscouple.h \
     base/qgraphicsplot/axes/scaleitem.h \
@@ -187,13 +193,13 @@ HEADERS += \
 DISTFILES +=
 
 unix {
-    doc.commands = \
-    doxygen \
-    Doxyfile;
+  #  doc.commands = \
+   # doxygen \
+  #  Doxyfile;
 
-    doc.files = docs/*
-    doc.path = $${CUMBIA_QTCONTROLS_NG_DOCDIR}
-    QMAKE_EXTRA_TARGETS += doc
+  #  doc.files = docs/*
+  #  doc.path = $${CUMBIA_QTCONTROLS_NG_DOCDIR}
+  #  QMAKE_EXTRA_TARGETS += doc
     QMAKE_CXXFLAGS += -std=c++17
 
     inc.files = $${HEADERS}

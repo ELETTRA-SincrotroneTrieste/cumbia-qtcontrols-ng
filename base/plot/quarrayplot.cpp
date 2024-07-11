@@ -1,9 +1,13 @@
+#include "quarraybuf.h"
 #include "quarrayplot.h"
+#include "qucurves.h"
 #include <qwt_plot_opengl_canvas.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_grid.h>
 #include <qwt_scale_widget.h>
+#include <qwt_plot_curve.h>
 #include <qwt_plot_layout.h>
+#include <cumacros.h>
 
 class QuArrayPlotP {
 public:
@@ -11,11 +15,12 @@ public:
 
     bool opengl;
     QwtPlotGrid *grid;
+    QuCurves *curves;
 };
 
 QuArrayPlot::QuArrayPlot(QWidget *parent, bool opengl) : QwtPlot(parent) {
     d = new QuArrayPlotP(opengl);
-
+    d->curves = new QuCurves();
     if(opengl) {
         setCanvas( m_make_GL_canvas() );
     } else {
@@ -29,7 +34,40 @@ QuArrayPlot::QuArrayPlot(QWidget *parent, bool opengl) : QwtPlot(parent) {
 }
 
 QuArrayPlot::~QuArrayPlot() {
+    delete d->curves;
     delete d;
+}
+
+QwtPlotCurve *QuArrayPlot::addCurve(const std::string &name, const QPen &pen) {
+    QwtPlotCurve *c = nullptr;
+    if(!d->curves->map.contains(name)) {
+        // get a new curve with a default color if not specified
+        c = d->curves->get(name, pen);
+        c->attach(this);
+        QuArrayBuf* b = new QuArrayBuf();
+        c->setData(b);
+        pretty_pri("addCurve on curve %p with buf %p (data() returns buf %p)",
+                   c, b, static_cast<QuArrayBuf *>(c->data()));
+    }
+    return c;
+}
+
+void QuArrayPlot::setData(const std::string& name, const std::vector<double> &y) {
+    QwtPlotCurve *c = d->curves->get(name);
+    if(c) {
+        QuArrayBuf *buf = static_cast<QuArrayBuf *>(c->data());
+        pretty_pri("%s -> data siz %ld: y:[%.1f - %.1f] curve %p buf %p plot autoscale x %s, y %s",
+                   name.c_str(), y.size(), buf->o.ylb, buf->o.yub, c, buf,
+                   axisAutoScale(QwtPlot::xBottom) ? "YES" : "NO",
+                   axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
+
+        buf->move(y);
+        replot();
+    }
+}
+
+void QuArrayPlot::onError(const std::string &name, const std::string &msg) {
+
 }
 
 //
