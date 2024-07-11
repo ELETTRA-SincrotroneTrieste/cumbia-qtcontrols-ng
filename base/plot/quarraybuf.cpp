@@ -1,7 +1,9 @@
 #include "quarraybuf.h"
 #include "cumacros.h"
 
-QuArrayBuf::QuArrayBuf() : QwtSeriesData<QPointF>(), datasiz{0} {}
+QuArrayBuf::QuArrayBuf(bool xauto, bool yauto)
+    : QuBufBase(xauto, yauto), datasiz{0} {
+}
 
 
 size_t QuArrayBuf::size() const {

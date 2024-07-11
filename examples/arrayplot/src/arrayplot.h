@@ -21,6 +21,9 @@ public:
     explicit Arrayplot(CumbiaPool *cu_p, QWidget *parent = 0);
     ~Arrayplot();
 
+private slots:
+    void autoscaleChanged(bool a);
+
 private:
     Ui::Arrayplot *ui;
 

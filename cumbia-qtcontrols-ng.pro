@@ -58,10 +58,12 @@ SOURCES += \
     base/plot/quarraybuf.cpp \
     base/plot/quarrayplot.cpp \
     base/plot/quarrayplotgl.cpp \
+    base/plot/qubufbase.cpp \
     base/plot/qubufoptions.cpp \
     base/plot/qucircularbuf.cpp \
     base/plot/qucurves.cpp \
     base/plot/quplotdataconnector.cpp \
+    base/plot/quplotoptions.cpp \
     base/plot/quscalarplot.cpp \
     base/qgraphicsplot/axes/axesmanager.cpp \
     base/qgraphicsplot/axes/axiscouple.cpp \
@@ -132,10 +134,12 @@ HEADERS += \
     base/plot/quarraybuf.h \
     base/plot/quarrayplot.h \
     base/plot/quarrayplotgl.h \
+    base/plot/qubufbase.h \
     base/plot/qubufoptions.h \
     base/plot/qucircularbuf.h \
     base/plot/qucurves.h \
     base/plot/quplotdataconnector.h \
+    base/plot/quplotoptions.h \
     base/plot/quscalarplot.h \
     base/qgraphicsplot/axes/axesmanager.h \
     base/qgraphicsplot/axes/axiscouple.h \

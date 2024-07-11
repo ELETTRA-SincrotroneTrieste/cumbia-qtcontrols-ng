@@ -10,11 +10,15 @@ class QwtPlotCurve;
 
 class QuArrayPlot : public QwtPlot
 {
+    Q_OBJECT
 public:
     QuArrayPlot(QWidget *parent, bool opengl = false);
     virtual ~QuArrayPlot();
 
-    QwtPlotCurve *addCurve(const std::string& name, const QPen& pen = QPen());
+    QwtPlotCurve *addCurve(const std::string& name,
+                           QwtAxisId xAxis = QwtAxis::XBottom,
+                           QwtAxisId yAxis = QwtAxis::YLeft,
+                           const QPen& pen = QPen());
     virtual void setData(const std::string &name, const std::vector<double>& y);
     virtual void onError(const std::string&name, const std::string& msg);
 

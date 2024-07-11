@@ -7,6 +7,7 @@
 #include <qwt_scale_widget.h>
 #include <qwt_plot_curve.h>
 #include <qwt_plot_layout.h>
+#include <qwt_scale_engine.h>
 #include <cumacros.h>
 
 class QuArrayPlotP {
@@ -27,7 +28,9 @@ QuArrayPlot::QuArrayPlot(QWidget *parent, bool opengl) : QwtPlot(parent) {
         setCanvas(m_make_canvas());
     }
     m_align_scales();
-
+    int axes[4]{ xBottom, xTop, yLeft, yRight};
+    for(int axisId : axes )
+        axisScaleEngine(axisId)->setAttribute(QwtScaleEngine::Floating);
     // Insert grid
     d->grid = new QwtPlotGrid();
     d->grid->attach( this );
@@ -38,13 +41,18 @@ QuArrayPlot::~QuArrayPlot() {
     delete d;
 }
 
-QwtPlotCurve *QuArrayPlot::addCurve(const std::string &name, const QPen &pen) {
+QwtPlotCurve *QuArrayPlot::addCurve(const std::string &name,
+                                    QwtAxisId xAxis,
+                                    QwtAxisId yAxis,
+                                    const QPen &pen) {
     QwtPlotCurve *c = nullptr;
     if(!d->curves->map.contains(name)) {
         // get a new curve with a default color if not specified
         c = d->curves->get(name, pen);
         c->attach(this);
-        QuArrayBuf* b = new QuArrayBuf();
+        c->setAxes(xAxis, yAxis);
+        bool xa = axisAutoScale(xAxis), ya = axisAutoScale(yAxis);
+        QuArrayBuf* b = new QuArrayBuf(xa, ya);
         c->setData(b);
         pretty_pri("addCurve on curve %p with buf %p (data() returns buf %p)",
                    c, b, static_cast<QuArrayBuf *>(c->data()));

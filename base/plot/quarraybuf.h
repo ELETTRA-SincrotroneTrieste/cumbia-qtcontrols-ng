@@ -1,12 +1,12 @@
 #ifndef QUARRAYBUF_H
 #define QUARRAYBUF_H
-#include <qwt_series_data.h>
 #include <qubufoptions.h>
+#include <qubufbase.h>
 
-class QuArrayBuf : public QwtSeriesData< QPointF >
+class QuArrayBuf : public QuBufBase
 {
 public:
-    QuArrayBuf();
+    QuArrayBuf(bool xauto, bool yauto);
 
     // QwtSeriesData interface
 public:
@@ -16,8 +16,6 @@ public:
 
     void move(const std::vector<double>& y);
     void set(const std::vector<double>& y);
-
-    QuBuf_O o;
 
 private:
     std::vector<double> x, y;

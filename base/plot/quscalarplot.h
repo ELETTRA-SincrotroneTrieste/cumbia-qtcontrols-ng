@@ -5,6 +5,7 @@
 
 class QuScalarPlot : public QwtPlot
 {
+    Q_OBJECT
 public:
     QuScalarPlot(QWidget *p);
 };
