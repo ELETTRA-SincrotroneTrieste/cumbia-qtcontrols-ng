@@ -92,7 +92,6 @@ void QuPlotDataConnector::m_configure(const CuData &data) {
 }
 
 void QuPlotDataConnector::onUpdate(const CuData &data) {
-    pretty_pri("data %s - type %d", datos(data), d->type);
     const std::string& s = data.s(TTT::Src);
     bool err = data.b(TTT::Err);
     if(data.s(TTT::Type) == "property") {
@@ -107,8 +106,14 @@ void QuPlotDataConnector::onUpdate(const CuData &data) {
     }
     else if(err && d->type == Array) {
         d->plot.a->onError(s, data.s(TTT::Message));
+        emit newData(d->plot.a, data);
     }
     else if(err && d->type == Scalar) {
         // trend plot
+        emit newData(d->plot.s, data);
     }
+    if(data.s(TTT::Type) == "property" && d->type == Array)
+        emit configured(d->plot.a, data);
+    else if(data.s(TTT::Type) == "property" && d->type == Scalar)
+        emit configured(d->plot.s, data);
 }

@@ -3,6 +3,7 @@
 #include <qwt_plot.h>
 #include <qwt_plot_curve.h>
 #include <qwt_scale_div.h>
+#include <cumacros.h>
 
 QuPlotOptions::QuPlotOptions(QwtPlot *plot) : m_plot(plot) {
 
@@ -14,6 +15,7 @@ void QuPlotOptions::xauto(bool a) {
         QuBufBase *bb = static_cast<QuBufBase *>(static_cast<QwtPlotCurve *>(c)->data());
         bb->o.xauto(a);
     }
+    m_plot->replot();
 }
 
 void QuPlotOptions::yauto(bool a) {
@@ -22,6 +24,7 @@ void QuPlotOptions::yauto(bool a) {
         QuBufBase *bb = static_cast<QuBufBase *>(static_cast<QwtPlotCurve *>(c)->data());
         bb->o.yauto(a);
     }
+    m_plot->replot();
 }
 
 void QuPlotOptions::x2auto(bool a) {
@@ -30,6 +33,7 @@ void QuPlotOptions::x2auto(bool a) {
         QuBufBase *bb = static_cast<QuBufBase *>(static_cast<QwtPlotCurve *>(c)->data());
         bb->o.xauto(a);
     }
+    m_plot->replot();
 
 }
 
@@ -39,6 +43,7 @@ void QuPlotOptions::y2auto(bool a)  {
         QuBufBase *bb = static_cast<QuBufBase *>(static_cast<QwtPlotCurve *>(c)->data());
         bb->o.yauto(a);
     }
+    m_plot->replot();
 }
 
 bool QuPlotOptions::xauto() const {
@@ -60,66 +65,76 @@ bool QuPlotOptions::y2auto() const {
 void QuPlotOptions::xlo(double lo) {
     xauto(false);
     m_plot->setAxisScale(QwtPlot::xBottom, lo, m_plot->axisScaleDiv(QwtPlot::xBottom).upperBound());
+    m_plot->replot();
 }
 
 void QuPlotOptions::xup(double up) {
     m_plot->setAxisScale(QwtPlot::xBottom, m_plot->axisScaleDiv(QwtPlot::xBottom).lowerBound(), up);
+    m_plot->replot();
 }
 
 void QuPlotOptions::ylo(double lo) {
-    m_plot->setAxisScale(QwtPlot::yRight, lo, m_plot->axisScaleDiv(QwtPlot::yRight).lowerBound());
+    m_plot->setAxisScale(QwtPlot::yLeft, lo, m_plot->axisScaleDiv(QwtPlot::yLeft).lowerBound());
+    m_plot->replot();
 }
 
 void QuPlotOptions::yup(double up) {
-    m_plot->setAxisScale(QwtPlot::yRight, m_plot->axisScaleDiv(QwtPlot::yRight).lowerBound(), up);
+    m_plot->setAxisScale(QwtPlot::yLeft, m_plot->axisScaleDiv(QwtPlot::yLeft).lowerBound(), up);
+    m_plot->replot();
+    pretty_pri("plot bounds Y [%f, %f]", m_plot->axisScaleDiv(QwtPlot::yLeft).lowerBound(),
+               m_plot->axisScaleDiv(QwtPlot::yLeft).upperBound());
 }
 
 void QuPlotOptions::x2lo(double lo) {
     xauto(false);
     m_plot->setAxisScale(QwtPlot::xTop, lo, m_plot->axisScaleDiv(QwtPlot::xTop).upperBound());
+    m_plot->replot();
 }
 
 void QuPlotOptions::x2up(double up) {
     m_plot->setAxisScale(QwtPlot::xTop, m_plot->axisScaleDiv(QwtPlot::xTop).lowerBound(), up);
+    m_plot->replot();
 }
 
 void QuPlotOptions::y2lo(double lo) {
-    m_plot->setAxisScale(QwtPlot::yLeft, lo, m_plot->axisScaleDiv(QwtPlot::yLeft).lowerBound());
+    m_plot->setAxisScale(QwtPlot::yRight, lo, m_plot->axisScaleDiv(QwtPlot::yRight).lowerBound());
+    m_plot->replot();
 }
 
 void QuPlotOptions::y2up(double up) {
-    m_plot->setAxisScale(QwtPlot::yLeft, m_plot->axisScaleDiv(QwtPlot::yLeft).lowerBound(), up);
+    m_plot->setAxisScale(QwtPlot::yRight, m_plot->axisScaleDiv(QwtPlot::yRight).lowerBound(), up);
+    m_plot->replot();
 }
 
-bool QuPlotOptions::xlo() const {
+double QuPlotOptions::xlo() const {
     return m_plot->axisScaleDiv(QwtPlot::xBottom).lowerBound();
 }
 
-bool QuPlotOptions::xup() const {
+double QuPlotOptions::xup() const {
     return m_plot->axisScaleDiv(QwtPlot::xBottom).upperBound();
 }
 
-bool QuPlotOptions::ylo() const {
+double QuPlotOptions::ylo() const {
     return m_plot->axisScaleDiv(QwtPlot::yLeft).lowerBound();
 }
 
-bool QuPlotOptions::yup() const {
+double QuPlotOptions::yup() const {
     return m_plot->axisScaleDiv(QwtPlot::yLeft).upperBound();
 }
 
-bool QuPlotOptions::x2lo() const {
+double QuPlotOptions::x2lo() const {
     return m_plot->axisScaleDiv(QwtPlot::xTop).lowerBound();
 }
 
-bool QuPlotOptions::x2up() const {
+double QuPlotOptions::x2up() const {
     return m_plot->axisScaleDiv(QwtPlot::xTop).upperBound();
 }
 
-bool QuPlotOptions::y2lo() const {
+double QuPlotOptions::y2lo() const {
     return m_plot->axisScaleDiv(QwtPlot::yRight).lowerBound();
 }
 
-bool QuPlotOptions::y2up() const {
+double QuPlotOptions::y2up() const {
     return m_plot->axisScaleDiv(QwtPlot::yRight).upperBound();
 }
 

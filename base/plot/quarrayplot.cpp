@@ -57,6 +57,7 @@ QwtPlotCurve *QuArrayPlot::addCurve(const std::string &name,
         pretty_pri("addCurve on curve %p with buf %p (data() returns buf %p)",
                    c, b, static_cast<QuArrayBuf *>(c->data()));
     }
+    emit curveAdded(c);
     return c;
 }
 
@@ -64,18 +65,19 @@ void QuArrayPlot::setData(const std::string& name, const std::vector<double> &y)
     QwtPlotCurve *c = d->curves->get(name);
     if(c) {
         QuArrayBuf *buf = static_cast<QuArrayBuf *>(c->data());
-        pretty_pri("%s -> data siz %ld: y:[%.1f - %.1f] curve %p buf %p plot autoscale x %s, y %s",
-                   name.c_str(), y.size(), buf->o.ylb, buf->o.yub, c, buf,
-                   axisAutoScale(QwtPlot::xBottom) ? "YES" : "NO",
-                   axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
+        // pretty_pri("%s -> data siz %ld: y:[%.1f - %.1f] curve %p buf %p plot autoscale x %s, y %s",
+        //            name.c_str(), y.size(), buf->o.ylb, buf->o.yub, c, buf,
+        //            axisAutoScale(QwtPlot::xBottom) ? "YES" : "NO",
+        //            axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
 
         buf->move(y);
         replot();
+        emit dataUpdated(c);
     }
 }
 
 void QuArrayPlot::onError(const std::string &name, const std::string &msg) {
-
+    emit error(name, msg);
 }
 
 //

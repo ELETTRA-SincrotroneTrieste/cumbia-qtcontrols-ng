@@ -16,7 +16,6 @@ QPointF QuArrayBuf::sample(size_t i) const {
 }
 
 QRectF QuArrayBuf::boundingRect() const {
-    pretty_pri("rect (%.1f,%.1f %.1fx%.1f\n", o.xlb, o.ylb, o.xub - o.xlb, o.yub - o.ylb);
     return QRectF(o.xlb, o.ylb, o.xub - o.xlb, o.yub - o.ylb);
 }
 

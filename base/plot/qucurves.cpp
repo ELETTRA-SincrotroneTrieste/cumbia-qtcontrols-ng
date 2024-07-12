@@ -3,6 +3,7 @@
 #include <QColor>
 #include <qwt_plot_curve.h>
 #include <qwt_plot.h>
+#include <QtDebug>
 
 QuCurves::QuCurves() {
     pens = QVector<QPen> { QPen(QBrush("Blue"), 0),
@@ -27,6 +28,8 @@ QwtPlotCurve *QuCurves::get(const std::string &name, const QPen &p) {
         return c;
     c = new QwtPlotCurve(name.c_str());
     map[name] = c;
-    p.color().isValid() ? c->setPen(p) : c->setPen(pens.at(pens.size() % map.size()));
+    qDebug() << __PRETTY_FUNCTION__ << p.color() << "isValid" << p.color().isValid();
+    p.color().isValid() ? c->setPen(p) : c->setPen(pens.at(map.size() % pens.size()));
+    qDebug() << __PRETTY_FUNCTION__ << c->pen();
     return c;
 }

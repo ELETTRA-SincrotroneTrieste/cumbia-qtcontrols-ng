@@ -14,7 +14,7 @@ class QuCurves
 public:
     QuCurves();
 
-    QwtPlotCurve *get(const std::string& name, const QPen& p = QPen());
+    QwtPlotCurve *get(const std::string& name, const QPen& p = QPen(QColor()));
 
     QMap<std::string, QwtPlotCurve *> map;
     QVector<QPen> pens;

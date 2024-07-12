@@ -17,16 +17,16 @@ public:
     bool y2auto() const;
 
     // set xBottom and yLeft lower and upper
-    bool xlo() const;
-    bool xup() const;
-    bool ylo() const;
-    bool yup() const;
+    double xlo() const;
+    double xup() const;
+    double ylo() const;
+    double yup() const;
 
     // set xTop/yRights axis lower and upper
-    bool x2lo() const;
-    bool x2up() const;
-    bool y2lo() const;
-    bool y2up() const;
+    double x2lo() const;
+    double x2up() const;
+    double y2lo() const;
+    double y2up() const;
 
 public slots:
     void xauto(bool a);
