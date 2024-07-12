@@ -7,7 +7,11 @@
 #include <qulogimpl.h>
 #include <cucontrolsfactorypool.h>
 class CumbiaPool;
+class CuData;
 // cumbia
+
+class QwtPlot;
+class QwtPlotCurve;
 
 namespace Ui {
 class Arrayplot;
@@ -23,9 +27,16 @@ public:
 
 private slots:
     void autoscaleChanged(bool a);
+    void scaleChanged();
+    void srcConfigured(QwtPlot* p, const CuData &da);
+    void curvesSelectionChanged();
+    void moveCurveX();
+    void moveCurveY();
 
 private:
     Ui::Arrayplot *ui;
+
+    void m_axes_visibility();
 
     // cumbia
     CumbiaPool *cu_pool;
