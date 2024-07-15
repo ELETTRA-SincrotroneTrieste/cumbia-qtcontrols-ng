@@ -5,7 +5,7 @@
 #include <vector>
 #include <QPen>
 
-class QuArrayPlotP;
+class QuPlotP;
 class QwtPlotCurve;
 
 class QuArrayPlot : public QwtPlot
@@ -28,12 +28,8 @@ signals:
     void error(const std::string& name, const std::string& msg);
 
 private:
-    QWidget *m_make_GL_canvas();
-    QWidget *m_make_canvas();
-    void m_align_scales();
 
-
-    QuArrayPlotP *d;
+    QuPlotP *d;
 };
 
 #endif // QUARRAYPLOT_H

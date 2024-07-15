@@ -3,15 +3,12 @@
 
 class QuPlotDataBufP {
 public:
-    QuPlotDataBufP() : first(0),
-        xax_auto(true), xb_auto(false), yb_auto(false) {}
+    QuPlotDataBufP() : first(0), xax_auto(true) {}
     size_t bufsiz, first, datasiz;
     bool xax_auto; // x axis auto populate
-    bool xb_auto, yb_auto; // track x and y data bounds
-    double yb[2];
 };
 
-QuCircularBuf::QuCircularBuf(size_t siz) {
+QuCircularBuf::QuCircularBuf(bool xauto, bool yauto, size_t siz) : QuBufBase(xauto, yauto) {
     d = new QuPlotDataBufP();
     init(siz);
 }
@@ -28,7 +25,8 @@ void QuCircularBuf::init(size_t bufsiz) {
     y.resize(bufsiz, 0);
     d->bufsiz = bufsiz;
     d->datasiz = d->first = 0;
-    d->yb[0] = 1.0; d->yb[1] = -1.0; // min > max forces initialization
+    o.ylb = 1.0; o.yub = -1.0; // min > max forces initialization
+    o.xlb = 1.0; o.xub = -1.0;
 }
 
 double QuCircularBuf::x0() const {
@@ -62,6 +60,13 @@ double QuCircularBuf::py(size_t i) const {
     return  y[idx];
 }
 
+double QuCircularBuf::px(size_t i) const {
+    if(i >= d->datasiz)
+        return -1;
+    size_t idx = (d->first + i) % d->bufsiz;
+    return  d->xax_auto ? i : x[idx];
+}
+
 size_t QuCircularBuf::size() const {
     return d->datasiz;
 }
@@ -75,12 +80,36 @@ QPointF QuCircularBuf::sample(size_t i) const {
 }
 
 QRectF QuCircularBuf::boundingRect() const {
-    double x0 = d->xb_auto ? (x.size() > 0 && d->datasiz > 0 ? x[0] : 0) : 0,
-        y0 = d->yb[0] == d->yb[1] ? 0 : d->yb[0],
-        w = d->xb_auto ? (x.size() > 0 && d->datasiz > 0 ? x[d->datasiz - 1] - x[0] : 1000) : 1000,
-        h = d->yb[0] == d->yb[1] ? 1000 : d->yb[1] - d->yb[0];
+    double x0 = o.xlb > o.xub ? 0 : o.xlb,
+        y0 = o.ylb > o.yub ? 0 : o.ylb,
+        w = o.xlb > o.xub ? 1000 : o.xub - o.xlb,
+        h = o.ylb > o.yub ? 1000 : o.yub - o.ylb;
+
     pretty_pri("rect (%.1f,%.1f %.1fx%.1f\n", x0, y0 , w, h);
     return QRectF(x0, y0, w, h);
+}
+
+void QuCircularBuf::m_xub_calc() {
+    // width: extend past last x value to allow incremental painting
+    const size_t min_dsiz = 10, samples = 10;
+    if(d->datasiz > min_dsiz && o.xub < x[d->datasiz - 1]) {
+        // average the last 10 distances between subsequent x axis updates
+        double avg = 0;
+        int cnt = 0;
+        for(size_t i = d->datasiz - 1; i > d->datasiz - samples - 1; i--) {
+            avg += x[i] - x[i-1];
+            cnt++;
+        }
+        avg /= samples;
+        o.xlb = px(0);
+        double oldub = o.xub;
+        o.xub = px(d->datasiz - 1) + 10 * avg; // extend for about 10 next readings
+        pretty_pri("extending x axis: old upper %f new upper %f avg %f last %ld samples averaged %d ",
+                   oldub, o.xub, avg, samples, cnt);
+    } else if(d->datasiz < min_dsiz) {
+        o.xlb = px(0);
+        o.xub = px(d->datasiz - 1);
+    }
 }
 
 /*!
@@ -140,16 +169,18 @@ void QuCircularBuf::append(double *xx, double *yy, size_t count) {
             d->first = (d->first + 1) % d->bufsiz;
         next = (next + 1) % d->bufsiz;
 
-        if(d->yb_auto) {
-            if(d->yb[0] > d->yb[1])
-                d->yb[0] = d->yb[1] = yy[i];
-            else if(yy[i] < d->yb[0] )
-                d->yb[0] = yy[i];
-            else if(yy[i] > d->yb[1])
-                d->yb[1] = yy[i];
-            pretty_pri("\e[1;32myb %.1f  yub %.1f\e[0m", d->yb[0], d->yb[1]);
+        if(o.yb_auto) {
+            if(o.ylb > o.yub)
+                o.ylb = o.yub = yy[i];
+            else if(yy[i] < o.ylb )
+                o.ylb = yy[i];
+            else if(yy[i] > o.yub)
+                o.yub = yy[i];
+            pretty_pri("\e[1;32myb %.1f  yub %.1f\e[0m", o.ylb, o.yub);
         }
     }
+    if(o.xb_auto && d->datasiz > 0)
+        m_xub_calc();
     d->xax_auto = false;
 }
 
@@ -164,13 +195,13 @@ void QuCircularBuf::append(double *yy, size_t count) {
                 d->first = (d->first + 1) % d->bufsiz;
             next = (next + 1) % d->bufsiz;
             // update y bounds if necessary
-            if(d->yb_auto) {
-                if(d->yb[0] > d->yb[1])
-                    d->yb[0] = d->yb[1] = yy[i];
-                else if(yy[i] < d->yb[0] )
-                    d->yb[0] = yy[i];
-                else if(yy[i] > d->yb[1])
-                    d->yb[1] = yy[i];
+            if(o.yb_auto) {
+                if(o.ylb > o.yub)
+                    o.ylb = o.yub = yy[i];
+                else if(yy[i] < o.ylb )
+                    o.ylb = yy[i];
+                else if(yy[i] > o.yub)
+                    o.yub = yy[i];
             }
         }
     }
@@ -213,13 +244,13 @@ void QuCircularBuf::insert(size_t idx, double *yy, size_t count) {
                     d->first = (d->first + 1) % d->bufsiz;
                 next = (next + 1) % d->bufsiz;
                 // update y bounds if necessary
-                if(d->yb_auto) {
-                    if(d->yb[0] > d->yb[1])
-                        d->yb[0] = d->yb[1] = yy[i];
-                    else if(yy[i] < d->yb[0] )
-                        d->yb[0] = yy[i];
-                    else if(yy[i] > d->yb[1])
-                        d->yb[1] = yy[i];
+                if(o.yb_auto) {
+                    if(o.ylb > o.yub)
+                        o.ylb = o.yub = yy[i];
+                    else if(yy[i] < o.ylb )
+                        o.ylb = yy[i];
+                    else if(yy[i] > o.yub)
+                        o.yub = yy[i];
                 }
             }
             // append saved tail
@@ -261,13 +292,13 @@ void QuCircularBuf::insert(size_t idx, double *xx, double *yy, size_t count)
                     d->first = (d->first + 1) % d->bufsiz;
                 next = (next + 1) % d->bufsiz;
                 // update y bounds if necessary
-                if(d->yb_auto) {
-                    if(d->yb[0] > d->yb[1])
-                        d->yb[0] = d->yb[1] = yy[i];
-                    else if(yy[i] < d->yb[0] )
-                        d->yb[0] = yy[i];
-                    else if(yy[i] > d->yb[1])
-                        d->yb[1] = yy[i];
+                if(o.yb_auto) {
+                    if(o.ylb > o.yub)
+                        o.ylb = o.yub = yy[i];
+                    else if(yy[i] < o.ylb )
+                        o.ylb = yy[i];
+                    else if(yy[i] > o.yub)
+                        o.yub = yy[i];
                 }
             }
             // append saved tail
@@ -284,19 +315,19 @@ void QuCircularBuf::insert(size_t idx, double *xx, double *yy, size_t count)
 }
 
 void QuCircularBuf::setBoundsAuto(bool x, bool y) {
-    d->xb_auto = x;
-    d->yb_auto = y;
+    o.xb_auto = x;
+    o.yb_auto = y;
     if(y) { // reset min > max to force first initialization
-        d->yb[0] = 1.0; d->yb[1] = -1.0;
+        o.ylb = 1.0; o.yub = -1.0;
     }
 }
 
 bool QuCircularBuf::xBoundsAuto() {
-    return d->xb_auto;
+    return o.xb_auto;
 }
 
 bool QuCircularBuf::yBoundsAuto() {
-    return d->yb_auto;
+    return o.yb_auto;
 }
 
 

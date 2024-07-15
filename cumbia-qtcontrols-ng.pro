@@ -142,6 +142,7 @@ HEADERS += \
     base/plot/qucurveselector.h \
     base/plot/quplotdataconnector.h \
     base/plot/quplotoptions.h \
+    base/plot/quplotp.h \
     base/plot/quscalarplot.h \
     base/qgraphicsplot/axes/axesmanager.h \
     base/qgraphicsplot/axes/axiscouple.h \

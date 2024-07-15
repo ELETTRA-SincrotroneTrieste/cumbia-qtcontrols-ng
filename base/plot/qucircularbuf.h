@@ -1,15 +1,22 @@
 #ifndef QUCIRCULARBUF_H
 #define QUCIRCULARBUF_H
 
+#include <qubufbase.h>
 #include <qwt_series_data.h>
 
 class QuPlotDataBufP;
 
 
-class QuCircularBuf : public QwtSeriesData< QPointF >
+class QuCircularBuf : public QuBufBase
 {
 public:
-    QuCircularBuf(size_t siz = 0);
+    enum Durations { Hour_Secs = 60 * 60, Hour_Ms = Hour_Secs * 1000,
+                 SixHours_Secs = 12 * Hour_Secs, SixHours_Ms = Hour_Ms * 12,
+                 TwelveHours_Secs = 12 * Hour_Secs, TwelveHours_Ms = Hour_Ms * 12,
+                 Day_Secs = 24 * Hour_Secs, Day_Ms = Day_Secs * 1000,
+                 Week_Secs = Day_Secs * 7, Week_Ms = Day_Ms * 7 };
+
+    QuCircularBuf(bool xauto, bool yauto, size_t siz = Day_Secs);
     virtual ~QuCircularBuf();
 
     void init(size_t bufsiz);
@@ -20,6 +27,7 @@ public:
     size_t first() const;
 
     QPointF p(size_t i) const;
+    double px(size_t i) const;
     double py(size_t i) const;
 
     size_t resizebuf(size_t s);
@@ -42,6 +50,8 @@ public:
     size_t size() const;
     QPointF sample(size_t i) const;
     QRectF boundingRect() const;
+
+    void m_xub_calc();
 
 private:
     QuPlotDataBufP *d;
