@@ -51,7 +51,7 @@ public:
     QPointF sample(size_t i) const;
     QRectF boundingRect() const;
 
-    void m_xub_calc();
+    void m_xb_calc();
 
 private:
     QuPlotDataBufP *d;

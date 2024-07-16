@@ -85,3 +85,4 @@ void QuScalarPlot::append(const std::string& name, double y) {
 void QuScalarPlot::onError(const std::string &name, const std::string &msg) {
     emit error(name, msg);
 }
+

@@ -1,4 +1,5 @@
 #include "qucircularbuf.h"
+#include <QDateTime>
 #include <cumacros.h>
 
 class QuPlotDataBufP {
@@ -64,6 +65,8 @@ double QuCircularBuf::px(size_t i) const {
     if(i >= d->datasiz)
         return -1;
     size_t idx = (d->first + i) % d->bufsiz;
+    printf("\e[1;33m i %ld idx %ld x size %ld x[idx] %f xax_auto? %s\e[0m\n", i, idx, d->datasiz, x[idx],
+d->xax_auto ? "YES" : "NO");
     return  d->xax_auto ? i : x[idx];
 }
 
@@ -89,25 +92,32 @@ QRectF QuCircularBuf::boundingRect() const {
     return QRectF(x0, y0, w, h);
 }
 
-void QuCircularBuf::m_xub_calc() {
+void QuCircularBuf::m_xb_calc() {
     // width: extend past last x value to allow incremental painting
     const size_t min_dsiz = 10, samples = 10;
-    if(d->datasiz > min_dsiz && o.xub < x[d->datasiz - 1]) {
+    const double& X = px(d->datasiz - 1);
+    if(d->datasiz > min_dsiz && o.xub < X) {
         // average the last 10 distances between subsequent x axis updates
         double avg = 0;
         int cnt = 0;
         for(size_t i = d->datasiz - 1; i > d->datasiz - samples - 1; i--) {
-            avg += x[i] - x[i-1];
+            avg += px(i) - px(i-1);
             cnt++;
         }
         avg /= samples;
         o.xlb = px(0);
         double oldub = o.xub;
         o.xub = px(d->datasiz - 1) + 10 * avg; // extend for about 10 next readings
-        pretty_pri("extending x axis: old upper %f new upper %f avg %f last %ld samples averaged %d ",
-                   oldub, o.xub, avg, samples, cnt);
+        pretty_pri("\e[1;31mextending x axis: old upper %s new upper %s avg %f last %ld samples averaged %d \e[0m",
+                   qstoc(QDateTime::fromMSecsSinceEpoch(oldub).toString("hh.MM.ss")),
+                   qstoc(QDateTime::fromMSecsSinceEpoch(o.xub).toString("hh.MM.ss")),
+                   avg, samples, cnt);
     } else if(d->datasiz < min_dsiz) {
-        o.xlb = px(0);
+        // initialize lower bound, then leave it unchanged until the buffer is full
+        if(d->datasiz == 1) {
+            pretty_pri("initializing lower bound to %s", qstoc(QDateTime::fromMSecsSinceEpoch(px(0)).toString()));
+            o.xlb = px(0);
+        }
         o.xub = px(d->datasiz - 1);
     }
 }
@@ -157,6 +167,7 @@ size_t QuCircularBuf::resizebuf(size_t s) {
 }
 
 void QuCircularBuf::append(double *xx, double *yy, size_t count) {
+    d->xax_auto = false;
     if(d->datasiz == 0)
         x.resize(y.size());
     size_t next = (d->first + d->datasiz) % d->bufsiz;
@@ -180,8 +191,7 @@ void QuCircularBuf::append(double *xx, double *yy, size_t count) {
         }
     }
     if(o.xb_auto && d->datasiz > 0)
-        m_xub_calc();
-    d->xax_auto = false;
+        m_xb_calc();
 }
 
 void QuCircularBuf::append(double *yy, size_t count) {

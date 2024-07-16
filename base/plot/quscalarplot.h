@@ -7,6 +7,7 @@
 
 class QuPlotP;
 class QwtPlotCurve;
+class QuCurves;
 
 class QuScalarPlot : public QwtPlot
 {

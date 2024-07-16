@@ -68,3 +68,4 @@ void QuArrayPlot::setData(const std::string& name, const std::vector<double> &y)
 void QuArrayPlot::onError(const std::string &name, const std::string &msg) {
     emit error(name, msg);
 }
+
