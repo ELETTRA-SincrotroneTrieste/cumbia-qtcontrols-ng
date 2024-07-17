@@ -6,7 +6,17 @@
 #include <qwt_scale_engine.h>
 #include <qwt_plot_grid.h>
 #include <qwt_plot_curve.h>
+#include <qwt_plot_directpainter.h>
 #include <cumacros.h>
+#include <QwtScaleMap>
+
+class QuScalarPlotP {
+public:
+    QuScalarPlotP(size_t bufsize) :
+        bufsiz(bufsize), dire_p(new QwtPlotDirectPainter) {}
+    size_t bufsiz;
+    QwtPlotDirectPainter *dire_p;
+};
 
 /*!
  * \brief class constructor with parent widget, buffer size and openGL option
@@ -15,7 +25,8 @@
  * \param opengl
  */
 QuScalarPlot::QuScalarPlot(QWidget *p, size_t bufsiz, bool opengl) : QwtPlot(p) {
-    d = new QuPlotP(opengl, bufsiz);
+    d = new QuPlotP(opengl);
+    sd = new QuScalarPlotP(bufsiz);
     d->curves = new QuCurves();
     if(opengl) {
         setCanvas(d->make_GL_canvas() );
@@ -42,7 +53,7 @@ QwtPlotCurve *QuScalarPlot::addCurve(const std::string &name,
         c->attach(this);
         c->setAxes(xAxis, yAxis);
         bool xa = axisAutoScale(xAxis), ya = axisAutoScale(yAxis);
-        QuCircularBuf* b = new QuCircularBuf(xa, ya, d->bufsiz);
+        QuCircularBuf* b = new QuCircularBuf(xa, ya, sd->bufsiz);
         c->setData(b);
         pretty_pri("addCurve on curve %p name '%s' with buf %p (data() returns buf %p)",
                    c, name.c_str(), b, static_cast<QuCircularBuf *>(c->data()));
@@ -57,13 +68,51 @@ void QuScalarPlot::append(const std::string &name, double x, double y)
     if(!c)
         c = addCurve(name);
     QuCircularBuf *buf = static_cast<QuCircularBuf *>(c->data());
-    pretty_pri("%s -> value %f  y:[%.1f - %.1f] curve %p buf %p plot autoscale x %s, y %s",
-               name.c_str(), y, buf->o.ylb, buf->o.yub, c, buf,
-               axisAutoScale(QwtPlot::xBottom) ? "YES" : "NO",
-               axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
+    // pretty_pri("%s -> value %f  y:[%.1f - %.1f] curve %p buf %p plot autoscale x %s, y %s",
+    //            name.c_str(), y, buf->o.ylb, buf->o.yub, c, buf,
+    //            axisAutoScale(QwtPlot::xBottom) ? "YES" : "NO",
+    //            axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
 
-    buf->append(&x, &y, 1);
-    replot();
+    // QRectF oldr = buf->boundingRect();
+    bool bounds_changed = buf->append(&x, &y, 1);
+
+
+    size_t siz = buf->size();
+    size_t i2 = /*buf->index*/(siz - 1), i1 = /*buf->index*/(siz - 2);
+
+    const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
+    if ( doClip )
+    {
+        /*
+                Depending on the platform setting a clip might be an important
+                performance issue. F.e. for Qt Embedded this reduces the
+                part of the backing store that has to be copied out - maybe
+                to an unaccelerated frame buffer device.
+             */
+
+        const QwtScaleMap xMap = canvasMap( c->xAxis() );
+        const QwtScaleMap yMap = canvasMap( c->yAxis() );
+
+        QRectF br = qwtBoundingRect( *c->data(), i1, i2);
+
+        const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
+        sd->dire_p->setClipRegion( clipRect );
+        printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
+    }
+    else
+        printf("\e[1;32m canvas has paint on screen attribute\e[0m\n");
+
+    if(bounds_changed) {
+        printf("QuScalarPlot: \e[1;31m full replot needed\e[0m\n");
+        replot();
+    }
+    else {
+        printf("QuScalarPlot: \e[1;32mdrawing series from %ld to %ld\e[0m\n",
+               i1, i2);
+        sd->dire_p->drawSeries(c, i1, i2);
+    }
+    // replot();
+
     emit dataUpdated(c);
 }
 
@@ -77,7 +126,33 @@ void QuScalarPlot::append(const std::string& name, double y) {
         //            axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
 
         buf->append(&y, 1);
-        replot();
+        size_t siz = buf->size();
+        size_t i2 = /*buf->index*/(siz - 1), i1 = /*buf->index*/(siz - 2);
+
+        const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
+        if ( doClip )
+        {
+            /*
+                Depending on the platform setting a clip might be an important
+                performance issue. F.e. for Qt Embedded this reduces the
+                part of the backing store that has to be copied out - maybe
+                to an unaccelerated frame buffer device.
+             */
+
+            const QwtScaleMap xMap = canvasMap( c->xAxis() );
+            const QwtScaleMap yMap = canvasMap( c->yAxis() );
+
+            QRectF br = qwtBoundingRect( *c->data(), i1, i2);
+
+            const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
+            sd->dire_p->setClipRegion( clipRect );
+            printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
+        }
+        else
+            printf("\e[1;32m canvas has paint on screen attribute\e[0m\n");
+
+        sd->dire_p->drawSeries(c, i1, i2);
+        // replot();
         emit dataUpdated(c);
     }
 }

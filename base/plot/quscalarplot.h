@@ -6,6 +6,7 @@
 #include <qucircularbuf.h>
 
 class QuPlotP;
+class QuScalarPlotP;
 class QwtPlotCurve;
 class QuCurves;
 
@@ -30,6 +31,7 @@ signals:
 
 private:
     QuPlotP *d;
+    QuScalarPlotP *sd;
 };
 
 #endif // QUSCALARPLOT_H

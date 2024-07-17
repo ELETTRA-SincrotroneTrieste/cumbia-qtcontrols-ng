@@ -29,12 +29,13 @@ public:
     QPointF p(size_t i) const;
     double px(size_t i) const;
     double py(size_t i) const;
+    size_t index(size_t i) const;
 
     size_t resizebuf(size_t s);
     size_t bufsize() const;
 
-    void append(double *xx, double *yy, size_t count);
-    void append(double *yy, size_t count);
+    bool append(double *xx, double *yy, size_t count);
+    bool append(double *yy, size_t count);
 
     void insert(size_t idx, double *yy, size_t count);
     void insert(size_t idx, double *xx, double *yy, size_t count);
@@ -51,7 +52,7 @@ public:
     QPointF sample(size_t i) const;
     QRectF boundingRect() const;
 
-    void m_xb_calc();
+    bool m_xb_calc();
 
 private:
     QuPlotDataBufP *d;

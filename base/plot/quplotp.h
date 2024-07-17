@@ -13,12 +13,12 @@ class QuCurves;
 
 class QuPlotP {
 public:
-    QuPlotP(bool ogl, size_t bufsize = 0) : opengl(ogl), grid(nullptr), bufsiz{bufsize} {}
+    QuPlotP(bool ogl) :
+        opengl(ogl), grid(nullptr) {}
 
     bool opengl;
     QwtPlotGrid *grid;
     QuCurves *curves;
-    size_t bufsiz; // used by trend plot
 
     QWidget *make_GL_canvas() {
         QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas();

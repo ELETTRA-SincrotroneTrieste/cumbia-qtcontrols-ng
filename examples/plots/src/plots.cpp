@@ -42,6 +42,7 @@ Plots::Plots(CumbiaPool *cumbia_pool, QWidget *parent) :
     parser.addOption(datasim_o);
     parser.addOption(bufsiz_o);
     parser.addOption(period_o);
+    parser.addHelpOption();
     parser.parse(qApp->arguments());
     array = !(parser.value(scalar_o) == "s");
     QwtPlot *plot1 = nullptr;

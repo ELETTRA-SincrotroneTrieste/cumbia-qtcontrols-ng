@@ -61,6 +61,12 @@ double QuCircularBuf::py(size_t i) const {
     return  y[idx];
 }
 
+/*! maps the desired index into the internal buffer index
+ */
+size_t QuCircularBuf::index(size_t i) const {
+    return (d->first + i) % d->bufsiz;
+}
+
 double QuCircularBuf::px(size_t i) const {
     if(i >= d->datasiz)
         return -1;
@@ -92,9 +98,13 @@ QRectF QuCircularBuf::boundingRect() const {
     return QRectF(x0, y0, w, h);
 }
 
-void QuCircularBuf::m_xb_calc() {
+bool QuCircularBuf::m_xb_calc() {
     // width: extend past last x value to allow incremental painting
-    const size_t min_dsiz = 10, samples = 10;
+    // may want to tune extend_samples: higher with higher refresh rates
+    // may want to tune min_dsiz: when data size > min_dist, we extend
+    // the X axis by extend_samples * average(last 10 ticks)
+    const size_t min_dsiz = 100, samples = 10, extend_samples = 10;
+    const double xo = o.xlb, XO = o.xub;
     const double& X = px(d->datasiz - 1);
     if(d->datasiz > min_dsiz && o.xub < X) {
         // average the last 10 distances between subsequent x axis updates
@@ -107,19 +117,20 @@ void QuCircularBuf::m_xb_calc() {
         avg /= samples;
         o.xlb = px(0);
         double oldub = o.xub;
-        o.xub = px(d->datasiz - 1) + 10 * avg; // extend for about 10 next readings
+        o.xub = px(d->datasiz - 1) + extend_samples * avg; // extend for about 10 next readings
         pretty_pri("\e[1;31mextending x axis: old upper %s new upper %s avg %f last %ld samples averaged %d \e[0m",
                    qstoc(QDateTime::fromMSecsSinceEpoch(oldub).toString("hh.MM.ss")),
                    qstoc(QDateTime::fromMSecsSinceEpoch(o.xub).toString("hh.MM.ss")),
                    avg, samples, cnt);
-    } else if(d->datasiz < min_dsiz) {
+    } else if(d->datasiz <= min_dsiz) {
         // initialize lower bound, then leave it unchanged until the buffer is full
-        if(d->datasiz == 1) {
-            pretty_pri("initializing lower bound to %s", qstoc(QDateTime::fromMSecsSinceEpoch(px(0)).toString()));
+        // if(d->datasiz == 1) {
+            // pretty_pri("initializing lower bound to %s", qstoc(QDateTime::fromMSecsSinceEpoch(px(0)).toString()));
             o.xlb = px(0);
-        }
+        // }
         o.xub = px(d->datasiz - 1);
     }
+    return XO != o.xub || xo != o.xlb;
 }
 
 /*!
@@ -166,11 +177,12 @@ size_t QuCircularBuf::resizebuf(size_t s) {
     return d->bufsiz - oldsiz;
 }
 
-void QuCircularBuf::append(double *xx, double *yy, size_t count) {
+bool QuCircularBuf::append(double *xx, double *yy, size_t count) {
     d->xax_auto = false;
     if(d->datasiz == 0)
         x.resize(y.size());
     size_t next = (d->first + d->datasiz) % d->bufsiz;
+    const double yo = o.ylb, YO = o.yub;
     for(size_t i = 0; i < count; i++ ) {
         x[next] = xx[i];
         y[next] = yy[i];
@@ -191,10 +203,11 @@ void QuCircularBuf::append(double *xx, double *yy, size_t count) {
         }
     }
     if(o.xb_auto && d->datasiz > 0)
-        m_xb_calc();
+        return m_xb_calc();
+    return yo != o.ylb || YO != o.yub;
 }
 
-void QuCircularBuf::append(double *yy, size_t count) {
+bool QuCircularBuf::append(double *yy, size_t count) {
     if(d->xax_auto) {
         size_t next = (d->first + d->datasiz) % d->bufsiz;
         for(size_t i = 0; i < count; i++ ) {
@@ -215,6 +228,7 @@ void QuCircularBuf::append(double *yy, size_t count) {
             }
         }
     }
+    return false;
 }
 
 /*!
