@@ -66,6 +66,9 @@ SOURCES += \
     base/plot/quplotdataconnector.cpp \
     base/plot/quplotoptions.cpp \
     base/plot/quscalarplot.cpp \
+    base/plot/zoomer/ScrollBar.cpp \
+    base/plot/zoomer/ScrollZoomer.cpp \
+    base/plot/zoomer/quplotzoomer.cpp \
     base/qgraphicsplot/axes/axesmanager.cpp \
     base/qgraphicsplot/axes/axiscouple.cpp \
     base/qgraphicsplot/axes/scaleitem.cpp \
@@ -144,6 +147,9 @@ HEADERS += \
     base/plot/quplotoptions.h \
     base/plot/quplotp.h \
     base/plot/quscalarplot.h \
+    base/plot/zoomer/ScrollBar.h \
+    base/plot/zoomer/ScrollZoomer.h \
+    base/plot/zoomer/quplotzoomer.h \
     base/qgraphicsplot/axes/axesmanager.h \
     base/qgraphicsplot/axes/axiscouple.h \
     base/qgraphicsplot/axes/scaleitem.h \
@@ -242,7 +248,7 @@ INCLUDEPATH += base controls base/numeric base/circularplot controls/numeric \
     base/qgraphicsplot/axes base/qgraphicsplot/plotsaver base/qgraphicsplot/properties \
     base/qgraphicsplot/curve  base/qgraphicsplot/extscaleplotscenewidget \
     base/qgraphicsplot/items  base/qgraphicsplot/ \
-    base/plot
+    base/plot  base/plot/zoomer
 
 # remove ourselves from -l (.pri)
 LIBS -= -l$${cumbia_qtcontrols_ng_LIB}

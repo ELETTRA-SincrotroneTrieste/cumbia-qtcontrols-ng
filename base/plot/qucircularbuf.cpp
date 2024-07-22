@@ -71,8 +71,8 @@ double QuCircularBuf::px(size_t i) const {
     if(i >= d->datasiz)
         return -1;
     size_t idx = (d->first + i) % d->bufsiz;
-    printf("\e[1;33m i %ld idx %ld x size %ld x[idx] %f xax_auto? %s\e[0m\n", i, idx, d->datasiz, x[idx],
-d->xax_auto ? "YES" : "NO");
+    // printf("\e[1;33m i %ld idx %ld x size %ld x[idx] %f xax_auto? %s\e[0m\n", i, idx, d->datasiz, x[idx],
+// d->xax_auto ? "YES" : "NO");
     return  d->xax_auto ? i : x[idx];
 }
 
@@ -94,7 +94,7 @@ QRectF QuCircularBuf::boundingRect() const {
         w = o.xlb > o.xub ? 1000 : o.xub - o.xlb,
         h = o.ylb > o.yub ? 1000 : o.yub - o.ylb;
 
-    pretty_pri("rect (%.1f,%.1f %.1fx%.1f\n", x0, y0 , w, h);
+    pretty_pri("rect (%.1f,%.1f %.1fx%.1f", x0, y0 , w, h);
     return QRectF(x0, y0, w, h);
 }
 
@@ -199,7 +199,7 @@ bool QuCircularBuf::append(double *xx, double *yy, size_t count) {
                 o.ylb = yy[i];
             else if(yy[i] > o.yub)
                 o.yub = yy[i];
-            pretty_pri("\e[1;32myb %.1f  yub %.1f\e[0m", o.ylb, o.yub);
+            // pretty_pri("\e[1;32myb %.1f  yub %.1f\e[0m", o.ylb, o.yub);
         }
     }
     if(o.xb_auto && d->datasiz > 0)

@@ -40,6 +40,8 @@ QuScalarPlot::QuScalarPlot(QWidget *p, size_t bufsiz, bool opengl) : QwtPlot(p) 
     // Insert grid
     d->grid = new QwtPlotGrid();
     d->grid->attach( this );
+    for(int i = 0 ; i < QwtPlot::axisCnt; i++)
+        printf("QuScalarPlot: axis %d scale %s\n", i, axisAutoScale(i) ? "AUTO" : "MANUAL");
 }
 
 QwtPlotCurve *QuScalarPlot::addCurve(const std::string &name,
@@ -97,13 +99,13 @@ void QuScalarPlot::append(const std::string &name, double x, double y)
 
         const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
         sd->dire_p->setClipRegion( clipRect );
-        printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
+        // printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
     }
     else
         printf("\e[1;32m canvas has paint on screen attribute\e[0m\n");
 
     if(bounds_changed) {
-        printf("QuScalarPlot: \e[1;31m full replot needed\e[0m\n");
+        // printf("QuScalarPlot: \e[1;31m full replot needed\e[0m\n");
         replot();
     }
     else {

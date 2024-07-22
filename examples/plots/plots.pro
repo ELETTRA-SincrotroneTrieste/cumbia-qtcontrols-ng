@@ -17,7 +17,7 @@ SOURCES += src/main.cpp \
 HEADERS += \
     src/plots.h
 
-# cuuimake runs uic
+
 # FORMS    = src/arrayplot.ui
 # but we need to include ui_xxxx.h file amongst the headers
 # in order to be recompiled when it changes
@@ -33,7 +33,7 @@ HEADERS += \
 #
 INCLUDEPATH += ui src
 
-TARGET = arrayplot
+TARGET = plots
 
 !wasm-emscripten {
     TARGET   = bin/$${TARGET}
@@ -41,27 +41,7 @@ TARGET = arrayplot
     TARGET = wasm/$${TARGET}
 }
 
-#
-# make install works if INSTALL_DIR is given to qmake
-#
-!isEmpty(INSTALL_DIR) {
-    wasm-emscripten {
-        inst.files = wasm/*
-    } else {
-        inst.files = $${TARGET}
-    }
-    inst.path = $${INSTALL_DIR}
-    INSTALLS += inst
-    message("-")
-    message("INSTALLATION")
-    message("       execute `make install` to install 'arrayplot' under $${INSTALL_DIR} ")
-    message("-")
-} else {
-    message("-")
-    message("INSTALLATION")
-    message("       call qmake INSTALL_DIR=/usr/local/bin to install arrayplot later with `make install` ")
-    message("-")
-}
+
 
 # unix:LIBS += -L. -lmylib
 

@@ -14,6 +14,7 @@
 #include <qucurveselector.h>
 #include <quscalarplot.h>
 #include <qucurves.h>
+#include <quplotzoomer.h>
 #include <QTimer>
 
 #include <QCheckBox>
@@ -137,7 +138,13 @@ Plots::Plots(CumbiaPool *cumbia_pool, QWidget *parent) :
         cb->setObjectName(plot1->objectName() + "/cbauto" + n);
     }
 
-    new QwtPlotZoomer(plot1->canvas());
+    for(int i = 0; i < QwtPlot::axisCnt; i++) {
+        pretty_pri(" BEFORE SETTING ZOOMER %d: %s", i, plot1->axisAutoScale(i) ? "AUTO" : "MANUAL");
+    }
+    new QuPlotZoomer(plot1);
+    for(int i = 0; i < QwtPlot::axisCnt; i++)
+        pretty_pri(" AFTER SETTING ZOOMER %d: %s", i, plot1->axisAutoScale(i) ? "AUTO" : "MANUAL");
+
 
 
 }
@@ -159,7 +166,6 @@ void Plots::autoscaleChanged(bool a) {
     findChild<QPushButton *>(plotn + "/pba" + ax)->setDisabled(a);
     findChild<QDoubleSpinBox *>(plotn + "/sb" + ax)->setDisabled(a);
     findChild<QDoubleSpinBox *>(plotn + "/SB" + ax)->setDisabled(a);
-    findChild<QwtPlotZoomer *>()->setZoomBase();
 }
 
 void Plots::scaleChanged() {
@@ -186,7 +192,6 @@ void Plots::scaleChanged() {
     else if(ax == "y2") {
         o.y2lo(m); o.y2up(M);
     }
-    findChild<QwtPlotZoomer *>()->setZoomBase();
 }
 
 void Plots::srcConfigured(QwtPlot* p, const CuData& ) {
@@ -234,7 +239,6 @@ void Plots::srcConfigured(QwtPlot* p, const CuData& ) {
         SB->setEnabled(!cb->isChecked());
         pba->setEnabled(!cb->isChecked());
     }
-    findChild<QwtPlotZoomer *>()->setZoomBase();
 }
 
 void Plots::curvesSelectionChanged() {
@@ -275,7 +279,7 @@ void Plots::updateScalarPlot() {
     findChild<QuScalarPlot *>(t->property("plot").toString())->append(t->property("curve").toString().toStdString(),
                                                                       dt,
                                                                       si);
-    pretty_pri("appending %s: %f\n", qstoc(QDateTime::fromMSecsSinceEpoch(dt).toString("hh:MM:ss.sss")), si);
+    // pretty_pri("appending %s: %f\n", qstoc(QDateTime::fromMSecsSinceEpoch(dt).toString("hh:MM:ss.sss")), si);
     t->setProperty("updcnt", updcnt + 1);
 }
 
