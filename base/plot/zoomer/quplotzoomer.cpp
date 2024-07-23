@@ -51,7 +51,6 @@ void QuPlotZoomer::zoom( int offset ){
 
     ScrollZoomer::zoom(offset);
     if(zoomRectIndex() <= 0) {
-        printf("\e[1;32mUNZOOMED TO ZOOM BASE!\e[0m");
         m_restore_autoscale_state();
         d->plot->replot();
     }
