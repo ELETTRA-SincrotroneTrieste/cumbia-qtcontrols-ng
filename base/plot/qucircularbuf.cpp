@@ -94,7 +94,7 @@ QRectF QuCircularBuf::boundingRect() const {
         w = o.xlb > o.xub ? 1000 : o.xub - o.xlb,
         h = o.ylb > o.yub ? 1000 : o.yub - o.ylb;
 
-    pretty_pri("rect (%.1f,%.1f %.1fx%.1f", x0, y0 , w, h);
+    // pretty_pri("rect (%.1f,%.1f %.1fx%.1f", x0, y0 , w, h);
     return QRectF(x0, y0, w, h);
 }
 

@@ -40,9 +40,9 @@ void QuPlotZoomer::zoom(const QRectF &r) {
     qDebug() << __PRETTY_FUNCTION__ << "zoom with rect " << r;
     if(zoomRectIndex() == 0) {
         m_save_autoscale_state();
-        // setZoomBase();
+        setZoomBase();
     }
-    // ScrollZoomer::zoom(r);
+    ScrollZoomer::zoom(r);
 }
 
 void QuPlotZoomer::zoom( int offset ){
@@ -53,6 +53,7 @@ void QuPlotZoomer::zoom( int offset ){
     if(zoomRectIndex() <= 0) {
         printf("\e[1;32mUNZOOMED TO ZOOM BASE!\e[0m");
         m_restore_autoscale_state();
+        d->plot->replot();
     }
     printf("after zoom, rect index is %d\n", zoomRectIndex());
 
