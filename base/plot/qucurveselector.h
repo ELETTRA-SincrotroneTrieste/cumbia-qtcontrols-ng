@@ -4,13 +4,40 @@
 #include "qpoint.h"
 #include <cumacros.h>
 #include <qwt_plot_curve.h>
+#include <qwt_symbol.h>
+#include <qwt_plot_marker.h>
 #include <QObject>
 #include <QList>
 #include <QPen>
 
 class QwtPlot;
+class QwtScaleDraw;
 
 class QuCurveSelectorP;
+
+class QuCurveSelectionOptions {
+public:
+    QuCurveSelectionOptions()
+        : style(QwtSymbol::Cross),
+        symbolbrush(QBrush(QColor(Qt::red))),
+        symbolpen(QPen(QColor(Qt::red))),
+        symbolsize(QSize(25,25)),
+        linepen(QPen(QColor())),
+        linestyle(QwtPlotMarker::NoLine),
+        xscaledraw(nullptr),
+        yscaledraw(nullptr)    {}
+
+    virtual ~QuCurveSelectionOptions();
+
+    QwtSymbol::Style style;
+    QBrush symbolbrush;
+    QPen symbolpen;
+    QSize symbolsize;
+    // line
+    QPen linepen;
+    QwtPlotMarker::LineStyle linestyle;
+    QwtScaleDraw *xscaledraw, *yscaledraw;
+};
 
 class QuCurveSelectionData {
 public:
@@ -72,6 +99,8 @@ public:
 
     QwtPlot *plot() const;
     QList<QwtPlotCurve *> curves() const;
+
+    void setOptions(const QuCurveSelectionOptions& o);
 
 public slots:
     void setHightlightSelectedCurve(bool hl);

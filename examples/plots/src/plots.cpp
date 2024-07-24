@@ -37,7 +37,7 @@ Plots::Plots(CumbiaPool *cumbia_pool, QWidget *parent) :
     QCommandLineParser parser;
     QCommandLineOption scalar_o(QStringList() << "f" << "format", "s: scalar plots, a: array plots", "a");
     QCommandLineOption datasim_o(QStringList () << "s" << "data-simulate", "if set use simulator not device connection");
-    QCommandLineOption bufsiz_o(QStringList() << "b" << "bufsiz" << "buffer size (scalar plot only)", "bufsiz", "100");
+    QCommandLineOption bufsiz_o(QStringList() << "b" << "bufsiz", "buffer size (scalar plot only)", "n", "100");
     QCommandLineOption period_o(QStringList() << "p" << "period", "refresh period in ms [default: 1000]", "period", "1000");
     parser.addOption(scalar_o);
     parser.addOption(datasim_o);
@@ -55,6 +55,7 @@ Plots::Plots(CumbiaPool *cumbia_pool, QWidget *parent) :
         conn = new QuPlotDataConnector(cu_pool, m_ctrl_factory_pool, static_cast<QuArrayPlot*>(plot1));
     }
     else {
+        pretty_pri("creating scalar plot with buffer size of %d",parser.value(bufsiz_o).toInt() );
         plot1 = new QuScalarPlot(this, parser.value(bufsiz_o).toInt());
         plot1->setObjectName("plot1");
         if(parser.isSet(datasim_o)) {
@@ -74,8 +75,6 @@ Plots::Plots(CumbiaPool *cumbia_pool, QWidget *parent) :
 
     QuCurveSelector *p1selector = new QuCurveSelector(plot1);
     connect(p1selector, SIGNAL(selectionChanged()), this, SLOT(curvesSelectionChanged()));
-    if(!timer)
-        connect(conn, SIGNAL(configured(QwtPlot*,CuData)), this, SLOT(srcConfigured(QwtPlot*,CuData)));
 
     QGridLayout *lo = new QGridLayout(this);
 
@@ -145,7 +144,7 @@ Plots::Plots(CumbiaPool *cumbia_pool, QWidget *parent) :
     for(int i = 0; i < QwtPlot::axisCnt; i++)
         pretty_pri(" AFTER SETTING ZOOMER %d: %s", i, plot1->axisAutoScale(i) ? "AUTO" : "MANUAL");
 
-
+    initControls(plot1);
 
 }
 
@@ -194,7 +193,7 @@ void Plots::scaleChanged() {
     }
 }
 
-void Plots::srcConfigured(QwtPlot* p, const CuData& ) {
+void Plots::initControls(QwtPlot* p) {
     const QString& pnam = p->objectName();
     QuPlotOptions o(p);
     foreach(const QString& n, QStringList() << "x" << "y" << "x2" << "y2") {

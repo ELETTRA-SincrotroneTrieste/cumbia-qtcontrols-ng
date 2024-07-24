@@ -28,7 +28,7 @@ public:
 private slots:
     void autoscaleChanged(bool a);
     void scaleChanged();
-    void srcConfigured(QwtPlot* p, const CuData &da);
+    void initControls(QwtPlot* p);
     void curvesSelectionChanged();
     void moveCurveX();
     void moveCurveY();

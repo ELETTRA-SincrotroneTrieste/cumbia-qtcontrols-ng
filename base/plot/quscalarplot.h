@@ -10,11 +10,23 @@ class QuScalarPlotP;
 class QwtPlotCurve;
 class QuCurves;
 
+/*! Plot specialized in the representation of curves with scalar data added over time
+ *
+ *  The interface of *cumbia-qtcontrols-ng* plots is minimal to ensure maximum performance
+ *  of the basic objects.
+ *
+ *  Additional functionality is added by installing additional decorators / observers.
+ *
+ *  Data is stored in a *circular buffer*, namely QuCircularBuf, whose size shall be specified
+ *  in the constructor. If unspecified, the value QuCircularBuf::Day_Secs is used by default,
+ *  providing enough space for one day of data at one second rate.
+ *
+ */
 class QuScalarPlot : public QwtPlot
 {
     Q_OBJECT
 public:
-    QuScalarPlot(QWidget *p, size_t bufsiz, bool opengl = false);
+    QuScalarPlot(QWidget *p, size_t bufsiz = QuCircularBuf::Day_Secs, bool opengl = false);
 
     QwtPlotCurve *addCurve(const std::string &name,
                            QwtAxisId xAxis = QwtAxis::XBottom,

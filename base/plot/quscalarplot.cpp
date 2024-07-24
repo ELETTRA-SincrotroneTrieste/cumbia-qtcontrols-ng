@@ -21,7 +21,8 @@ public:
 /*!
  * \brief class constructor with parent widget, buffer size and openGL option
  * \param p the parent widget
- * \param bufsiz the size of the circular buffer. Can be picked from among QuCircularBuff::Duration
+ * \param bufsiz the size of the circular buffer. Can be either a custom one or picked
+ *        among QuCircularBuff::Duration
  * \param opengl
  */
 QuScalarPlot::QuScalarPlot(QWidget *p, size_t bufsiz, bool opengl) : QwtPlot(p) {
@@ -75,7 +76,6 @@ void QuScalarPlot::append(const std::string &name, double x, double y)
     //            axisAutoScale(QwtPlot::xBottom) ? "YES" : "NO",
     //            axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
 
-    // QRectF oldr = buf->boundingRect();
     bool bounds_changed = buf->append(&x, &y, 1);
 
 
@@ -92,12 +92,10 @@ void QuScalarPlot::append(const std::string &name, double x, double y)
                 to an unaccelerated frame buffer device.
              */
 
-        const QwtScaleMap xMap = canvasMap( c->xAxis() );
-        const QwtScaleMap yMap = canvasMap( c->yAxis() );
-
-        QRectF br = qwtBoundingRect( *c->data(), i1, i2);
-
-        const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
+        const QwtScaleMap &xMap = canvasMap( c->xAxis() );
+        const QwtScaleMap &yMap = canvasMap( c->yAxis() );
+        const QRectF& br = qwtBoundingRect( *c->data(), i1, i2);
+        const QRect& clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
         sd->dire_p->setClipRegion( clipRect );
         // printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
     }
@@ -113,8 +111,6 @@ void QuScalarPlot::append(const std::string &name, double x, double y)
                i1, i2);
         sd->dire_p->drawSeries(c, i1, i2);
     }
-    // replot();
-
     emit dataUpdated(c);
 }
 

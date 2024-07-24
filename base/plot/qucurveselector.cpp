@@ -3,10 +3,12 @@
 #include "qwt_text.h"
 #include <qwt_plot.h>
 #include <QMouseEvent>
+#include <QDateTime>
 #include <cumacros.h>
 #include <qwt_plot_curve.h>
 #include <qwt_plot_marker.h>
 #include <qwt_symbol.h>
+#include <qwt_scale_draw.h>
 
 class QuCurveSelectorP {
 public:
@@ -17,6 +19,7 @@ public:
     bool hlight_c, hlight_p, marker_follows, moved;
     QuCurveSelection selection;
     QwtPlotMarker *marker;
+    QuCurveSelectionOptions options;
 };
 
 QuCurveSelector::QuCurveSelector(QwtPlot *plot, bool highlight_point, bool highlight_curve)
@@ -131,6 +134,16 @@ QList<QwtPlotCurve *> QuCurveSelector::curves() const
     return l;
 }
 
+void QuCurveSelector::setOptions(const QuCurveSelectionOptions &o) {
+    d->options = o;
+    if(!d->marker)
+        return;
+    QwtSymbol *sy = new QwtSymbol(o.style, o.symbolbrush, o.symbolpen, o.symbolsize);
+    d->marker->setSymbol(sy);
+    d->marker->setLineStyle(o.linestyle);
+    d->marker->setLinePen(o.linepen);
+}
+
 bool QuCurveSelector::m_highlight_selected_c(bool h) {
     bool replot = false;
     const QList<QwtPlotCurve *> l = curves();
@@ -157,17 +170,16 @@ bool QuCurveSelector::m_set_marker(bool m) {
         replot |= (idx > -1);
         if(idx > -1) {
             if(!d->marker && m) {
+                QwtPlot *p = plot();
                 d->marker = new QwtPlotMarker();
-                d->marker->attach(plot());
-                d->marker->setSymbol(new QwtSymbol(QwtSymbol::Cross,
-                                                   QBrush(QColor(Qt::green)),
-                                                   QPen(QColor(Qt::green)),
-                                                   QSize(20,20)));
-                d->marker->setLinePen(c->pen().color(), 0.0);
-                d->marker->setLineStyle(QwtPlotMarker::Cross);
+                d->marker->attach(p);
+                setOptions(d->options);
                 const QPointF& s = c->sample(d->selection.data[idx].idx);
                 d->marker->setValue(s);
-                d->marker->setLabel(QString("%1\n%2").arg(s.x()).arg(s.y()));
+                d->marker->setLabel(QString("%1\n%2")
+                                        .arg(p->axisScaleDraw(c->xAxis())->label(s.x()).text())
+                                        .arg(p->axisScaleDraw(c->yAxis())->label(s.y()).text()));
+
             }
             else if(d->marker && !m) {
                 delete d->marker;
@@ -187,9 +199,17 @@ void QuCurveSelector::dataUpdated(QwtPlotCurve *c) {
             size_t idx = d->selection.data[i].idx;
             if(idx < c->dataSize()) {
                 d->marker->setValue(c->sample(idx));
+                d->marker->setLabel(QString("%1\n%2")
+                                        .arg(plot()->axisScaleDraw(c->xAxis())->label(c->sample(idx).x()).text())
+                                        .arg(plot()->axisScaleDraw(c->yAxis())->label(c->sample(idx).y()).text()));
                 plot()->replot();
             }
         }
 
     }
+}
+
+QuCurveSelectionOptions::~QuCurveSelectionOptions()
+{
+
 }
