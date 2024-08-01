@@ -22,21 +22,33 @@ $(MANUAL_FILE).pdf: $(MANUAL_FILE).ps
 
 $(MANUAL_FILE).dvi: clean $(MANUAL_FILE).tex doxygen.sty
 	echo "Running latex..."
-	$(LATEX_CMD) $(MANUAL_FILE).tex
+	$(LATEX_CMD) $(MANUAL_FILE).tex || \
+	if [ $$? != 0 ] ; then \
+	        \echo "Please consult $(MANUAL_FILE).log to see the error messages" ; \
+	        false; \
+	fi
 	echo "Running makeindex..."
 	$(MKIDX_CMD) $(MANUAL_FILE).idx
 	echo "Rerunning latex...."
 	$(LATEX_CMD) $(MANUAL_FILE).tex
 	latex_count=$(LATEX_COUNT) ; \
-	while egrep -s 'Rerun (LaTeX|to get cross-references right|to get bibliographical references right)' $(MANUAL_FILE).log && [ $$latex_count -gt 0 ] ;\
+	while grep -E -s 'Rerun (LaTeX|to get cross-references right|to get bibliographical references right)' $(MANUAL_FILE).log && [ $$latex_count -gt 0 ] ;\
 	    do \
 	      echo "Rerunning latex...." ;\
 	      $(LATEX_CMD) $(MANUAL_FILE).tex ; \
+	      $(LATEX_CMD) $(MANUAL_FILE).tex || \
+	      if [ $$? != 0 ] ; then \
+	              \echo "Please consult $(MANUAL_FILE).log to see the error messages" ; \
+	              false; \
+	      fi; \
 	      latex_count=`expr $$latex_count - 1` ;\
 	    done
 	$(MKIDX_CMD) $(MANUAL_FILE).idx
-	$(LATEX_CMD) $(MANUAL_FILE).tex
-
+	$(LATEX_CMD) $(MANUAL_FILE).tex || \
+	if [ $$? != 0 ] ; then \
+	        \echo "Please consult $(MANUAL_FILE).log to see the error messages" ; \
+	        false; \
+	fi
 $(MANUAL_FILE).ps: $(MANUAL_FILE).ps
 	psnup -2 $(MANUAL_FILE).ps >$(MANUAL_FILE).ps
 

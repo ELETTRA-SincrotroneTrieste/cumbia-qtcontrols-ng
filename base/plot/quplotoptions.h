@@ -28,6 +28,8 @@ public:
     double y2lo() const;
     double y2up() const;
 
+    bool opengl() const;
+
 public slots:
     void xauto(bool a);
     void yauto(bool a);
@@ -45,6 +47,9 @@ public slots:
     void x2up(double up);
     void y2lo(double lo);
     void y2up(double up);
+
+    void opengl(bool ogl);
+
 private:
     QwtPlot* m_plot;
 };

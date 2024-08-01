@@ -1,53 +1,56 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'pointeditor.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.10)
+** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include <memory>
 #include "../pointeditor.h"
-#include <QtCore/qbytearray.h>
+#include <QtGui/qtextcursor.h>
 #include <QtCore/qmetatype.h>
+
+#include <QtCore/qtmochelpers.h>
+
+#include <memory>
+
+
+#include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'pointeditor.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.15.10. It"
+#elif Q_MOC_OUTPUT_REVISION != 68
+#error "This file was generated using the moc from 6.7.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
-QT_BEGIN_MOC_NAMESPACE
+#ifndef Q_CONSTINIT
+#define Q_CONSTINIT
+#endif
+
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_PointEditor_t {
-    QByteArrayData data[5];
-    char stringdata0[47];
-};
-#define QT_MOC_LITERAL(idx, ofs, len) \
-    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_PointEditor_t, stringdata0) + ofs \
-        - idx * sizeof(QByteArrayData)) \
-    )
-static const qt_meta_stringdata_PointEditor_t qt_meta_stringdata_PointEditor = {
-    {
-QT_MOC_LITERAL(0, 0, 11), // "PointEditor"
-QT_MOC_LITERAL(1, 12, 6), // "accept"
-QT_MOC_LITERAL(2, 19, 0), // ""
-QT_MOC_LITERAL(3, 20, 13), // "commandSwitch"
-QT_MOC_LITERAL(4, 34, 12) // "comboChanged"
+QT_WARNING_DISABLE_GCC("-Wuseless-cast")
+namespace {
 
-    },
-    "PointEditor\0accept\0\0commandSwitch\0"
+#ifdef QT_MOC_HAS_STRINGDATA
+struct qt_meta_stringdata_CLASSPointEditorENDCLASS_t {};
+constexpr auto qt_meta_stringdata_CLASSPointEditorENDCLASS = QtMocHelpers::stringData(
+    "PointEditor",
+    "accept",
+    "",
+    "commandSwitch",
     "comboChanged"
-};
-#undef QT_MOC_LITERAL
+);
+#else  // !QT_MOC_HAS_STRINGDATA
+#error "qtmochelpers.h not found or too old."
+#endif // !QT_MOC_HAS_STRINGDATA
+} // unnamed namespace
 
-static const uint qt_meta_data_PointEditor[] = {
+Q_CONSTINIT static const uint qt_meta_data_CLASSPointEditorENDCLASS[] = {
 
  // content:
-       8,       // revision
+      12,       // revision
        0,       // classname
        0,    0, // classinfo
        3,   14, // methods
@@ -57,10 +60,10 @@ static const uint qt_meta_data_PointEditor[] = {
        0,       // flags
        0,       // signalCount
 
- // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x09 /* Protected */,
-       3,    1,   30,    2, 0x09 /* Protected */,
-       4,    1,   33,    2, 0x09 /* Protected */,
+ // slots: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    0,   32,    2, 0x09,    1 /* Protected */,
+       3,    1,   33,    2, 0x09,    2 /* Protected */,
+       4,    1,   36,    2, 0x09,    4 /* Protected */,
 
  // slots: parameters
     QMetaType::Void,
@@ -70,6 +73,27 @@ static const uint qt_meta_data_PointEditor[] = {
        0        // eod
 };
 
+Q_CONSTINIT const QMetaObject PointEditor::staticMetaObject = { {
+    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
+    qt_meta_stringdata_CLASSPointEditorENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSPointEditorENDCLASS,
+    qt_static_metacall,
+    nullptr,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSPointEditorENDCLASS_t,
+        // Q_OBJECT / Q_GADGET
+        QtPrivate::TypeAndForceComplete<PointEditor, std::true_type>,
+        // method 'accept'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'commandSwitch'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'comboChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>
+    >,
+    nullptr
+} };
+
 void PointEditor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
@@ -77,22 +101,12 @@ void PointEditor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         (void)_t;
         switch (_id) {
         case 0: _t->accept(); break;
-        case 1: _t->commandSwitch((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 2: _t->comboChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->commandSwitch((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 2: _t->comboChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }
 }
-
-QT_INIT_METAOBJECT const QMetaObject PointEditor::staticMetaObject = { {
-    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
-    qt_meta_stringdata_PointEditor.data,
-    qt_meta_data_PointEditor,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
-
 
 const QMetaObject *PointEditor::metaObject() const
 {
@@ -102,7 +116,7 @@ const QMetaObject *PointEditor::metaObject() const
 void *PointEditor::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_PointEditor.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSPointEditorENDCLASS.stringdata0))
         return static_cast<void*>(this);
     return QDialog::qt_metacast(_clname);
 }
@@ -118,10 +132,9 @@ int PointEditor::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 3)
-            *reinterpret_cast<int*>(_a[0]) = -1;
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 3;
     }
     return _id;
 }
 QT_WARNING_POP
-QT_END_MOC_NAMESPACE

@@ -4,6 +4,8 @@
 #include <qwt_plot_curve.h>
 #include <qwt_scale_div.h>
 #include <cumacros.h>
+#include <qwt_plot_opengl_canvas.h>
+#include <qwt_plot_canvas.h>
 
 QuPlotOptions::QuPlotOptions(QwtPlot *plot) : m_plot(plot) {
 
@@ -106,6 +108,23 @@ void QuPlotOptions::y2up(double up) {
     m_plot->replot();
 }
 
+void QuPlotOptions::opengl(bool ogl) {
+    if(ogl) {
+        QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas();
+        canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
+        canvas->setLineWidth( 1 );
+        canvas->setPalette( Qt::white );
+        m_plot->setCanvas(canvas);
+    }
+    else {
+        QwtPlotCanvas* canvas = new QwtPlotCanvas();
+        canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
+        canvas->setLineWidth( 1 );
+        canvas->setPalette(Qt::white);
+        m_plot->setCanvas(canvas);
+    }
+}
+
 double QuPlotOptions::xlo() const {
     return m_plot->axisScaleDiv(QwtPlot::xBottom).lowerBound();
 }
@@ -136,5 +155,9 @@ double QuPlotOptions::y2lo() const {
 
 double QuPlotOptions::y2up() const {
     return m_plot->axisScaleDiv(QwtPlot::yRight).upperBound();
+}
+
+bool QuPlotOptions::opengl() const {
+    return qobject_cast<QwtPlotOpenGLCanvas *>(m_plot->canvas());
 }
 

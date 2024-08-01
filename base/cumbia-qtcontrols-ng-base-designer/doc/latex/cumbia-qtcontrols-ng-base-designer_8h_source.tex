@@ -1,5 +1,5 @@
 \doxysection{cumbia-\/qtcontrols-\/ng-\/base-\/designer.h}
-\textbf{ Go to the documentation of this file.}
+\label{cumbia-qtcontrols-ng-base-designer_8h_source}\textbf{ Go to the documentation of this file.}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ QUTANGOCONTROLSPLUGINS\_H}}
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ QUTANGOCONTROLSPLUGINS\_H}}
@@ -80,6 +80,35 @@
 \DoxyCodeLine{00077\ \};}
 \DoxyCodeLine{00078\ }
 \DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ QUTANGOCONTROLSPLUGINS\_H}}
+\DoxyCodeLine{00080\ \textcolor{keyword}{class\ }QuScalarPlot\_Interface\ :\ \textcolor{keyword}{public}\ CuCustomWidgetInterface}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00083\ \ \ \ \ Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00086\ \ \ \ \ QuScalarPlot\_Interface(QObject*\ parent);}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{virtual}\ QWidget*\ createWidget(QWidget*\ parent);}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{class\ }QuArrayPlot\_Interface\ :\ \textcolor{keyword}{public}\ CuCustomWidgetInterface}
+\DoxyCodeLine{00091\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00093\ \ \ \ \ Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00096\ \ \ \ \ QuArrayPlot\_Interface(QObject*\ parent);}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ QWidget*\ createWidget(QWidget*\ parent);}
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{class\ }QuCircularPlot\_Interface\ :\ \textcolor{keyword}{public}\ CuCustomWidgetInterface}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00103\ \ \ \ \ Q\_INTERFACES(QDesignerCustomWidgetInterface)}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00106\ \ \ \ \ QuCircularPlot\_Interface(QObject*\ parent);}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{virtual}\ QWidget*\ createWidget(QWidget*\ parent);}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ QUTANGOCONTROLSPLUGINS\_H}}
 
 \end{DoxyCode}

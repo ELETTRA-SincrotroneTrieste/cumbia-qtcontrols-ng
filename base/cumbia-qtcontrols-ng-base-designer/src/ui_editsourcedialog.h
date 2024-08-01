@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'editsourcedialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.10
+** Created by: Qt User Interface Compiler version 6.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -36,48 +36,48 @@ public:
     void setupUi(QDialog *EditSourceDialog)
     {
         if (EditSourceDialog->objectName().isEmpty())
-            EditSourceDialog->setObjectName(QString::fromUtf8("EditSourceDialog"));
+            EditSourceDialog->setObjectName("EditSourceDialog");
         EditSourceDialog->resize(364, 438);
         gridLayout = new QGridLayout(EditSourceDialog);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName("gridLayout");
         tabWidget = new QTabWidget(EditSourceDialog);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabWidget->setObjectName("tabWidget");
         tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
+        tab->setObjectName("tab");
         gridLayout_2 = new QGridLayout(tab);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setObjectName("gridLayout_2");
         tabWidget->addTab(tab, QString());
 
         gridLayout->addWidget(tabWidget, 0, 0, 1, 5);
 
         pbSrcAdd = new QPushButton(EditSourceDialog);
-        pbSrcAdd->setObjectName(QString::fromUtf8("pbSrcAdd"));
+        pbSrcAdd->setObjectName("pbSrcAdd");
 
         gridLayout->addWidget(pbSrcAdd, 2, 0, 1, 1);
 
         pbSrcRemove = new QPushButton(EditSourceDialog);
-        pbSrcRemove->setObjectName(QString::fromUtf8("pbSrcRemove"));
+        pbSrcRemove->setObjectName("pbSrcRemove");
 
         gridLayout->addWidget(pbSrcRemove, 2, 1, 1, 1);
 
         okButton = new QPushButton(EditSourceDialog);
-        okButton->setObjectName(QString::fromUtf8("okButton"));
+        okButton->setObjectName("okButton");
 
         gridLayout->addWidget(okButton, 2, 3, 1, 1);
 
         cancelButton = new QPushButton(EditSourceDialog);
-        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
+        cancelButton->setObjectName("cancelButton");
 
         gridLayout->addWidget(cancelButton, 2, 4, 1, 1);
 
-        spacerItem = new QSpacerItem(71, 31, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        spacerItem = new QSpacerItem(71, 31, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         gridLayout->addItem(spacerItem, 1, 2, 2, 1);
 
 
         retranslateUi(EditSourceDialog);
-        QObject::connect(okButton, SIGNAL(clicked()), EditSourceDialog, SLOT(accept()));
-        QObject::connect(cancelButton, SIGNAL(clicked()), EditSourceDialog, SLOT(reject()));
+        QObject::connect(okButton, &QPushButton::clicked, EditSourceDialog, qOverload<>(&QDialog::accept));
+        QObject::connect(cancelButton, &QPushButton::clicked, EditSourceDialog, qOverload<>(&QDialog::reject));
 
         tabWidget->setCurrentIndex(0);
 

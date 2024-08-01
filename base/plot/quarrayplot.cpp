@@ -13,20 +13,8 @@
 
 
 QuArrayPlot::QuArrayPlot(QWidget *parent, bool opengl) : QwtPlot(parent) {
-    d = new QuPlotP(opengl);
+    d = new QuPlotP(opengl, this);
     d->curves = new QuCurves();
-    if(opengl) {
-        setCanvas(d->make_GL_canvas() );
-    } else {
-        setCanvas(d->make_canvas());
-    }
-    d->align_scales(this);
-    int axes[4]{ xBottom, xTop, yLeft, yRight};
-    for(int axisId : axes )
-        axisScaleEngine(axisId)->setAttribute(QwtScaleEngine::Floating);
-    // Insert grid
-    d->grid = new QwtPlotGrid();
-    d->grid->attach( this );
 }
 
 QuArrayPlot::~QuArrayPlot() {
@@ -68,4 +56,5 @@ void QuArrayPlot::setData(const std::string& name, const std::vector<double> &y)
 void QuArrayPlot::onError(const std::string &name, const std::string &msg) {
     emit error(name, msg);
 }
+
 

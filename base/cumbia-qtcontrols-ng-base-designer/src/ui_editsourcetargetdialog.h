@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'editsourcetargetdialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.10
+** Created by: Qt User Interface Compiler version 6.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,6 +10,7 @@
 #define UI_EDITSOURCETARGETDIALOG_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAbstractButton>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
@@ -57,40 +58,40 @@ public:
     void setupUi(QDialog *EditSourceTarget)
     {
         if (EditSourceTarget->objectName().isEmpty())
-            EditSourceTarget->setObjectName(QString::fromUtf8("EditSourceTarget"));
+            EditSourceTarget->setObjectName("EditSourceTarget");
         EditSourceTarget->resize(313, 300);
         gridLayout = new QGridLayout(EditSourceTarget);
         gridLayout->setSpacing(6);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName("gridLayout");
         gridLayout->setContentsMargins(9, 9, 9, 9);
         buttonBox = new QDialogButtonBox(EditSourceTarget);
-        buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
+        buttonBox->setObjectName("buttonBox");
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
         gridLayout->addWidget(buttonBox, 1, 0, 1, 1);
 
         tabWidget = new QTabWidget(EditSourceTarget);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabWidget->setObjectName("tabWidget");
         tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
+        tab->setObjectName("tab");
         gridLayout1 = new QGridLayout(tab);
         gridLayout1->setSpacing(6);
-        gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
+        gridLayout1->setObjectName("gridLayout1");
         gridLayout1->setContentsMargins(9, 9, 9, 9);
         groupBox_2 = new QGroupBox(tab);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        groupBox_2->setObjectName("groupBox_2");
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(1);
         sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
         groupBox_2->setSizePolicy(sizePolicy);
         vboxLayout = new QVBoxLayout(groupBox_2);
         vboxLayout->setSpacing(6);
-        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setObjectName("vboxLayout");
         vboxLayout->setContentsMargins(9, 9, 9, 9);
         lineEdit = new QLineEdit(groupBox_2);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEdit->setObjectName("lineEdit");
 
         vboxLayout->addWidget(lineEdit);
 
@@ -99,33 +100,33 @@ public:
 
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
-        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        tab_2->setObjectName("tab_2");
         gridLayout2 = new QGridLayout(tab_2);
         gridLayout2->setSpacing(6);
-        gridLayout2->setObjectName(QString::fromUtf8("gridLayout2"));
+        gridLayout2->setObjectName("gridLayout2");
         gridLayout2->setContentsMargins(9, 9, 9, 9);
         groupBox = new QGroupBox(tab_2);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setObjectName("groupBox");
         gridLayout3 = new QGridLayout(groupBox);
         gridLayout3->setSpacing(6);
-        gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
+        gridLayout3->setObjectName("gridLayout3");
         gridLayout3->setContentsMargins(9, 9, 9, 9);
         moveItemDownButton = new QToolButton(groupBox);
-        moveItemDownButton->setObjectName(QString::fromUtf8("moveItemDownButton"));
+        moveItemDownButton->setObjectName("moveItemDownButton");
 
         gridLayout3->addWidget(moveItemDownButton, 2, 1, 1, 1);
 
         hboxLayout = new QHBoxLayout();
         hboxLayout->setSpacing(6);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setObjectName("hboxLayout");
         hboxLayout->setContentsMargins(0, 0, 0, 0);
-        spacerItem = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        spacerItem = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         hboxLayout->addItem(spacerItem);
 
         textLabel = new QLabel(groupBox);
-        textLabel->setObjectName(QString::fromUtf8("textLabel"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        textLabel->setObjectName("textLabel");
+        QSizePolicy sizePolicy1(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(textLabel->sizePolicy().hasHeightForWidth());
@@ -134,8 +135,8 @@ public:
         hboxLayout->addWidget(textLabel);
 
         itemTextLineEdit = new QLineEdit(groupBox);
-        itemTextLineEdit->setObjectName(QString::fromUtf8("itemTextLineEdit"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        itemTextLineEdit->setObjectName("itemTextLineEdit");
+        QSizePolicy sizePolicy2(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Maximum);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(itemTextLineEdit->sizePolicy().hasHeightForWidth());
@@ -147,25 +148,25 @@ public:
         gridLayout3->addLayout(hboxLayout, 2, 0, 1, 1);
 
         moveItemUpButton = new QToolButton(groupBox);
-        moveItemUpButton->setObjectName(QString::fromUtf8("moveItemUpButton"));
+        moveItemUpButton->setObjectName("moveItemUpButton");
 
         gridLayout3->addWidget(moveItemUpButton, 1, 1, 1, 1);
 
         hboxLayout1 = new QHBoxLayout();
         hboxLayout1->setSpacing(6);
-        hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+        hboxLayout1->setObjectName("hboxLayout1");
         hboxLayout1->setContentsMargins(0, 0, 0, 0);
         newItemButton = new QToolButton(groupBox);
-        newItemButton->setObjectName(QString::fromUtf8("newItemButton"));
+        newItemButton->setObjectName("newItemButton");
 
         hboxLayout1->addWidget(newItemButton);
 
         deleteItemButton = new QToolButton(groupBox);
-        deleteItemButton->setObjectName(QString::fromUtf8("deleteItemButton"));
+        deleteItemButton->setObjectName("deleteItemButton");
 
         hboxLayout1->addWidget(deleteItemButton);
 
-        spacerItem1 = new QSpacerItem(16, 10, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        spacerItem1 = new QSpacerItem(16, 10, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         hboxLayout1->addItem(spacerItem1);
 
@@ -173,7 +174,7 @@ public:
         gridLayout3->addLayout(hboxLayout1, 1, 0, 1, 1);
 
         listWidget = new QListWidget(groupBox);
-        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        listWidget->setObjectName("listWidget");
 
         gridLayout3->addWidget(listWidget, 0, 0, 1, 2);
 
@@ -189,8 +190,8 @@ public:
 #endif // QT_CONFIG(shortcut)
 
         retranslateUi(EditSourceTarget);
-        QObject::connect(buttonBox, SIGNAL(accepted()), EditSourceTarget, SLOT(accept()));
-        QObject::connect(buttonBox, SIGNAL(rejected()), EditSourceTarget, SLOT(reject()));
+        QObject::connect(buttonBox, &QDialogButtonBox::accepted, EditSourceTarget, qOverload<>(&QDialog::accept));
+        QObject::connect(buttonBox, &QDialogButtonBox::rejected, EditSourceTarget, qOverload<>(&QDialog::reject));
 
         tabWidget->setCurrentIndex(0);
 

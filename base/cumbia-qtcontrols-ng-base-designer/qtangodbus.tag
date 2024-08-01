@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile doxygen_version="1.9.6">
+<tagfile doxygen_version="1.11.0">
   <compound kind="file">
     <name>cumbia-qtcontrols-ng-base-designer.cpp</name>
     <path></path>
     <filename>cumbia-qtcontrols-ng-base-designer_8cpp.html</filename>
-    <includes id="cumbia-qtcontrols-ng-base-designer_8h" name="cumbia-qtcontrols-ng-base-designer.h" local="yes" imported="no">cumbia-qtcontrols-ng-base-designer.h</includes>
+    <includes id="cumbia-qtcontrols-ng-base-designer_8h" name="cumbia-qtcontrols-ng-base-designer.h" local="yes" import="no" module="no" objc="no">cumbia-qtcontrols-ng-base-designer.h</includes>
   </compound>
   <compound kind="file">
     <name>cumbia-qtcontrols-ng-base-designer.h</name>
@@ -13,6 +13,9 @@
     <class kind="class">CuCustomWidgetInterface</class>
     <class kind="class">CuCustomWidgetCollectionInterface</class>
     <class kind="class">QuNumericW_Interface</class>
+    <class kind="class">QuScalarPlot_Interface</class>
+    <class kind="class">QuArrayPlot_Interface</class>
+    <class kind="class">QuCircularPlot_Interface</class>
   </compound>
   <compound kind="file">
     <name>cumbia-qtcontrols-ng-designer.md</name>
@@ -23,7 +26,7 @@
     <name>pointeditor.cpp</name>
     <path></path>
     <filename>pointeditor_8cpp.html</filename>
-    <includes id="pointeditor_8h" name="pointeditor.h" local="yes" imported="no">pointeditor.h</includes>
+    <includes id="pointeditor_8h" name="pointeditor.h" local="yes" import="no" module="no" objc="no">pointeditor.h</includes>
   </compound>
   <compound kind="file">
     <name>pointeditor.h</name>
@@ -64,17 +67,17 @@
       <arglist>(int, const unsigned char *, const unsigned char *, const unsigned char *)</arglist>
     </member>
     <member kind="function">
-      <type>int QT_RCC_MANGLE_NAMESPACE()</type>
+      <type>int QT_RCC_MANGLE_NAMESPACE</type>
       <name>qInitResources_cumbia_qtcontrols_ng_designer</name>
       <anchorfile>qrc__cumbia-qtcontrols-ng-designer_8cpp.html</anchorfile>
-      <anchor>a3f892d45bfede726f35d307a965fbdfe</anchor>
+      <anchor>aed676a4070b8272373fb0f3d4f968416</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>int QT_RCC_MANGLE_NAMESPACE()</type>
+      <type>int QT_RCC_MANGLE_NAMESPACE</type>
       <name>qCleanupResources_cumbia_qtcontrols_ng_designer</name>
       <anchorfile>qrc__cumbia-qtcontrols-ng-designer_8cpp.html</anchorfile>
-      <anchor>a1f5d03820f0d9d4ef59273ab05aec78d</anchor>
+      <anchor>a214a6ae71198ed96582ab12618829ee8</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="variable" static="yes">
@@ -301,6 +304,44 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>QuArrayPlot_Interface</name>
+    <filename>classQuArrayPlot__Interface.html</filename>
+    <base>CuCustomWidgetInterface</base>
+    <member kind="function">
+      <type></type>
+      <name>QuArrayPlot_Interface</name>
+      <anchorfile>classQuArrayPlot__Interface.html</anchorfile>
+      <anchor>abbe53cf96b3a6f4669296f0577330c9c</anchor>
+      <arglist>(QObject *parent)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual QWidget *</type>
+      <name>createWidget</name>
+      <anchorfile>classQuArrayPlot__Interface.html</anchorfile>
+      <anchor>a467b907ef829d449d799f2f5e1d1de3b</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>QuCircularPlot_Interface</name>
+    <filename>classQuCircularPlot__Interface.html</filename>
+    <base>CuCustomWidgetInterface</base>
+    <member kind="function">
+      <type></type>
+      <name>QuCircularPlot_Interface</name>
+      <anchorfile>classQuCircularPlot__Interface.html</anchorfile>
+      <anchor>a678a9af598e7f6a2e92f57ff292cc628</anchor>
+      <arglist>(QObject *parent)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual QWidget *</type>
+      <name>createWidget</name>
+      <anchorfile>classQuCircularPlot__Interface.html</anchorfile>
+      <anchor>aa5973dc17389dd417b976dec13abf409</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>QuNumericW_Interface</name>
     <filename>classQuNumericW__Interface.html</filename>
     <base>CuCustomWidgetInterface</base>
@@ -319,9 +360,28 @@
       <arglist>(QWidget *parent)</arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>QuScalarPlot_Interface</name>
+    <filename>classQuScalarPlot__Interface.html</filename>
+    <base>CuCustomWidgetInterface</base>
+    <member kind="function">
+      <type></type>
+      <name>QuScalarPlot_Interface</name>
+      <anchorfile>classQuScalarPlot__Interface.html</anchorfile>
+      <anchor>a920e311e29e5af733d6e4c4ce99d7c0f</anchor>
+      <arglist>(QObject *parent)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual QWidget *</type>
+      <name>createWidget</name>
+      <anchorfile>classQuScalarPlot__Interface.html</anchorfile>
+      <anchor>aed7e69a499fcf93826ebf699bbb55dd1</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+  </compound>
   <compound kind="page">
-    <name>md_cumbia_qtcontrols_ng_designer</name>
+    <name>md_cumbia-qtcontrols-ng-designer</name>
     <title>cumbia-qtcontrols-ng-designer</title>
-    <filename>md_cumbia_qtcontrols_ng_designer.html</filename>
+    <filename>md_cumbia-qtcontrols-ng-designer.html</filename>
   </compound>
 </tagfile>

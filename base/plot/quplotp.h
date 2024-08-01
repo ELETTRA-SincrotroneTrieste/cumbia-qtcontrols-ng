@@ -7,16 +7,30 @@
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_opengl_canvas.h>
 #include <qwt_scale_widget.h>
+#include <qwt_scale_engine.h>
+#include <qwt_plot_grid.h>
 
 class QwtPlotGrid;
 class QuCurves;
 
 class QuPlotP {
 public:
-    QuPlotP(bool ogl) :
-        opengl(ogl), grid(nullptr) {}
+    QuPlotP(bool ogl, QwtPlot *p) :
+        grid(nullptr) {
+        if(ogl) {
+            p->setCanvas(make_GL_canvas() );
+        } else {
+            p->setCanvas(make_canvas());
+        }
+        align_scales(p);
+        int axes[4]{ QwtPlot::xBottom, QwtPlot::xTop, QwtPlot::yLeft, QwtPlot::yRight};
+        for(int axisId : axes )
+            p->axisScaleEngine(axisId)->setAttribute(QwtScaleEngine::Floating);
+        // Insert grid
+        grid = new QwtPlotGrid();
+        grid->attach(p);
+    }
 
-    bool opengl;
     QwtPlotGrid *grid;
     QuCurves *curves;
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'editsourcewidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.10
+** Created by: Qt User Interface Compiler version 6.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -40,53 +40,53 @@ public:
     void setupUi(QWidget *EditSourceWidget)
     {
         if (EditSourceWidget->objectName().isEmpty())
-            EditSourceWidget->setObjectName(QString::fromUtf8("EditSourceWidget"));
+            EditSourceWidget->setObjectName("EditSourceWidget");
         EditSourceWidget->resize(400, 300);
         gridLayout = new QGridLayout(EditSourceWidget);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName("gridLayout");
         toolDevice = new QToolButton(EditSourceWidget);
-        toolDevice->setObjectName(QString::fromUtf8("toolDevice"));
+        toolDevice->setObjectName("toolDevice");
         toolDevice->setEnabled(false);
 
         gridLayout->addWidget(toolDevice, 0, 1, 1, 1);
 
         gbFormula = new QGroupBox(EditSourceWidget);
-        gbFormula->setObjectName(QString::fromUtf8("gbFormula"));
+        gbFormula->setObjectName("gbFormula");
         gbFormula->setAutoFillBackground(false);
         gbFormula->setStyleSheet(QString::fromUtf8("border-color: rgb(231, 55, 23);"));
         gbFormula->setCheckable(true);
         gbFormula->setChecked(true);
         gridLayout_2 = new QGridLayout(gbFormula);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setObjectName("gridLayout_2");
         label = new QLabel(gbFormula);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName("label");
         label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         gridLayout_2->addWidget(label, 0, 0, 1, 1);
 
         leScriptPath = new QLineEdit(gbFormula);
-        leScriptPath->setObjectName(QString::fromUtf8("leScriptPath"));
+        leScriptPath->setObjectName("leScriptPath");
         leScriptPath->setReadOnly(true);
 
         gridLayout_2->addWidget(leScriptPath, 2, 0, 1, 2);
 
         teJsCode = new QTextEdit(gbFormula);
-        teJsCode->setObjectName(QString::fromUtf8("teJsCode"));
+        teJsCode->setObjectName("teJsCode");
 
         gridLayout_2->addWidget(teJsCode, 1, 0, 1, 3);
 
         pbFromJs = new QPushButton(gbFormula);
-        pbFromJs->setObjectName(QString::fromUtf8("pbFromJs"));
+        pbFromJs->setObjectName("pbFromJs");
 
         gridLayout_2->addWidget(pbFromJs, 2, 2, 1, 1);
 
         leAlias = new QLineEdit(gbFormula);
-        leAlias->setObjectName(QString::fromUtf8("leAlias"));
+        leAlias->setObjectName("leAlias");
 
         gridLayout_2->addWidget(leAlias, 0, 1, 1, 2);
 
         labelPluginErr = new QLabel(gbFormula);
-        labelPluginErr->setObjectName(QString::fromUtf8("labelPluginErr"));
+        labelPluginErr->setObjectName("labelPluginErr");
 
         gridLayout_2->addWidget(labelPluginErr, 3, 0, 1, 3);
 
@@ -94,7 +94,7 @@ public:
         gridLayout->addWidget(gbFormula, 1, 0, 1, 2);
 
         lineEdit = new QLineEdit(EditSourceWidget);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEdit->setObjectName("lineEdit");
 
         gridLayout->addWidget(lineEdit, 0, 0, 1, 1);
 

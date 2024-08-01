@@ -1,8 +1,0 @@
-/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/cumbia-qtcontrols-ng-base-designer/qrc_cumbia-qtcontrols-ng-designer.cpp:537: warning: no matching file member found for 
-int QT_RCC_MANGLE_NAMESPACE
-Possible candidates:
- '#define QT_RCC_MANGLE_NAMESPACE(name)' at line 522 of file /home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/cumbia-qtcontrols-ng-base-designer/qrc_cumbia-qtcontrols-ng-designer.cpp
-/home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/cumbia-qtcontrols-ng-base-designer/qrc_cumbia-qtcontrols-ng-designer.cpp:546: warning: no matching file member found for 
-int QT_RCC_MANGLE_NAMESPACE
-Possible candidates:
- '#define QT_RCC_MANGLE_NAMESPACE(name)' at line 522 of file /home/giacomo/devel/utils/git/cppqtclients/cumbia-qtcontrols-ng/base/cumbia-qtcontrols-ng-base-designer/qrc_cumbia-qtcontrols-ng-designer.cpp

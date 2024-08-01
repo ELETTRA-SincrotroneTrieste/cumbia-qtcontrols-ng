@@ -77,4 +77,33 @@ class QuNumericW_Interface : public CuCustomWidgetInterface
 };
 
 
+class QuScalarPlot_Interface : public CuCustomWidgetInterface
+{
+    Q_OBJECT
+    Q_INTERFACES(QDesignerCustomWidgetInterface)
+
+public:
+    QuScalarPlot_Interface(QObject* parent);
+    virtual QWidget* createWidget(QWidget* parent);
+};
+
+class QuArrayPlot_Interface : public CuCustomWidgetInterface
+{
+    Q_OBJECT
+    Q_INTERFACES(QDesignerCustomWidgetInterface)
+
+public:
+    QuArrayPlot_Interface(QObject* parent);
+    virtual QWidget* createWidget(QWidget* parent);
+};
+
+class QuCircularPlot_Interface : public CuCustomWidgetInterface
+{
+    Q_OBJECT
+    Q_INTERFACES(QDesignerCustomWidgetInterface)
+
+public:
+    QuCircularPlot_Interface(QObject* parent);
+    virtual QWidget* createWidget(QWidget* parent);
+};
 #endif // QUTANGOCONTROLSPLUGINS_H

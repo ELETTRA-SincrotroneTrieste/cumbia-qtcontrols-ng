@@ -26,23 +26,9 @@ public:
  * \param opengl
  */
 QuScalarPlot::QuScalarPlot(QWidget *p, size_t bufsiz, bool opengl) : QwtPlot(p) {
-    d = new QuPlotP(opengl);
+    d = new QuPlotP(opengl, this);
     sd = new QuScalarPlotP(bufsiz);
     d->curves = new QuCurves();
-    if(opengl) {
-        setCanvas(d->make_GL_canvas() );
-    } else {
-        setCanvas(d->make_canvas());
-    }
-    d->align_scales(this);
-    int axes[4]{ xBottom, xTop, yLeft, yRight};
-    for(int axisId : axes )
-        axisScaleEngine(axisId)->setAttribute(QwtScaleEngine::Floating);
-    // Insert grid
-    d->grid = new QwtPlotGrid();
-    d->grid->attach( this );
-    for(int i = 0 ; i < QwtPlot::axisCnt; i++)
-        printf("QuScalarPlot: axis %d scale %s\n", i, axisAutoScale(i) ? "AUTO" : "MANUAL");
 }
 
 QwtPlotCurve *QuScalarPlot::addCurve(const std::string &name,

@@ -19,7 +19,35 @@ class QuCurves;
  *
  *  Data is stored in a *circular buffer*, namely QuCircularBuf, whose size shall be specified
  *  in the constructor. If unspecified, the value QuCircularBuf::Day_Secs is used by default,
- *  providing enough space for one day of data at one second rate.
+ *  providing enough space for one day of data at 1 second rate.
+ *
+ *  \par Connecting the plot to sources of data
+ *  The QuPlotDataConnector helper class can be used to connect a plot to a source
+ *  of (scalar) data. QuPlotDataConnector is a *cumbia* aware object that easily
+ *  updates curves on plots.
+ *
+ *  \code
+    #include <quscalarplot.h>
+    #include <quplotdataconnector.h>
+    #include <cucontext.h>
+
+    QuScalarPlot* plot = new QuScalarPlot(this);
+    plot->setObjectName("plot");
+    QuPlotDataConnector *conn = new QuPlotDataConnector(cu_pool, m_ctrl_factory_pool, plot);
+    // optional: set up a periodic reading at 2Hz (#include <cucontext.h>)
+    conn->getContext()->setOptions(CuData(TTT::Period, 500));
+    // configure both x axes (top and bottom) with a time scale and label rotation
+    int x_axes[2] { QwtPlot::xBottom, QwtPlot::xTop};
+    for(int i = 0; i < 2; i++) {
+        plot->setAxisScaleDraw(x_axes[i], new QuTimeScaleDraw());
+        plot->setAxisLabelRotation(x_axes[i], -50);
+        plot->setAxisLabelAlignment(x_axes[i], Qt::AlignLeft | Qt::AlignBottom );
+    }
+    // connect plot to data source(s)
+    conn->addSource("$1/temperature");
+    conn->addSource("$2/temperature");
+
+ *  \endcode
  *
  */
 class QuScalarPlot : public QwtPlot
