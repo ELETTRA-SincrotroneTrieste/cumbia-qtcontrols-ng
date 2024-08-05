@@ -93,7 +93,7 @@ void QuPlotDataConnector::m_configure(const CuData &data) {
 }
 
 void QuPlotDataConnector::onUpdate(const CuData &data) {
-    pretty_pri("data %s", datos(data));
+    // pretty_pri("data %s", datos(data));
     const std::string& s = data.s(TTT::Src);
     bool err = data.b(TTT::Err) && data.containsKey(TTT::Value);
     if(data.s(TTT::Type) == "property") {
