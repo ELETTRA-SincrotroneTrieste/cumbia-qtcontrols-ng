@@ -18,9 +18,9 @@ public:
     QuPlotP(bool ogl, QwtPlot *p) :
         grid(nullptr) {
         if(ogl) {
-            p->setCanvas(make_GL_canvas() );
+            p->setCanvas(make_GL_canvas(p) );
         } else {
-            p->setCanvas(make_canvas());
+            p->setCanvas(make_canvas(p));
         }
         align_scales(p);
         int axes[4]{ QwtPlot::xBottom, QwtPlot::xTop, QwtPlot::yLeft, QwtPlot::yRight};
@@ -34,16 +34,16 @@ public:
     QwtPlotGrid *grid;
     QuCurves *curves;
 
-    QWidget *make_GL_canvas() {
-        QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas();
+    QWidget *make_GL_canvas(QwtPlot *p) {
+        QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas(p);
         canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
         canvas->setLineWidth( 1 );
         canvas->setPalette( Qt::white );
         return canvas;
     }
 
-    QWidget *make_canvas() {
-        QwtPlotCanvas* canvas = new QwtPlotCanvas();
+    QWidget *make_canvas(QwtPlot *p) {
+        QwtPlotCanvas* canvas = new QwtPlotCanvas(p);
         canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
         canvas->setLineWidth( 1 );
         canvas->setPalette(Qt::white);
@@ -63,9 +63,9 @@ public:
             if ( scaleWidget )
                 scaleWidget->setMargin( 0 );
 
-            QwtScaleDraw* scaleDraw = plot->axisScaleDraw( axisPos );
-            if ( scaleDraw )
-                scaleDraw->enableComponent( QwtAbstractScaleDraw::Backbone, false );
+            // QwtScaleDraw* scaleDraw = plot->axisScaleDraw( axisPos );
+            // if ( scaleDraw )
+            //     scaleDraw->enableComponent( QwtAbstractScaleDraw::Backbone, false );
         }
 
         plot->plotLayout()->setAlignCanvasToScales( true );
