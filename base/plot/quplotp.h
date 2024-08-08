@@ -24,8 +24,9 @@ public:
         }
         align_scales(p);
         int axes[4]{ QwtPlot::xBottom, QwtPlot::xTop, QwtPlot::yLeft, QwtPlot::yRight};
-        for(int axisId : axes )
+        for(int axisId : axes ) {
             p->axisScaleEngine(axisId)->setAttribute(QwtScaleEngine::Floating);
+        }
         // Insert grid
         grid = new QwtPlotGrid();
         grid->attach(p);

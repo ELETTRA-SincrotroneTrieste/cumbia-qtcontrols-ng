@@ -13,8 +13,17 @@
 
 
 QuArrayPlot::QuArrayPlot(QWidget *parent, bool opengl) : QwtPlot(parent) {
+    QList<double> ticks = axisScaleDraw(QwtPlot::yLeft)->scaleDiv().ticks(QwtScaleDiv::MajorTick);
+    printf("QuArrayPlot.QuArrayPlot: \e[1;33mY axis ticks: ");
+    for(int i = 0; i < ticks.size(); i++)
+        printf("%f, ", ticks[i]);
+    printf("\e[0m\n");
+
     d = new QuPlotP(opengl, this);
     d->curves = new QuCurves();
+
+
+    replot();
 }
 
 QuArrayPlot::~QuArrayPlot() {
