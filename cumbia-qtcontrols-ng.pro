@@ -58,6 +58,7 @@ SOURCES += \
     base/plot/quarraybuf.cpp \
     base/plot/quarrayplot.cpp \
     base/plot/quarrayplotgl.cpp \
+    base/plot/quaxiseventfilter.cpp \
     base/plot/qubufbase.cpp \
     base/plot/qubufoptions.cpp \
     base/plot/qucircularbuf.cpp \
@@ -138,6 +139,7 @@ HEADERS += \
     base/plot/quarraybuf.h \
     base/plot/quarrayplot.h \
     base/plot/quarrayplotgl.h \
+    base/plot/quaxiseventfilter.h \
     base/plot/qubufbase.h \
     base/plot/qubufoptions.h \
     base/plot/qucircularbuf.h \
