@@ -51,6 +51,19 @@ QwtPlotCurve *QuArrayPlot::addCurve(const std::string &name,
     return c;
 }
 
+/*!
+ * \brief set Y data on the curve with the given *name*, using the *move* semantics on
+ *        the internal data buffer.
+ *
+ * \param name the name of the curve you want data to be *moved* and displayed
+ * \param y a const reference to a vector of double that will be *moved* to the
+ *        internal storage.
+ *
+ * \par signals
+ * emits dataUpdated with the involved QwtPlotCurve (with name *name*)
+ *
+ * If the curve with *name* is not found, addCurve is invoked to create one.
+ */
 void QuArrayPlot::setData(const std::string& name, const std::vector<double> &y) {
     QwtPlotCurve *c = d->curves->get(name);
     if(!c)
@@ -59,11 +72,14 @@ void QuArrayPlot::setData(const std::string& name, const std::vector<double> &y)
     buf->move(y);
     replot();
     emit dataUpdated(c);
+    if(toolTip() != QString())
+        setToolTip(QString());
 
 }
 
 void QuArrayPlot::onError(const std::string &name, const std::string &msg) {
     emit error(name, msg);
+    setToolTip(QString("%1:\n%2").arg(name.c_str(), msg.c_str()));
 }
 
 

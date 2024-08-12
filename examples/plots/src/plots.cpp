@@ -24,7 +24,7 @@
 #include <qwt_plot_curve.h>
 #include <qwt_text.h>
 #include <qwt_plot_zoomer.h>
-#include <qutimescaledraw.h>
+#include <quxtimescale.h>
 
 Plots::Plots(CumbiaPool *cumbia_pool, QWidget *parent) :
     QWidget(parent) {
@@ -66,11 +66,8 @@ Plots::Plots(CumbiaPool *cumbia_pool, QWidget *parent) :
             conn->getContext()->setOptions(CuData(TTT::Period, parser.value(period_o).toInt()));
         }
         int x_axes[2] { QwtPlot::xBottom, QwtPlot::xTop};
-        for(int i = 0; i < 2; i++) {
-            plot1->setAxisScaleDraw(x_axes[i], new QuTimeScaleDraw());
-            plot1->setAxisLabelRotation(x_axes[i], -50);
-            plot1->setAxisLabelAlignment(x_axes[i], Qt::AlignLeft | Qt::AlignBottom );
-        }
+        for(int i = 0; i < 2; i++)
+            new QuXTimeScale(plot1, x_axes[i]);
     }
 
     QuCurveSelector *p1selector = new QuCurveSelector(plot1);

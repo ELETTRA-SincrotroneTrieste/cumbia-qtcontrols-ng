@@ -67,6 +67,7 @@ SOURCES += \
     base/plot/quplotdataconnector.cpp \
     base/plot/quplotoptions.cpp \
     base/plot/quscalarplot.cpp \
+    base/plot/quxtimescale.cpp \
     base/plot/zoomer/ScrollBar.cpp \
     base/plot/zoomer/ScrollZoomer.cpp \
     base/plot/zoomer/quplotzoomer.cpp \
@@ -149,6 +150,7 @@ HEADERS += \
     base/plot/quplotoptions.h \
     base/plot/quplotp.h \
     base/plot/quscalarplot.h \
+    base/plot/quxtimescale.h \
     base/plot/zoomer/ScrollBar.h \
     base/plot/zoomer/ScrollZoomer.h \
     base/plot/zoomer/quplotzoomer.h \
@@ -208,13 +210,13 @@ HEADERS += \
 DISTFILES +=
 
 unix {
-  #  doc.commands = \
-   # doxygen \
-  #  Doxyfile;
+    doc.commands = \
+    doxygen \
+    Doxyfile;
 
-  #  doc.files = docs/*
-  #  doc.path = $${CUMBIA_QTCONTROLS_NG_DOCDIR}
-  #  QMAKE_EXTRA_TARGETS += doc
+    doc.files = docs/*
+    doc.path = $${CUMBIA_QTCONTROLS_NG_DOCDIR}
+    QMAKE_EXTRA_TARGETS += doc
     QMAKE_CXXFLAGS += -std=c++17
 
     inc.files = $${HEADERS}

@@ -3,6 +3,14 @@
 #include <qubufoptions.h>
 #include <qubufbase.h>
 
+/*!
+ * \brief A linear buffer to store an array of *Y* data, exposing both the
+ * *copy* and *move* semantics.
+ *
+ * Implements *QwtSeriesData< QPointF >* interface, and the *size*,
+ * *sample(size_t)* and *boundingRect* methods.
+ *
+ */
 class QuArrayBuf : public QuBufBase
 {
 public:

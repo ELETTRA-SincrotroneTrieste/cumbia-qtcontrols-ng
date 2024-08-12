@@ -30,6 +30,7 @@ class QuCurves;
     #include <quscalarplot.h>
     #include <quplotdataconnector.h>
     #include <cucontext.h>
+    #include <quxtimescale.h>
 
     QuScalarPlot* plot = new QuScalarPlot(this);
     plot->setObjectName("plot");
@@ -38,11 +39,8 @@ class QuCurves;
     conn->getContext()->setOptions(CuData(TTT::Period, 500));
     // configure both x axes (top and bottom) with a time scale and label rotation
     int x_axes[2] { QwtPlot::xBottom, QwtPlot::xTop};
-    for(int i = 0; i < 2; i++) {
-        plot->setAxisScaleDraw(x_axes[i], new QuTimeScaleDraw());
-        plot->setAxisLabelRotation(x_axes[i], -50);
-        plot->setAxisLabelAlignment(x_axes[i], Qt::AlignLeft | Qt::AlignBottom );
-    }
+    for(int i = 0; i < 2; i++)
+        new QuXTimeScale(plot, x_axes[i]);
     // connect plot to data source(s)
     conn->addSource("$1/temperature");
     conn->addSource("$2/temperature");

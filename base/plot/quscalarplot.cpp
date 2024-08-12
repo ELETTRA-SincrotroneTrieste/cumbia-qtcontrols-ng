@@ -138,10 +138,13 @@ void QuScalarPlot::append(const std::string& name, double y) {
         sd->dire_p->drawSeries(c, i1, i2);
         // replot();
         emit dataUpdated(c);
+        if(toolTip() != QString())
+            setToolTip(QString());
     }
 }
 
 void QuScalarPlot::onError(const std::string &name, const std::string &msg) {
     emit error(name, msg);
+    setToolTip(QString("%1:\n%2").arg(name.c_str(), msg.c_str()));
 }
 
