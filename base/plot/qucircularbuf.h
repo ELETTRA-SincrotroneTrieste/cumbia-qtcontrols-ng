@@ -55,7 +55,7 @@ class QuPlotDataBufP;
  * On the other hand, QuCircularBuf::append(double *yy, size_t count) assumes *x auto* is true,
  * and does nothing otherwise (for example, if the (x,y,count) signature version is called by mistake).
  *
- * \note the two flavours of append *shall not be mixed*!
+ * \note calls to the two flavours of append on the same buffer *shall not be mixed* !
  */
 class QuCircularBuf : public QuBufBase
 {

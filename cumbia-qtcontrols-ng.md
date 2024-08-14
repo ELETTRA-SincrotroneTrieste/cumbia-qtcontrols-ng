@@ -33,7 +33,7 @@ Less than one hundred lines the array version and about 150 the scalar version, 
 are minimalistic in order to guarantee no overhead with respect to base QwtPlot and at the same time
 ensure immediate debugging and benchmark comparison with QwtPlot.
 
-The QuScalarPlot uses a *circular buffer* to store data. This means that the user must decide in 
+The QuScalarPlot uses a *circular buffer* (QuCircularBuf) to store data. This means that the user must decide in 
 advance how much data needs to be displayed on the chart. Convenience duration values, defined in
 QuCircularBuf::Duration enum can be used to initialize the *scalar plots*.
 
