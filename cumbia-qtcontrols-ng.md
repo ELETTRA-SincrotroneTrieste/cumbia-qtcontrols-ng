@@ -24,7 +24,7 @@ of each component:
 
 ### cartesian plots
 
-#### quscalarplot and quarrayplot
+#### quscalarplot and quarrayplot {#quplotsng}
 
 Two implementations of *QwtPlot*, one tailored for scalar variables over time, the other for spectrum
 data, offering substantially only two shortcuts, one for adding curves, one either for appending (scalar) 
@@ -41,18 +41,46 @@ The QuArrayPlot uses a QuArrayBuf buffer, that offers one method to *set* (copyi
 to *move* y data, according to the needs of the client.
 QuArrayPlot::setData uses the *move* semantics.
 
+
 Additional functionality (i.e. curve search and selection, zooming and chart configuration) is added
 by means of dedicated objects that can be *installed* on the plot. A list of relevant classes follows:
 
-1. QuCurves, manage and search curves attached to the plot
-2. QuCurveSelector, select a curve on the plot with the mouse
-3. QuPlotOptions, configure plot options (X and Y bounds, axes autoscale, openGL mode, ...)
+1. QuCurveSelector, access current curve selection or select a curve
+2. QuPlotOptions, configure plot options (X and Y bounds, axes autoscale, openGL mode, ...)
+3. QuCurveAccess, get the list of curves, find a curve by name, ...
 4. QuPlotZoomer, zoom a plot area with the mouse
 5. QuXTimeScale, install a time (with optional date) scale draw on the X axis
 
+All the classes above require a pointer to the plot in the constructor.
+Note that QuPlotOptions and QuCurveSelector can be local variables.
 
 
-#### Former qgraphicsplot
+##### Methods
+
+ The methods provided are limited in number, to ensure a minimalistic implementation.
+ Compared with QwtPlot, they simply offer an easier interface to create curves and add
+ data to them.
+ QuScalarPlot::addCurve and QuArrayPlot::addCurve are used as a shortcut to add a new curve. 
+ There are two flavours of QuScalarPlot::append for *scalar data*, to add data to a curve 
+ with the given name, one QuArrayPlot::setData for *array plots*.
+ A further a method is addressed at notifying the plot about an error occurred 
+ while fetching data from the source (QuArrayPlot::onError and QuScalarPlot::onError).
+ 
+ QuPlotDataConnector is an example of client. It reads from the sources and one of the 
+ engines provided by *cumbia*, updates data and sets error conditions. An error is usually
+ notified by a *tooltip*, which is cleared as soon as the condition is cleared.
+ 
+
+##### Signals
+
+ QuScalarPlot emits a few signals that can be used to detect the most relevant events:
+
+ - curveAdded notifies a new curve has been added to the plot. Carries a pointer to the curve;
+ - dataUpdated carries a pointer to the curve on which data has been updated
+ - error notifies an error has occurred for the name of the source provided along with the
+   message
+
+#### qgraphicsplot (brought into cumbia-qtcontrols-ng from former qgraphicsplot lib)
 
 The *qgraphicsplot*, formerly implemented in the namesake library, has become part of *cumbia-qtcontrols-ng*.
 It offers a cartesian QGraphicsItem plot with its own zoomer along with the natural scaling of the items in 

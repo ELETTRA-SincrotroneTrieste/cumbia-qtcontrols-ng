@@ -31,11 +31,11 @@ void QuCircularBuf::init(size_t bufsiz) {
 }
 
 double QuCircularBuf::x0() const {
-    return d->xax_auto ? d->first : p(0).x();
+    return d->datasiz == 0 ? -1 : (  d->xax_auto ? 0 : p(0).x() );
 }
 
 double QuCircularBuf::xN() const {
-    return d->datasiz > 0 ? p(d->datasiz - 1).x() : -1;
+    return d->datasiz == 0 ? -1 :  ( d->xax_auto ? d->datasiz - 1 : p(d->datasiz - 1).x() );
 }
 
 bool QuCircularBuf::x_auto() const {
@@ -46,7 +46,7 @@ size_t QuCircularBuf::first() const {
     return d->first;
 }
 
-QPointF QuCircularBuf::p(size_t i) const {
+const QPointF QuCircularBuf::p(size_t i) const {
     QPointF r(-1.0, -1.0);
     if(i >= d->datasiz)
         return r;
@@ -65,6 +65,10 @@ double QuCircularBuf::py(size_t i) const {
  */
 size_t QuCircularBuf::index(size_t i) const {
     return (d->first + i) % d->bufsiz;
+}
+
+const QPointF QuCircularBuf::operator [](size_t i) const {
+    return p(i);
 }
 
 double QuCircularBuf::px(size_t i) const {

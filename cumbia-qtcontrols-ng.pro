@@ -62,6 +62,7 @@ SOURCES += \
     base/plot/qubufbase.cpp \
     base/plot/qubufoptions.cpp \
     base/plot/qucircularbuf.cpp \
+    base/plot/qucurveaccess.cpp \
     base/plot/qucurves.cpp \
     base/plot/qucurveselector.cpp \
     base/plot/quplotdataconnector.cpp \
@@ -144,6 +145,7 @@ HEADERS += \
     base/plot/qubufbase.h \
     base/plot/qubufoptions.h \
     base/plot/qucircularbuf.h \
+    base/plot/qucurveaccess.h \
     base/plot/qucurves.h \
     base/plot/qucurveselector.h \
     base/plot/quplotdataconnector.h \

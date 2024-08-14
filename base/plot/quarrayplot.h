@@ -9,6 +9,11 @@ class QuPlotP;
 class QwtPlotCurve;
 class QuCurves;
 
+/*!
+ * \brief Minimalistic extension of QwtPlot tailored for array data format (spectrum data)
+ *
+ * See \ref quplotsng
+ */
 class QuArrayPlot : public QwtPlot
 {
     Q_OBJECT

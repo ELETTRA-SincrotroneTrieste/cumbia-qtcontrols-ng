@@ -14,10 +14,9 @@ public:
     virtual ~QuPlotZoomer();
 
 public slots:
-    void onAxisScaleDivChanged();
-
     virtual void zoom( const QRectF& );
     void zoom(int offset);
+
 private:
     void m_save_autoscale_state();
     void m_restore_autoscale_state();

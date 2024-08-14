@@ -12,6 +12,8 @@ class QuCurves;
 
 /*! Plot specialized in the representation of curves with scalar data added over time
  *
+ *  See \ref quplotsng "the introduction to the scalar and array plots"
+ *
  *  The interface of *cumbia-qtcontrols-ng* plots is minimal to ensure maximum performance
  *  of the basic objects.
  *
@@ -44,7 +46,6 @@ class QuCurves;
     // connect plot to data source(s)
     conn->addSource("$1/temperature");
     conn->addSource("$2/temperature");
-
  *  \endcode
  *
  */
