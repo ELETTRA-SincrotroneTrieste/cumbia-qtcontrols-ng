@@ -68,6 +68,7 @@ SOURCES += \
     base/plot/quplotdataconnector.cpp \
     base/plot/quplotoptions.cpp \
     base/plot/quscalarplot.cpp \
+    base/plot/quscalarplotgl.cpp \
     base/plot/quxtimescale.cpp \
     base/plot/zoomer/ScrollBar.cpp \
     base/plot/zoomer/ScrollZoomer.cpp \
@@ -152,6 +153,7 @@ HEADERS += \
     base/plot/quplotoptions.h \
     base/plot/quplotp.h \
     base/plot/quscalarplot.h \
+    base/plot/quscalarplotgl.h \
     base/plot/quxtimescale.h \
     base/plot/zoomer/ScrollBar.h \
     base/plot/zoomer/ScrollZoomer.h \

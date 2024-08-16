@@ -14,19 +14,33 @@ class QuCurves;
  *
  *  See \ref quplotsng "the introduction to the scalar and array plots"
  *
- *  The interface of *cumbia-qtcontrols-ng* plots is minimal to ensure maximum performance
- *  of the basic objects.
+ *  The implementation of *cumbia-qtcontrols-ng* plots has been kept minimal to ensure
+ *  maximum performance and zero code potentially affecting speed.
  *
- *  Additional functionality is added by installing additional decorators / observers.
+ *  For this reason, extra functionality is added by installing additional objects,
+ *  such as QuPlotZoomer, QuCurveSelector, QuAxisEventFilter.
  *
- *  Data is stored in a *circular buffer*, namely QuCircularBuf, whose size shall be specified
- *  in the constructor. If unspecified, the value QuCircularBuf::Day_Secs is used by default,
- *  providing enough space for one day of data at 1 second rate.
+
  *
  *  \par Connecting the plot to sources of data
  *  The QuPlotDataConnector helper class can be used to connect a plot to a source
  *  of (scalar) data. QuPlotDataConnector is a *cumbia* aware object that easily
  *  updates curves on plots.
+ *
+ *  \subsection scalar_specific Scalar plot specific observations
+ *
+ *  \subsubsection circular_buf Circular buffer
+ *  Data is stored in a *circular buffer*, namely QuCircularBuf, whose size shall be specified
+ *  in the constructor. If unspecified, the value QuCircularBuf::Day_Secs is used by default,
+ *  providing enough space for one day of data at 1 second rate.
+ *
+ *  \subsubsection x_axis_time X axis time scale
+ *  QuXTimeScale is typically installed on QuScalarPlot in order to provide a time
+ *  (and optionally the date) representation of data on the X-axis.
+ *
+ *  \subsubsection append_methods append methods
+ *  Scalar data is *added* point by point by one of the two available append
+ *  methods.
  *
  *  \code
     #include <quscalarplot.h>

@@ -80,6 +80,16 @@ Note that QuPlotOptions and QuCurveSelector can be local variables.
  - error notifies an error has occurred for the name of the source provided along with the
    message
 
+##### OpenGL plots
+
+QuArrayPlotGL and QuScalarPlotGL create OpenGL versions of the plots. You can also switch
+the engine at runtime by means of QuPlotOptions.
+
+##### Configuration
+
+QuPlotOptions can be used to configure the plot (axes auto scale, bounds, openGL 
+mode, ... )
+
 #### qgraphicsplot (brought into cumbia-qtcontrols-ng from former qgraphicsplot lib)
 
 The *qgraphicsplot*, formerly implemented in the namesake library, has become part of *cumbia-qtcontrols-ng*.

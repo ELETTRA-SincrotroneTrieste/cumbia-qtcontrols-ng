@@ -83,7 +83,6 @@ public:
     double py(size_t i) const;
     size_t index(size_t i) const;
 
-
     size_t resizebuf(size_t s);
     size_t bufsize() const;
 

@@ -3,6 +3,17 @@
 
 #include "quarrayplot.h"
 
+/*!
+ * \brief The openGL version of QuArrayPlot
+ *
+ * Same interface as QuArrayPlot, internally using
+ * QwtPlotOpenGLCanvas instead of QwtPlotCanvas
+ *
+ * You can change the engine at runtime through QuPlotOptions
+ *
+ * \see QuArrayPlot
+ * \see QuPlotOptions
+ */
 class QuArrayPlotGL : public QuArrayPlot
 {
 public:

@@ -7,6 +7,22 @@ class QwtPlotCurve;
 #include <QList>
 #include <string>
 
+/*!
+ * \brief access the curves of a given plot
+ *
+ * Get the list of curves or a curve by name
+ *
+ * The class can be simply used locally:
+ *
+ * \code
+ * void MyPlotApp::f() {
+ *      QuArrayPlot *plot = findChild<QuArrayPlot *>();
+ *      QuCurveAccess a(plot);
+ *      QwtPlotCurve *t = a.get("temperature");
+ *      // use t
+ *  }
+ * \endcode
+ */
 class QuCurveAccess
 {
 public:

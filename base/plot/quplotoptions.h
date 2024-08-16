@@ -5,6 +5,19 @@
 
 class QwtPlot;
 
+/*!
+ * \brief change autoscale mode, axes bounds, toggle opengl mode
+ *
+ * QuPlotOptions can be a local variable. Once built with the target
+ * plot as parameter, you can change axes bounds or auto scale mode
+ * for all axes. The *x2* and *y2* flavors of the methods provided
+ * operate on QwtAxis::XTop and QwtAxis::YRight respectively.
+ *
+ * \note If you intend to use *openGL* plots, directly instantiate either
+ * QuArrayPlotGL or QuScalarPlotGL rather than changing the engine at
+ * runtime.
+ *
+ */
 class QuPlotOptions : public QObject
 {
     Q_OBJECT
