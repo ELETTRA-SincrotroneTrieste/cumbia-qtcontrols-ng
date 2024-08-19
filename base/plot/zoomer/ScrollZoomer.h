@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include <QwtPlotZoomer>
-#include <QwtPlot>
+#include <qwt_plot_zoomer.h>
+#include <qwt_plot.h>
 
 class ScrollData;
 class ScrollBar;

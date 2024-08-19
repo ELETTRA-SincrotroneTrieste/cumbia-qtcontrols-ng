@@ -1,8 +1,8 @@
 #ifndef QUXTIMESCALE_H
 #define QUXTIMESCALE_H
 
-#include <qwt_axis.h>
 #include <qnamespace.h> // Qt::TimeSpec
+#include <qwt_plot.h>
 
 class QwtPlot;
 
@@ -14,7 +14,7 @@ class QwtPlot;
  */
 class QuXTimeScale {
 public:
-    QuXTimeScale(QwtPlot* plot, int axis_pos = QwtAxis::XBottom,
+    QuXTimeScale(QwtPlot* plot, int axis_pos = QwtPlot::xBottom,
         bool show_date = false, Qt::TimeSpec timeSpec= Qt::LocalTime);
 };
 

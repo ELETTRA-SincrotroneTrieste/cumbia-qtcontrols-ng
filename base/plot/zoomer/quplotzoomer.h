@@ -1,7 +1,7 @@
 #ifndef QUPLOTZOOMER_H
 #define QUPLOTZOOMER_H
 
-#include <QwtPlot>
+#include <qwt_plot.h>
 #include "ScrollZoomer.h"
 
 class QuPlotZoomerP;

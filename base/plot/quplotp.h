@@ -2,7 +2,6 @@
 #define QUPLOTP_H
 
 #include <qwt_plot_layout.h>
-#include <qwt_axis.h>
 #include <qwt_plot.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_opengl_canvas.h>

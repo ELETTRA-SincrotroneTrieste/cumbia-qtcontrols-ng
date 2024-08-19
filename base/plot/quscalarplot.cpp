@@ -8,7 +8,7 @@
 #include <qwt_plot_curve.h>
 #include <qwt_plot_directpainter.h>
 #include <cumacros.h>
-#include <QwtScaleMap>
+#include <qwt_scale_map.h>
 
 class QuScalarPlotP {
 public:

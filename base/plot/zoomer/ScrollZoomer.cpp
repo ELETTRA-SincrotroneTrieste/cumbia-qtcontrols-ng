@@ -6,8 +6,8 @@
 #include "ScrollZoomer.h"
 #include "ScrollBar.h"
 
-#include <QwtPlotLayout>
-#include <QwtScaleWidget>
+#include <qwt_plot_layout.h>
+#include <qwt_scale_widget.h>
 
 #include <QResizeEvent>
 #include <QMargins>
