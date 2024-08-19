@@ -6,7 +6,17 @@
 
 include(cumbia-qtcontrols-ng.pri)
 
-CONFIG += debug
+isEmpty(buildtype) {
+        buildtype = release
+} else {
+    equals(buildtype, debug) {
+        message("")
+        message("debug build")
+        message("")
+    }
+}
+
+CONFIG += $${buildtype}
 
 VERSION_HEX = 0x0100000
 VERSION = 1.1.0
