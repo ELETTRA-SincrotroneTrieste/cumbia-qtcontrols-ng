@@ -32,8 +32,8 @@ QuArrayPlot::~QuArrayPlot() {
 }
 
 QwtPlotCurve *QuArrayPlot::addCurve(const std::string &name,
-                                    QwtAxisId xAxis,
-                                    QwtAxisId yAxis,
+                                    QwtPlot::Axis xAxis,
+                                    QwtPlot::Axis yAxis,
                                     const QPen &pen) {
     QwtPlotCurve *c = nullptr;
     if(!d->curves->map.contains(name)) {

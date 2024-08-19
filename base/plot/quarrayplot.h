@@ -65,8 +65,8 @@ public:
     virtual ~QuArrayPlot();
 
     virtual QwtPlotCurve *addCurve(const std::string& name,
-                           QwtAxisId xAxis = QwtAxis::XBottom,
-                           QwtAxisId yAxis = QwtAxis::YLeft,
+                                   QwtPlot::Axis xAxis = QwtPlot::xBottom,
+                                   QwtPlot::Axis yAxis = QwtPlot::yLeft,
                                    const QPen& pen = QPen(QColor()));
     virtual void setData(const std::string &name, const std::vector<double>& y);
     virtual void onError(const std::string&name, const std::string& msg);
