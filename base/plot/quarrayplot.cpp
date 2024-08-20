@@ -13,17 +13,9 @@
 
 
 QuArrayPlot::QuArrayPlot(QWidget *parent, bool opengl) : QwtPlot(parent) {
-    QList<double> ticks = axisScaleDraw(QwtPlot::yLeft)->scaleDiv().ticks(QwtScaleDiv::MajorTick);
-    printf("QuArrayPlot.QuArrayPlot: \e[1;33mY axis ticks: ");
-    for(int i = 0; i < ticks.size(); i++)
-        printf("%f, ", ticks[i]);
-    printf("\e[0m\n");
-
     d = new QuPlotP(opengl, this);
     d->curves = new QuCurves();
-
-
-    replot();
+    updateAxes();
 }
 
 QuArrayPlot::~QuArrayPlot() {
@@ -44,8 +36,6 @@ QwtPlotCurve *QuArrayPlot::addCurve(const std::string &name,
         bool xa = axisAutoScale(xAxis), ya = axisAutoScale(yAxis);
         QuArrayBuf* b = new QuArrayBuf(xa, ya);
         c->setData(b);
-        pretty_pri("addCurve on curve %p with buf %p (data() returns buf %p)",
-                   c, b, static_cast<QuArrayBuf *>(c->data()));
     }
     emit curveAdded(c);
     return c;
@@ -74,7 +64,6 @@ void QuArrayPlot::setData(const std::string& name, const std::vector<double> &y)
     emit dataUpdated(c);
     if(toolTip() != QString())
         setToolTip(QString());
-
 }
 
 void QuArrayPlot::onError(const std::string &name, const std::string &msg) {

@@ -1,13 +1,20 @@
 #ifndef QUPLOTP_H
 #define QUPLOTP_H
 
+#include <qwt_global.h> // to detect qwt version
 #include <qwt_plot_layout.h>
 #include <qwt_plot.h>
 #include <qwt_plot_canvas.h>
-#include <qwt_plot_opengl_canvas.h>
+
 #include <qwt_scale_widget.h>
 #include <qwt_scale_engine.h>
 #include <qwt_plot_grid.h>
+
+#if QWT_VERSION >=  0x060200
+#include <qwt_plot_opengl_canvas.h>
+#else
+#include <qwt_plot_glcanvas.h>
+#endif
 
 class QwtPlotGrid;
 class QuCurves;
@@ -35,7 +42,11 @@ public:
     QuCurves *curves;
 
     QWidget *make_GL_canvas(QwtPlot *p) {
+#if QWT_VERSION >=  0x060200
         QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas(p);
+#else
+        QwtPlotGLCanvas *canvas = new QwtPlotGLCanvas(p);
+#endif
         canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
         canvas->setLineWidth( 1 );
         canvas->setPalette( Qt::white );
