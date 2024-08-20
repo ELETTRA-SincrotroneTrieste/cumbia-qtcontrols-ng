@@ -2,7 +2,6 @@
 #include "quarrayplot.h"
 #include "qucurves.h"
 #include "quplotp.h"
-#include <qwt_plot_opengl_canvas.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_grid.h>
 #include <qwt_scale_widget.h>
