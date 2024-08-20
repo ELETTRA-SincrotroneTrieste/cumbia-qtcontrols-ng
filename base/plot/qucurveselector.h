@@ -41,6 +41,8 @@ public:
 
 class QuCurveSelectionData {
 public:
+    QuCurveSelectionData() : curve(nullptr), idx(0), penw(0.0) {}
+
     QuCurveSelectionData(QwtPlotCurve *c, int i, float pw) : curve(c), idx(i), penw(pw) {}
 
     bool operator==(const QuCurveSelectionData &other) const {

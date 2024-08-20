@@ -116,9 +116,9 @@ void QuPlotOptions::y2up(double up) {
 void QuPlotOptions::opengl(bool ogl) {
     if(ogl) {
 #if QWT_VERSION >=  0x060200
-        QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas(p);
+        QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas(m_plot);
 #else
-        QwtPlotGLCanvas *canvas = new QwtPlotGLCanvas(p);
+        QwtPlotGLCanvas *canvas = new QwtPlotGLCanvas(m_plot);
 #endif
         canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
         canvas->setLineWidth( 1 );
@@ -167,6 +167,10 @@ double QuPlotOptions::y2up() const {
 }
 
 bool QuPlotOptions::opengl() const {
+#if QWT_VERSION >=  0x060200
     return qobject_cast<QwtPlotOpenGLCanvas *>(m_plot->canvas());
+#else
+    return qobject_cast<QwtPlotGLCanvas *>(m_plot->canvas());
+#endif
 }
 

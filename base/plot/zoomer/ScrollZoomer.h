@@ -42,9 +42,9 @@ class ScrollZoomer : public QwtPlotZoomer
     QWidget* cornerWidget() const;
     virtual void setCornerWidget( QWidget* );
 
-    virtual bool eventFilter( QObject*, QEvent* ) QWT_OVERRIDE;
+    virtual bool eventFilter( QObject*, QEvent* );
 
-    virtual void rescale() QWT_OVERRIDE;
+    virtual void rescale();
 
   protected:
     virtual ScrollBar* scrollBar( Qt::Orientation );
