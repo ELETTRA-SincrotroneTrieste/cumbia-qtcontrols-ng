@@ -69,7 +69,7 @@ public:
         // The code below shows how to align the scales to
         // the canvas frame, but is also a good example demonstrating
         // why the spreaded API needs polishing.
-        for ( int axisPos = 0; axisPos < QwtAxis::AxisPositions; axisPos++ ) {
+        for ( int axisPos = 0; axisPos < QwtPlot::axisCnt; axisPos++ ) {
             QwtScaleWidget* scaleWidget = plot->axisWidget( axisPos );
             if ( scaleWidget )
                 scaleWidget->setMargin( 0 );

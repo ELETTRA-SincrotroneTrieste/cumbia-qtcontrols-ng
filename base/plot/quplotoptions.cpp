@@ -4,8 +4,13 @@
 #include <qwt_plot_curve.h>
 #include <qwt_scale_div.h>
 #include <cumacros.h>
-#include <qwt_plot_opengl_canvas.h>
 #include <qwt_plot_canvas.h>
+
+#if QWT_VERSION >=  0x060200
+#include <qwt_plot_opengl_canvas.h>
+#else
+#include <qwt_plot_glcanvas.h>
+#endif
 
 QuPlotOptions::QuPlotOptions(QwtPlot *plot) : m_plot(plot) {
 
@@ -110,7 +115,11 @@ void QuPlotOptions::y2up(double up) {
 
 void QuPlotOptions::opengl(bool ogl) {
     if(ogl) {
-        QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas();
+#if QWT_VERSION >=  0x060200
+        QwtPlotOpenGLCanvas* canvas = new QwtPlotOpenGLCanvas(p);
+#else
+        QwtPlotGLCanvas *canvas = new QwtPlotGLCanvas(p);
+#endif
         canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
         canvas->setLineWidth( 1 );
         canvas->setPalette( Qt::white );
