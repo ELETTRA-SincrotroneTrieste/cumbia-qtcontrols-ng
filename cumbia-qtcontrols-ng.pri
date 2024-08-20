@@ -51,10 +51,27 @@ isEmpty(prefix) {
 MOC_DIR=moc
 OBJECTS_DIR=objs
 
-unix:!android-g++ {
-    CONFIG += link_pkgconfig
-    PKGCONFIG += cumbia cumbia-qtcontrols
+
+CONFIG += link_pkgconfig
+PKGCONFIG += cumbia cumbia-qtcontrols
+
+packagesExist(qwt){
+    PKGCONFIG += qwt
 }
+# qwt for qt6
+else:packagesExist(Qt6Qwt6){
+    PKGCONFIG += Qt6Qwt6
+    message("qwt6 for QT6")
+}
+else:packagesExist(Qt5Qwt6){
+    PKGCONFIG += Qt5Qwt6
+}  else {
+    warning("cumbia-qtcontrols.pri: no pkg-config file found for either qwt or Qt5Qwt6")
+    warning("cumbia-qtcontrols.pri: export PKG_CONFIG_PATH=/usr/path/to/qwt/lib/pkgconfig if you want to enable pkg-config for qwt")
+    warning("cumbia-qtcontrols.pri: if you build and install qwt from sources, be sure to uncomment/enable ")
+    warning("cumbia-qtcontrols.pri: QWT_CONFIG     += QwtPkgConfig in qwtconfig.pri qwt project configuration file")
+}
+
 
 QT       += widgets svg opengl
 
