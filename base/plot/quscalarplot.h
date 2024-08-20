@@ -70,8 +70,8 @@ public:
     QuScalarPlot(QWidget *p, size_t bufsiz = QuCircularBuf::Day_Secs, bool opengl = false);
 
     QwtPlotCurve *addCurve(const std::string &name,
-                           QwtAxisId xAxis = QwtAxis::XBottom,
-                           QwtAxisId yAxis = QwtAxis::YLeft,
+                           int xAxis = QwtPlot::xBottom,
+                           int yAxis = QwtPlot::yLeft,
                            const QPen& pen = QPen(QColor()));
     void append(const std::string &name, double x, double y);
     void append(const std::string &name, double y);

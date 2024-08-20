@@ -32,8 +32,8 @@ QuScalarPlot::QuScalarPlot(QWidget *p, size_t bufsiz, bool opengl) : QwtPlot(p) 
 }
 
 QwtPlotCurve *QuScalarPlot::addCurve(const std::string &name,
-                                     QwtAxisId xAxis,
-                                     QwtAxisId yAxis,
+                                     int xAxis,
+                                     int yAxis,
                                      const QPen &pen) {
     QwtPlotCurve *c = nullptr;
     if(!d->curves->map.contains(name)) {
@@ -57,17 +57,9 @@ void QuScalarPlot::append(const std::string &name, double x, double y)
     if(!c)
         c = addCurve(name);
     QuCircularBuf *buf = static_cast<QuCircularBuf *>(c->data());
-    // pretty_pri("%s -> value %f  y:[%.1f - %.1f] curve %p buf %p plot autoscale x %s, y %s",
-    //            name.c_str(), y, buf->o.ylb, buf->o.yub, c, buf,
-    //            axisAutoScale(QwtPlot::xBottom) ? "YES" : "NO",
-    //            axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
-
     bool bounds_changed = buf->append(&x, &y, 1);
-
-
     size_t siz = buf->size();
     size_t i2 = /*buf->index*/(siz - 1), i1 = /*buf->index*/(siz - 2);
-
     const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
     if ( doClip )
     {
@@ -83,13 +75,9 @@ void QuScalarPlot::append(const std::string &name, double x, double y)
         const QRectF& br = qwtBoundingRect( *c->data(), i1, i2);
         const QRect& clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
         sd->dire_p->setClipRegion( clipRect );
-        // printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
     }
-    else
-        printf("\e[1;32m canvas has paint on screen attribute\e[0m\n");
 
     if(bounds_changed) {
-        // printf("QuScalarPlot: \e[1;31m full replot needed\e[0m\n");
         replot();
     }
     else {
@@ -104,11 +92,6 @@ void QuScalarPlot::append(const std::string& name, double y) {
     QwtPlotCurve *c = d->curves->get(name);
     if(c) {
         QuCircularBuf *buf = static_cast<QuCircularBuf *>(c->data());
-        // pretty_pri("%s -> data siz %ld: y:[%.1f - %.1f] curve %p buf %p plot autoscale x %s, y %s",
-        //            name.c_str(), y.size(), buf->o.ylb, buf->o.yub, c, buf,
-        //            axisAutoScale(QwtPlot::xBottom) ? "YES" : "NO",
-        //            axisAutoScale(QwtPlot::yLeft) ? "YES": "NO");
-
         buf->append(&y, 1);
         size_t siz = buf->size();
         size_t i2 = /*buf->index*/(siz - 1), i1 = /*buf->index*/(siz - 2);
@@ -125,9 +108,7 @@ void QuScalarPlot::append(const std::string& name, double y) {
 
             const QwtScaleMap xMap = canvasMap( c->xAxis() );
             const QwtScaleMap yMap = canvasMap( c->yAxis() );
-
             QRectF br = qwtBoundingRect( *c->data(), i1, i2);
-
             const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
             sd->dire_p->setClipRegion( clipRect );
             printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());

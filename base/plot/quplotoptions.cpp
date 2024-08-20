@@ -12,7 +12,7 @@ QuPlotOptions::QuPlotOptions(QwtPlot *plot) : m_plot(plot) {
 }
 
 void QuPlotOptions::xauto(bool a) {
-    m_plot->setAxisAutoScale(QwtAxis::XBottom, a);
+    m_plot->setAxisAutoScale(QwtPlot::xBottom, a);
     foreach(QwtPlotItem *c, m_plot->itemList(QwtPlotCurve::Rtti_PlotCurve)) {
         QuBufBase *bb = static_cast<QuBufBase *>(static_cast<QwtPlotCurve *>(c)->data());
         bb->o.xauto(a);
@@ -21,7 +21,7 @@ void QuPlotOptions::xauto(bool a) {
 }
 
 void QuPlotOptions::yauto(bool a) {
-    m_plot->setAxisAutoScale(QwtAxis::YLeft, a);
+    m_plot->setAxisAutoScale(QwtPlot::yLeft, a);
     foreach(QwtPlotItem *c, m_plot->itemList(QwtPlotCurve::Rtti_PlotCurve)) {
         QuBufBase *bb = static_cast<QuBufBase *>(static_cast<QwtPlotCurve *>(c)->data());
         bb->o.yauto(a);
@@ -30,7 +30,7 @@ void QuPlotOptions::yauto(bool a) {
 }
 
 void QuPlotOptions::x2auto(bool a) {
-    m_plot->setAxisAutoScale(QwtAxis::XTop, a);
+    m_plot->setAxisAutoScale(QwtPlot::xTop, a);
     foreach(QwtPlotItem *c, m_plot->itemList(QwtPlotCurve::Rtti_PlotCurve)) {
         QuBufBase *bb = static_cast<QuBufBase *>(static_cast<QwtPlotCurve *>(c)->data());
         bb->o.xauto(a);
@@ -40,7 +40,7 @@ void QuPlotOptions::x2auto(bool a) {
 }
 
 void QuPlotOptions::y2auto(bool a)  {
-    m_plot->setAxisAutoScale(QwtAxis::YRight, a);
+    m_plot->setAxisAutoScale(QwtPlot::yRight, a);
     foreach(QwtPlotItem *c, m_plot->itemList(QwtPlotCurve::Rtti_PlotCurve)) {
         QuBufBase *bb = static_cast<QuBufBase *>(static_cast<QwtPlotCurve *>(c)->data());
         bb->o.yauto(a);

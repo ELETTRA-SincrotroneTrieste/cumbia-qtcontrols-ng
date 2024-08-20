@@ -243,15 +243,14 @@ bool QuCircularBuf::append(double *yy, size_t count) {
  * elements inserted.
  *
  * \param idx position where to insert. If greater than *size*, then
- *        data shall be appended at the end. If less than 0, it shall
- *        be inserted before current data.
+ *        data shall be appended at the end. If 0, it is
+ *        inserted before current data.
  * \param yy pointer to data
  * \param count number of elements in yy
  */
 void QuCircularBuf::insert(size_t idx, double *yy, size_t count) {
     if(d->xax_auto) {
         if(idx > d->datasiz) idx = d->datasiz;
-        if(idx < 0) idx = 0;
         if(d->bufsiz >= d->datasiz + count) {
             // there is enough space for data: use std vector insert
             y.insert(y.begin() + idx, yy, yy + count);
