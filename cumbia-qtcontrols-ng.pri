@@ -52,9 +52,29 @@ MOC_DIR=moc
 OBJECTS_DIR=objs
 
 
-CONFIG += link_pkgconfig
-PKGCONFIG += cumbia cumbia-qtcontrols
+exists($${INSTALL_ROOT}/include/cumbia) {
+    INCLUDEPATH += $${INSTALL_ROOT}/include/cumbia
+    LIBS += -L$${INSTALL_ROOT}/lib -lcumbia
+} else {
+    error("cumbia installation not found under $${INSTALL_ROOT}")
+}
+# libs at this point contain $${INSTALL_ROOT}/lib
 
+exists($${INSTALL_ROOT}/include/cumbia-qtcontrols/cumbia-qtcontrols.pri) {
+    INCLUDEPATH += $${INSTALL_ROOT}/include/cumbia-qtcontrols
+    LIBS += -lcumbia-qtcontrols
+} else {
+    error("cumbia-qtcontrols installation not found under $${INSTALL_ROOT}")
+}
+
+exists($${INSTALL_ROOT}/include/cumbia-qtcontrols-ng/cumbia-qtcontrols-ng.pri) {
+    INCLUDEPATH += $${INSTALL_ROOT}/include/cumbia-qtcontrols-ng
+    LIBS += -l$${cumbia_qtcontrols_ng_LIB}
+} else {
+    # no error message here
+}
+
+CONFIG += link_pkgconfig
 packagesExist(qwt){
     PKGCONFIG += qwt
 }
