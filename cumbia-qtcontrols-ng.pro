@@ -18,8 +18,8 @@ isEmpty(buildtype) {
 
 CONFIG += $${buildtype}
 
-VERSION_HEX = 0x010102
-VERSION = 1.1.2
+VERSION_HEX = 0x020000
+VERSION = 2.0.0
 
 TARGET = $${cumbia_qtcontrols_ng_LIB}
 TEMPLATE = lib
