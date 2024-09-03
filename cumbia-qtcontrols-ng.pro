@@ -18,25 +18,12 @@ isEmpty(buildtype) {
 
 CONFIG += $${buildtype}
 
-VERSION_HEX = 0x020000
-VERSION = 2.0.0
-
 TARGET = $${cumbia_qtcontrols_ng_LIB}
 TEMPLATE = lib
 
-DEFINES -= QT_NO_DEBUG_OUTPUT
+DEFINES += QT_NO_DEBUG_OUTPUT
 
-DEFINES += CUMBIA_QTCONTROLS_NG_LIBRARY
-
-DEFINES += CUMBIA_QTCONTROLS_NG_VERSION_STR=\"\\\"$${VERSION}\\\"\" \
-    CUMBIA_QTCONTROLS_NG_VERSION=$${VERSION_HEX} \
-    VER_MAJ=$${VER_MAJ} \
-    VER_MIN=$${VER_MIN} \
-    VER_FIX=$${VER_FIX} \
-    SHAREDIR=\"\\\"$${SHAREDIR}\\\"\"  \
-    DOCDIR=\"\\\"$${DOC_DIR}\\\"\"  \
-    INSTALLROOT=\"\\\"$${INSTALL_ROOT}\\\"\"  \
-    LIBDIR=\"\\\"$${LIBDIR}\\\"\"
+DEFINES += CUMBIA_QTCONTROLS_NG_SHAREDIR=\"\\\"$${CUMBIA_QTCONTROLS_NG_SHARE}\\\"\"
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings

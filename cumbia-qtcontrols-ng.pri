@@ -48,6 +48,17 @@ isEmpty(prefix) {
 #
 
 
+### VERSION
+###
+#
+VERSION_HEX = 0x020200
+VERSION = 2.2.0
+#
+###
+
+DEFINES += CUMBIA_QTCONTROLS_NG_VERSION_STR=\"\\\"$${VERSION}\\\"\" \
+    CUMBIA_QTCONTROLS_NG_VERSION=$${VERSION_HEX}
+
 MOC_DIR=moc
 OBJECTS_DIR=objs
 
@@ -67,12 +78,7 @@ exists($${INSTALL_ROOT}/include/cumbia-qtcontrols/cumbia-qtcontrols.pri) {
     error("cumbia-qtcontrols installation not found under $${INSTALL_ROOT}")
 }
 
-exists($${INSTALL_ROOT}/include/cumbia-qtcontrols-ng/cumbia-qtcontrols-ng.pri) {
-    INCLUDEPATH += $${INSTALL_ROOT}/include/cumbia-qtcontrols-ng
-    LIBS += -l$${cumbia_qtcontrols_ng_LIB}
-} else {
-    # no error message here
-}
+
 
 CONFIG += link_pkgconfig
 packagesExist(qwt){

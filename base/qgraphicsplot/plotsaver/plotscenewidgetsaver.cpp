@@ -67,7 +67,7 @@ OptionsDialog::OptionsDialog(QWidget *parent, double xSam, double ySam) : QDialo
     lo->addWidget(lYFormatExample, 2, 3, 1, 1);
 
 
-    QString filename = QString(SHAREDIR) + QString("/qgraphicsplot/data/saveDataFormatHelp.html");
+    QString filename = QString(CUMBIA_QTCONTROLS_NG_SHAREDIR) + QString("/qgraphicsplot/data/saveDataFormatHelp.html");
     QFile dataFormatHelpHtml(filename);
     if(dataFormatHelpHtml.open(QIODevice::ReadOnly | QIODevice::Text))
     {
