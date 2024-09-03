@@ -87,13 +87,11 @@ void QuPlotDataConnector::m_configure(const CuData &data) {
     if(!err && d->type == Array) {
         d->plot.a->addCurve(s);
     } else if(!err) {
-        printf("adding curve %s\n", s.c_str());
         d->plot.s->addCurve(s);
     }
 }
 
 void QuPlotDataConnector::onUpdate(const CuData &data) {
-    pretty_pri("data %s", datos(data));
     const std::string& s = data.s(TTT::Src);
     bool err = data.B(TTT::Err) || !data.containsKey(TTT::Value);
     if(!err && data.s(TTT::Type) == "property") {

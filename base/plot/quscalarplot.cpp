@@ -81,8 +81,6 @@ void QuScalarPlot::append(const std::string &name, double x, double y)
         replot();
     }
     else {
-        printf("QuScalarPlot: \e[1;32mdrawing series from %ld to %ld\e[0m\n",
-               i1, i2);
         sd->dire_p->drawSeries(c, i1, i2);
     }
     emit dataUpdated(c);
@@ -111,10 +109,10 @@ void QuScalarPlot::append(const std::string& name, double y) {
             QRectF br = qwtBoundingRect( *c->data(), i1, i2);
             const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
             sd->dire_p->setClipRegion( clipRect );
-            printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
+            // printf("\e[1;31mCLIP RECT %d,%d, %dx%d\e[0m\n", clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
         }
-        else
-            printf("\e[1;32m canvas has paint on screen attribute\e[0m\n");
+        // else
+            // printf("\e[1;32m canvas has paint on screen attribute\e[0m\n");
 
         sd->dire_p->drawSeries(c, i1, i2);
         // replot();
