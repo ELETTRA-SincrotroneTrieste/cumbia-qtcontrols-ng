@@ -51,8 +51,8 @@ isEmpty(prefix) {
 ### VERSION
 ###
 #
-VERSION_HEX = 0x020200
-VERSION = 2.2.0
+VERSION_HEX = 0x020201
+VERSION = 2.2.1
 #
 ###
 

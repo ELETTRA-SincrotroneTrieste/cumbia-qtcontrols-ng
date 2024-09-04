@@ -35,6 +35,7 @@ public:
         }
         // Insert grid
         grid = new QwtPlotGrid();
+        grid->setPen(QColor(Qt::lightGray), 0.0);
         grid->attach(p);
     }
 
@@ -47,15 +48,15 @@ public:
 #else
         QwtPlotGLCanvas *canvas = new QwtPlotGLCanvas(p);
 #endif
-        canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
-        canvas->setLineWidth( 1 );
+        canvas->setFrameStyle( QFrame::NoFrame | QFrame::Plain );
+        canvas->setLineWidth( 10 );
         canvas->setPalette( Qt::white );
         return canvas;
     }
 
     QWidget *make_canvas(QwtPlot *p) {
         QwtPlotCanvas* canvas = new QwtPlotCanvas(p);
-        canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
+        canvas->setFrameStyle( QFrame::NoFrame | QFrame::Plain );
         canvas->setLineWidth( 1 );
         canvas->setPalette(Qt::white);
         return canvas;
